@@ -1,0 +1,69 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+
+<h1>Description</h1>
+<p>
+  The PartitionGrid demo application lets you experience the usage of a <em>PartitionGrid</em> for hierarchic and
+  organic layout calculations.
+</p>
+<p>
+  Nodes are assigned to columns/rows by their fill/border color (black nodes are unassigned) and the calculated
+  PartitionGrid is visualized after a layout run to show the effect the node assignment had for the layout.
+</p>
+<p>
+  The demo code configuring the <em>PartitionGridData</em> for the layout calculation can be found in the method
+  <em>PartitionGridConfigurator.createPartitionGridData</em>.
+</p>
+
+<h2>Interaction</h2>
+
+<h3>Calculating a new Layout</h3>
+<ul>
+  <li>
+    Clicking the <em>Hierarchic</em> or <em>Organic</em> button or pressing <em>Ctrl/Command+H</em> respectively
+    <em>Ctrl/Command+O</em> configures the <em>PartitionGrid</em> and triggers the corresponding layout algorithm.
+  </li>
+  <li>
+    Note that the <em>Organic</em> layout doesn't support to <b>Stretch group nodes</b> if a group node contains child
+    nodes assigned to different rows or columns. In this case the <em>Organic</em> layout button is disabled.
+  </li>
+</ul>
+
+<h3>Changing the node assignment</h3>
+Right-clicking on a node opens a context menu with different options to change the assignment of this node to:
+<ul>
+  <li><b>Remove grid restriction</b>: The node is not assigned to a specific column or row but the layout algorithm may
+    put it wherever it wants.</li>
+  <li><b>Switch column</b>: The node is assigned to the same column as all other nodes having this fill color.</li>
+  <li><b>Switch row</b>: The node is assigned to the same row as all other nodes having this border color.</li>
+</ul>
+
+<h3>Modifying the graph</h3>
+<ul>
+  <li>Nodes and edges can be created and removed using the default gestures.</li>
+  <li>Group nodes can be created by selecting one or several nodes and clicking the <em>Grouping</em> button.</li>
+</ul>
+
+<h3>Configuring the PartitionGrid</h3>
+<ul>
+  <li><b>Use fix column order</b>: Whether the columns are ordered by the displayed colors or the layout algorithm may
+    optimize the order.</li>
+  <li><b>Minimum column width</b>: The minimum width of each column.</li>
+  <li>
+    <p>
+      <b>Stretch group nodes</b>: Whether group nodes shall be stretched to span the grid cells of their child nodes or
+      span
+      only the child nodes themselves.
+    </p>
+    <p>
+      Note that the cells that shall be spanned have to be declared before calculating the
+      layout so the cells of unassigned (<em>black</em>) nodes are not considered.
+    </p>
+  </li>
+</ul>
+
+</body>
+</html>

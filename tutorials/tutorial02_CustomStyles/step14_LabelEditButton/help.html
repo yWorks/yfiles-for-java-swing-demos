@@ -1,0 +1,55 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../resources/demo.css"/>
+</head>
+<body class="demo-description">
+<h2>Step 14: Label Edit Button</h2>
+
+<p>
+  Implement a button within a label to open the label editor. The button is defined in
+  class <code>MySimpleLabelStyle</code> so it is available in all labels.
+</p>
+
+<h3>Things to Try</h3>
+
+<ul>
+  <li>
+    Click the edit button to open the label editor.
+  </li>
+  <li>
+    Take a look at <code>LabelVisual.update()</code> and <code>LabelVisual.paint()</code> as well as class
+    <code>EditActionButtonProvider</code>.
+  </li>
+</ul>
+
+<h3>Left to Do</h3>
+
+<ul>
+  <li>
+    Make edit button invisible when zoom level is very low.
+  </li>
+  <li>
+    Allow to change the background color of labels.
+  </li>
+  <li>
+    Create a custom edge style.
+  </li>
+  <li>
+    Create a custom port style for nodes.
+  </li>
+</ul>
+
+<br/>
+<h3>Relevant Chapters in the Developers Guide:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/custom-styles_basic">Customizing Styles: Basic Style Implementation</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/custom-styles_nodestyle-adapter">Customizing Styles: Using Node Styles for Labels and Ports</a></li>
+</ul>
+<h3>Relevant API:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.styles.AbstractLabelStyle%23AbstractLabelStyle-method-lookup">AbstractLabelStyle#lookup</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.IClickListener">IClickListener</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.IHitTestable">IHitTestable</a></li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+
+<h1>Description</h1>
+
+<p>
+  Tables are an important visualization concept to organize and structure
+  data and are used e.g. in business process diagrams.
+  yFiles for Java (Swing) supports creating and editing table nodes out-of-the-box
+  as shown in this demo.
+</p>
+
+<h2>Usage</h2>
+
+<ul>
+  <li>
+    Select a row or column by clicking on its header. Multiple rows or columns can be selected by keeping Ctrl/Command pressed.
+    Note that selecting a graph element will clear the table selection and vice versa.
+  </li>
+  <li>
+    Press F2 to edit the label of a selected stripe. Enter an empty text to remove the label.
+  </li>
+  <li>
+    Press the right mouse button on a stripe header to activate a popup menu.
+  </li>
+</ul>
+
+<h2>Modifying the table</h2>
+
+<ul>
+  <li>
+    A new row or column can be added by dragging the corresponding item from the list and dropping it onto a table group
+    node.
+  </li>
+  <li>
+    Selected items can be deleted using the DELETE key or the corresponding menu entry. Children will be re-parented to
+    the deleted stripe's parent. The parent and/or the siblings are resized to disturb the overall table layout as
+    little as possible.
+  </li>
+  <li>
+    A stripe can be moved by dragging it on its header to a different position in the table. The highlights indicate
+    whether the stripe is added as a new child or as a sibling of the drop target. Moving a stripe will move all its
+    children as well as its contents.
+  </li>
+</ul>
+
+<h2>Resizing stripes</h2>
+
+<ul>
+  <li>
+    Drag a stripe border to resize the stripe. By default, the neighbor stripes and their contents are moved.
+  </li>
+  <li>
+    Except for the topmost/leftmost borders, resizing always extends the stripe to the bottom/to the right.
+  </li>
+  <li>
+    Press Shift at the beginning of the gesture to redistribute the sizes of the two attached stripes.
+  </li>
+  <li>
+    By default, stripe borders cannot be dragged over content nodes. Press Ctrl/Command at the beginning of the resize gesture
+    to resize the stripes freely.
+  </li>
+  <li>
+    Resizing the table node will resize the outermost stripe(s) accordingly.
+  </li>
+</ul>
+<h2>Automatic layout</h2>
+<ul>
+  <li>
+    A node is associated to the row and column its center coordinates lie in. Therefore it can be associated to another
+    row or column by simply dragging in to a new position.
+  </li>
+  <li>
+    A new layout for the tables and their contents can be calculated by pressing the layout button in the tool bar.
+  </li>
+</ul>
+</body>
+</html>

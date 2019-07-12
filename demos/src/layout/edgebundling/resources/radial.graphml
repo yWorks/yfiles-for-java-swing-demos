@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ////////////////////////////////////////////////////////////////////////
+     //
+     // This demo file is part of yFiles for Java (Swing) 3.3.
+     //
+     // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // 72070 Tuebingen, Germany. All rights reserved.
+     //
+     // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
+     // of demo resource files, with or without modification, is not permitted.
+     // Owners of a valid software license for a yFiles for Java (Swing) version that this
+     // demo is shipped with are allowed to use the resource file as basis for
+     // their own yFiles for Java (Swing) powered applications. Use of such programs is
+     // governed by the rights and conditions as set out in the yFiles for Java (Swing)
+     // license agreement.
+     //
+     // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+     // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+     // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+     // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+     // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+     // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     // 
+     ////////////////////////////////////////////////////////////////////////-->
+<graphml
+ xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml.html/2.0/ygraphml.xsd "
+ xmlns="http://graphml.graphdrawing.org/xmlns"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <graph id="G" edgedefault="directed">
+    <node id="n0"/>
+    <node id="n1"/>
+    <node id="n2"/>
+    <node id="n3"/>
+    <node id="n4"/>
+    <node id="n5"/>
+    <node id="n6"/>
+    <node id="n7"/>
+    <node id="n8"/>
+    <node id="n9"/>
+    <node id="n10"/>
+    <node id="n11"/>
+    <node id="n12"/>
+    <node id="n13"/>
+    <node id="n14"/>
+    <node id="n15"/>
+    <node id="n16"/>
+    <node id="n17"/>
+    <node id="n18"/>
+    <node id="n19"/>
+    <node id="n20"/>
+    <node id="n21"/>
+    <node id="n22"/>
+    <node id="n23"/>
+    <node id="n24"/>
+    <node id="n25"/>
+    <node id="n26"/>
+    <node id="n27"/>
+    <node id="n28"/>
+    <node id="n29"/>
+    <node id="n30"/>
+    <node id="n31"/>
+    <node id="n32"/>
+    <node id="n33"/>
+    <node id="n34"/>
+    <node id="n35"/>
+    <node id="n36"/>
+    <node id="n37"/>
+    <node id="n38"/>
+    <node id="n39"/>
+    <node id="n40"/>
+    <node id="n41"/>
+    <node id="n42"/>
+    <node id="n43"/>
+    <node id="n44"/>
+    <node id="n45"/>
+    <node id="n46"/>
+    <node id="n47"/>
+    <node id="n48"/>
+    <node id="n49"/>
+    <node id="n50"/>
+    <node id="n51"/>
+    <node id="n52"/>
+    <node id="n53"/>
+    <node id="n54"/>
+    <node id="n55"/>
+    <node id="n56"/>
+    <node id="n57"/>
+    <node id="n58"/>
+    <node id="n59"/>
+    <node id="n60"/>
+    <node id="n61"/>
+    <node id="n62"/>
+    <node id="n63"/>
+    <node id="n64"/>
+    <node id="n65"/>
+    <node id="n66"/>
+    <node id="n67"/>
+    <node id="n68"/>
+    <node id="n69"/>
+    <node id="n70"/>
+    <node id="n71"/>
+    <node id="n72"/>
+    <node id="n73"/>
+    <node id="n74"/>
+    <node id="n75"/>
+    <node id="n76"/>
+    <node id="n77"/>
+    <node id="n78"/>
+    <node id="n79"/>
+    <node id="n80"/>
+    <node id="n81"/>
+    <node id="n82"/>
+    <node id="n83"/>
+    <node id="n84"/>
+    <node id="n85"/>
+    <node id="n86"/>
+    <node id="n87"/>
+    <node id="n88"/>
+    <node id="n89"/>
+    <node id="n90"/>
+    <node id="n91"/>
+    <node id="n92"/>
+    <node id="n93"/>
+    <node id="n94"/>
+    <node id="n95"/>
+    <node id="n96"/>
+    <edge id="e0" source="n57" target="n88"/>
+    <edge id="e1" source="n88" target="n74"/>
+    <edge id="e2" source="n80" target="n82"/>
+    <edge id="e3" source="n81" target="n67"/>
+    <edge id="e4" source="n80" target="n46"/>
+    <edge id="e5" source="n65" target="n29"/>
+    <edge id="e6" source="n32" target="n5"/>
+    <edge id="e7" source="n27" target="n37"/>
+    <edge id="e8" source="n65" target="n19"/>
+    <edge id="e9" source="n52" target="n13"/>
+    <edge id="e10" source="n71" target="n16"/>
+    <edge id="e11" source="n5" target="n92"/>
+    <edge id="e12" source="n77" target="n31"/>
+    <edge id="e13" source="n36" target="n42"/>
+    <edge id="e14" source="n18" target="n78"/>
+    <edge id="e15" source="n79" target="n15"/>
+    <edge id="e16" source="n54" target="n69"/>
+    <edge id="e17" source="n48" target="n18"/>
+    <edge id="e18" source="n71" target="n82"/>
+    <edge id="e19" source="n76" target="n28"/>
+    <edge id="e20" source="n16" target="n74"/>
+    <edge id="e21" source="n92" target="n59"/>
+    <edge id="e22" source="n17" target="n31"/>
+    <edge id="e23" source="n60" target="n63"/>
+    <edge id="e24" source="n46" target="n30"/>
+    <edge id="e25" source="n37" target="n16"/>
+    <edge id="e26" source="n84" target="n27"/>
+    <edge id="e27" source="n89" target="n84"/>
+    <edge id="e28" source="n70" target="n91"/>
+    <edge id="e29" source="n11" target="n56"/>
+    <edge id="e30" source="n2" target="n91"/>
+    <edge id="e31" source="n95" target="n35"/>
+    <edge id="e32" source="n59" target="n46"/>
+    <edge id="e33" source="n85" target="n56"/>
+    <edge id="e34" source="n39" target="n2"/>
+    <edge id="e35" source="n71" target="n46"/>
+    <edge id="e36" source="n76" target="n1"/>
+    <edge id="e37" source="n50" target="n62"/>
+    <edge id="e38" source="n9" target="n45"/>
+    <edge id="e39" source="n51" target="n62"/>
+    <edge id="e40" source="n13" target="n84"/>
+    <edge id="e41" source="n72" target="n11"/>
+    <edge id="e42" source="n56" target="n16"/>
+    <edge id="e43" source="n39" target="n41"/>
+    <edge id="e44" source="n23" target="n30"/>
+    <edge id="e45" source="n26" target="n44"/>
+    <edge id="e46" source="n14" target="n23"/>
+    <edge id="e47" source="n51" target="n39"/>
+    <edge id="e48" source="n31" target="n81"/>
+    <edge id="e49" source="n87" target="n15"/>
+    <edge id="e50" source="n28" target="n85"/>
+    <edge id="e51" source="n80" target="n43"/>
+    <edge id="e52" source="n15" target="n95"/>
+    <edge id="e53" source="n83" target="n60"/>
+    <edge id="e54" source="n15" target="n13"/>
+    <edge id="e55" source="n93" target="n38"/>
+    <edge id="e56" source="n49" target="n10"/>
+    <edge id="e57" source="n19" target="n95"/>
+    <edge id="e58" source="n23" target="n59"/>
+    <edge id="e59" source="n51" target="n81"/>
+    <edge id="e60" source="n50" target="n60"/>
+    <edge id="e61" source="n39" target="n15"/>
+    <edge id="e62" source="n5" target="n14"/>
+    <edge id="e63" source="n37" target="n14"/>
+    <edge id="e64" source="n68" target="n38"/>
+    <edge id="e65" source="n57" target="n86"/>
+    <edge id="e66" source="n31" target="n14"/>
+    <edge id="e67" source="n32" target="n85"/>
+    <edge id="e68" source="n81" target="n88"/>
+    <edge id="e69" source="n53" target="n47"/>
+    <edge id="e70" source="n22" target="n84"/>
+    <edge id="e71" source="n87" target="n31"/>
+    <edge id="e72" source="n67" target="n59"/>
+    <edge id="e73" source="n48" target="n62"/>
+    <edge id="e74" source="n74" target="n40"/>
+    <edge id="e75" source="n25" target="n80"/>
+    <edge id="e76" source="n73" target="n42"/>
+    <edge id="e77" source="n8" target="n32"/>
+    <edge id="e78" source="n52" target="n82"/>
+    <edge id="e79" source="n47" target="n7"/>
+    <edge id="e80" source="n2" target="n11"/>
+    <edge id="e81" source="n87" target="n8"/>
+    <edge id="e82" source="n28" target="n20"/>
+    <edge id="e83" source="n75" target="n15"/>
+    <edge id="e84" source="n25" target="n35"/>
+    <edge id="e85" source="n65" target="n31"/>
+    <edge id="e86" source="n79" target="n40"/>
+    <edge id="e87" source="n5" target="n1"/>
+    <edge id="e88" source="n20" target="n66"/>
+    <edge id="e89" source="n40" target="n94"/>
+    <edge id="e90" source="n53" target="n15"/>
+    <edge id="e91" source="n72" target="n90"/>
+    <edge id="e92" source="n78" target="n52"/>
+    <edge id="e93" source="n62" target="n37"/>
+    <edge id="e94" source="n92" target="n45"/>
+    <edge id="e95" source="n62" target="n86"/>
+    <edge id="e96" source="n38" target="n46"/>
+    <edge id="e97" source="n39" target="n24"/>
+    <edge id="e98" source="n85" target="n89"/>
+    <edge id="e99" source="n27" target="n28"/>
+    <edge id="e100" source="n23" target="n90"/>
+    <edge id="e101" source="n12" target="n82"/>
+    <edge id="e102" source="n90" target="n35"/>
+    <edge id="e103" source="n4" target="n26"/>
+    <edge id="e104" source="n9" target="n31"/>
+    <edge id="e105" source="n49" target="n79"/>
+    <edge id="e106" source="n70" target="n22"/>
+    <edge id="e107" source="n5" target="n80"/>
+    <edge id="e108" source="n4" target="n0"/>
+    <edge id="e109" source="n76" target="n33"/>
+    <edge id="e110" source="n95" target="n83"/>
+    <edge id="e111" source="n72" target="n35"/>
+    <edge id="e112" source="n18" target="n33"/>
+    <edge id="e113" source="n36" target="n43"/>
+    <edge id="e114" source="n62" target="n64"/>
+    <edge id="e115" source="n38" target="n35"/>
+    <edge id="e116" source="n71" target="n32"/>
+    <edge id="e117" source="n56" target="n96"/>
+    <edge id="e118" source="n63" target="n5"/>
+    <edge id="e119" source="n38" target="n45"/>
+    <edge id="e120" source="n94" target="n49"/>
+    <edge id="e121" source="n35" target="n14"/>
+    <edge id="e122" source="n74" target="n50"/>
+    <edge id="e123" source="n24" target="n19"/>
+    <edge id="e124" source="n89" target="n39"/>
+    <edge id="e125" source="n61" target="n24"/>
+    <edge id="e126" source="n52" target="n79"/>
+    <edge id="e127" source="n56" target="n1"/>
+    <edge id="e128" source="n70" target="n27"/>
+    <edge id="e129" source="n10" target="n80"/>
+    <edge id="e130" source="n65" target="n34"/>
+    <edge id="e131" source="n46" target="n49"/>
+    <edge id="e132" source="n2" target="n26"/>
+    <edge id="e133" source="n20" target="n41"/>
+    <edge id="e134" source="n19" target="n31"/>
+    <edge id="e135" source="n83" target="n43"/>
+    <edge id="e136" source="n58" target="n91"/>
+    <edge id="e137" source="n46" target="n62"/>
+    <edge id="e138" source="n28" target="n65"/>
+    <edge id="e139" source="n23" target="n10"/>
+    <edge id="e140" source="n26" target="n83"/>
+    <edge id="e141" source="n87" target="n44"/>
+    <edge id="e142" source="n14" target="n54"/>
+    <edge id="e143" source="n38" target="n39"/>
+    <edge id="e144" source="n73" target="n82"/>
+    <edge id="e145" source="n88" target="n62"/>
+    <edge id="e146" source="n68" target="n61"/>
+    <edge id="e147" source="n32" target="n91"/>
+    <edge id="e148" source="n54" target="n83"/>
+    <edge id="e149" source="n78" target="n53"/>
+    <edge id="e150" source="n82" target="n2"/>
+    <edge id="e151" source="n8" target="n48"/>
+    <edge id="e152" source="n72" target="n60"/>
+    <edge id="e153" source="n71" target="n14"/>
+    <edge id="e154" source="n22" target="n68"/>
+    <edge id="e155" source="n41" target="n93"/>
+    <edge id="e156" source="n20" target="n6"/>
+    <edge id="e157" source="n21" target="n7"/>
+    <edge id="e158" source="n33" target="n60"/>
+    <edge id="e159" source="n48" target="n16"/>
+    <edge id="e160" source="n51" target="n70"/>
+    <edge id="e161" source="n88" target="n91"/>
+    <edge id="e162" source="n81" target="n25"/>
+    <edge id="e163" source="n68" target="n16"/>
+    <edge id="e164" source="n20" target="n82"/>
+    <edge id="e165" source="n55" target="n67"/>
+    <edge id="e166" source="n44" target="n93"/>
+    <edge id="e167" source="n43" target="n79"/>
+    <edge id="e168" source="n33" target="n59"/>
+    <edge id="e169" source="n13" target="n81"/>
+    <edge id="e170" source="n11" target="n40"/>
+    <edge id="e171" source="n43" target="n32"/>
+    <edge id="e172" source="n85" target="n29"/>
+    <edge id="e173" source="n94" target="n75"/>
+    <edge id="e174" source="n11" target="n5"/>
+    <edge id="e175" source="n70" target="n10"/>
+    <edge id="e176" source="n56" target="n75"/>
+    <edge id="e177" source="n91" target="n42"/>
+    <edge id="e178" source="n65" target="n35"/>
+    <edge id="e179" source="n78" target="n22"/>
+    <edge id="e180" source="n32" target="n72"/>
+    <edge id="e181" source="n83" target="n38"/>
+    <edge id="e182" source="n11" target="n92"/>
+    <edge id="e183" source="n72" target="n48"/>
+    <edge id="e184" source="n3" target="n47"/>
+    <edge id="e185" source="n70" target="n21"/>
+    <edge id="e186" source="n49" target="n63"/>
+    <edge id="e187" source="n81" target="n54"/>
+    <edge id="e188" source="n58" target="n90"/>
+    <edge id="e189" source="n79" target="n71"/>
+    <edge id="e190" source="n30" target="n14"/>
+    <edge id="e191" source="n52" target="n62"/>
+    <edge id="e192" source="n14" target="n68"/>
+    <edge id="e193" source="n33" target="n85"/>
+    <edge id="e194" source="n9" target="n33"/>
+    <edge id="e195" source="n59" target="n64"/>
+    <edge id="e196" source="n83" target="n39"/>
+    <edge id="e197" source="n25" target="n60"/>
+    <edge id="e198" source="n64" target="n43"/>
+    <edge id="e199" source="n63" target="n58"/>
+  </graph>
+</graphml>

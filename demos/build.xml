@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="yFiles-Demos" default="help" basedir=".">
+<target name="help" description="Displays all demo targets">
+<echo>Demo specific targets:</echo>
+<echo>run-SimpleEditor
+    A graph editor which demonstrates the editing features of yFiles for Java (Swing).</echo>
+<echo>run-OrgChart
+    View and manipulate an organization chart.</echo>
+<echo>run-RotatableNodes
+    Shows how support for rotated node visualizations can be implemented on top of the yFiles library.</echo>
+<echo>run-BPMNEditor
+    Business Process Diagram sample application.</echo>
+<echo>run-HierarchicGrouping
+    Organize subgraphs in groups and folders and interactively expand and collapse them.</echo>
+<echo>run-IsometricDrawing
+    Displays graphs in an isometric fashion to create an impression of a 3-dimensional view.</echo>
+<echo>run-LogicGate
+    An editor for networks of logic gates with dedicated ports for incoming and outgoing connections.</echo>
+<echo>run-CollapsibleTree
+    Interactively collapse and expand subgraphs.</echo>
+<echo>run-TableEditor
+    Interactive creation and editing of tables.</echo>
+<echo>run-Uml
+    Interactive creation and editing of UML class diagrams.</echo>
+<echo>run-LayoutStyles
+    Play with the most used layout algorithms of yFiles.</echo>
+<echo>run-HierarchicLayout
+    Showcase of one of our central layout algorithms, the HierarchicLayout.</echo>
+<echo>run-InteractiveOrganicLayout
+    Use InteractiveOrganicLayout for organic layout in interactive environments.</echo>
+<echo>run-EdgeBundling
+    Shows how edge bundling can be applied for reducing visual cluttering in dense graphs.</echo>
+<echo>run-PartitionGrid
+    Demonstrates the usage of a PartitionGrid for hierarchic and organic layout calculations.</echo>
+<echo>run-Sankey
+    Showcase of how a Sankey diagram can be produced by means of the HierarchicLayout.</echo>
+<echo>run-CustomPortModel
+    Customize port location model.</echo>
+<echo>run-CustomSnapping
+    Enable and customize the snapping behaviour of graph items.</echo>
+<echo>run-DragAndDrop
+    Enable and customize the drag-and-drop support for nodes, labels and ports.</echo>
+<echo>run-EdgeReconnection
+    Enable and customize the reconnection behavior of edges.</echo>
+<echo>run-Hyperlink
+    Add hyperlink support to HTML formatted labels.</echo>
+<echo>run-OrthogonalEdges
+    Enable and customize orthogonal edge editing.</echo>
+<echo>run-PopupMenu
+    Enable and customize context menus for nodes and for the canvas background.</echo>
+<echo>run-PortCandidateProvider
+    Customize the ports at which edges connect to nodes.</echo>
+<echo>run-PositionHandler
+    Customize the movement behavior of nodes.</echo>
+<echo>run-ReparentHandler
+    Customize the re-parenting behavior of nodes.</echo>
+<echo>run-ReshapeHandleProvider
+    Customize the reshape handles of nodes.</echo>
+<echo>run-SingleSelection
+    Configure the GraphEditorInputMode for single selection mode.</echo>
+<echo>run-SizeConstraintProvider
+    Customize the resizing behavior of nodes.</echo>
+<echo>run-EdgeToEdge
+    Shows edge-to-edge connections.</echo>
+<echo>run-GraphEvents
+    Explore the different kinds of events dispatched by yFiles for Java (Swing).</echo>
+<echo>run-GraphMLCompatibility
+    Shows how to enable read compatibility for GraphML files from older versions.</echo>
+<echo>run-GraphViewer
+    Showcase of different kinds of graphs created with yFiles for Java (Swing).</echo>
+<echo>run-ImageExport
+    Export a graph as a bitmap image.</echo>
+<echo>run-LargeGraphs
+    Improve the rendering performance for very large graphs in yFiles for Java (Swing).</echo>
+<echo>run-Printing
+    Print a graph by using the yFiles CanvasPrintable.</echo>
+<echo>run-RenderingOrder
+    Shows the effect of different rendering policies to the model items.</echo>
+<echo>run-SimpleCustomStyle
+    Implement sophisticated styles for graph objects in yFiles for Java (Swing).</echo>
+<echo>run-JComponentStyle
+    Arbitrary Swing components incorporated as graph elements.</echo>
+<echo>run-GraphBuilder
+    Demonstrates data binding using the GraphBuilder class.</echo>
+<echo>run-InteractiveNodesGraphBuilder
+    Demonstrates data binding using class AdjacentNodesGraphBuilder.</echo>
+<echo>run-GraphAnalysis
+    Algorithms to analyse the structure of a graph in yFiles for Java (Swing).</echo>
+<echo>run-ShortestPath
+    Usage and visualization of shortest path algorithms in yFiles for Java (Swing).</echo>
+<echo>run-ObfuscationDemo
+    Obfuscate an yFiles for Java (Swing) application via yGuard.</echo>
+<echo>run-SVGImageExport
+    Demonstrates image export to SVG files. Requires a batik.jar.
+    See the file src-svg/viewer/svgimageexport/build.xml for details.</echo>
+<echo>run-SVGNodeStyle
+    Demonstrates displaying SVG documents. Requires a batik.jar.
+    See the file src-svg/style/svgnodestyle/build.xml for details.</echo>
+<echo>run-PDFImageExport
+    Demonstrates image export to PDF files. Requires a vectorgraphics.jar.
+    See the file src-pdf/viewer/pdfimageexport/build.xml for details.</echo>
+<echo/>
+<echo>run-JavaFXIntegration
+    Demonstrates interoperability with JavaFX.
+    See the file src-fx/integration/javafx/build.xml for details.</echo>
+<echo/>
+<echo/>
+<echo>General targets:</echo>
+<echo>touch
+    touches all demo .java files</echo>
+<echo>clean
+    removes all that has been built</echo>
+<echo>compile
+    compiles the demo packages</echo>
+<echo/>
+</target>
+<target name="-init">
+<property name="demo.src.dir" value="src"/>
+<property name="demo.class.dir" value="out/classes"/>
+<property name="yfiles.jar" value="../lib/yfiles-for-java-swing.jar"/>
+<property name="doc.dir" value="../doc/api"/>
+<condition property="jdk1.7">
+<equals arg1="${ant.java.version}" arg2="1.7"/>
+</condition>
+<path id="democlasspath">
+<pathelement location="${demo.class.dir}"/>
+<pathelement location="${demo.src.dir}"/>
+<pathelement location="${yfiles.jar}"/>
+</path>
+</target>
+<target name="compile" depends="-init" description="Compiles the demo files">
+<mkdir dir="${demo.class.dir}"/>
+<javac debug="true" srcdir="${demo.src.dir}" destdir="${demo.class.dir}" includes="**/*.java" includeAntRuntime="false">
+<classpath>
+<pathelement location="${yfiles.jar}"/>
+</classpath>
+<exclude name="demo/browser/**" if="jdk1.7"/>
+<exclude name="demo/DemoBrowser.java" if="jdk1.7"/>
+</javac>
+</target>
+<target name="run-SimpleEditor" depends="compile" description="A graph editor which demonstrates the editing features of yFiles for Java (Swing).">
+<java classname="complete.simpleeditor.SimpleEditorDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-OrgChart" depends="compile" description="View and manipulate an organization chart.">
+<java classname="complete.orgchart.OrgChartDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-RotatableNodes" depends="compile" description="Shows how support for rotated node visualizations can be implemented on top of the yFiles library.">
+<java classname="complete.rotatablenodes.RotatableNodesDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-BPMNEditor" depends="compile" description="Business Process Diagram sample application.">
+<java classname="complete.bpmn.editor.BPMNEditorDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-HierarchicGrouping" depends="compile" description="Organize subgraphs in groups and folders and interactively expand and collapse them.">
+<java classname="complete.hierarchicgrouping.HierarchicGroupingDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-IsometricDrawing" depends="compile" description="Displays graphs in an isometric fashion to create an impression of a 3-dimensional view.">
+<java classname="complete.isometric.IsometricDrawingDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-LogicGate" depends="compile" description="An editor for networks of logic gates with dedicated ports for incoming and outgoing connections.">
+<java classname="complete.logicgate.LogicGateDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-CollapsibleTree" depends="compile" description="Interactively collapse and expand subgraphs.">
+<java classname="complete.collapse.CollapsibleTreeDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-TableEditor" depends="compile" description="Interactive creation and editing of tables.">
+<java classname="complete.tableeditor.TableEditorDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-Uml" depends="compile" description="Interactive creation and editing of UML class diagrams.">
+<java classname="complete.uml.UmlDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-LayoutStyles" depends="compile" description="Play with the most used layout algorithms of yFiles.">
+<java classname="layout.layoutstyles.LayoutStylesDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-HierarchicLayout" depends="compile" description="Showcase of one of our central layout algorithms, the HierarchicLayout.">
+<java classname="layout.hierarchiclayout.HierarchicLayoutDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-InteractiveOrganicLayout" depends="compile" description="Use InteractiveOrganicLayout for organic layout in interactive environments.">
+<java classname="layout.interactiveorganic.InteractiveOrganicLayoutDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-EdgeBundling" depends="compile" description="Shows how edge bundling can be applied for reducing visual cluttering in dense graphs.">
+<java classname="layout.edgebundling.EdgeBundlingDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-PartitionGrid" depends="compile" description="Demonstrates the usage of a PartitionGrid for hierarchic and organic layout calculations.">
+<java classname="layout.partitiongrid.PartitionGridDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-Sankey" depends="compile" description="Showcase of how a Sankey diagram can be produced by means of the HierarchicLayout.">
+<java classname="layout.sankey.SankeyDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-CustomPortModel" depends="compile" description="Customize port location model.">
+<java classname="input.customportmodel.CustomPortModelDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-CustomSnapping" depends="compile" description="Enable and customize the snapping behaviour of graph items.">
+<java classname="input.customsnapping.CustomSnappingDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-DragAndDrop" depends="compile" description="Enable and customize the drag-and-drop support for nodes, labels and ports.">
+<java classname="input.draganddrop.DragAndDropDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-EdgeReconnection" depends="compile" description="Enable and customize the reconnection behavior of edges.">
+<java classname="input.edgereconnection.EdgeReconnectionDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-Hyperlink" depends="compile" description="Add hyperlink support to HTML formatted labels.">
+<java classname="input.hyperlink.HyperlinkDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-OrthogonalEdges" depends="compile" description="Enable and customize orthogonal edge editing.">
+<java classname="input.orthogonaledges.OrthogonalEdgesDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-PopupMenu" depends="compile" description="Enable and customize context menus for nodes and for the canvas background.">
+<java classname="input.popupmenu.PopupMenuDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-PortCandidateProvider" depends="compile" description="Customize the ports at which edges connect to nodes.">
+<java classname="input.portcandidateprovider.PortCandidateProviderDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-PositionHandler" depends="compile" description="Customize the movement behavior of nodes.">
+<java classname="input.positionhandler.PositionHandlerDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-ReparentHandler" depends="compile" description="Customize the re-parenting behavior of nodes.">
+<java classname="input.reparenthandler.ReparentHandlerDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-ReshapeHandleProvider" depends="compile" description="Customize the reshape handles of nodes.">
+<java classname="input.reshapehandleprovider.ReshapeHandleProviderDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-SingleSelection" depends="compile" description="Configure the GraphEditorInputMode for single selection mode.">
+<java classname="input.singleselection.SingleSelectionDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-SizeConstraintProvider" depends="compile" description="Customize the resizing behavior of nodes.">
+<java classname="input.sizeconstraintprovider.SizeConstraintProviderDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-EdgeToEdge" depends="compile" description="Shows edge-to-edge connections.">
+<java classname="viewer.edgetoedge.EdgeToEdgeDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-GraphEvents" depends="compile" description="Explore the different kinds of events dispatched by yFiles for Java (Swing).">
+<java classname="viewer.events.GraphEventsDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-GraphMLCompatibility" depends="compile" description="Shows how to enable read compatibility for GraphML files from older versions.">
+<java classname="viewer.graphmlcompatibility.GraphMLCompatibilityDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-GraphViewer" depends="compile" description="Showcase of different kinds of graphs created with yFiles for Java (Swing).">
+<java classname="viewer.graphviewer.GraphViewerDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-ImageExport" depends="compile" description="Export a graph as a bitmap image.">
+<java classname="viewer.imageexport.ImageExportDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-LargeGraphs" depends="compile" description="Improve the rendering performance for very large graphs in yFiles for Java (Swing).">
+<java classname="viewer.largegraphs.LargeGraphsDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-Printing" depends="compile" description="Print a graph by using the yFiles CanvasPrintable.">
+<java classname="viewer.printing.PrintingDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-RenderingOrder" depends="compile" description="Shows the effect of different rendering policies to the model items.">
+<java classname="viewer.renderingorder.RenderingOrderDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-SimpleCustomStyle" depends="compile" description="Implement sophisticated styles for graph objects in yFiles for Java (Swing).">
+<java classname="style.simplecustomstyle.SimpleCustomStyleDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-JComponentStyle" depends="compile" description="Arbitrary Swing components incorporated as graph elements.">
+<java classname="style.jcomponentstyle.JComponentStyleDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-GraphBuilder" depends="compile" description="Demonstrates data binding using the GraphBuilder class.">
+<java classname="databinding.graphbuilder.GraphBuilderDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-InteractiveNodesGraphBuilder" depends="compile" description="Demonstrates data binding using class AdjacentNodesGraphBuilder.">
+<java classname="databinding.interactivenodesgraphbuilder.InteractiveNodesGraphBuilderDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-GraphAnalysis" depends="compile" description="Algorithms to analyse the structure of a graph in yFiles for Java (Swing).">
+<java classname="analysis.graphanalysis.GraphAnalysisDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-ShortestPath" depends="compile" description="Usage and visualization of shortest path algorithms in yFiles for Java (Swing).">
+<java classname="analysis.shortestpath.ShortestPathDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-ObfuscationDemo" depends="compile" description="Obfuscate an yFiles for Java (Swing) application via yGuard.">
+<java classname="deploy.obfuscation.ObfuscationDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-SVGImageExport" depends="-init" description="Runs the SVG image export demo. Requires a batik.jar">
+<echo>Calling build file src-svg/viewer/svgimageexport/build.xml</echo>
+<echo>If the build fails due to a failed download of the batik.jar</echo>
+<echo>set the property -J-Djava.net.preferIPv4Stack=true</echo>
+<ant antfile="src-svg/viewer/svgimageexport/build.xml" target="run" inheritall="false"/>
+</target>
+<target name="run-SVGNodeStyle" depends="-init" description="Runs the SVG node style demo. Requires a batik.jar">
+<echo>Calling build file src-svg/style/svgnodestyle/build.xml</echo>
+<echo>If the build fails due to a failed download of the batik.jar</echo>
+<echo>set the property -J-Djava.net.preferIPv4Stack=true</echo>
+<ant antfile="src-svg/style/svgnodestyle/build.xml" target="run" inheritall="false"/>
+</target>
+<target name="run-PDFImageExport" depends="-init" description="Runs the PDF image export demo. Requires a vectorgraphics.jar">
+<echo>Calling build file src-pdf/viewer/pdfimageexport/build.xml</echo>
+<echo>If the build fails due to a failed download of the vectorgraphics.jar</echo>
+<echo>set the property -J-Djava.net.preferIPv4Stack=true</echo>
+<ant antfile="src-pdf/viewer/pdfimageexport/build.xml" target="run" inheritall="false"/>
+</target>
+<target name="run-JavaFXIntegration" depends="-init" description="Runs the JavaFX integration demo.">
+<echo>Calling build file src-fx/integration/javafx/build.xml</echo>
+<echo>If the build fails due to missing JavaFX modules</echo>
+<echo>set the property path.to.fx to the installed JavaFX SDK.</echo>
+<ant antfile="src-fx/integration/javafx/build.xml" target="run" inheritall="false"/>
+</target>
+<target name="touch-demo" depends="-init" description="Touches the .java files of the demos">
+<touch>
+<fileset dir="${demo.src.dir}" includes="**/*.java"/>
+</touch>
+</target>
+<target name="clean" depends="-init" description="Removes all that has been built.">
+<delete dir="${demo.class.dir}" includeEmptyDirs="true"/>
+</target>
+</project>

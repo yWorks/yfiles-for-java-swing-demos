@@ -1,0 +1,80 @@
+<html>
+<head>
+    <link rel="stylesheet" href="../../resources/demo.css"/>
+</head>
+<body class="demo-description">
+<h2>Step 1: Custom Node Style</h2>
+
+<p>
+    Create a custom node style.
+</p>
+
+<h3>Things to Try</h3>
+
+<ul>
+    <li>
+        Resize a node and make it bigger.
+    </li>
+    <li>
+        Move it around to feel the rendering performance of this initial implementation.
+    </li>
+    <li>
+        Zoom in using the mouse wheel and move it around again.
+    </li>
+    <li>
+        While moving the node observe how the edges are cropped at the node's bounding box.
+    </li>
+</ul>
+
+<h3>Left to Do</h3>
+
+<ul>
+    <li>
+        Use node tag as background color.
+    </li>
+    <li>
+        Implement high-performance rendering of nodes.
+    </li>
+    <li>
+        Improve the rendering performance of nodes using pre-rendered images.
+    </li>
+    <li>
+        Find a way to draw a well-performing drop shadow.
+    </li>
+    <li>
+        Implement <code>isInside()</code> and <code>getOutline()</code>, so edges will end at the node instead of its bounding box.
+    </li>
+    <li>
+        Implement hit test, so a node won't get selected when clicking in the bounding box but not in the node itself.
+    </li>
+    <li>
+        Implement <code>getBounds()</code>, so the drop shadow will be included in the bounds of the node.
+    </li>
+    <li>
+        Draw edges from nodes to their labels.
+    </li>
+    <li>
+        Create a custom label style.
+    </li>
+    <li>
+        Create a custom edge style.
+    </li>
+    <li>
+        Create a custom port style for nodes.
+    </li>
+</ul>
+<br/>
+<h3>Relevant Chapters in the Developers Guide:</h3>
+<ul>
+    <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/customizing_styles">Customizing Styles</a></li>
+    <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/custom-styles_basic">Basic Custom Style Implementation</a></li>
+</ul>
+<h3>Relevant API:</h3>
+<ul>
+    <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.styles.AbstractNodeStyle">AbstractNodeStyle</a></li>
+    <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.styles.AbstractNodeStyle%23AbstractNodeStyle-method-createVisual">AbstractNodeStyle#createVisual</a></li>
+    <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.IVisual">IVisual</a></li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,868 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ////////////////////////////////////////////////////////////////////////
+     //
+     // This demo file is part of yFiles for Java (Swing) 3.3.
+     //
+     // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // 72070 Tuebingen, Germany. All rights reserved.
+     //
+     // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
+     // of demo resource files, with or without modification, is not permitted.
+     // Owners of a valid software license for a yFiles for Java (Swing) version that this
+     // demo is shipped with are allowed to use the resource file as basis for
+     // their own yFiles for Java (Swing) powered applications. Use of such programs is
+     // governed by the rights and conditions as set out in the yFiles for Java (Swing)
+     // license agreement.
+     //
+     // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+     // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+     // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+     // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+     // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+     // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     // 
+     ////////////////////////////////////////////////////////////////////////-->
+<!--Created by yFiles for Java 3.1-->
+<graphml
+  xmlns="http://graphml.graphdrawing.org/xmlns"
+  xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0"
+  xmlns:uml="http://www.yworks.com/xml/yfiles-uml/java/1.0"
+  xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/3.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:y="http://www.yworks.com/xml/yfiles-common/3.0"
+  xmlns:yfj="http://www.yworks.com/xml/yfiles-for-java/3.1"
+  xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml.java/3.0/ygraphml.xsd ">
+  <key attr.name="UserTags" for="all" id="d0" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/UserTags"/>
+  <key attr.name="NodeStyle" for="node" id="d1" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeStyle"/>
+  <key attr.name="NodeLabels" for="node" id="d2" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeLabels"/>
+  <key attr.name="NodeGeometry" for="node" id="d3" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeGeometry"/>
+  <key attr.name="EdgeLabels" for="edge" id="d4" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeLabels"/>
+  <key attr.name="EdgeGeometry" for="edge" id="d5" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry"/>
+  <key attr.name="EdgeStyle" for="edge" id="d6" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeStyle"/>
+  <key attr.name="PortLocationParameter" for="port" id="d7" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLocationParameter">
+    <default>
+      <x:Static Member="y:FreeNodePortLocationModel.NodeCenterAnchored"/>
+    </default>
+  </key>
+  <key attr.name="PortStyle" for="port" id="d8" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortStyle">
+    <default>
+      <x:Static Member="y:VoidPortStyle.Instance"/>
+    </default>
+  </key>
+  <key attr.name="SharedData" id="d9" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData"/>
+  <data key="d9">
+    <y:SharedData>
+      <yfj:DefaultLabelStyle TextClippingEnabled="False" Font="{y:GraphMLReference 2}" TextPaint="White" UsingFractionalFontMetricsEnabled="True" x:Key="1"/>
+      <java:Font xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" Family="Dialog" Size="14" x:Key="2"/>
+      <yfj:DefaultLabelStyle TextClippingEnabled="False" Font="{y:GraphMLReference 2}" TextPaint="DarkGray" UsingFractionalFontMetricsEnabled="True" x:Key="3"/>
+      <yfj:DefaultLabelStyle TextClippingEnabled="False" Font="Dialog;16;BOLD" Insets="0,10,0,15" TextPaint="White" UsingFractionalFontMetricsEnabled="True" x:Key="4"/>
+      <uml:UmlNodeStyle x:Key="5"/>
+    </y:SharedData>
+  </data>
+  <graph id="G">
+    <node id="n0">
+      <data key="d0">
+        <uml:Model Name="Product" Type="Class">
+          <uml:Model.Attributes>
+            <sys:String><![CDATA[- productId : int]]></sys:String>
+            <sys:String><![CDATA[- name : string]]></sys:String>
+            <sys:String><![CDATA[- description : string]]></sys:String>
+            <sys:String><![CDATA[- price : int]]></sys:String>
+            <sys:String><![CDATA[- imageFileName : string]]></sys:String>
+          </uml:Model.Attributes>
+          <uml:Model.Operations>
+            <sys:String><![CDATA[+ displayProduct()]]></sys:String>
+            <sys:String><![CDATA[+ getProductDetails()]]></sys:String>
+          </uml:Model.Operations>
+        </uml:Model>
+      </data>
+      <data key="d1">
+        <y:GraphMLReference ResourceKey="5"/>
+      </data>
+      <data key="d2">
+        <x:List>
+          <y:Label Style="{y:GraphMLReference 4}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="20,0">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>Product</y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 1}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="20,48.63">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>Attributes</y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 1}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="20,175.43">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>Operations</y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,68.93">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- productId : int]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,89.23">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- name : string]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,109.53">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- description : string]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,129.83">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- price : int]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,150.13">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- imageFileName : string]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,195.73">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[+ displayProduct()]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,216.03">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[+ getProductDetails()]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d3">
+        <y:RectD Height="249.9638671875" Width="205.0" X="337.5" Y="115.01806640625"/>
+      </data>
+      <port name="p0"/>
+    </node>
+    <node id="n1">
+      <data key="d0">
+        <uml:Model Name="Category" Type="Class">
+          <uml:Model.Attributes>
+            <sys:String><![CDATA[- categoryId : int]]></sys:String>
+            <sys:String><![CDATA[- departmentId : int]]></sys:String>
+            <sys:String><![CDATA[- name : string]]></sys:String>
+            <sys:String><![CDATA[- description : string]]></sys:String>
+          </uml:Model.Attributes>
+          <uml:Model.Operations>
+            <sys:String>+getProductInCategory()</sys:String>
+          </uml:Model.Operations>
+        </uml:Model>
+      </data>
+      <data key="d1">
+        <y:GraphMLReference ResourceKey="5"/>
+      </data>
+      <data key="d2">
+        <x:List>
+          <y:Label Style="{y:GraphMLReference 4}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="20,0">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>Category</y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 1}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="20,48.63">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>Attributes</y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 1}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="20,155.13">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>Operations</y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,68.93">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- categoryId : int]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,89.23">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- departmentId : int]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,109.53">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- name : string]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,129.83">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- description : string]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,175.43">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>+getProductInCategory()</y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d3">
+        <y:RectD Height="207.6611328125" Width="210.0" X="335.0" Y="436.16943359375"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+    </node>
+    <node id="n2">
+      <data key="d0">
+        <uml:Model Name="Department" Type="Class">
+          <uml:Model.Attributes>
+            <sys:String><![CDATA[- departmentId : int]]></sys:String>
+            <sys:String><![CDATA[- name : string]]></sys:String>
+            <sys:String><![CDATA[- description : string]]></sys:String>
+          </uml:Model.Attributes>
+          <uml:Model.Operations>
+            <sys:String><![CDATA[+ getCategoryInDepartment()]]></sys:String>
+          </uml:Model.Operations>
+        </uml:Model>
+      </data>
+      <data key="d1">
+        <y:GraphMLReference ResourceKey="5"/>
+      </data>
+      <data key="d2">
+        <x:List>
+          <y:Label Style="{y:GraphMLReference 4}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="20,0">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>Department</y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 1}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="20,48.63">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>Attributes</y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 1}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="20,134.83">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>Operations</y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,68.93">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- departmentId : int]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,89.23">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- name : string]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,109.53">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- description : string]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,155.13">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[+ getCategoryInDepartment()]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d3">
+        <y:RectD Height="186.509765625" Width="245.0" X="577.5" Y="446.7451171875"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+    </node>
+    <node id="n3">
+      <data key="d0">
+        <uml:Model Name="SessionManager" Type="Class">
+          <uml:Model.Attributes>
+            <sys:String><![CDATA[- userId : string]]></sys:String>
+            <sys:String><![CDATA[- departmentName : string]]></sys:String>
+          </uml:Model.Attributes>
+          <uml:Model.Operations>
+            <sys:String><![CDATA[+ getUser()]]></sys:String>
+            <sys:String><![CDATA[+ getDepartment()]]></sys:String>
+          </uml:Model.Operations>
+        </uml:Model>
+      </data>
+      <data key="d1">
+        <y:GraphMLReference ResourceKey="5"/>
+      </data>
+      <data key="d2">
+        <x:List>
+          <y:Label Style="{y:GraphMLReference 4}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="20,0">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>SessionManager</y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 1}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="20,48.63">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>Attributes</y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 1}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="20,114.53">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>Operations</y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,68.93">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- userId : string]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,89.23">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- departmentName : string]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,134.83">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[+ getUser()]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,155.13">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[+ getDepartment()]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d3">
+        <y:RectD Height="186.509765625" Width="220.0" X="590.0" Y="-13.2548828125"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+    </node>
+    <node id="n4">
+      <data key="d0">
+        <uml:Model Name="Customer" Type="Class">
+          <uml:Model.Attributes>
+            <sys:String><![CDATA[- customerName : string]]></sys:String>
+            <sys:String><![CDATA[- address : string]]></sys:String>
+            <sys:String><![CDATA[- email : string]]></sys:String>
+            <sys:String><![CDATA[- phone : int]]></sys:String>
+            <sys:String><![CDATA[- creditcardInfo : string]]></sys:String>
+            <sys:String><![CDATA[- shippingInfo : string]]></sys:String>
+          </uml:Model.Attributes>
+          <uml:Model.Operations>
+            <sys:String><![CDATA[+ register()]]></sys:String>
+            <sys:String><![CDATA[+ login()]]></sys:String>
+            <sys:String><![CDATA[+ search()]]></sys:String>
+          </uml:Model.Operations>
+        </uml:Model>
+      </data>
+      <data key="d1">
+        <y:GraphMLReference ResourceKey="5"/>
+      </data>
+      <data key="d2">
+        <x:List>
+          <y:Label Style="{y:GraphMLReference 4}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="20,0">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>Customer</y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 1}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="20,48.63">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>Attributes</y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 1}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="20,195.73">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>Operations</y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,68.93">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- customerName : string]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,89.23">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- address : string]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,109.53">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- email : string]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,129.83">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- phone : int]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,150.13">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- creditcardInfo : string]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,170.43">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- shippingInfo : string]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,216.03">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[+ register()]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,236.33">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[+ login()]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,256.63">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[+ search()]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d3">
+        <y:RectD Height="292.2666015624999" Width="205.0" X="-22.5" Y="713.86669921875"/>
+      </data>
+      <port name="p0"/>
+    </node>
+    <node id="n5">
+      <data key="d0">
+        <uml:Model Name="Administrator" Type="Class">
+          <uml:Model.Attributes>
+            <sys:String><![CDATA[- name : string]]></sys:String>
+            <sys:String><![CDATA[- email : string]]></sys:String>
+          </uml:Model.Attributes>
+          <uml:Model.Operations>
+            <sys:String><![CDATA[+ updateCatalog() : bool]]></sys:String>
+          </uml:Model.Operations>
+        </uml:Model>
+      </data>
+      <data key="d1">
+        <y:GraphMLReference ResourceKey="5"/>
+      </data>
+      <data key="d2">
+        <x:List>
+          <y:Label Style="{y:GraphMLReference 4}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="20,0">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>Administrator</y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 1}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="20,48.63">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>Attributes</y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 1}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="20,114.53">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>Operations</y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,68.93">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- name : string]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,89.23">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- email : string]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,134.83">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[+ updateCatalog() : bool]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d3">
+        <y:RectD Height="165.3583984375" Width="210.0" X="255.0" Y="717.32080078125"/>
+      </data>
+      <port name="p0"/>
+    </node>
+    <node id="n6">
+      <data key="d0">
+        <uml:Model Name="User" Type="Class">
+          <uml:Model.Attributes>
+            <sys:String><![CDATA[- userId : string]]></sys:String>
+            <sys:String><![CDATA[- password : string]]></sys:String>
+            <sys:String><![CDATA[- loginState : string]]></sys:String>
+          </uml:Model.Attributes>
+          <uml:Model.Operations>
+            <sys:String><![CDATA[+ verifyLogin() : bool]]></sys:String>
+          </uml:Model.Operations>
+        </uml:Model>
+      </data>
+      <data key="d1">
+        <y:GraphMLReference ResourceKey="5"/>
+      </data>
+      <data key="d2">
+        <x:List>
+          <y:Label Style="{y:GraphMLReference 4}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="20,0">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>User</y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 1}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="20,48.63">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>Attributes</y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 1}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="20,134.83">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text>Operations</y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,68.93">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- userId : string]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,89.23">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- password : string]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,109.53">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[- loginState : string]]></y:Label.Text>
+          </y:Label>
+          <y:Label Style="{y:GraphMLReference 3}">
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutOffset="30,155.13">
+                <y:RatioAnchoredLabelModelParameter.Model>
+                  <y:FreeNodeLabelModel/>
+                </y:RatioAnchoredLabelModelParameter.Model>
+              </y:RatioAnchoredLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Text><![CDATA[+ verifyLogin() : bool]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d3">
+        <y:RectD Height="186.509765625" Width="180.0" X="130.0" Y="-13.2548828125"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+    </node>
+    <edge id="e0" source="n2" sourceport="p0" target="n1" targetport="p0">
+      <data key="d6">
+        <yfj:PolylineEdgeStyle Pen="Black" SourceArrow="DIAMOND"/>
+      </data>
+    </edge>
+    <edge id="e1" source="n1" sourceport="p1" target="n0" targetport="p0">
+      <data key="d6">
+        <yfj:PolylineEdgeStyle Pen="Black" SourceArrow="DIAMOND"/>
+      </data>
+    </edge>
+    <edge id="e2" source="n2" sourceport="p1" target="n3" targetport="p0">
+      <data key="d6">
+        <yfj:PolylineEdgeStyle Pen="Black" SourceArrow="DIAMOND"/>
+      </data>
+    </edge>
+    <edge id="e3" source="n3" sourceport="p1" target="n6" targetport="p0">
+      <data key="d6">
+        <yfj:PolylineEdgeStyle Pen="Black" SourceArrow="DIAMOND"/>
+      </data>
+    </edge>
+    <edge id="e4" source="n4" sourceport="p0" target="n6" targetport="p1">
+      <data key="d5">
+        <x:List>
+          <y:Bend Location="80,680"/>
+          <y:Bend Location="220,680"/>
+        </x:List>
+      </data>
+      <data key="d6">
+        <yfj:PolylineEdgeStyle Pen="Black" TargetArrow="TRIANGLE"/>
+      </data>
+    </edge>
+    <edge id="e5" source="n5" sourceport="p0" target="n6" targetport="p2">
+      <data key="d5">
+        <x:List>
+          <y:Bend Location="360,680"/>
+          <y:Bend Location="220,680"/>
+        </x:List>
+      </data>
+      <data key="d6">
+        <yfj:PolylineEdgeStyle Pen="Black" TargetArrow="TRIANGLE"/>
+      </data>
+    </edge>
+  </graph>
+</graphml>

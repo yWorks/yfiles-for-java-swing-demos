@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<staff>
+  <businessunit name="Yoyodyne">
+    <businessunit name="Executive Unit"/>
+    <businessunit name="Production"/>
+    <businessunit name="Sales"/>
+  </businessunit>
+  
+  <employee position="Chief Executive Officer" name="Eric Joplin" email="ejoplin@yoyodyne.com" phone="555-0100" fax="555-0101" businessUnit="Executive Unit" status="present" icon="usericon_male1">
+    <employee position="Chief Executive Assistant" name="Gary Roberts" layout="leftHanging" email="groberts@yoyodyne.com" phone="555-0100" fax="555-0101" businessUnit="Executive Unit" status="present" icon="usericon_male2" assistant="true">
+      <employee position="Senior Executive Assistant" name="Alexander Burns" email="aburns@yoyodyne.com" phone="555-0102" fax="555-0103" businessUnit="Executive Unit" status="present" icon="usericon_male3" />
+      <employee position="Junior Executive Assistant" name="Linda Newland" email="lnewland@yoyodyne.com" phone="555-0112" fax="555-0113" businessUnit="Executive Unit" status="present" icon="usericon_female1" />
+    </employee>
+    <employee position="Vice President of Production" name="Amy Kain" email="akain@yoyodyne.com" phone="555-0106" fax="555-0107" businessUnit="Production" status="unavailable" icon="usericon_female2">
+      <employee position="Quality Assurance Manager" name="Dorothy Turner" email="dturner@yoyodyne.com" phone="555-0108" fax="555-0109" businessUnit="Production" status="unavailable" icon="usericon_female3">
+        <employee position="Quality Assurance Supervisor" name="Valerie Burnett" email="vburnett@yoyodyne.com" phone="555-0110" fax="555-0111" businessUnit="Production" status="present" icon="usericon_female1">
+          <employee position="Quality Assurance Technician" name="Martin Cornett" email="mcornett@yoyodyne.com" phone="555-0114" fax="555-0115" businessUnit="Production" status="present" icon="usericon_male2" />
+        </employee>
+        <employee position="Document Control Manager" name="Edward Monge" email="emonge@yoyodyne.com" phone="555-0118" fax="555-0119" businessUnit="Production" status="present" icon="usericon_male3">
+          <employee position="Control Specialist" name="Howard Meyer" email="hmeyer@yoyodyne.com" phone="555-0116" fax="555-0117" businessUnit="Production" status="present" icon="usericon_male1" />
+          <employee position="Document Control Assistant" name="Lisa Jensen" email="ljensen@yoyodyne.com" phone="555-0120" fax="555-0121" businessUnit="Production" status="travel" icon="usericon_female2" assistant="true" />
+        </employee>
+      </employee>
+      <employee position="Master Scheduler" name="Larry Littlefield" email="llittlefield@yoyodyne.com" phone="555-0126" fax="555-0127" businessUnit="Production" status="present" icon="usericon_male3">
+        <employee position="Scheduling Assistant" name="Rico Cronin" email="rcronin@yoyodyne.com" phone="555-0128" fax="555-0129" businessUnit="Production" status="present" icon="usericon_male1" assistant="true" />
+      </employee>
+      <employee position="Facilities Manager" name="Anne Binger" email="abinger@yoyodyne.com" phone="555-0122" fax="555-0123" businessUnit="Production" status="present" icon="usericon_female2">
+        <employee position="Facilities Administrative Assistant" layout="rightHanging" name="Timothy Jackson" email="tjackson@yoyodyne.com" phone="555-0140" fax="555-0141" businessUnit="Production" status="present" icon="usericon_male3">
+          <employee layout="rightHanging" position="Maintenance Supervisor" name="Carmen Langenhagen" email="clangenhagen@yoyodyne.com" phone="555-0142" fax="555-0143" businessUnit="Production" status="present" icon="usericon_female1" />
+          <employee position="Janitor" name="Thomas Stark" email="tstark@yoyodyne.com" phone="555-0144" fax="555-0145" businessUnit="Production" status="present" icon="usericon_male2" />
+        </employee>
+      </employee>
+      <employee position="Shipping and Receiving Supervisor" layout="rightHanging" name="Ray Hammond" email="rhammond@yoyodyne.com" phone="555-0146" fax="555-0147" businessUnit="Production" status="travel" icon="usericon_male3">
+        <employee position="Shipping and Receiving Clerk" name="Bob Lacey" email="blacey@yoyodyne.com" phone="555-0124" fax="555-0125" businessUnit="Production" status="travel" icon="usericon_male1" />
+        <employee position="Stocker" name="Ronnie Garcia" email="rgarcia@yoyodyne.com" phone="555-0130" fax="555-0131" businessUnit="Production" status="present" icon="usericon_male2" />
+      </employee>
+      <employee position="Production Supervisor" name="Kathy Maxwell" email="kmaxwell@yoyodyne.com" phone="555-0132" fax="555-0133" businessUnit="Production" status="present" icon="usericon_female3" />
+    </employee>
+    <employee position="Vice President of Sales" name="Richard Fuller" email="rfuller@yoyodyne.com" phone="555-0134" fax="555-0135" businessUnit="Sales" status="present" icon="usericon_male1">
+      <employee layout="rightHanging" position="North America Sales Manager" name="Joe Vargas" email="jvargas@yoyodyne.com" phone="555-0136" fax="555-0137" businessUnit="Sales" status="present" icon="usericon_male2">
+        <employee position="Sales Representative" name="Robert Parson" email="rparson@yoyodyne.com" phone="555-0150" fax="555-0151" businessUnit="Sales" status="travel" icon="usericon_male3" />
+        <employee position="Sales Representative" name="Melissa Noren" email="mnoren@yoyodyne.com" phone="555-0152" fax="555-0153" businessUnit="Sales" status="present" icon="usericon_female1" />
+      </employee>
+      <employee layout="rightHanging" position="European Sales Manager" name="Robert Hartman" email="rhartman@yoyodyne.com" phone="555-0138" fax="555-0139" businessUnit="Sales" status="present" icon="usericon_male2">
+        <employee position="Sales Representative" name="Rebecca Polite" email="rpolite@yoyodyne.com" phone="555-0148" fax="555-0149" businessUnit="Sales" status="travel" icon="usericon_female3" />
+        <employee position="Sales Representative" name="Michael Daniels" email="mdaniels@yoyodyne.com" phone="555-0154" fax="555-0155" businessUnit="Sales" status="travel" icon="usericon_male1" />
+      </employee>
+    </employee>
+  </employee>
+</staff>

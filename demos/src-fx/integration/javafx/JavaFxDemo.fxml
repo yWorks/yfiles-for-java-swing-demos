@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ////////////////////////////////////////////////////////////////////////
+     //
+     // This demo file is part of yFiles for Java (Swing) 3.3.
+     //
+     // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // 72070 Tuebingen, Germany. All rights reserved.
+     //
+     // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
+     // of demo resource files, with or without modification, is not permitted.
+     // Owners of a valid software license for a yFiles for Java (Swing) version that this
+     // demo is shipped with are allowed to use the resource file as basis for
+     // their own yFiles for Java (Swing) powered applications. Use of such programs is
+     // governed by the rights and conditions as set out in the yFiles for Java (Swing)
+     // license agreement.
+     //
+     // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+     // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+     // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+     // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+     // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+     // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     // 
+     ////////////////////////////////////////////////////////////////////////-->
+
+<?import javafx.embed.swing.SwingNode?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.web.WebView?>
+
+<BorderPane fx:id="root" fx:controller="integration.javafx.JavaFxDemoController" xmlns:fx="http://javafx.com/fxml">
+  <top>
+    <!-- provides buttons to change the zoom level of the GraphComponent as well as buttons for undo/redo functionality -->
+    <ToolBar>
+      <items>
+        <Button fx:id="zoomInButton">
+          <graphic>
+            <ImageView>
+              <Image url="@/resources/plus2-16.png"/>
+            </ImageView>
+          </graphic>
+        </Button>
+        <Button fx:id="zoomOriginalButton">
+          <graphic>
+            <ImageView>
+              <Image url="@/resources/zoom-original2-16.png"/>
+            </ImageView>
+          </graphic>
+        </Button>
+        <Button fx:id="zoomOutButton">
+          <graphic>
+            <ImageView>
+              <Image url="@/resources/minus2-16.png"/>
+            </ImageView>
+          </graphic>
+        </Button>
+        <Button fx:id="fitContentButton">
+          <graphic>
+            <ImageView>
+              <Image url="@/resources/fit2-16.png"/>
+            </ImageView>
+          </graphic>
+        </Button>
+        <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0"/>
+        <Button fx:id="undoButton">
+          <graphic>
+            <ImageView>
+              <Image url="@/resources/undo-16.png"/>
+            </ImageView>
+          </graphic>
+        </Button>
+        <Button fx:id="redoButton">
+          <graphic>
+            <ImageView>
+              <Image url="@/resources/redo-16.png"/>
+            </ImageView>
+          </graphic>
+        </Button>
+      </items>
+    </ToolBar>
+  </top>
+  <!-- offers nodes with different styles that can be dragged into the GraphComponent -->
+  <left>
+    <ListView fx:id="palette"/>
+  </left>
+  <!-- shows help text -->
+  <right>
+     <TitledPane text="Description" collapsible="false" maxHeight="Infinity">
+       <content>
+         <WebView fx:id="helpPane" prefWidth="300.0"/>
+       </content>
+     </TitledPane>
+   </right>
+  <!-- the SwingNode will embed the Swing GraphComponent in JavaFX -->
+  <center>
+     <SwingNode fx:id="swingNode"/>
+   </center>
+</BorderPane>

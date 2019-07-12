@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ////////////////////////////////////////////////////////////////////////
+     //
+     // This demo file is part of yFiles for Java (Swing) 3.3.
+     //
+     // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // 72070 Tuebingen, Germany. All rights reserved.
+     //
+     // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
+     // of demo resource files, with or without modification, is not permitted.
+     // Owners of a valid software license for a yFiles for Java (Swing) version that this
+     // demo is shipped with are allowed to use the resource file as basis for
+     // their own yFiles for Java (Swing) powered applications. Use of such programs is
+     // governed by the rights and conditions as set out in the yFiles for Java (Swing)
+     // license agreement.
+     //
+     // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+     // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+     // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+     // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+     // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+     // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     // 
+     ////////////////////////////////////////////////////////////////////////-->
+<!--Created by yFiles for Java 3.1-->
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+         xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/3.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:y="http://www.yworks.com/xml/yfiles-common/3.0"
+         xmlns:yfj="http://www.yworks.com/xml/yfiles-for-java/3.1"
+         xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml.java/3.1/ygraphml.xsd "
+         xmlns:style="http://www.yworks.com/yfiles-for-java/demos/TableEditor/1.0"
+         xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0">
+  <key id="d0" for="all" attr.name="UserTags" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/UserTags" />
+  <key id="d1" for="node" attr.name="NodeLabels" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeLabels" />
+  <key id="d2" for="node" attr.name="NodeGeometry" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeGeometry" />
+  <key id="d3" for="node" attr.name="NodeStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeStyle" />
+  <key id="d4" for="edge" attr.name="EdgeLabels" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeLabels" />
+  <key id="d5" for="edge" attr.name="EdgeGeometry" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry" />
+  <key id="d6" for="edge" attr.name="EdgeStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeStyle" />
+  <key id="d7" for="port" attr.name="PortLocationParameter" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLocationParameter">
+    <default>
+      <x:Static Member="y:FreeNodePortLocationModel.NodeCenterAnchored" />
+    </default>
+  </key>
+  <key id="d8" for="port" attr.name="PortStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortStyle">
+    <default>
+      <x:Static Member="y:VoidPortStyle.Instance" />
+    </default>
+  </key>
+  <key id="d9" attr.name="SharedData" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData" />
+  <data key="d9">
+    <y:SharedData>
+      <yfj:RatioAnchoredLabelModelParameter x:Key="1" LayoutRatio="0,0.5" LayoutOffset="10,0" LabelRatio="0.5,0.5" Angle="-1.5707963267948966">
+        <yfj:RatioAnchoredLabelModelParameter.Model>
+          <yfj:FreeNodeLabelModel />
+        </yfj:RatioAnchoredLabelModelParameter.Model>
+      </yfj:RatioAnchoredLabelModelParameter>
+      <yfj:DefaultLabelStyle x:Key="2" TextAlignment="CENTER" VerticalTextAlignment="CENTER"/>
+      <style:AlternatingLeafStripeStyle x:Key="3">
+        <style:AlternatingLeafStripeStyle.EvenLeafDescriptor>
+          <style:StripeDescriptor BackgroundPaint="#FFC4D7ED" InsetPaint="#FFC4D7ED" />
+        </style:AlternatingLeafStripeStyle.EvenLeafDescriptor>
+        <style:AlternatingLeafStripeStyle.ParentDescriptor>
+          <style:StripeDescriptor BackgroundPaint="#FF7192B2" InsetPaint="#FF7192B2" />
+        </style:AlternatingLeafStripeStyle.ParentDescriptor>
+        <style:AlternatingLeafStripeStyle.OddLeafDescriptor>
+          <style:StripeDescriptor BackgroundPaint="#FFABC8E2" InsetPaint="#FFABC8E2" />
+        </style:AlternatingLeafStripeStyle.OddLeafDescriptor>
+      </style:AlternatingLeafStripeStyle>
+      <style:AlternatingLeafStripeStyle x:Key="4">
+        <style:AlternatingLeafStripeStyle.EvenLeafDescriptor>
+          <style:StripeDescriptor BackgroundPaint="#00FFFFFF" InsetPaint="#FF7192B2" />
+        </style:AlternatingLeafStripeStyle.EvenLeafDescriptor>
+        <style:AlternatingLeafStripeStyle.ParentDescriptor>
+          <style:StripeDescriptor BackgroundPaint="#00FFFFFF" InsetPaint="#FF7192B2" />
+        </style:AlternatingLeafStripeStyle.ParentDescriptor>
+        <style:AlternatingLeafStripeStyle.OddLeafDescriptor>
+          <style:StripeDescriptor BackgroundPaint="#00FFFFFF" InsetPaint="#FF7192B2" />
+        </style:AlternatingLeafStripeStyle.OddLeafDescriptor>
+      </style:AlternatingLeafStripeStyle>
+      <y:StretchStripeLabelModelParameter x:Key="11" Position="West"/>
+      <y:StretchStripeLabelModelParameter x:Key="5" Position="North"/>
+      <yfj:Pen Paint="#FF000000" Thickness="1" x:Key="9" DashStyle="DashDot"/>
+      <yfj:PolylineEdgeStyle x:Key="10" TargetArrow="DEFAULT" />
+    </y:SharedData>
+  </data>
+  <graph id="G" edgedefault="directed">
+    <node id="n0">
+      <data key="d2">
+        <y:RectD X="-65" Y="-560" Width="1060" Height="560" />
+      </data>
+      <data key="d3">
+        <yfj:TableNodeStyle TableRenderingOrder="ROWS_FIRST">
+          <yfj:TableNodeStyle.Table>
+            <y:Table Insets="0,30,0,0">
+              <y:Table.Rows>
+                <y:Row MinimumSize="50" Size="50" Insets="30,0,0,0" Style="{y:GraphMLReference 3}">
+                  <y:Row MinimumSize="50" Size="150" Insets="30,5,0,5" Style="{y:GraphMLReference 3}">
+                    <y:Row.Labels>
+                      <y:Label LayoutParameter="{y:GraphMLReference 11}" Style="{y:GraphMLReference 2}" PreferredSize="47,14">
+                        <y:Label.Text><![CDATA[Lane 1.1]]></y:Label.Text>
+                      </y:Label>
+                    </y:Row.Labels>
+                  </y:Row>
+                  <y:Row MinimumSize="50" Size="150" Insets="30,5,0,5" Style="{y:GraphMLReference 3}">
+                    <y:Row.Labels>
+                      <y:Label LayoutParameter="{y:GraphMLReference 11}" Style="{y:GraphMLReference 2}" PreferredSize="47,14">
+                        <y:Label.Text><![CDATA[Lane 1.2]]></y:Label.Text>
+                      </y:Label>
+                    </y:Row.Labels>
+                  </y:Row>
+                  <y:Row.Labels>
+                    <y:Label LayoutParameter="{y:GraphMLReference 11}" Style="{y:GraphMLReference 2}" PreferredSize="37,14">
+                      <y:Label.Text><![CDATA[Lane 1]]></y:Label.Text>
+                    </y:Label>
+                  </y:Row.Labels>
+                </y:Row>
+                <y:Row MinimumSize="50" Size="200" Insets="30,5,0,5" Style="{y:GraphMLReference 3}">
+                  <y:Row.Labels>
+                    <y:Label LayoutParameter="{y:GraphMLReference 11}" Style="{y:GraphMLReference 2}" PreferredSize="37,14">
+                      <y:Label.Text><![CDATA[Lane 2]]></y:Label.Text>
+                    </y:Label>
+                  </y:Row.Labels>
+                </y:Row>
+              </y:Table.Rows>
+              <y:Table.Columns>
+                <y:Column Style="{y:GraphMLReference 4}" MinimumSize="200" Size="500" Insets="5,30,5,0">
+                  <y:Column.Labels>
+                    <y:Label LayoutParameter="{y:GraphMLReference 5}" Style="{y:GraphMLReference 2}" PreferredSize="62,14">
+                      <y:Label.Text><![CDATA[Milestone 1]]></y:Label.Text>
+                    </y:Label>
+                  </y:Column.Labels>
+                </y:Column>
+                <y:Column Style="{y:GraphMLReference 4}" MinimumSize="200" Size="500" Insets="5,30,5,0">
+                  <y:Column.Labels>
+                    <y:Label LayoutParameter="{y:GraphMLReference 5}" Style="{y:GraphMLReference 2}" PreferredSize="62,14">
+                      <y:Label.Text><![CDATA[Milestone 2]]></y:Label.Text>
+                    </y:Label>
+                  </y:Column.Labels>
+                </y:Column>
+              </y:Table.Columns>
+              <y:Table.RowDefaults>
+                <y:StripeDefaults Insets="30,5,0,5" Size="150" MinimumSize="50" Style="{y:GraphMLReference 3}">
+                  <y:StripeDefaults.Labels>
+                    <y:LabelDefaults AutoAdjustPreferredSize="True" ShareLayoutParameterInstance="True" LayoutParameter="{y:GraphMLReference 11}" Style="{y:GraphMLReference 2}" ShareStyleInstance="True" />
+                  </y:StripeDefaults.Labels>
+                </y:StripeDefaults>
+              </y:Table.RowDefaults>
+              <y:Table.ColumnDefaults>
+                <y:StripeDefaults Insets="5,30,5,0" Size="200" MinimumSize="200" Style="{y:GraphMLReference 4}">
+                  <y:StripeDefaults.Labels>
+                    <y:LabelDefaults AutoAdjustPreferredSize="True" ShareLayoutParameterInstance="True" LayoutParameter="{y:GraphMLReference 5}" ShareStyleInstance="True">
+                      <y:LabelDefaults.Style>
+                        <yfj:DefaultLabelStyle TextAlignment="CENTER" />
+                      </y:LabelDefaults.Style>
+                    </y:LabelDefaults>
+                  </y:StripeDefaults.Labels>
+                </y:StripeDefaults>
+              </y:Table.ColumnDefaults>
+            </y:Table>
+          </yfj:TableNodeStyle.Table>
+          <yfj:TableNodeStyle.BackgroundStyle>
+            <yfj:ShapeNodeStyle Paint="#FFECF5FF" />
+          </yfj:TableNodeStyle.BackgroundStyle>
+        </yfj:TableNodeStyle>
+      </data>
+      <data key="d1">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.North}">
+            <y:Label.Text><![CDATA[Pool 1]]></y:Label.Text>
+            <y:Label.Style>
+              <yfj:DefaultLabelStyle />
+            </y:Label.Style>
+          </y:Label>
+        </x:List>
+      </data>
+      <graph id="n0:" edgedefault="directed">
+        <node id="n0::n0">
+          <data key="d2">
+            <y:RectD X="0" Y="-439.58333333333331" Width="80" Height="50" />
+          </data>
+          <data key="d3">
+            <yfj:ShinyPlateNodeStyle Paint="Orange" Radius="0" />
+          </data>
+          <port name="p0">
+            <data key="d7">
+              <y:FreeNodePortLocationModelParameter Ratio="1.0,0.16666666666666602" />
+            </data>
+          </port>
+          <port name="p1">
+            <data key="d7">
+              <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5" />
+            </data>
+          </port>
+          <port name="p2">
+            <data key="d7">
+              <y:FreeNodePortLocationModelParameter Ratio="1.0,0.8333333333333339" />
+            </data>
+          </port>
+        </node>
+        <node id="n0::n1">
+          <data key="d2">
+            <y:RectD X="235" Y="-443.75" Width="80" Height="50" />
+          </data>
+          <data key="d3">
+            <yfj:ShinyPlateNodeStyle Paint="Orange" Radius="0" />
+          </data>
+          <port name="p0">
+            <data key="d7">
+              <y:FreeNodePortLocationModelParameter Ratio="0.0,0.25" />
+            </data>
+          </port>
+          <port name="p1">
+            <data key="d7">
+              <y:FreeNodePortLocationModelParameter Ratio="0.0,0.75" />
+            </data>
+          </port>
+          <port name="p2">
+            <data key="d7">
+              <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5" />
+            </data>
+          </port>
+          <port name="p3">
+            <data key="d7">
+              <y:FreeNodePortLocationModelParameter Ratio="1.0,0.8333333333333339" />
+            </data>
+          </port>
+          <port name="p4">
+            <data key="d7">
+              <y:FreeNodePortLocationModelParameter Ratio="1.0,0.16666666666666602" />
+            </data>
+          </port>
+        </node>
+        <node id="n0::n2">
+          <data key="d2">
+            <y:RectD X="370" Y="-300" Width="80" Height="50" />
+          </data>
+          <data key="d3">
+            <yfj:ShinyPlateNodeStyle Paint="Orange" Radius="0" />
+          </data>
+          <port name="p0">
+            <data key="d7">
+              <y:FreeNodePortLocationModelParameter Ratio="0.0,0.25" />
+            </data>
+          </port>
+          <port name="p1">
+            <data key="d7">
+              <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5" />
+            </data>
+          </port>
+          <port name="p2">
+            <data key="d7">
+              <y:FreeNodePortLocationModelParameter Ratio="0.0,0.75" />
+            </data>
+          </port>
+        </node>
+        <node id="n0::n3">
+          <data key="d2">
+            <y:RectD X="520" Y="-460.41666666666669" Width="80" Height="50" />
+          </data>
+          <data key="d3">
+            <yfj:ShinyPlateNodeStyle Paint="Orange" Radius="0" />
+          </data>
+          <port name="p0">
+            <data key="d7">
+              <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5" />
+            </data>
+          </port>
+          <port name="p1">
+            <data key="d7">
+              <y:FreeNodePortLocationModelParameter Ratio="0.0,0.5" />
+            </data>
+          </port>
+        </node>
+        <node id="n0::n4">
+          <data key="d2">
+            <y:RectD X="735" Y="-300" Width="80" Height="50" />
+          </data>
+          <data key="d3">
+            <yfj:ShinyPlateNodeStyle Paint="Orange" Radius="0" />
+          </data>
+          <port name="p0">
+            <data key="d7">
+              <y:FreeNodePortLocationModelParameter Ratio="0.0,0.8333333333333339" />
+            </data>
+          </port>
+          <port name="p1">
+            <data key="d7">
+              <y:FreeNodePortLocationModelParameter Ratio="0.0,0.5" />
+            </data>
+          </port>
+          <port name="p2">
+            <data key="d7">
+              <y:FreeNodePortLocationModelParameter Ratio="0.0,0.16666666666666602" />
+            </data>
+          </port>
+        </node>
+        <node id="n0::n5">
+          <data key="d2">
+            <y:RectD X="120" Y="-270.5" Width="200" Height="142" />
+          </data>
+          <data key="d3">
+            <yfj:ShapeNodeStyle Pen="{y:GraphMLReference 9}" Paint="#00FFFFFF" Shape="ROUND_RECTANGLE" />
+          </data>
+          <data key="d0">
+            <sys:String>GroupNode</sys:String>
+          </data>
+          <graph id="n0::n5:" edgedefault="directed">
+            <node id="n0::n5::n0">
+              <data key="d2">
+                <y:RectD X="125" Y="-184.5" Width="80" Height="50" />
+              </data>
+              <data key="d3">
+                <yfj:ShinyPlateNodeStyle Paint="Orange" Radius="0" />
+              </data>
+              <port name="p0">
+                <data key="d7">
+                  <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5" />
+                </data>
+              </port>
+              <port name="p1">
+                <data key="d7">
+                  <y:FreeNodePortLocationModelParameter Ratio="0.0,0.5" />
+                </data>
+              </port>
+            </node>
+            <node id="n0::n5::n1">
+              <data key="d2">
+                <y:RectD X="235" Y="-184.5" Width="80" Height="50" />
+              </data>
+              <data key="d3">
+                <yfj:ShinyPlateNodeStyle Paint="Orange" Radius="0" />
+              </data>
+              <port name="p0">
+                <data key="d7">
+                  <y:FreeNodePortLocationModelParameter Ratio="1.0,0.75" />
+                </data>
+              </port>
+              <port name="p1">
+                <data key="d7">
+                  <y:FreeNodePortLocationModelParameter Ratio="0.0,0.5" />
+                </data>
+              </port>
+              <port name="p2">
+                <data key="d7">
+                  <y:FreeNodePortLocationModelParameter Ratio="1.0,0.25" />
+                </data>
+              </port>
+            </node>
+            <node id="n0::n5::n2">
+              <data key="d2">
+                <y:RectD X="125" Y="-264.5" Width="80" Height="50" />
+              </data>
+              <data key="d3">
+                <yfj:ShinyPlateNodeStyle Paint="Orange" Radius="0" />
+              </data>
+              <port name="p0">
+                <data key="d7">
+                  <y:FreeNodePortLocationModelParameter Ratio="0.0,0.5" />
+                </data>
+              </port>
+              <port name="p1">
+                <data key="d7">
+                  <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5" />
+                </data>
+              </port>
+            </node>
+            <edge id="n0::n5::e0" source="n0::n5::n0" target="n0::n5::n1" sourceport="p0" targetport="p1">
+              <data key="d6">
+                <y:GraphMLReference ResourceKey="10" />
+              </data>
+            </edge>
+          </graph>
+        </node>
+        <node id="n0::n6">
+          <data key="d2">
+            <y:RectD X="515" Y="-190.5" Width="190" Height="62" />
+          </data>
+          <data key="d3">
+            <yfj:ShapeNodeStyle Pen="{y:GraphMLReference 9}" Paint="#00FFFFFF" Shape="ROUND_RECTANGLE"/>
+          </data>
+          <data key="d0">
+            <sys:String>GroupNode</sys:String>
+          </data>
+          <graph id="n0::n6:" edgedefault="directed">
+            <node id="n0::n6::n0">
+              <data key="d2">
+                <y:RectD X="620" Y="-184.5" Width="80" Height="50" />
+              </data>
+              <data key="d3">
+                <yfj:ShinyPlateNodeStyle Paint="Orange" Radius="0" />
+              </data>
+              <port name="p0">
+                <data key="d7">
+                  <y:FreeNodePortLocationModelParameter Ratio="0.0,0.5" />
+                </data>
+              </port>
+              <port name="p1">
+                <data key="d7">
+                  <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5" />
+                </data>
+              </port>
+            </node>
+            <node id="n0::n6::n1">
+              <data key="d2">
+                <y:RectD X="520" Y="-184.5" Width="80" Height="50" />
+              </data>
+              <data key="d3">
+                <yfj:ShinyPlateNodeStyle Paint="Orange" Radius="0" />
+              </data>
+              <port name="p0">
+                <data key="d7">
+                  <y:FreeNodePortLocationModelParameter Ratio="0.0,0.25" />
+                </data>
+              </port>
+              <port name="p1">
+                <data key="d7">
+                  <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5" />
+                </data>
+              </port>
+              <port name="p2">
+                <data key="d7">
+                  <y:FreeNodePortLocationModelParameter Ratio="0.0,0.75" />
+                </data>
+              </port>
+            </node>
+            <edge id="n0::n6::e0" source="n0::n6::n1" target="n0::n6::n0" sourceport="p1" targetport="p0">
+              <data key="d6">
+                <y:GraphMLReference ResourceKey="10" />
+              </data>
+            </edge>
+          </graph>
+        </node>
+        <edge id="n0::e0" source="n0::n0" target="n0::n1" sourceport="p0" targetport="p0">
+          <data key="d6">
+            <y:GraphMLReference ResourceKey="10" />
+          </data>
+        </edge>
+        <edge id="n0::e1" source="n0::n0" target="n0::n5::n2" sourceport="p1" targetport="p0">
+          <data key="d5">
+            <x:List>
+              <y:Bend Location="100,-414.583333333333" />
+              <y:Bend Location="100,-239.5" />
+            </x:List>
+          </data>
+          <data key="d6">
+            <y:GraphMLReference ResourceKey="10" />
+          </data>
+        </edge>
+        <edge id="n0::e2" source="n0::n5::n2" target="n0::n1" sourceport="p1" targetport="p1">
+          <data key="d5">
+            <x:List>
+              <y:Bend Location="215,-239.5" />
+              <y:Bend Location="215,-406.25" />
+            </x:List>
+          </data>
+          <data key="d6">
+            <y:GraphMLReference ResourceKey="10" />
+          </data>
+        </edge>
+        <edge id="n0::e3" source="n0::n1" target="n0::n2" sourceport="p2" targetport="p0">
+          <data key="d5">
+            <x:List>
+              <y:Bend Location="350,-418.75" />
+              <y:Bend Location="350,-287.5" />
+            </x:List>
+          </data>
+          <data key="d6">
+            <y:GraphMLReference ResourceKey="10" />
+          </data>
+        </edge>
+        <edge id="n0::e4" source="n0::n1" target="n0::n6::n1" sourceport="p3" targetport="p0">
+          <data key="d5">
+            <x:List>
+              <y:Bend Location="340,-402.083333333333" />
+              <y:Bend Location="340,-172" />
+            </x:List>
+          </data>
+          <data key="d6">
+            <y:GraphMLReference ResourceKey="10" />
+          </data>
+        </edge>
+        <edge id="n0::e5" source="n0::n6::n0" target="n0::n4" sourceport="p1" targetport="p0">
+          <data key="d5">
+            <x:List>
+              <y:Bend Location="715,-159.5" />
+              <y:Bend Location="715,-258.333333333333" />
+            </x:List>
+          </data>
+          <data key="d6">
+            <y:GraphMLReference ResourceKey="10" />
+          </data>
+        </edge>
+        <edge id="n0::e6" source="n0::n2" target="n0::n4" sourceport="p1" targetport="p1">
+          <data key="d6">
+            <y:GraphMLReference ResourceKey="10" />
+          </data>
+        </edge>
+        <edge id="n0::e7" source="n0::n3" target="n0::n4" sourceport="p0" targetport="p2">
+          <data key="d5">
+            <x:List>
+              <y:Bend Location="610,-435.416666666667" />
+              <y:Bend Location="610,-291.666666666667" />
+            </x:List>
+          </data>
+          <data key="d6">
+            <y:GraphMLReference ResourceKey="10" />
+          </data>
+        </edge>
+        <edge id="n0::e8" source="n0::n5::n1" target="n0::n6::n1" sourceport="p0" targetport="p2">
+          <data key="d6">
+            <y:GraphMLReference ResourceKey="10" />
+          </data>
+        </edge>
+        <edge id="n0::e9" source="n0::n0" target="n0::n5::n0" sourceport="p2" targetport="p1">
+          <data key="d5">
+            <x:List>
+              <y:Bend Location="90,-397.916666666667" />
+              <y:Bend Location="90,-159.5" />
+            </x:List>
+          </data>
+          <data key="d6">
+            <y:GraphMLReference ResourceKey="10" />
+          </data>
+        </edge>
+        <edge id="n0::e10" source="n0::n5::n1" target="n0::n2" sourceport="p2" targetport="p2">
+          <data key="d5">
+            <x:List>
+              <y:Bend Location="330,-172" />
+              <y:Bend Location="330,-262.5" />
+            </x:List>
+          </data>
+          <data key="d6">
+            <y:GraphMLReference ResourceKey="10" />
+          </data>
+        </edge>
+        <edge id="n0::e11" source="n0::n1" target="n0::n3" sourceport="p4" targetport="p1">
+          <data key="d6">
+            <y:GraphMLReference ResourceKey="10" />
+          </data>
+        </edge>
+      </graph>
+    </node>
+  </graph>
+</graphml>

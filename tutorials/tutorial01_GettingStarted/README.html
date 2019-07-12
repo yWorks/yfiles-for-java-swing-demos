@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>yFiles for Java (Swing) Tutorial 1: Getting Started</title>
+  <link rel="stylesheet" type="text/css" href="../../doc/documentation-style.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+</head>
+<body>
+<header>
+  <div class="logo"></div>
+  <div class="title">
+    <a href="../../README.html">yFiles for Java (Swing)</a>
+    <span class="angle-right"></span>
+    <a href="../README.html">Tutorials</a>
+    <span class="angle-right"></span>
+    1: Getting Started
+  </div>
+</header>
+<div class="content">
+  <h1>Tutorial 1: Getting Started</h1>
+
+  <p>
+    This tutorial is a step-by-step introduction to the concepts and main features of the yFiles for Java (Swing) diagramming
+    library. Topics include custom styles, full user interaction, Undo/Redo, clipboard, I/O, grouping and folding.
+  </p>
+  <p>
+    It is intended for developers who want to get started with the library in an effective way. If you are new to the
+    yFiles for Java (Swing) diagramming library, we recommend to start by going through the projects in this tutorial one by
+    one. To make full use of the tutorial, we also recommend to review and possibly modify the source code of each
+    sample project.
+  </p>
+
+  <h3>Running a Tutorial Step</h3>
+
+  <p>
+    The best way to run a tutorial step is from within your preferred IDE. Set the directory
+    <code>&lt;yFiles-for-Java>/tutorials/</code> as source directory of your project and add the yFiles library
+    (<code>yfiles-for-java-swing.jar</code>) to your references. Each step can be started by running or debugging its
+    class <code>SampleApplication</code>.
+  </p>
+
+  <h3>Steps in this Tutorial</h3>
+
+  <table>
+    <colgroup>
+      <col width='20%'>
+      <col width='70%'>
+    </colgroup>
+    <thead>
+    <tr>
+      <th class='democell'>
+        Name
+      </th>
+      <th class='democell'>
+        Description
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td class='demotitle'>
+        Step 01: Creating the View
+      </td>
+      <td>
+        Introduces class GraphComponent, which is the central UI element for working with graphs.
+      </td>
+    </tr>
+    <tr>
+      <td class='demotitle'>
+        Step 02: Creating Graph Elements
+      </td>
+      <td>
+        Shows how to create the basic graph elements.
+      </td>
+    </tr>
+    <tr>
+      <td class='demotitle'>
+        Step 03: Managing the Viewport
+      </td>
+      <td>
+        Shows how to work with the viewport.
+      </td>
+    </tr>
+    <tr>
+      <td class='demotitle'>
+        Step 04: Modifying the Visualizations
+      </td>
+      <td>
+        Shows how to configure the visual appearance of graph elements using styles.
+      </td>
+    </tr>
+    <tr>
+      <td class='demotitle'>
+        Step 05: Placing Labels
+      </td>
+      <td>
+        Shows how to control label placement with the help of so called label model parameters.
+      </td>
+    </tr>
+    <tr>
+      <td class='demotitle'>
+        Step 06: Basic Interaction
+      </td>
+      <td>
+        Shows the default interaction gestures that are provided by class GraphEditorInputMode.
+      </td>
+    </tr>
+    <tr>
+      <td class='demotitle'>
+        Step 07: Undo and Clipboard
+      </td>
+      <td>
+        Shows how to use the undo and the clipboard features.
+      </td>
+    </tr>
+    <tr>
+      <td class='demotitle'>
+        Step 08: Using GraphML for Loading and Saving
+      </td>
+      <td>
+        Shows GraphML input and output.
+      </td>
+    </tr>
+    <tr>
+      <td class='demotitle'>
+        Step 09: Customizing User Interaction
+      </td>
+      <td>
+        Shows how to customize user interaction by decorating the graph with custom behavior.
+      </td>
+    </tr>
+    <tr>
+      <td class='demotitle'>
+        Step 10: Grouping (Group Nodes)
+      </td>
+      <td>
+        Shows how to configure the support for grouped (hierarchically organized) graphs.
+      </td>
+    </tr>
+    <tr>
+      <td class='demotitle'>
+        Step 11: Folding
+      </td>
+      <td>
+        Shows how to enable collapsing and expanding of group nodes.
+      </td>
+    </tr>
+    <tr>
+      <td class='demotitle'>
+        Step 12: Binding Custom Data to Graph Elements
+      </td>
+      <td>
+        Shows how to bind data to graph elements.
+      </td>
+    </tr>
+    <tr>
+      <td class='demotitle'>
+        Step 13: Exporting Custom Data in GraphML
+      </td>
+      <td>
+        Shows how to read and write data that is bound to graph elements to and from a GraphML file.
+      </td>
+    </tr>
+    <tr>
+      <td class='demotitle'>
+        Step 14: Automatic Graph Layout
+      </td>
+      <td>
+        Shows an outstanding feature of yFiles for Java (Swing): sophisticated layout algorithms that automatically
+        generate high-quality graph drawings.
+      </td>
+    </tr>
+    <tr>
+      <td class='demotitle'>
+        Step 15: Commands
+      </td>
+      <td>
+        Shows how to use the built-in command framework of yFiles.
+      </td>
+    </tr>
+    <tr>
+      <td class='demotitle'>
+        Step 16: Snapping
+      </td>
+      <td>
+        Shows how to enable snapping (guide lines) for graph elements.
+      </td>
+    </tr>
+    <tr>
+      <td class='demotitle'>
+        Step 17: Grid Snapping
+      </td>
+      <td>
+        Shows how to enable grid snapping for graph elements.
+      </td>
+    </tr>
+    <tr>
+      <td class='demotitle'>
+        Step 18: Orthogonal Edge Editing
+      </td>
+      <td>
+        Shows how to enable interactive orthogonal edge creation.
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  </div>
+    <footer>
+      <div class="footer-block">
+        <h4>Contents</h4>
+        <a href="../../README.html">Welcome Page</a><br>
+        <a href="../../doc/api/index.html" target="_blank">API Documentation</a><br>
+        <a href="../../doc/api/index.html#/dguide/getting_started" target="_blank">Getting Started</a><br>
+        <a href="../../doc/readme/legal/SOFTWARE_LICENSE_AGREEMENT.html">License Agreement</a><br>
+        <a href="../../doc/readme/support.html">Help and Support</a>
+      </div>
+      <div class="footer-block">
+        <h4>Contact</h4>
+        yWorks GmbH<br>
+        Vor dem Kreuzberg 28<br>
+        72070 T&uuml;bingen<br>
+        Germany<br>
+        Phone: <a href="tel:+497071979050">+49 7071 979050</a><br>
+        Email: <a href="https://www.yworks.com/contact" target="_blank">contact(at)yworks.com</a><br>
+      </div>
+      <div class="footer-block">
+        <h4>Follow Us</h4>
+        <div class="social">
+          <a href="@PRODUCT_URL@" target="_blank" class="web">
+            Homepage
+          </a>
+          <a href="https://www.yworks.com/newsfeed" target="_blank" class="rss">
+            RSS-Feed
+          </a>
+          <a href="https://twitter.com/yworks" target="_blank" class="tw">
+            Twitter
+          </a>
+          <a href="https://www.youtube.com/user/yWorksTube" target="_blank" class="yt">
+            YouTube
+          </a>
+        </div>
+        <span class="copyright">COPYRIGHT &#x00A9; 2019 yWorks</span><br>
+        <a href="https://www.yworks.com/company/legal/imprint" target="_blank">Imprint</a>
+        | <a href="https://www.yworks.com/company/legal/terms-of-use" target="_blank">Terms of Use</a>
+        | <a href="https://www.yworks.com/company/legal/privacy" target="_blank">Privacy Policy</a>
+      </div>
+      <div class="footer-block logo">
+      </div>
+    </footer>
+  </body>
+  </html>

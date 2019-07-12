@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ////////////////////////////////////////////////////////////////////////
+     //
+     // This demo file is part of yFiles for Java (Swing) 3.3.
+     //
+     // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // 72070 Tuebingen, Germany. All rights reserved.
+     //
+     // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
+     // of demo resource files, with or without modification, is not permitted.
+     // Owners of a valid software license for a yFiles for Java (Swing) version that this
+     // demo is shipped with are allowed to use the resource file as basis for
+     // their own yFiles for Java (Swing) powered applications. Use of such programs is
+     // governed by the rights and conditions as set out in the yFiles for Java (Swing)
+     // license agreement.
+     //
+     // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+     // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+     // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+     // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+     // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+     // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     // 
+     ////////////////////////////////////////////////////////////////////////-->
+<graphml
+ xmlns="http://graphml.graphdrawing.org/xmlns"
+ xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/3.0"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:y="http://www.yworks.com/xml/yfiles-common/3.0"
+ xmlns:yfj="http://www.yworks.com/xml/yfiles-for-java/3.1"
+ xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java"
+ xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml.java.fx/3.0/ygraphml.xsd ">
+  <key attr.name="NodeLabels" for="node" id="d0" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeLabels"/>
+  <key attr.name="NodeGeometry" for="node" id="d1" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeGeometry"/>
+  <key attr.name="UserTags" for="all" id="d2" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/UserTags"/>
+  <key attr.name="NodeStyle" for="node" id="d3" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeStyle"/>
+  <key attr.name="EdgeLabels" for="edge" id="d4" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeLabels"/>
+  <key attr.name="EdgeGeometry" for="edge" id="d5" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry"/>
+  <key attr.name="EdgeStyle" for="edge" id="d6" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeStyle"/>
+  <key attr.name="PortLocationParameter" for="port" id="d7" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLocationParameter">
+    <default>
+      <x:Static Member="y:FreeNodePortLocationModel.NodeCenterAnchored"/>
+    </default>
+  </key>
+  <key attr.name="PortStyle" for="port" id="d8" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortStyle">
+    <default>
+      <x:Static Member="y:VoidPortStyle.Instance"/>
+    </default>
+  </key>
+  <key attr.name="SharedData" id="d9" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData"/>
+  <data key="d9">
+    <y:SharedData>
+      <java:Color Value="#FF236CB6" x:Key="1"/>
+      <yfj:Pen Paint="{y:GraphMLReference 8}" x:Key="2"/>
+      <java:Color Value="#FFFFAF00" x:Key="3"/>
+      <java:Color Value="#FF5BAFE1" x:Key="4"/>
+      <yfj:Pen Paint="DarkRed" Thickness="2.0" x:Key="5"/>
+      <java:Color Value="#FF454545" x:Key="6"/>
+      <java:Color Value="#FFFF8800" x:Key="7"/>
+      <java:Color Value="White" x:Key="8"/>
+      <yfj:Pen Paint="{y:GraphMLReference 8}" x:Key="9"/>
+      <yfj:Pen Paint="DarkGreen" Thickness="2.0" x:Key="10"/>
+      <yfj:Pen Paint="{y:GraphMLReference 6}" x:Key="11"/>
+      <yfj:PolylineEdgeStyle TargetArrow="DEFAULT" x:Key="12"/>
+      <yfj:PolylineEdgeStyle TargetArrow="DEFAULT" x:Key="13"/>
+    </y:SharedData>
+  </data>
+  <graph id="G">
+    <node id="n0">
+      <data key="d1">
+        <y:RectD Height="30.0" Width="30.0" X="-15.0" Y="-15.0"/>
+      </data>
+      <data key="d3">
+        <yfj:ShapeNodeStyle Paint="{y:GraphMLReference 1}" Pen="{y:GraphMLReference 5}"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+      <port name="p3"/>
+      <port name="p4"/>
+    </node>
+    <node id="n1">
+      <data key="d1">
+        <y:RectD Height="30.0" Width="30.0" X="85.0" Y="-15.0"/>
+      </data>
+      <data key="d3">
+        <yfj:ShapeNodeStyle Paint="{y:GraphMLReference 3}" Pen="{y:GraphMLReference 2}"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+      <port name="p3"/>
+    </node>
+    <node id="n2">
+      <data key="d1">
+        <y:RectD Height="30.0" Width="30.0" X="185.0" Y="-15.0"/>
+      </data>
+      <data key="d3">
+        <yfj:ShapeNodeStyle Paint="{y:GraphMLReference 7}" Pen="{y:GraphMLReference 10}"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+    </node>
+    <node id="n3">
+      <data key="d1">
+        <y:RectD Height="30.0" Width="30.0" X="285.0" Y="-15.0"/>
+      </data>
+      <data key="d3">
+        <yfj:ShapeNodeStyle Paint="{y:GraphMLReference 1}" Pen="{y:GraphMLReference 2}"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+      <port name="p3"/>
+      <port name="p4"/>
+    </node>
+    <node id="n4">
+      <data key="d1">
+        <y:RectD Height="30.0" Width="30.0" X="-15.0" Y="85.0"/>
+      </data>
+      <data key="d3">
+        <yfj:ShapeNodeStyle Paint="{y:GraphMLReference 4}" Pen="{y:GraphMLReference 2}"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+      <port name="p3"/>
+    </node>
+    <node id="n5">
+      <data key="d1">
+        <y:RectD Height="30.0" Width="30.0" X="194.56955555555567" Y="89.60133333333337"/>
+      </data>
+      <data key="d3">
+        <yfj:ShapeNodeStyle Paint="{y:GraphMLReference 3}" Pen="{y:GraphMLReference 2}"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+      <port name="p3"/>
+      <port name="p4"/>
+    </node>
+    <node id="n6">
+      <data key="d1">
+        <y:RectD Height="30.0" Width="30.0" X="133.45844444444455" Y="170.15688888888894"/>
+      </data>
+      <data key="d3">
+        <yfj:ShapeNodeStyle Paint="{y:GraphMLReference 4}" Pen="{y:GraphMLReference 5}"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+      <port name="p3"/>
+    </node>
+    <node id="n7">
+      <data key="d1">
+        <y:RectD Height="30.0" Width="30.0" X="50.81955555555567" Y="112.51800000000003"/>
+      </data>
+      <data key="d3">
+        <yfj:ShapeNodeStyle Paint="{y:GraphMLReference 6}" Pen="{y:GraphMLReference 11}"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+      <port name="p3"/>
+    </node>
+    <node id="n8">
+      <data key="d1">
+        <y:RectD Height="30.0" Width="30.0" X="68.40984743411929" Y="201.10063584527666"/>
+      </data>
+      <data key="d3">
+        <yfj:ShapeNodeStyle Paint="{y:GraphMLReference 7}" Pen="{y:GraphMLReference 9}"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+    </node>
+    <node id="n9">
+      <data key="d1">
+        <y:RectD Height="30.0" Width="30.0" X="-68.8370319001387" Y="44.537529049160185"/>
+      </data>
+      <data key="d3">
+        <yfj:ShapeNodeStyle Paint="{y:GraphMLReference 3}" Pen="{y:GraphMLReference 9}"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+      <port name="p3"/>
+    </node>
+    <node id="n10">
+      <data key="d1">
+        <y:RectD Height="30.0" Width="30.0" X="-29.187933425797496" Y="177.7178341809216"/>
+      </data>
+      <data key="d3">
+        <yfj:ShapeNodeStyle Paint="{y:GraphMLReference 4}" Pen="{y:GraphMLReference 10}"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+      <port name="p3"/>
+    </node>
+    <node id="n11">
+      <data key="d1">
+        <y:RectD Height="30.0" Width="30.0" X="307.3210818307906" Y="92.31977592849444"/>
+      </data>
+      <data key="d3">
+        <yfj:ShapeNodeStyle Paint="{y:GraphMLReference 6}" Pen="{y:GraphMLReference 11}"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+    </node>
+    <node id="n12">
+      <data key="d1">
+        <y:RectD Height="30.0" Width="30.0" X="296.1380027739251" Y="-109.99229064570807"/>
+      </data>
+      <data key="d3">
+        <yfj:ShapeNodeStyle Paint="{y:GraphMLReference 6}" Pen="{y:GraphMLReference 11}"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+    </node>
+    <node id="n13">
+      <data key="d1">
+        <y:RectD Height="30.0" Width="30.0" X="-70.87031900138697" Y="-145.57481491755274"/>
+      </data>
+      <data key="d3">
+        <yfj:ShapeNodeStyle Paint="{y:GraphMLReference 6}" Pen="{y:GraphMLReference 11}"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+    </node>
+    <node id="n14">
+      <data key="d1">
+        <y:RectD Height="30.0" Width="30.0" X="46.04368932038835" Y="-113.04222129758048"/>
+      </data>
+      <data key="d3">
+        <yfj:ShapeNodeStyle Paint="{y:GraphMLReference 4}" Pen="{y:GraphMLReference 9}"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+      <port name="p3"/>
+    </node>
+    <node id="n15">
+      <data key="d1">
+        <y:RectD Height="152.44798890429954" Width="47.01664355062405" X="129.54160887656042" Y="-97.359835721991"/>
+      </data>
+      <data key="d3">
+        <yfj:PanelNodeStyle Color="#66FFFFFF"/>
+      </data>
+      <graph id="n15:">
+        <node id="n15::n0">
+          <data key="d1">
+            <y:RectD Height="30.0" Width="30.0" X="138.55825242718447" Y="-71.359835721991"/>
+          </data>
+          <data key="d3">
+            <yfj:ShapeNodeStyle Paint="{y:GraphMLReference 1}" Pen="{y:GraphMLReference 9}"/>
+          </data>
+          <port name="p0"/>
+          <port name="p1"/>
+        </node>
+        <node id="n15::n1">
+          <data key="d1">
+            <y:RectD Height="30.0" Width="30.0" X="137.54160887656042" Y="17.08815318230853"/>
+          </data>
+          <data key="d3">
+            <yfj:ShapeNodeStyle Paint="{y:GraphMLReference 1}" Pen="{y:GraphMLReference 9}"/>
+          </data>
+          <port name="p0"/>
+          <port name="p1"/>
+          <port name="p2"/>
+          <port name="p3"/>
+        </node>
+      </graph>
+    </node>
+    <edge id="e0" source="n0" sourceport="p0" target="n7" targetport="p0">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="12"/>
+      </data>
+    </edge>
+    <edge id="e1" source="n7" sourceport="p1" target="n1" targetport="p0">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="12"/>
+      </data>
+    </edge>
+    <edge id="e2" source="n1" sourceport="p1" target="n6" targetport="p0">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="12"/>
+      </data>
+    </edge>
+    <edge id="e3" source="n6" sourceport="p1" target="n4" targetport="p0">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="12"/>
+      </data>
+    </edge>
+    <edge id="e4" source="n2" sourceport="p0" target="n5" targetport="p0">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="12"/>
+      </data>
+    </edge>
+    <edge id="e5" source="n7" sourceport="p2" target="n3" targetport="p0">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="12"/>
+      </data>
+    </edge>
+    <edge id="e6" source="n3" sourceport="p1" target="n1" targetport="p2">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="12"/>
+      </data>
+    </edge>
+    <edge id="e7" source="n0" sourceport="p1" target="n5" targetport="p1">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="12"/>
+      </data>
+    </edge>
+    <edge id="e8" source="n5" sourceport="p2" target="n6" targetport="p2">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="12"/>
+      </data>
+    </edge>
+    <edge id="e9" source="n13" sourceport="p0" target="n0" targetport="p2">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e10" source="n14" sourceport="p0" target="n0" targetport="p3">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e11" source="n14" sourceport="p1" target="n12" targetport="p0">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e12" source="n12" sourceport="p1" target="n2" targetport="p1">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e13" source="n2" sourceport="p2" target="n15::n0" targetport="p0">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e14" source="n15::n0" sourceport="p1" target="n4" targetport="p1">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e15" source="n14" sourceport="p2" target="n1" targetport="p3">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e16" source="n10" sourceport="p0" target="n4" targetport="p2">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e17" source="n4" sourceport="p3" target="n9" targetport="p0">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e18" source="n9" sourceport="p1" target="n0" targetport="p4">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e19" source="n7" sourceport="p3" target="n10" targetport="p1">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e20" source="n10" sourceport="p2" target="n8" targetport="p0">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e21" source="n8" sourceport="p1" target="n6" targetport="p3">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e22" source="n11" sourceport="p0" target="n5" targetport="p3">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e23" source="n5" sourceport="p4" target="n15::n1" targetport="p0">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e24" source="n15::n1" sourceport="p1" target="n3" targetport="p2">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e25" source="n3" sourceport="p3" target="n11" targetport="p1">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e26" source="n11" sourceport="p2" target="n15::n1" targetport="p2">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e27" source="n3" sourceport="p4" target="n12" targetport="p2">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e28" source="n13" sourceport="p1" target="n14" targetport="p3">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e29" source="n13" sourceport="p2" target="n9" targetport="p2">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e30" source="n9" sourceport="p3" target="n10" targetport="p3">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+    <edge id="e31" source="n8" sourceport="p2" target="n15::n1" targetport="p3">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="13"/>
+      </data>
+    </edge>
+  </graph>
+</graphml>

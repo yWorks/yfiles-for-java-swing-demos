@@ -1,0 +1,37 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+
+<h1>Description</h1>
+
+Enable and customize the reconnection behavior of edges to other ports by implementing the
+<a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.IEdgeReconnectionPortCandidateProvider">IEdgeReconnectionPortCandidateProvider</a> interface and adding instances to the edge decorator of the graph.
+
+<h2>Things to Try</h2>
+
+<p> Select an edge and drag one of its port handles to another node. When over a node, green indicators
+  highlight valid new locations for the port. </p>
+
+<h2>Edge Types</h2>
+
+<ul>
+    <li>
+        <font color="#b22222"><b>Red edges</b></font> cannot be reconnected to another ports.
+    </li>
+    <li>
+      <font color="#ff8c00"><b>Orange edges</b></font> can be reconnected to other orange nodes, but you cannot create self-loops.
+    </li>
+    <li>
+      <font color="#4169e1"><b>Blue edges</b></font> can be connected to all other ports. Note
+        that the blue edge will reuse existing ports for other blue nodes and create new ports at the same location for other nodes.
+    </li>
+    <li>
+      <font color="#228b22"><b>Green edges</b></font> connect to any location inside of green nodes when
+      the Shift key is pressed.
+    </li>
+</ul>
+
+</body>
+</html>

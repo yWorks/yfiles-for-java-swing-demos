@@ -1,0 +1,48 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../resources/demo.css"/>
+</head>
+<body class="demo-description">
+
+<h2>Step 12: Bind Custom Data to Elements</h2>
+<p>
+  The usual method to bind arbitrary custom data to graph elements is to add an
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.IMapper">IMapper</a> to the graph's
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.IGraph%23IGraph-property-MapperRegistry">MapperRegistry</a>.
+  In this demo the creation time of each node is stored in this way.
+</p>
+<p>
+  Another approach is to use the
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.ITagOwner">ITagOwner</a> interface of the
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.IModelItem">IModelItem</a> to bind a single datum
+  to a graph element.
+</p>
+<p>
+  Display tool tips for these data items and a popup menu to manipulate them.
+</p>
+<p>
+  Note: If folding is enabled, like in this sample, we recommend to add the mapper to the <code>MapperRegistry</code> of
+  the master graph. Folding then makes sure that a corresponding mapper is available for the graph of the managed view;
+  the data can be accessed with both the master elements and the elements of the managed view.
+</p>
+<p>
+  Persisting the custom data is shown in a later step.
+</p>
+<p>
+  See the sources for details.
+</p>
+<br/>
+<h3>Relevant Chapters in the Developers Guide:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/graph_model-connecting_business_models">Storing Business Data for Graph Elements</a> (User Tags)</li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/customizing_graph-binding_data">Associating Data with Graph Elements</a> (IMapper)</li>
+</ul>
+<h3>Relevant API:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.ITagOwner">ITagOwner</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.IMapper">IMapper</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.IMapperRegistry">IMapperRegistry</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.IGraph%23IGraph-property-MapperRegistry">IGraph#MapperRegistry</a></li>
+</ul>
+</body>
+</html>

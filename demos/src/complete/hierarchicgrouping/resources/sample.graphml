@@ -1,0 +1,1296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ////////////////////////////////////////////////////////////////////////
+     //
+     // This demo file is part of yFiles for Java (Swing) 3.3.
+     //
+     // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // 72070 Tuebingen, Germany. All rights reserved.
+     //
+     // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
+     // of demo resource files, with or without modification, is not permitted.
+     // Owners of a valid software license for a yFiles for Java (Swing) version that this
+     // demo is shipped with are allowed to use the resource file as basis for
+     // their own yFiles for Java (Swing) powered applications. Use of such programs is
+     // governed by the rights and conditions as set out in the yFiles for Java (Swing)
+     // license agreement.
+     //
+     // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+     // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+     // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+     // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+     // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+     // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     // 
+     ////////////////////////////////////////////////////////////////////////-->
+<!--Created by yFiles for Java 3.1-->
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+         xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/3.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:y="http://www.yworks.com/xml/yfiles-common/3.0"
+         xmlns:yfj="http://www.yworks.com/xml/yfiles-for-java/3.1"
+         xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml.java/3.1/ygraphml.xsd ">
+  <key attr.name="UserTags" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/UserTags" for="all" id="d0"/>
+  <key attr.name="NodeLabels" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeLabels" for="node" id="d1"/>
+  <key attr.name="NodeGeometry" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeGeometry" for="node" id="d2"/>
+  <key attr.name="NodeStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeStyle" for="node" id="d3"/>
+  <key attr.name="Expanded" attr.type="boolean" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/folding/Expanded" for="node" id="d4">
+    <default>true</default>
+  </key>
+  <key attr.name="NodeViewState" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/folding/1.1/NodeViewState" for="node" id="d5"/>
+  <key attr.name="EdgeLabels" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeLabels" for="edge" id="d6"/>
+  <key attr.name="EdgeGeometry" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry" for="edge" id="d7"/>
+  <key attr.name="EdgeStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeStyle" for="edge" id="d8"/>
+  <key attr.name="EdgeViewState" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/folding/1.1/EdgeViewState" for="edge" id="d9"/>
+  <key attr.name="PortLocationParameter" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLocationParameter" for="port" id="d10">
+    <default>
+      <x:Static Member="y:FreeNodePortLocationModel.NodeCenterAnchored"/>
+    </default>
+  </key>
+  <key attr.name="PortStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortStyle" for="port" id="d11">
+    <default>
+      <x:Static Member="y:VoidPortStyle.Instance"/>
+    </default>
+  </key>
+  <key attr.name="PortViewState" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/folding/1.1/PortViewState" for="port" id="d12"/>
+  <key attr.name="SharedData" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData" id="d13"/>
+  <data key="d13">
+    <y:SharedData>
+      <yfj:ShinyPlateNodeStyle x:Key="1" Paint="Orange" />
+      <y:InteriorStretchLabelModelParameter x:Key="2">
+        <y:InteriorStretchLabelModelParameter.Model>
+          <y:InteriorStretchLabelModel Insets="5,0,5,0" />
+        </y:InteriorStretchLabelModelParameter.Model>
+      </y:InteriorStretchLabelModelParameter>
+      <yfj:DefaultLabelStyle x:Key="3"/>
+      <yfj:CollapsibleNodeStyleDecorator x:Key="4" ButtonPlacement="{x:Static y:InteriorLabelModel.NorthEast}">
+        <yfj:PanelNodeStyle  Color="#FFCFE2F8" LabelInsetsColor="#FFA6CAF0"  />
+      </yfj:CollapsibleNodeStyleDecorator>
+      <yfj:PolylineEdgeStyle x:Key="5" TargetArrow="DEFAULT" />
+    </y:SharedData>
+  </data>
+  <graph id="G" edgedefault="directed">
+    <node id="n0">
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="1" />
+      </data>
+      <data key="d2">
+        <y:RectD X="58" Y="0" Width="30" Height="30" />
+      </data>
+      <port name="p0">
+        <data key="d10">
+          <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0" />
+        </data>
+      </port>
+    </node>
+    <node id="n1">
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="1" />
+      </data>
+      <data key="d2">
+        <y:RectD X="58" Y="50" Width="30" Height="30" />
+      </data>
+      <port name="p0">
+        <data key="d10">
+          <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+        </data>
+      </port>
+      <port name="p1">
+        <data key="d10">
+          <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0" />
+        </data>
+      </port>
+    </node>
+    <node id="n2">
+      <data key="d4">false</data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="4" />
+      </data>
+      <data key="d5">
+        <y:ViewState>
+          <y:FolderNodeState x:Key="c|view" Layout="5,100,136,69">
+            <y:FolderNodeState.Labels>
+              <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+                <y:Label.Text><![CDATA[folder one]]></y:Label.Text>
+              </y:Label>
+            </y:FolderNodeState.Labels>
+          </y:FolderNodeState>
+        </y:ViewState>
+      </data>
+      <data key="d1">
+        <x:List>
+          <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+            <y:Label.Text><![CDATA[group one]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d2">
+        <y:RectD X="0" Y="100" Width="264" Height="292" />
+      </data>
+      <graph id="n2:" edgedefault="directed">
+        <node id="n2::n0">
+          <data key="d4">false</data>
+          <data key="d3">
+            <y:GraphMLReference ResourceKey="4" />
+          </data>
+          <data key="d5">
+            <y:ViewState>
+              <y:FolderNodeState x:Key="c|view" Layout="136,229,107,58">
+                <y:FolderNodeState.Labels>
+                  <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+                    <y:Label.Text><![CDATA[folder five]]></y:Label.Text>
+                  </y:Label>
+                </y:FolderNodeState.Labels>
+              </y:FolderNodeState>
+            </y:ViewState>
+          </data>
+          <data key="d1">
+            <x:List>
+              <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+                <y:Label.Text><![CDATA[group five]]></y:Label.Text>
+              </y:Label>
+            </x:List>
+          </data>
+          <data key="d2">
+            <y:RectD X="6" Y="229" Width="161" Height="147" />
+          </data>
+          <graph id="n2::n0:" edgedefault="directed">
+            <node id="n2::n0::n0">
+              <data key="d4">false</data>
+              <data key="d3">
+                <y:GraphMLReference ResourceKey="4" />
+              </data>
+              <data key="d5">
+                <y:ViewState>
+                  <y:FolderNodeState x:Key="c|view" Layout="72,310,89,59">
+                    <y:FolderNodeState.Labels>
+                      <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+                        <y:Label.Text><![CDATA[folder six]]></y:Label.Text>
+                      </y:Label>
+                    </y:FolderNodeState.Labels>
+                  </y:FolderNodeState>
+                </y:ViewState>
+              </data>
+              <data key="d1">
+                <x:List>
+                  <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+                    <y:Label.Text><![CDATA[group six]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d2">
+                <y:RectD X="87" Y="308" Width="117" Height="130.5" />
+              </data>
+              <graph id="n2::n0::n0:" edgedefault="directed">
+                <node id="n2::n0::n0::n0">
+                  <data key="d3">
+                    <y:GraphMLReference ResourceKey="1" />
+                  </data>
+                  <data key="d2">
+                    <y:RectD X="153" Y="327" Width="30" Height="30" />
+                  </data>
+                  <port name="p0">
+                    <data key="d10">
+                      <y:FreeNodePortLocationModelParameter Ratio="0.16666666666666702,1.0" />
+                    </data>
+                  </port>
+                  <port name="p1" />
+                  <port name="p2">
+                    <data key="d10">
+                      <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0" />
+                    </data>
+                  </port>
+                  <port name="p3" />
+                  <port name="p4">
+                    <data key="d10">
+                      <y:FreeNodePortLocationModelParameter Ratio="0.833333333333333,1.0" />
+                    </data>
+                  </port>
+                  <port name="p5">
+                    <data key="d10">
+                      <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+                    </data>
+                  </port>
+                </node>
+                <node id="n2::n0::n0::n1">
+                  <data key="d3">
+                    <y:GraphMLReference ResourceKey="1" />
+                  </data>
+                  <data key="d2">
+                    <y:RectD X="93" Y="403.5" Width="30" Height="30" />
+                  </data>
+                  <port name="p0" />
+                  <port name="p1">
+                    <data key="d10">
+                      <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+                    </data>
+                  </port>
+                  <port name="p2">
+                    <data key="d10">
+                      <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0" />
+                    </data>
+                  </port>
+                </node>
+                <node id="n2::n0::n0::n2">
+                  <data key="d3">
+                    <y:GraphMLReference ResourceKey="1" />
+                  </data>
+                  <data key="d2">
+                    <y:RectD X="153" Y="403.5" Width="30" Height="30" />
+                  </data>
+                  <port name="p0">
+                    <data key="d10">
+                      <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+                    </data>
+                  </port>
+                  <port name="p1" />
+                  <port name="p2">
+                    <data key="d10">
+                      <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0" />
+                    </data>
+                  </port>
+                </node>
+                <edge id="n2::n0::n0::e0" source="n2::n0::n0::n0" target="n2::n0::n0::n1" sourceport="p0" targetport="p1">
+                  <data key="d8">
+                    <y:GraphMLReference ResourceKey="5" />
+                  </data>
+                  <data key="d7">
+                    <x:List>
+                      <y:Bend Location="158,367" />
+                      <y:Bend Location="108,367" />
+                    </x:List>
+                  </data>
+                </edge>
+                <edge id="n2::n0::n0::e1" source="n2::n0::n0::n0" target="n2::n0::n0::n2" sourceport="p2" targetport="p0">
+                  <data key="d8">
+                    <y:GraphMLReference ResourceKey="5" />
+                  </data>
+                </edge>
+              </graph>
+              <port name="p0">
+                <data key="d12">
+                  <y:ViewState>
+                    <y:Port x:Key="c|view" />
+                  </y:ViewState>
+                </data>
+              </port>
+              <port name="p1">
+                <data key="d12">
+                  <y:ViewState>
+                    <y:Port x:Key="c|view" />
+                  </y:ViewState>
+                </data>
+              </port>
+              <port name="p2">
+                <data key="d12">
+                  <y:ViewState>
+                    <y:Port x:Key="c|view" />
+                  </y:ViewState>
+                </data>
+              </port>
+            </node>
+            <node id="n2::n0::n1">
+              <data key="d3">
+                <y:GraphMLReference ResourceKey="1" />
+              </data>
+              <data key="d2">
+                <y:RectD X="94" Y="248" Width="30" Height="30" />
+              </data>
+              <port name="p0">
+                <data key="d10">
+                  <y:FreeNodePortLocationModelParameter Ratio="0.25,1.0" />
+                </data>
+              </port>
+              <port name="p1" />
+              <port name="p2">
+                <data key="d10">
+                  <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+                </data>
+              </port>
+              <port name="p3">
+                <data key="d10">
+                  <y:FreeNodePortLocationModelParameter Ratio="0.75,1.0" />
+                </data>
+              </port>
+            </node>
+            <node id="n2::n0::n2">
+              <data key="d3">
+                <y:GraphMLReference ResourceKey="1" />
+              </data>
+              <data key="d2">
+                <y:RectD X="12" Y="324.5" Width="30" Height="30" />
+              </data>
+              <port name="p0" />
+              <port name="p1">
+                <data key="d10">
+                  <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+                </data>
+              </port>
+              <port name="p2">
+                <data key="d10">
+                  <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0" />
+                </data>
+              </port>
+            </node>
+            <edge id="n2::n0::e0" source="n2::n0::n1" target="n2::n0::n2" sourceport="p0" targetport="p1">
+              <data key="d8">
+                <y:GraphMLReference ResourceKey="5" />
+              </data>
+              <data key="d7">
+                <x:List>
+                  <y:Bend Location="101.5,288" />
+                  <y:Bend Location="27,288" />
+                </x:List>
+              </data>
+            </edge>
+            <edge id="n2::n0::e1" source="n2::n0::n1" target="n2::n0::n0::n0" sourceport="p3" targetport="p5">
+              <data key="d8">
+                <y:GraphMLReference ResourceKey="5" />
+              </data>
+              <data key="d9">
+                <y:ViewState>
+                  <y:FoldingEdgeState x:Key="n2::n0::n1|x|n2::n0::n0|c|view">
+                    <y:FoldingEdgeState.SourcePort>
+                      <y:Port>
+                        <y:Port.LocationParameter>
+                          <y:FreeNodePortLocationModelParameter Ratio="0.75,1.0" />
+                        </y:Port.LocationParameter>
+                      </y:Port>
+                    </y:FoldingEdgeState.SourcePort>
+                    <y:FoldingEdgeState.TargetPort>
+                      <y:Port>
+                        <y:Port.LocationParameter>
+                          <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+                        </y:Port.LocationParameter>
+                      </y:Port>
+                    </y:FoldingEdgeState.TargetPort>
+                  </y:FoldingEdgeState>
+                </y:ViewState>
+              </data>
+              <data key="d7">
+                <x:List>
+                  <y:Bend Location="57,288" />
+                  <y:Bend Location="168,288" />
+                </x:List>
+              </data>
+            </edge>
+          </graph>
+        </node>
+        <node id="n2::n1">
+          <data key="d4">false</data>
+          <data key="d3">
+            <y:GraphMLReference ResourceKey="4" />
+          </data>
+          <data key="d5">
+            <y:ViewState>
+              <y:FolderNodeState x:Key="c|view" Layout="6,229.5,100,57">
+                <y:FolderNodeState.Labels>
+                  <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+                    <y:Label.Text><![CDATA[folder two]]></y:Label.Text>
+                  </y:Label>
+                </y:FolderNodeState.Labels>
+              </y:FolderNodeState>
+            </y:ViewState>
+          </data>
+          <data key="d1">
+            <x:List>
+              <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+                <y:Label.Text><![CDATA[group two]]></y:Label.Text>
+              </y:Label>
+            </x:List>
+          </data>
+          <data key="d2">
+            <y:RectD X="21" Y="229" Width="147" Height="217" />
+          </data>
+          <graph id="n2::n1:" edgedefault="directed">
+            <node id="n2::n1::n0">
+              <data key="d4">false</data>
+              <data key="d3">
+                <y:GraphMLReference ResourceKey="4" />
+              </data>
+              <data key="d5">
+                <y:ViewState>
+                  <y:FolderNodeState x:Key="c|view" Layout="27,318,100,63">
+                    <y:FolderNodeState.Labels>
+                      <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+                        <y:Label.Text><![CDATA[folder three]]></y:Label.Text>
+                      </y:Label>
+                    </y:FolderNodeState.Labels>
+                  </y:FolderNodeState>
+                </y:ViewState>
+              </data>
+              <data key="d1">
+                <x:List>
+                  <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+                    <y:Label.Text><![CDATA[group three]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d2">
+                <y:RectD X="77" Y="308" Width="126" Height="208" />
+              </data>
+              <graph id="n2::n1::n0:" edgedefault="directed">
+                <node id="n2::n1::n0::n0">
+                  <data key="d4">false</data>
+                  <data key="d3">
+                    <y:GraphMLReference ResourceKey="4" />
+                  </data>
+                  <data key="d5">
+                    <y:ViewState>
+                      <y:FolderNodeState x:Key="c|view" Layout="83,391,99,60">
+                        <y:FolderNodeState.Labels>
+                          <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+                            <y:Label.Text><![CDATA[folder four]]></y:Label.Text>
+                          </y:Label>
+                        </y:FolderNodeState.Labels>
+                      </y:FolderNodeState>
+                    </y:ViewState>
+                  </data>
+                  <data key="d1">
+                    <x:List>
+                      <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+                        <y:Label.Text><![CDATA[group four]]></y:Label.Text>
+                      </y:Label>
+                    </x:List>
+                  </data>
+                  <data key="d2">
+                    <y:RectD X="83" Y="387" Width="71" Height="193" />
+                  </data>
+                  <graph id="n2::n1::n0::n0:" edgedefault="directed">
+                    <node id="n2::n1::n0::n0::n0">
+                      <data key="d3">
+                        <y:GraphMLReference ResourceKey="1" />
+                      </data>
+                      <data key="d2">
+                        <y:RectD X="110.5" Y="406" Width="30" Height="30" />
+                      </data>
+                      <port name="p0">
+                        <data key="d10">
+                          <y:FreeNodePortLocationModelParameter Ratio="0.25,1.0" />
+                        </data>
+                      </port>
+                      <port name="p1" />
+                      <port name="p2" />
+                      <port name="p3">
+                        <data key="d10">
+                          <y:FreeNodePortLocationModelParameter Ratio="0.75,1.0" />
+                        </data>
+                      </port>
+                      <port name="p4">
+                        <data key="d10">
+                          <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+                        </data>
+                      </port>
+                    </node>
+                    <node id="n2::n1::n0::n0::n1">
+                      <data key="d3">
+                        <y:GraphMLReference ResourceKey="1" />
+                      </data>
+                      <data key="d2">
+                        <y:RectD X="103" Y="485" Width="30" Height="30" />
+                      </data>
+                      <port name="p0">
+                        <data key="d10">
+                          <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0" />
+                        </data>
+                      </port>
+                      <port name="p1">
+                        <data key="d10">
+                          <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+                        </data>
+                      </port>
+                    </node>
+                    <node id="n2::n1::n0::n0::n2">
+                      <data key="d3">
+                        <y:GraphMLReference ResourceKey="1" />
+                      </data>
+                      <data key="d2">
+                        <y:RectD X="103" Y="545" Width="30" Height="30" />
+                      </data>
+                      <port name="p0" />
+                      <port name="p1">
+                        <data key="d10">
+                          <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+                        </data>
+                      </port>
+                      <port name="p2">
+                        <data key="d10">
+                          <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0" />
+                        </data>
+                      </port>
+                    </node>
+                    <edge id="n2::n1::n0::n0::e0" source="n2::n1::n0::n0::n0" target="n2::n1::n0::n0::n1" sourceport="p0" targetport="p1">
+                      <data key="d8">
+                        <y:GraphMLReference ResourceKey="5" />
+                      </data>
+                    </edge>
+                    <edge id="n2::n1::n0::n0::e1" source="n2::n1::n0::n0::n1" target="n2::n1::n0::n0::n2" sourceport="p0" targetport="p1">
+                      <data key="d8">
+                        <y:GraphMLReference ResourceKey="5" />
+                      </data>
+                    </edge>
+                  </graph>
+                </node>
+                <node id="n2::n1::n0::n1">
+                  <data key="d3">
+                    <y:GraphMLReference ResourceKey="1" />
+                  </data>
+                  <data key="d2">
+                    <y:RectD X="125" Y="327" Width="30" Height="30" />
+                  </data>
+                  <port name="p0">
+                    <data key="d10">
+                      <y:FreeNodePortLocationModelParameter Ratio="0.75,1.0" />
+                    </data>
+                  </port>
+                  <port name="p1" />
+                  <port name="p2">
+                    <data key="d10">
+                      <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+                    </data>
+                  </port>
+                  <port name="p3">
+                    <data key="d10">
+                      <y:FreeNodePortLocationModelParameter Ratio="0.25,1.0" />
+                    </data>
+                  </port>
+                </node>
+                <node id="n2::n1::n0::n2">
+                  <data key="d3">
+                    <y:GraphMLReference ResourceKey="1" />
+                  </data>
+                  <data key="d2">
+                    <y:RectD X="142.25" Y="481" Width="30" Height="30" />
+                  </data>
+                  <port name="p0" />
+                  <port name="p1">
+                    <data key="d10">
+                      <y:FreeNodePortLocationModelParameter Ratio="0.833333333333333,0.0" />
+                    </data>
+                  </port>
+                  <port name="p2">
+                    <data key="d10">
+                      <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0" />
+                    </data>
+                  </port>
+                  <port name="p3">
+                    <data key="d10">
+                      <y:FreeNodePortLocationModelParameter Ratio="0.16666666666666702,0.0" />
+                    </data>
+                  </port>
+                  <port name="p4">
+                    <data key="d10">
+                      <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+                    </data>
+                  </port>
+                </node>
+                <edge id="n2::n1::n0::e0" source="n2::n1::n0::n0::n2" target="n2::n1::n0::n2" sourceport="p2" targetport="p3">
+                  <data key="d8">
+                    <y:GraphMLReference ResourceKey="5" />
+                  </data>
+                  <data key="d9">
+                    <y:ViewState>
+                      <y:FoldingEdgeState x:Key="n2::n1::n0::n0|c|n2::n1::n0::n2|x|view">
+                        <y:FoldingEdgeState.Bends>
+                          <y:Bend Location="107.75,461" />
+                          <y:Bend Location="147.25,461" />
+                        </y:FoldingEdgeState.Bends>
+                        <y:FoldingEdgeState.SourcePort>
+                          <y:Port>
+                            <y:Port.LocationParameter>
+                              <y:FreeNodePortLocationModelParameter Ratio="0.25,1.0" />
+                            </y:Port.LocationParameter>
+                          </y:Port>
+                        </y:FoldingEdgeState.SourcePort>
+                        <y:FoldingEdgeState.TargetPort>
+                          <y:Port>
+                            <y:Port.LocationParameter>
+                              <y:FreeNodePortLocationModelParameter Ratio="0.16666666666666702,0.0" />
+                            </y:Port.LocationParameter>
+                          </y:Port>
+                        </y:FoldingEdgeState.TargetPort>
+                      </y:FoldingEdgeState>
+                    </y:ViewState>
+                  </data>
+                  <data key="d7">
+                    <x:List>
+                      <y:Bend Location="118,590" />
+                      <y:Bend Location="138,590" />
+                    </x:List>
+                  </data>
+                </edge>
+                <edge id="n2::n1::n0::e1" source="n2::n1::n0::n0::n0" target="n2::n1::n0::n2" sourceport="p3" targetport="p4">
+                  <data key="d8">
+                    <y:GraphMLReference ResourceKey="5" />
+                  </data>
+                  <data key="d9">
+                    <y:ViewState>
+                      <y:FoldingEdgeState x:Key="n2::n1::n0::n0|c|n2::n1::n0::n2|x|view">
+                        <y:FoldingEdgeState.SourcePort>
+                          <y:Port>
+                            <y:Port.LocationParameter>
+                              <y:FreeNodePortLocationModelParameter Ratio="0.75,1.0" />
+                            </y:Port.LocationParameter>
+                          </y:Port>
+                        </y:FoldingEdgeState.SourcePort>
+                        <y:FoldingEdgeState.TargetPort>
+                          <y:Port>
+                            <y:Port.LocationParameter>
+                              <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+                            </y:Port.LocationParameter>
+                          </y:Port>
+                        </y:FoldingEdgeState.TargetPort>
+                      </y:FoldingEdgeState>
+                    </y:ViewState>
+                  </data>
+                  <data key="d7">
+                    <x:List>
+                      <y:Bend Location="133,446" />
+                      <y:Bend Location="148,446" />
+                    </x:List>
+                  </data>
+                </edge>
+                <edge id="n2::n1::n0::e2" source="n2::n1::n0::n1" target="n2::n1::n0::n2" sourceport="p0" targetport="p1">
+                  <data key="d8">
+                    <y:GraphMLReference ResourceKey="5" />
+                  </data>
+                  <data key="d7">
+                    <x:List>
+                      <y:Bend Location="147.5,367" />
+                      <y:Bend Location="197,367" />
+                      <y:Bend Location="197,461" />
+                      <y:Bend Location="167.25,461" />
+                    </x:List>
+                  </data>
+                </edge>
+                <edge id="n2::n1::n0::e3" source="n2::n1::n0::n1" target="n2::n1::n0::n0::n0" sourceport="p3" targetport="p4">
+                  <data key="d8">
+                    <y:GraphMLReference ResourceKey="5" />
+                  </data>
+                  <data key="d9">
+                    <y:ViewState>
+                      <y:FoldingEdgeState x:Key="n2::n1::n0::n1|x|n2::n1::n0::n0|c|view">
+                        <y:FoldingEdgeState.SourcePort>
+                          <y:Port>
+                            <y:Port.LocationParameter>
+                              <y:FreeNodePortLocationModelParameter Ratio="0.25,1.0" />
+                            </y:Port.LocationParameter>
+                          </y:Port>
+                        </y:FoldingEdgeState.SourcePort>
+                        <y:FoldingEdgeState.TargetPort>
+                          <y:Port>
+                            <y:Port.LocationParameter>
+                              <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+                            </y:Port.LocationParameter>
+                          </y:Port>
+                        </y:FoldingEdgeState.TargetPort>
+                      </y:FoldingEdgeState>
+                    </y:ViewState>
+                  </data>
+                </edge>
+              </graph>
+            </node>
+            <node id="n2::n1::n1">
+              <data key="d3">
+                <y:GraphMLReference ResourceKey="1" />
+              </data>
+              <data key="d2">
+                <y:RectD X="69.5" Y="248" Width="30" Height="30" />
+              </data>
+              <port name="p0">
+                <data key="d10">
+                  <y:FreeNodePortLocationModelParameter Ratio="0.75,1.0" />
+                </data>
+              </port>
+              <port name="p1" />
+              <port name="p2">
+                <data key="d10">
+                  <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+                </data>
+              </port>
+              <port name="p3">
+                <data key="d10">
+                  <y:FreeNodePortLocationModelParameter Ratio="0.75,1.0" />
+                </data>
+              </port>
+            </node>
+            <node id="n2::n1::n2">
+              <data key="d3">
+                <y:GraphMLReference ResourceKey="1" />
+              </data>
+              <data key="d2">
+                <y:RectD X="117" Y="411" Width="30" Height="30" />
+              </data>
+              <port name="p0" />
+              <port name="p1">
+                <data key="d10">
+                  <y:FreeNodePortLocationModelParameter Ratio="0.75,0.0" />
+                </data>
+              </port>
+              <port name="p2">
+                <data key="d10">
+                  <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0" />
+                </data>
+              </port>
+              <port name="p3">
+                <data key="d10">
+                  <y:FreeNodePortLocationModelParameter Ratio="0.75,0.0" />
+                </data>
+              </port>
+            </node>
+            <node id="n2::n1::n3">
+              <data key="d3">
+                <y:GraphMLReference ResourceKey="1" />
+              </data>
+              <data key="d2">
+                <y:RectD X="132" Y="248" Width="30" Height="30" />
+              </data>
+              <port name="p0" />
+              <port name="p1">
+                <data key="d10">
+                  <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0" />
+                </data>
+              </port>
+            </node>
+            <edge id="n2::n1::e0" source="n2::n1::n0::n2" target="n2::n1::n2" sourceport="p2" targetport="p3">
+              <data key="d8">
+                <y:GraphMLReference ResourceKey="5" />
+              </data>
+              <data key="d9">
+                <y:ViewState>
+                  <y:FoldingEdgeState x:Key="n2::n1::n0|c|n2::n1::n2|x|view">
+                    <y:FoldingEdgeState.Bends>
+                      <y:Bend Location="77,391" />
+                      <y:Bend Location="124.5,391" />
+                    </y:FoldingEdgeState.Bends>
+                    <y:FoldingEdgeState.SourcePort>
+                      <y:Port>
+                        <y:Port.LocationParameter>
+                          <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0" />
+                        </y:Port.LocationParameter>
+                      </y:Port>
+                    </y:FoldingEdgeState.SourcePort>
+                    <y:FoldingEdgeState.TargetPort>
+                      <y:Port>
+                        <y:Port.LocationParameter>
+                          <y:FreeNodePortLocationModelParameter Ratio="0.25,0.0" />
+                        </y:Port.LocationParameter>
+                      </y:Port>
+                    </y:FoldingEdgeState.TargetPort>
+                  </y:FoldingEdgeState>
+                </y:ViewState>
+              </data>
+            </edge>
+            <edge id="n2::n1::e1" source="n2::n1::n1" target="n2::n1::n2" sourceport="p0" targetport="p1">
+              <data key="d8">
+                <y:GraphMLReference ResourceKey="5" />
+              </data>
+              <data key="d7">
+                <x:List>
+                  <y:Bend Location="92,298" />
+                  <y:Bend Location="142,298" />
+                  <y:Bend Location="142,359.5" />
+                  <y:Bend Location="139.5,359.5" />
+                </x:List>
+              </data>
+            </edge>
+            <edge id="n2::n1::e2" source="n2::n1::n1" target="n2::n1::n0::n1" sourceport="p3" targetport="p2">
+              <data key="d8">
+                <y:GraphMLReference ResourceKey="5" />
+              </data>
+              <data key="d9">
+                <y:ViewState>
+                  <y:FoldingEdgeState x:Key="n2::n1::n1|x|n2::n1::n0|c|view">
+                    <y:FoldingEdgeState.SourcePort>
+                      <y:Port>
+                        <y:Port.LocationParameter>
+                          <y:FreeNodePortLocationModelParameter Ratio="0.25,1.0" />
+                        </y:Port.LocationParameter>
+                      </y:Port>
+                    </y:FoldingEdgeState.SourcePort>
+                    <y:FoldingEdgeState.TargetPort>
+                      <y:Port>
+                        <y:Port.LocationParameter>
+                          <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+                        </y:Port.LocationParameter>
+                      </y:Port>
+                    </y:FoldingEdgeState.TargetPort>
+                  </y:FoldingEdgeState>
+                </y:ViewState>
+              </data>
+              <data key="d7">
+                <x:List>
+                  <y:Bend Location="109.5,288" />
+                  <y:Bend Location="140,288" />
+                </x:List>
+              </data>
+            </edge>
+          </graph>
+        </node>
+        <node id="n2::n2">
+          <data key="d3">
+            <y:GraphMLReference ResourceKey="1" />
+          </data>
+          <data key="d2">
+            <y:RectD X="174.5" Y="119" Width="30" Height="30" />
+          </data>
+          <port name="p0">
+            <data key="d10">
+              <y:FreeNodePortLocationModelParameter Ratio="0.833333333333333,1.0" />
+            </data>
+          </port>
+          <port name="p1" />
+          <port name="p2">
+            <data key="d10">
+              <y:FreeNodePortLocationModelParameter Ratio="0.16666666666666702,1.0" />
+            </data>
+          </port>
+          <port name="p3">
+            <data key="d10">
+              <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+            </data>
+          </port>
+          <port name="p4">
+            <data key="d10">
+              <y:FreeNodePortLocationModelParameter Ratio="0.16666666666666702,1.0" />
+            </data>
+          </port>
+        </node>
+        <node id="n2::n3">
+          <data key="d3">
+            <y:GraphMLReference ResourceKey="1" />
+          </data>
+          <data key="d2">
+            <y:RectD X="41" Y="179" Width="30" Height="30" />
+          </data>
+          <port name="p0">
+            <data key="d10">
+              <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+            </data>
+          </port>
+          <port name="p1">
+            <data key="d10">
+              <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0" />
+            </data>
+          </port>
+        </node>
+        <node id="n2::n4">
+          <data key="d3">
+            <y:GraphMLReference ResourceKey="1" />
+          </data>
+          <data key="d2">
+            <y:RectD X="206.053571428571" Y="357" Width="30" Height="30" />
+          </data>
+          <port name="p0">
+            <data key="d10">
+              <y:FreeNodePortLocationModelParameter Ratio="0.928571428571429,0.0" />
+            </data>
+          </port>
+          <port name="p1">
+            <data key="d10">
+              <y:FreeNodePortLocationModelParameter Ratio="0.357142857142857,0.0" />
+            </data>
+          </port>
+          <port name="p2">
+            <data key="d10">
+              <y:FreeNodePortLocationModelParameter Ratio="0.21428571428571402,0.0" />
+            </data>
+          </port>
+          <port name="p3">
+            <data key="d10">
+              <y:FreeNodePortLocationModelParameter Ratio="0.07142857142857101,0.0" />
+            </data>
+          </port>
+          <port name="p4">
+            <data key="d10">
+              <y:FreeNodePortLocationModelParameter Ratio="0.642857142857143,0.0" />
+            </data>
+          </port>
+          <port name="p5">
+            <data key="d10">
+              <y:FreeNodePortLocationModelParameter Ratio="0.357142857142857,0.0" />
+            </data>
+          </port>
+          <port name="p6">
+            <data key="d10">
+              <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+            </data>
+          </port>
+        </node>
+        <edge id="n2::e0" source="n2::n0::n2" target="n2::n4" sourceport="p2" targetport="p3">
+          <data key="d8">
+            <y:GraphMLReference ResourceKey="5" />
+          </data>
+          <data key="d9">
+            <y:ViewState>
+              <y:FoldingEdgeState x:Key="n2::n0|c|n2::n4|x|view">
+                <y:FoldingEdgeState.Bends>
+                  <y:Bend Location="149.375,317" />
+                  <y:Bend Location="216.767857142857,317" />
+                </y:FoldingEdgeState.Bends>
+                <y:FoldingEdgeState.SourcePort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.125,1.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.SourcePort>
+                <y:FoldingEdgeState.TargetPort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.357142857142857,0.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.TargetPort>
+              </y:FoldingEdgeState>
+            </y:ViewState>
+          </data>
+          <data key="d7">
+            <x:List>
+              <y:Bend Location="27,446" />
+              <y:Bend Location="133.309523809524,446" />
+            </x:List>
+          </data>
+        </edge>
+        <edge id="n2::e1" source="n2::n0::n0::n0" target="n2::n4" sourceport="p4" targetport="p4">
+          <data key="d8">
+            <y:GraphMLReference ResourceKey="5" />
+          </data>
+          <data key="d9">
+            <y:ViewState>
+              <y:FoldingEdgeState x:Key="n2::n0::n0|c|n2::n4|x|view">
+                <y:FoldingEdgeState.SourcePort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.833333333333333,1.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.SourcePort>
+                <y:FoldingEdgeState.TargetPort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.TargetPort>
+              </y:FoldingEdgeState>
+              <y:FoldingEdgeState x:Key="n2::n0|c|n2::n4|x|view">
+                <y:FoldingEdgeState.SourcePort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.875,1.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.SourcePort>
+                <y:FoldingEdgeState.TargetPort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.785714285714286,0.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.TargetPort>
+              </y:FoldingEdgeState>
+            </y:ViewState>
+          </data>
+          <data key="d7">
+            <x:List>
+              <y:Bend Location="178,367" />
+              <y:Bend Location="198,367" />
+              <y:Bend Location="198,453.5" />
+              <y:Bend Location="172.285714285714,453.5" />
+            </x:List>
+          </data>
+        </edge>
+        <edge id="n2::e2" source="n2::n0::n0::n1" target="n2::n4" sourceport="p2" targetport="p5">
+          <data key="d8">
+            <y:GraphMLReference ResourceKey="5" />
+          </data>
+          <data key="d9">
+            <y:ViewState>
+              <y:FoldingEdgeState x:Key="n2::n0::n0|c|n2::n4|x|view">
+                <y:FoldingEdgeState.Bends>
+                  <y:Bend Location="116.5,426" />
+                  <y:Bend Location="141.880952380952,426" />
+                </y:FoldingEdgeState.Bends>
+                <y:FoldingEdgeState.SourcePort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.SourcePort>
+                <y:FoldingEdgeState.TargetPort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.357142857142857,0.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.TargetPort>
+              </y:FoldingEdgeState>
+              <y:FoldingEdgeState x:Key="n2::n0|c|n2::n4|x|view">
+                <y:FoldingEdgeState.Bends>
+                  <y:Bend Location="202.875,297" />
+                  <y:Bend Location="225.339285714286,297" />
+                </y:FoldingEdgeState.Bends>
+                <y:FoldingEdgeState.SourcePort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.625,1.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.SourcePort>
+                <y:FoldingEdgeState.TargetPort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.642857142857143,0.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.TargetPort>
+              </y:FoldingEdgeState>
+            </y:ViewState>
+          </data>
+          <data key="d7">
+            <x:List>
+              <y:Bend Location="108,453.5" />
+              <y:Bend Location="163.714285714286,453.5" />
+            </x:List>
+          </data>
+        </edge>
+        <edge id="n2::e3" source="n2::n0::n0::n2" target="n2::n4" sourceport="p2" targetport="p6">
+          <data key="d8">
+            <y:GraphMLReference ResourceKey="5" />
+          </data>
+          <data key="d9">
+            <y:ViewState>
+              <y:FoldingEdgeState x:Key="n2::n0::n0|c|n2::n4|x|view">
+                <y:FoldingEdgeState.Bends>
+                  <y:Bend Location="86.8333333333333,436" />
+                  <y:Bend Location="137.595238095238,436" />
+                </y:FoldingEdgeState.Bends>
+                <y:FoldingEdgeState.SourcePort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.16666666666666702,1.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.SourcePort>
+                <y:FoldingEdgeState.TargetPort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.21428571428571402,0.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.TargetPort>
+              </y:FoldingEdgeState>
+              <y:FoldingEdgeState x:Key="n2::n0|c|n2::n4|x|view">
+                <y:FoldingEdgeState.Bends>
+                  <y:Bend Location="176.125,307" />
+                  <y:Bend Location="221.053571428571,307" />
+                </y:FoldingEdgeState.Bends>
+                <y:FoldingEdgeState.SourcePort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.375,1.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.SourcePort>
+                <y:FoldingEdgeState.TargetPort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.TargetPort>
+              </y:FoldingEdgeState>
+            </y:ViewState>
+          </data>
+        </edge>
+        <edge id="n2::e4" source="n2::n1::n3" target="n2::n4" sourceport="p1" targetport="p1">
+          <data key="d8">
+            <y:GraphMLReference ResourceKey="5" />
+          </data>
+          <data key="d9">
+            <y:ViewState>
+              <y:FoldingEdgeState x:Key="n2::n1|c|n2::n4|x|view">
+                <y:FoldingEdgeState.Bends>
+                  <y:Bend Location="31,337" />
+                  <y:Bend Location="208.196428571429,337" />
+                </y:FoldingEdgeState.Bends>
+                <y:FoldingEdgeState.SourcePort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.25,1.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.SourcePort>
+                <y:FoldingEdgeState.TargetPort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.07142857142857101,0.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.TargetPort>
+              </y:FoldingEdgeState>
+            </y:ViewState>
+          </data>
+          <data key="d7">
+            <x:List>
+              <y:Bend Location="147,288" />
+              <y:Bend Location="162,288" />
+              <y:Bend Location="162,456" />
+              <y:Bend Location="207.089285714286,456" />
+            </x:List>
+          </data>
+        </edge>
+        <edge id="n2::e5" source="n2::n1::n2" target="n2::n4" sourceport="p2" targetport="p2">
+          <data key="d8">
+            <y:GraphMLReference ResourceKey="5" />
+          </data>
+          <data key="d9">
+            <y:ViewState>
+              <y:FoldingEdgeState x:Key="n2::n1|c|n2::n4|x|view">
+                <y:FoldingEdgeState.Bends>
+                  <y:Bend Location="81,327" />
+                  <y:Bend Location="212.482142857143,327" />
+                </y:FoldingEdgeState.Bends>
+                <y:FoldingEdgeState.SourcePort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.75,1.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.SourcePort>
+                <y:FoldingEdgeState.TargetPort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.21428571428571402,0.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.TargetPort>
+              </y:FoldingEdgeState>
+            </y:ViewState>
+          </data>
+          <data key="d7">
+            <x:List>
+              <y:Bend Location="132,466" />
+              <y:Bend Location="202.803571428571,466" />
+            </x:List>
+          </data>
+        </edge>
+        <edge id="n2::e6" source="n2::n2" target="n2::n3" sourceport="p2" targetport="p0">
+          <data key="d8">
+            <y:GraphMLReference ResourceKey="5" />
+          </data>
+          <data key="d7">
+            <x:List>
+              <y:Bend Location="179.5,159" />
+              <y:Bend Location="56,159" />
+            </x:List>
+          </data>
+        </edge>
+        <edge id="n2::e7" source="n2::n2" target="n2::n4" sourceport="p0" targetport="p0">
+          <data key="d8">
+            <y:GraphMLReference ResourceKey="5" />
+          </data>
+          <data key="d7">
+            <x:List>
+              <y:Bend Location="199.5,159" />
+              <y:Bend Location="258,159" />
+              <y:Bend Location="258,297" />
+              <y:Bend Location="233.910714285714,297" />
+            </x:List>
+          </data>
+        </edge>
+        <edge id="n2::e8" source="n2::n2" target="n2::n0::n1" sourceport="p4" targetport="p2">
+          <data key="d8">
+            <y:GraphMLReference ResourceKey="5" />
+          </data>
+          <data key="d9">
+            <y:ViewState>
+              <y:FoldingEdgeState x:Key="n2::n2|x|n2::n0|c|view">
+                <y:FoldingEdgeState.SourcePort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.SourcePort>
+                <y:FoldingEdgeState.TargetPort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.TargetPort>
+              </y:FoldingEdgeState>
+            </y:ViewState>
+          </data>
+          <data key="d7">
+            <x:List>
+              <y:Bend Location="250.5,159" />
+              <y:Bend Location="109,159" />
+            </x:List>
+          </data>
+        </edge>
+        <edge id="n2::e9" source="n2::n3" target="n2::n1::n1" sourceport="p1" targetport="p2">
+          <data key="d8">
+            <y:GraphMLReference ResourceKey="5" />
+          </data>
+          <data key="d9">
+            <y:ViewState>
+              <y:FoldingEdgeState x:Key="n2::n3|x|n2::n1|c|view">
+                <y:FoldingEdgeState.SourcePort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.SourcePort>
+                <y:FoldingEdgeState.TargetPort>
+                  <y:Port>
+                    <y:Port.LocationParameter>
+                      <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+                    </y:Port.LocationParameter>
+                  </y:Port>
+                </y:FoldingEdgeState.TargetPort>
+              </y:FoldingEdgeState>
+            </y:ViewState>
+          </data>
+        </edge>
+      </graph>
+    </node>
+    <edge id="e0" source="n0" target="n1" sourceport="p0" targetport="p0">
+      <data key="d8">
+        <y:GraphMLReference ResourceKey="5" />
+      </data>
+    </edge>
+    <edge id="e1" source="n1" target="n2::n2" sourceport="p1" targetport="p3">
+      <data key="d8">
+        <y:GraphMLReference ResourceKey="5" />
+      </data>
+      <data key="d9">
+        <y:ViewState>
+          <y:FoldingEdgeState x:Key="n1|x|n2|c|view">
+            <y:FoldingEdgeState.SourcePort>
+              <y:Port>
+                <y:Port.LocationParameter>
+                  <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0" />
+                </y:Port.LocationParameter>
+              </y:Port>
+            </y:FoldingEdgeState.SourcePort>
+            <y:FoldingEdgeState.TargetPort>
+              <y:Port>
+                <y:Port.LocationParameter>
+                  <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0" />
+                </y:Port.LocationParameter>
+              </y:Port>
+            </y:FoldingEdgeState.TargetPort>
+          </y:FoldingEdgeState>
+        </y:ViewState>
+      </data>
+    </edge>
+  </graph>
+</graphml>

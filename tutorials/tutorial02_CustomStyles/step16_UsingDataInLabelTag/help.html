@@ -1,0 +1,49 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../resources/demo.css"/>
+</head>
+<body class="demo-description">
+<h2>Step 16: Using Data In Label Tag</h2>
+
+<p>
+  Adjust rendering depending on data from a business object stored in the label's tag. This
+  mechanism also applies to nodes, edges and ports. In this example, a dummy business object, which only defines a
+  color, is stored. This color is used to set the background of the label. You can store any object you like in the
+  tag to use its data in the style.
+</p>
+
+<p>
+  Note that, in contrast to <code>MySimpleNodeStyle</code>, you can change the color of each label separately without
+  affecting other labels that use the same style instance.
+</p>
+
+<h3>Things to Try</h3>
+
+<ul>
+  <li>
+    Change the label tags in method <code>SampleApplication.createLabelTags()</code> and see what happens.
+  </li>
+  <li>
+    Take a look at class <code>MySimpleLabelStyle</code>, especially method <code>getColor()</code>.
+  </li>
+</ul>
+
+<h3>Left to Do</h3>
+
+<ul>
+  <li>
+    Create a custom edge style.
+  </li>
+  <li>
+    Create a custom port style for nodes.
+  </li>
+</ul>
+
+<br/>
+<h3>Relevant Chapters in the Developers Guide:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/customizing_styles">Customizing Styles</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/custom-styles_basic">Basic Custom Style Implementation</a></li>
+</ul>
+</body>
+</html>

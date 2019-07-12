@@ -1,0 +1,49 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+<h1>Description</h1>
+<p>
+  Shows data binding with class <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.AdjacentNodesGraphBuilder">AdjacentNodesGraphBuilder</a>.
+</p>
+<p>
+  NodesSource defines the basic nodes of the graph. Other nodes can be added by
+  the predecessors (successors) binding of already existing node. A node that is
+  only defined as predecessor (successor) of another node and not by NodesSource
+  itself is removed from the graph if it is removed from the predecessors
+  (successors). This may result in the removal of a whole graph component if a
+  certain predecessor (successor) connection is removed.
+</p>
+<p>
+  See the <a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/graph_builder#graph_builder">Creating a Graph from Business Data</a>
+  chapter of the Developers Guide for more information.
+</p>
+<h3>Things to Try</h3>
+<ul>
+  <li>
+    Click a node in the graph to make it the current item. Inspect its
+    predecessors and successors.
+  </li>
+  <li>
+    Click the + button of the 'Nodes Source', 'Predecessors' and 'Successors'
+    lists to add a new data item which creates a corresponding node.
+  </li>
+  <li>
+    Select data in 'Nodes Source' and click the - button to remove it from the
+    list. Note that the corresponding node might not be removed if the data is
+    still a predecessor (successor) of another item.
+  </li>
+  <li>
+    Select data in 'Predecessors' (Successors) and click the - button to remove
+    it from the list.
+  </li>
+  <li>
+    Drag data from the graph to one of the lists.
+  </li>
+  <li>
+    Drag data from the graph into the trash to remove it.
+  </li>
+</ul>
+</body>
+</html>

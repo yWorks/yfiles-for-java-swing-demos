@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ////////////////////////////////////////////////////////////////////////
+     //
+     // This demo file is part of yFiles for Java (Swing) 3.3.
+     //
+     // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // 72070 Tuebingen, Germany. All rights reserved.
+     //
+     // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
+     // of demo resource files, with or without modification, is not permitted.
+     // Owners of a valid software license for a yFiles for Java (Swing) version that this
+     // demo is shipped with are allowed to use the resource file as basis for
+     // their own yFiles for Java (Swing) powered applications. Use of such programs is
+     // governed by the rights and conditions as set out in the yFiles for Java (Swing)
+     // license agreement.
+     //
+     // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+     // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+     // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+     // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+     // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+     // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     // 
+     ////////////////////////////////////////////////////////////////////////-->
+<project name="Obfuscation Demo - yFiles for Java (Swing)" default="run-completely-processed" basedir=".">
+
+  <!-- Please read this first! Important description of this ant build file: -->
+  <target name="help">
+    <echo>
+      This file provides ant tasks that show how to obfuscate
+      the yFiles classes before they can be deployed as a part
+      of an applet or application. The ant-based obfuscation
+      will be performed by the freely available obfuscator yGuard.
+      If you don't have yGuard already, you can either download it from
+      http://www.yworks.com/products/yguard and place the yguard.jar
+      into the toplevel lib folder or just execute the
+      download-yguard ant task in this build file.
+
+      The deployment steps of this application are divided into several
+      ant tasks each of which can be initiated by giving its name
+      on the commandline.
+
+      -compile - compiles all application specific class contained in
+      the demo.* packages.
+
+      -jar - puts all application specific class files and resources
+      into the application jar ObfuscationDemo_unbobfuscated.jar. Note that the
+      yFiles classes are not contained in this jar. They still
+      reside in yfiles-for-java-swing.jar.
+
+      -obfuscate-yfiles - obfuscates yfiles-for-java-swing.jar
+      and adjusts ObfuscationDemo_unobfuscated.jar
+      accordingly. This task takes as input the
+      yFiles jar file yfiles-for-java-swing.jar and the application jar file
+      ObfuscationDemo_unobfuscated.jar. The output of the task are
+      and obfuscated versions yfilesObf.jar and ObfuscationDemo.jar
+      of these jar files.
+
+      -obfuscate-completely - obfuscates yfiles-for-java-swing.jar,
+      adjusts ObfuscationDemo_unobfuscated.jar
+      accordingly and obfuscates it. This obfuscation task takes as input the
+      yFiles jar file yfiles-for-java-swing.jar and the application jar file
+      ObfuscationDemo_unobfuscated.jar. The output of the task are
+      and obfuscated versions yfilesObf.jar and ObfuscationDemo.jar
+      of these jar files.
+
+      The rules in the obfuscation task factory specify that all classes
+      and property files contained in the packages com.yworks.* (yfiles-for-java-swing.jar)
+      will be completely obfuscated.
+
+      run-yfiles-processed - Executes the application where only yFiles is
+      obfuscated, to demonstrate that everything still works as expected.
+
+      run-completely-processed - Executes the completely obfuscated application,
+      to demonstrate that everything still works as expected.
+
+      show-yfiles-processed - opens a small browser that shows the name mapping
+      performed by yGuard where only yFiles was obfuscated. Note that yGuard only
+      shows classes where actual mappings have occurred, so if a class is not listed,
+      no mappings occurred at all.
+
+      show-completely-processed - opens a small browser that shows the name mapping
+      performed by yGuard of the completely obfuscated application.
+    </echo>
+  </target>
+
+  <!-- define some properties that are used throughout the tasks -->
+  <target name="-init" description="Initializes properties that are used within this build file.">
+    <!-- the base directory of the yFiles installation -->
+    <property name="root"                 value="${basedir}/../../../../"/>
+    <!-- the directory containing library jars like yFiles or yGuard -->
+    <property name="libdir"               value="${root}/lib"/>
+    <!-- the directory in which the bundle should be created -->
+    <property name="distdir"              value="${root}/demos/src/deploy/bundle"/>
+    <!-- the directory to compile the class files into -->
+    <property name="classdir"             value="${distdir}/classes"/>
+    <!-- the path to the demo sources -->
+    <property name="srcRoot"              value="${root}/demos/src"/>
+
+    <!-- the Java 8 runtime, needed as a library jar for yguard -->
+    <property name="jdk.1.8.rt.jar"       value="${java.home}/lib/rt.jar"/>
+
+    <!-- the yGuard jar file containing the obfuscation task -->
+    <property name="yguard.jar"           value="${libdir}/yguard.jar"/>
+    <!-- the yGuard download link -->
+    <property name="yguard.download.link" value="http://www.yworks.com/products/yguard/yguard-2.5.3.zip"/>
+
+    <!-- the unobfuscated yFiles jar file -->
+    <property name="yfiles.jar"           value="${libdir}/yfiles-for-java-swing.jar"/>
+    <!-- the obfuscated yFiles jar file -->
+    <property name="yfiles.jar.obf"       value="${libdir}/yfilesObf.jar"/>
+
+
+    <!-- the unobfuscated and unadjusted application jar file -->
+    <property name="demo.jar"             value="${distdir}/ObfuscationDemo_unobfuscated.jar"/>
+    <!-- the obfuscated and/or adjusted application jar file -->
+    <property name="demo.jar.obf"         value="${distdir}/ObfuscationDemo.jar"/>
+
+    <!-- the main class of the application-->
+    <property name="mainClass"            value="deploy.obfuscation.ObfuscationDemo"/>
+
+    <!-- log file of the obfuscation process that stores the mappings -->
+    <property name="obfuscation-mappings" value="${distdir}/mappings.xml"/>
+
+    <!-- indicates if the yguard.jar file exists or not -->
+    <available file="${yguard.jar}"  property="yguard.jar.exists"/>
+  </target>
+
+  <!-- downloads yGuard from the yworks homepage and unzips the jar into the lib directory -->
+  <target name="download-yguard" unless="yguard.jar.exists" depends="-init" description="Downloads and unzips the yguard.jar into the lib directory.">
+    <get src="${yguard.download.link}" dest="${libdir}/yGuard.zip" skipexisting="false" ignoreerrors="false" verbose="true"/>
+    <unzip src="${libdir}/yGuard.zip" dest="${libdir}" >
+      <patternset>
+        <include name="**/yguard.jar"/>
+      </patternset>
+      <flattenmapper/>
+    </unzip>
+    <delete file="${libdir}/yGuard.zip"/>
+  </target>
+
+  <!-- looks if the yguard.jar exists and exits the build if not. -->
+  <target name="-check-for-yguard" unless="yguard.jar.exists" depends="-init" description="Checks if the yguard.jar file exists and fails the build if not.">
+    <fail message="yguard.jar not found. Please download yGuard from http://www.yworks.com/products/yguard or run the download-yguard task."/>
+  </target>
+
+  <!-- compiles the application specific classes. -->
+  <target name="-compile" depends="-check-for-yguard" description="Compiles the source files of the demo application into a certain directory.">
+    <!-- compile files to classdir -->
+    <mkdir dir="${classdir}"/>
+    <javac
+     includeantruntime="false"
+     source="1.8"
+     target="1.8"
+     destdir="${classdir}"
+     debug="true"
+     classpath="${path.separator}${yfiles.jar}">
+      <src path="${srcRoot}"/>
+      <include name="deploy/obfuscation/*.java"/>
+      <include name="toolkit/*.java"/>
+    </javac>
+  </target>
+
+  <!-- puts the application specific classes into ObfuscationDemo_unbobfuscated.jar. -->
+  <target name="-jar" depends="-compile" description="Creates a jar file from the compiled sources.">
+    <!-- create the jar -->
+    <jar destfile="${demo.jar}">
+      <fileset dir="${classdir}"/>
+      <fileset dir="${srcRoot}">
+        <include name="resources/*"/>
+      </fileset>
+      <fileset file="${srcRoot}/com.yworks.yfiles.java.developmentlicense.xml"/>
+      <zipfileset dir="${basedir}" prefix="deploy/obfuscation">
+        <include name="resources/**"/>
+      </zipfileset>
+    </jar>
+  </target>
+
+  <!-- obfuscates yfiles-for-java-swing.jar and adjusts the demo application jar accordingly. -->
+  <!-- this task does not obfuscate the demo application jar. -->
+  <target name="-obfuscate-yfiles" depends="-jar" description="Obfuscates the yFiles jar only and leaves the demo application jar untouched.">
+    <taskdef name="yguard" classname="com.yworks.yguard.YGuardTask" classpath="${yguard.jar}"/>
+
+    <yguard>
+
+      <!-- add both jars to the files yGuard should process -->
+      <!-- the specification of what should be obfuscated is contained in the rename task-->
+      <inoutpair in="${yfiles.jar}" out="${yfiles.jar.obf}"/>
+      <inoutpair in="${demo.jar}" out="${demo.jar.obf}"/>
+
+      <!--
+        [OPTIONALLY]
+        Keep the line number table and the source file attributes
+        of the public part of the "application"
+      -->
+      <attribute name="LineNumberTable,SourceFile">
+        <patternset>
+          <include name="deploy.**"/>
+          <include name="toolkit.**"/>
+        </patternset>
+      </attribute>
+
+      <!-- add library jars for yguard -->
+      <externalclasses>
+        <pathelement location="${java.home}/lib/javaws.jar"/>
+        <pathelement location="${jdk.1.8.rt.jar}"/>
+      </externalclasses>
+
+      <!-- specifies the obfuscation task and the obfuscation options -->
+      <rename logfile="${obfuscation-mappings}" replaceClassNameStrings="true" mainclass="${mainClass}"
+              annotationclass="com.yworks.yfiles.utils.Obfuscation">
+
+        <!-- exclude the demo application items from obfuscation -->
+        <keep>
+          <!-- Keep all method, field, and class names of the "application"             -->
+          <!-- This could be adjusted to your needs if you don't want to let            -->
+          <!-- your whole application unobfuscated.                                     -->
+          <class classes="private" methods="private" fields="private">
+            <patternset>
+              <include name="deploy.**"/>
+              <include name="toolkit.**"/>
+            </patternset>
+          </class>
+        </keep>
+
+        <!--
+          make sure that the .properties files are renamed according to their
+          corresponding class files, yFiles needs this to function properly when obfuscated
+        -->
+        <adjust replaceName="true">
+          <include name="**/*.properties"/>
+        </adjust>
+      </rename>
+    </yguard>
+  </target>
+
+  <!-- obfuscates both the yfiles-for-java-swing.jar and the demo application jar completely. -->
+  <target name="-obfuscate-completely" depends="-jar" description="Obfuscates the yFiles and the demo application jar.">
+    <taskdef name="yguard" classname="com.yworks.yguard.YGuardTask" classpath="${yguard.jar}"/>
+
+    <yguard>
+
+      <!-- add both jars to the files yGuard should qprocess -->
+      <!-- the specification of what should be obfuscated is contained in the rename task-->
+      <inoutpair in="${yfiles.jar}" out="${yfiles.jar.obf}"/>
+      <inoutpair in="${demo.jar}" out="${demo.jar.obf}"/>
+
+      <!-- add library jars for yguard -->
+      <externalclasses>
+        <pathelement location="${java.home}/lib/javaws.jar"/>
+        <pathelement location="${jdk.1.8.rt.jar}"/>
+      </externalclasses>
+
+      <!-- specifies the obfuscation task and the obfuscation options -->
+      <rename logfile="${obfuscation-mappings}" replaceClassNameStrings="true" mainclass="${mainClass}"
+              annotationclass="com.yworks.yfiles.utils.Obfuscation">
+
+        <!--
+          nothing is excluded here, this means that everything yGuard finds and isn't
+          annotated otherwise will be obfuscated.
+        -->
+
+        <!--
+          make sure that the .properties files are renamed according to their
+          corresponding class files, yFiles needs this to function properly when obfuscated
+        -->
+        <adjust replaceName="true">
+          <include name="**/*.properties"/>
+        </adjust>
+      </rename>
+    </yguard>
+  </target>
+
+  <!-- executes the obfuscated application -->
+  <!-- this task executes the -obfuscate-yfiles task which doesn't obfuscate the demo application -->
+  <target name="run-yfiles-processed" depends="-obfuscate-yfiles" description="Executes the application where only yFiles was obfuscated.">
+    <java classname="${mainClass}" fork="true">
+      <classpath>
+        <pathelement location="${yfiles.jar.obf}"/>
+        <pathelement location="${demo.jar.obf}"/>
+      </classpath>
+    </java>
+  </target>
+
+  <!-- executes the obfuscated application -->
+  <!-- this task executes the -obfuscate-completely task which obfuscates everything, including the demo application -->
+  <target name="run-completely-processed" depends="-obfuscate-completely" description="Executes the completely obfuscated application.">
+    <java classname="${mainClass}" fork="true">
+      <classpath>
+        <pathelement location="${yfiles.jar.obf}"/>
+        <pathelement location="${demo.jar.obf}"/>
+      </classpath>
+    </java>
+  </target>
+
+  <!-- opens a small browser that shows the name mapping performed by yGuard. -->
+  <!-- this task executes the -obfuscate-yfiles task which doesn't obfuscate the demo application -->
+  <target name="show-yfiles-processed" depends="-obfuscate-yfiles" description="Shows the obfuscating mappings of the application where only yFiles was obfuscated.">
+    <echo message="${obfuscation-mappings}"/>
+    <java jar="${yguard.jar}" fork="true">
+      <arg value="${obfuscation-mappings}"/>
+    </java>
+  </target>
+
+  <!-- opens a small browser that shows the name mapping performed by yGuard. -->
+  <!-- this task executes the -obfuscate-completely task which obfuscates everything, including the demo application -->
+  <target name="show-completely-processed" depends="-obfuscate-completely" description="Shows the obfuscating mappings of the completely obfuscated application.">
+    <echo message="${obfuscation-mappings}"/>
+    <java jar="${yguard.jar}" fork="true">
+      <arg value="${obfuscation-mappings}"/>
+    </java>
+  </target>
+
+  <!-- Removes everything that has been built -->
+  <target name="clean" depends="-init" description="Deletes all during the build process created files and directories.">
+    <delete file="${yfiles.jar.obf}"/>
+    <delete dir="${distdir}"/>
+  </target>
+</project>

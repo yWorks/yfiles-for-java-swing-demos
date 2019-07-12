@@ -1,0 +1,50 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+<h1>Description</h1>
+<p>
+  This demo loads data from a Neo4j database and displays it with yFiles for Java (Swing).
+</p>
+
+<p>
+  First, connect to a Neo4j database by entering a URL, a username and a password into the corresponding form
+  fields. If you don't have a database running, yet, you can install <a href="https://neo4j.com/download/" target="_blank">Neo4j for Java</a>.
+</p>
+<p>
+   After establishing a connection, a small set of data from the database will be displayed.
+ </p>
+
+<h2>Things to Try</h2>
+<ul>
+  <li>
+    Explore the data: Change the viewport by dragging the canvas with the mouse and change the zoom level by using
+    the mouse wheel.
+  </li>
+  <li>
+    Hover over a node or an edge to show its properties as a tooltip.
+  </li>
+  <li>
+    Hovering over a node also highlights the adjacent edges and hovering over an edge highlights the adjacent nodes.
+  </li>
+  <li>
+    Double-click a node to center the node using a <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.radial.RadialLayout" target="_blank">RadialLayout</a>.
+  </li>
+</ul>
+
+<h2>Details</h2>
+<p>
+  This demo uses the <a href="https://github.com/neo4j/neo4j-java-driver" target="_blank">Neo4j Bolt driver for Java</a>
+  to connect to a Neo4j database and query it for data.
+</p>
+<p>
+  The query results are then used by a custom <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.GraphBuilder" target="_blank">GraphBuilder</a> implementation to construct a
+  graph from the data, while assigning different node styles to nodes with different labels.
+</p>
+<p>
+  The graph layout is achieved by using <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.organic.OrganicLayout" target="_blank">OrganicLayout</a> with substructures enabled.
+</p>
+
+</body>
+</html>

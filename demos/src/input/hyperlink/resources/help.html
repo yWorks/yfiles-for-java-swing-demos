@@ -1,0 +1,37 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+
+<h1>Description</h1>
+
+<p>
+  Add hyperlink support for HTML formatted labels using a
+  custom <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.IInputMode">IInputMode</a> implementation and
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.styles.HtmlLabelStyle">HtmlLabelStyle</a>'s <code>findHyperlink</code> method.
+</p>
+
+<h2>Things to Try</h2>
+
+<p>
+  Move the mouse over one of the blue text segments representing hyperlinks.
+  Note how the mouse cursor changes from the default cursor to a hand cursor
+  while the mouse stays over the hyperlink. Additionally, a tool tip will
+  display the corresponding hyper reference.
+</p>
+<p>
+  Clink one of the hyperlinks to activate it.
+  <br>
+  Headlines reference websites using the <code>http</code> protocol. Clicking on
+  these links will either open the referenced website in a browser or (if the
+  Java <code>Desktop.Action#BROWSE</code> is not supported) display the address
+  in a dialog.
+  <br>
+  All other links use a custom <code>graph</code> protocol for referencing other
+  nodes in the diagram. Clicking on these links will center the corresponding
+  node in the diagram.
+</p>
+
+</body>
+</html>

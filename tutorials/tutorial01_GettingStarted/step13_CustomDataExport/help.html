@@ -1,0 +1,31 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../resources/demo.css"/>
+</head>
+<body class="demo-description">
+
+<h2>Step 13: Exporting Custom Data in GraphML</h2>
+<p>
+  The I/O support can read and write custom data that is bound to graph elements to and from a GraphML file.
+</p>
+<p>
+  In this demo the creation time of each node is stored as <code>LocalDateTime</code> in an
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.IMapper">IMapper</a>
+  as described in the previous step. A tooltip shows the date for each node.
+</p>
+<p>
+  See the sources for details.
+</p>
+<br/>
+<h3>Relevant Chapters in the Developers Guide:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/customizing_io_serialization-basics">Adding Custom Data for Serialization</a></li>
+</ul>
+<h3>Relevant API:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graphml.GraphMLIOHandler">GraphMLIOHandler</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graphml.GraphMLIOHandler%23GraphMLIOHandler-method-addInputMapper">GraphMLIOHandler#addInputMapper</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graphml.GraphMLIOHandler%23GraphMLIOHandler-method-addOutputMapper">GraphMLIOHandler#addOutputMapper</a></li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ////////////////////////////////////////////////////////////////////////
+     //
+     // This demo file is part of yFiles for Java (Swing) 3.3.
+     //
+     // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // 72070 Tuebingen, Germany. All rights reserved.
+     //
+     // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
+     // of demo resource files, with or without modification, is not permitted.
+     // Owners of a valid software license for a yFiles for Java (Swing) version that this
+     // demo is shipped with are allowed to use the resource file as basis for
+     // their own yFiles for Java (Swing) powered applications. Use of such programs is
+     // governed by the rights and conditions as set out in the yFiles for Java (Swing)
+     // license agreement.
+     //
+     // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+     // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+     // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+     // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+     // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+     // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     // 
+     ////////////////////////////////////////////////////////////////////////-->
+<!-- Ant build script to run the PDF image export demo.             -->
+<!-- The Java based Ant tool is available from         -->
+<!-- http://ant.apache.org/                            -->
+<project name="PDF Image Export Demo" default="run" basedir="../.." >
+
+  <!-- prints a help text -->
+  <target name="help">
+    <echo>
+      This Ant script can be used to run the PDF Image export demo which illustrates the
+      PDF, EPS and EMF export capability of yFiles for Java (Swing) with the FreeHEP VectorGraphics Toolkit.
+      This script will download patched versions of the FreeHEP Vectorgraphics Toolkit from the yFiles website.
+    </echo>
+  </target>
+
+  <!-- defines some properties that are used throughout the tasks -->
+  <target name="-init">
+    <property name="distdir" value="${basedir}/../.."/>
+    <!-- the directory with libraries needed for this demo -->
+    <property name="lib.dir" value="${distdir}/lib"/>
+    <!-- the directory that is the source root of the demo -->
+    <property name="demo.src.dir" value="${basedir}"/>
+    <!-- the directory with the class files of the demo -->
+    <property name="demo.class.dir" value="${distdir}/demos/out/classes"/>
+    <!-- the directory with the source files of the abstract export demo -->
+    <property name="demo.base.src.dir" value="${distdir}/demos/src/viewer/imageexport"/>
+    <!-- the directory with the source files of the abstract demo -->
+    <property name="demo.toolkit.dir" value="${distdir}/demos/src/toolkit"/>
+    <!-- the directory with icon resources used in the demo -->
+    <property name="demo.resources.dir" value="${distdir}/demos/src/resources"/>
+
+    <!-- the jar archive of yFiles for Java (Swing) -->
+    <property name="yfiles.jar" value="${lib.dir}/yfiles-for-java-swing.jar"/>
+    <!-- the jar archive of vectorgraphics -->
+    <property name="vectorgraphics.jar" value="${lib.dir}/vectorgraphics.jar"/>
+
+    <property name="vectorgraphics.download" value="http://www.yworks.com/resources/yfilesjava/demos-support/3.1/vectorgraphics.jar"/>
+
+    <!-- check if the vectorgraphics.jar file exists -->
+    <available property="vectorgraphics.jar.exists" file="${vectorgraphics.jar}"/>
+
+    <!-- the class path for the demo -->
+    <path id="demo.classpath">
+      <pathelement location="${demo.class.dir}"/>
+      <pathelement location="${demo.base.src.dir}"/>
+      <pathelement location="${demo.src.dir}"/>
+      <pathelement location="${demo.toolkit.dir}"/>
+      <pathelement location="${demo.resources.dir}"/>
+      <pathelement location="${yfiles.jar}"/>
+      <pathelement location="${vectorgraphics.jar}"/>
+    </path>
+  </target>
+
+  <!-- asks the user to download vectorgraphics -->
+  <target name="-get-vectorgraphics" unless="vectorgraphics.jar.exists">
+    <echo>
+      The next step will download a patched version of the FreeHEP Vectorgraphics Toolkit from ${vectorgraphics.download}.
+      Vectorgraphics is a toolkit for use with the Java platform. It is maintained by the
+      FreeHEP community and licensed under the GNU Lesser General Public License, Version 2.1 (http://www.gnu.org/licenses/old-licenses/lgpl-2.1.de.html).
+    </echo>
+    <input message="Do you want to download a patched version of the FreeHEP Vectorgraphics Toolkit" validargs="yes,no" addproperty="download.vectorgraphics" defaultvalue="no"/>
+    <condition property="download.abort">
+      <equals arg1="no" arg2="${download.vectorgraphics}"/>
+    </condition>
+    <fail if="download.abort">Download aborted by user.</fail>
+    <get src="${vectorgraphics.download}" dest="${vectorgraphics.jar}" skipexisting="false" ignoreerrors="false" verbose="true"/>
+  </target>
+
+  <!-- compiles the application's classes -->
+  <target name="compile" description="Compiles the demo files" depends="-init,-get-vectorgraphics">
+    <mkdir dir="${demo.class.dir}"/>
+    <javac includeAntRuntime="false" includes="**/*.java" destdir="${demo.class.dir}" debug="true">
+      <src path="${demo.src.dir}"/>
+      <src path="${demo.base.src.dir}"/>
+      <src path="${demo.toolkit.dir}"/>
+      <src path="${demo.resources.dir}"/>
+      <classpath refid="demo.classpath"/>
+    </javac>
+    <copy todir="${demo.class.dir}">
+      <fileset dir="${demo.src.dir}">
+        <exclude name="**/*.java"/>
+      </fileset>
+    </copy>
+    <copy todir="${demo.class.dir}/resources">
+      <fileset dir="${demo.resources.dir}">
+        <exclude name="**/*.java"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <!-- runs the application -->
+  <target name="run" description="Runs the PDF image export application" depends="-init,compile">
+    <java failonerror="true" fork="true" classname="viewer.pdfimageexport.PDFImageExportDemo">
+      <classpath refid="demo.classpath"/>
+    </java>
+  </target>
+
+  <!-- removes everything that has been built or downloaded -->
+  <target name="clean" description="Removes builds and downloads" depends="-init">
+    <delete file="${vectorgraphics.jar}"/>
+    <delete dir="${demo.class.dir}"/>
+  </target>
+</project>

@@ -1,0 +1,36 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+
+<h1>Description</h1>
+<p>
+    Customize the resizing behavior of nodes by implementing the <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.INodeSizeConstraintProvider">INodeSizeConstraintProvider</a> interface and
+    adding instances to the node decorator of the graph.
+</p>
+
+<h2>Things to try</h2>
+<ul>
+    <li>
+        Select and resize the nodes.
+    </li>
+</ul>
+<h2>Node Types</h2>
+<ul>
+    <li>
+        <font color="#4169e1"><b>Blue nodes</b></font> cannot shrink. Additionally, neither side can become
+        larger than three times its initial size in each resizing operation.
+    </li>
+    <li>
+        The minimum size of a <font color="#228b22"><b>green nodes</b></font> is the size of its labels. It gets
+        never smaller than that.
+    </li>
+    <li>
+        The <font color="#ff8c00"><b>orange node</b></font> must always encompass the black rectangle.
+        Additionally, it has predefined minimum and maximum sizes.
+    </li>
+</ul>
+
+</body>
+</html>

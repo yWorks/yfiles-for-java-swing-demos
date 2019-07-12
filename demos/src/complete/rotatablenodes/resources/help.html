@@ -1,0 +1,27 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+
+<h1>Description</h1>
+
+<p>
+  This demo shows how support for rotated node visualizations can be implemented on top of the yFiles library.
+  A custom <a href="https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.styles.INodeStyle">INodeStyle</a>
+  implementation is used to encapsulate most of the added functionality.
+</p>
+
+<h2>Things to try</h2>
+
+<ul>
+  <li>Select a node by clicking it and note the additional rotation handle.</li>
+  <li>Rotate a node by dragging the rotation handle.</li>
+  <li>Enable snapping to snap the rotation to the coordinate axis and other rotated nodes. You can hold Shift to prevent snapping.</li>
+  <li>Create edges between nodes. Note that port candidates are rotated with the node, as are ports.</li>
+  <li>Add a label to a node and rotate the node. Observe how the label rotates with the node. Try moving the label to see how possible label positions are also affected by the node's rotation.</li>
+  <li>Run a layout. Observe how rotated nodes fit naturally into the computed layout.</li>
+  <li>Load your own graph and rotated its nodes. Note that the contained styles need to be from the library or demos. Keep attention when saving this graph because the GraphML output is changed due to the additional rotation style and information.</li>
+</ul>
+</body>
+</html>

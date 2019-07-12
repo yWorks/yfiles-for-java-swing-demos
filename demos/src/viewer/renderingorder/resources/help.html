@@ -1,0 +1,39 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+
+<h1>Description</h1>
+<h2>Rendering Order</h2>
+Sometimes it is necessary to change the render order of graph, e.g. when labels should be
+rendered in front of their owner but behind another item. This demo shows how to use
+<a href="https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.GraphModelManager">yfiles.view.GraphModelManager</a>
+to configure the rendering order for grouped graphs as well as layer policies for labels and ports.
+
+<h3>Hierarchic Nesting</h3>
+<p>
+  Each item type is assigned to a specific canvas object group. These groups have a default rendering order from
+  back to front. See <a href="https://docs.yworks.com/yfilesjava/doc/api/#/dguide/customizing_view-z_order">The Z-order
+  of Graph Elements</a> for more information about the different
+  <a href="https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.ICanvasObjectGroup">yfiles.view.ICanvasObjectGroup</a>s
+  and their default rendering order.
+</p>
+<p>
+  For grouped graphs, we provide some nesting policies to structure nodes and edges in more complex hierarchies. In
+  these cases, some of the canvas object groups may not be used.
+</p>
+
+<h3>Demo Configurations</h3>
+<ul>
+  <li><em>Default:</em> The rendering order that is used by default.</li>
+  <li><em>Labels / Ports at Owner:</em> The labels and ports are rendered on the same z-order as their owner.</li>
+  <li><em>Edges on Top:</em> Edges are rendered on top of the nodes. Note in this case, we also enabled the labels and
+    ports at owner configuration.</li>
+  <li><em>Group Nodes:</em> Maintains the rendering order according to the nesting depth for group nodes while nodes and
+    edges are placed in the separate groups and are not interleaved in the rendering.</li>
+  <li><em>None:</em> Items are placed in their respective canvas object group without considering the nesting
+    hierarchy of the nodes. Usually, this setting is only used when the z-order is managed by a different mechanism.</li>
+</ul>
+</body>
+</html>

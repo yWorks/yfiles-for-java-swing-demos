@@ -1,0 +1,1297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ////////////////////////////////////////////////////////////////////////
+     //
+     // This demo file is part of yFiles for Java (Swing) 3.3.
+     //
+     // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // 72070 Tuebingen, Germany. All rights reserved.
+     //
+     // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
+     // of demo resource files, with or without modification, is not permitted.
+     // Owners of a valid software license for a yFiles for Java (Swing) version that this
+     // demo is shipped with are allowed to use the resource file as basis for
+     // their own yFiles for Java (Swing) powered applications. Use of such programs is
+     // governed by the rights and conditions as set out in the yFiles for Java (Swing)
+     // license agreement.
+     //
+     // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+     // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+     // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+     // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+     // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+     // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     // 
+     ////////////////////////////////////////////////////////////////////////-->
+<!--Created by yFiles for Java (Swing) 4.1--><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:demo="http://www.yworks.com/xml/yfiles-logicgate/java/1.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/yfiles-common/3.0" xmlns:yfj="http://www.yworks.com/xml/yfiles-for-java/3.1" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml.java/3.1/ygraphml.xsd ">
+  <key attr.name="NodeLabels" for="node" id="d0" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeLabels"/>
+  <key attr.name="NodeGeometry" for="node" id="d1" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeGeometry"/>
+  <key attr.name="UserTags" for="all" id="d2" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/UserTags"/>
+  <key attr.name="NodeStyle" for="node" id="d3" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeStyle"/>
+  <key attr.name="EdgeLabels" for="edge" id="d4" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeLabels"/>
+  <key attr.name="EdgeGeometry" for="edge" id="d5" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry"/>
+  <key attr.name="EdgeStyle" for="edge" id="d6" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeStyle"/>
+  <key attr.name="PortLabels" for="port" id="d7" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLabels"/>
+  <key attr.name="PortLocationParameter" for="port" id="d8" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLocationParameter">
+    <default>
+      <x:Static Member="y:FreeNodePortLocationModel.NodeCenterAnchored"/>
+    </default>
+  </key>
+  <key attr.name="PortStyle" for="port" id="d9" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortStyle">
+    <default>
+      <x:Static Member="y:VoidPortStyle.Instance"/>
+    </default>
+  </key>
+  <key attr.name="SharedData" id="d10" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData"/>
+  <data key="d10">
+    <y:SharedData>
+      <demo:PortDescriptor EdgeDirection="IN" LabelText="in1" X="0.0" Y="5.0" x:Key="1">
+        <demo:PortDescriptor.LabelPlacementWithEdge>
+          <y:PortAnchoredLabelModelParameter LabelRatio="1.0,1.0" LocationOffset="-5.0,-3.0"/>
+        </demo:PortDescriptor.LabelPlacementWithEdge>
+      </demo:PortDescriptor>
+      <yfj:DefaultLabelStyle x:Key="2"/>
+      <demo:PortDescriptor EdgeDirection="IN" LabelText="in2" X="0.0" Y="25.0" x:Key="3">
+        <demo:PortDescriptor.LabelPlacementWithEdge>
+          <y:PortAnchoredLabelModelParameter LabelRatio="1.0,0.0" LocationOffset="-5.0,3.0"/>
+        </demo:PortDescriptor.LabelPlacementWithEdge>
+      </demo:PortDescriptor>
+      <y:PortAnchoredLabelModelParameter LabelRatio="0.0,1.0" LocationOffset="5.0,-3.0" x:Key="4"/>
+      <demo:PortDescriptor EdgeDirection="OUT" LabelPlacementWithEdge="{y:GraphMLReference 4}" LabelText="out" X="50.0" Y="15.0" x:Key="5"/>
+      <yfj:DefaultLabelStyle x:Key="6"/>
+      <demo:PortDescriptor EdgeDirection="IN" LabelPlacementWithEdge="{y:GraphMLReference 22}" LabelText="in" X="0.0" Y="15.0" x:Key="7"/>
+      <y:PortAnchoredLabelModelParameter LabelRatio="0.0,1.0" LocationOffset="5.0,-3.0" x:Key="8"/>
+      <demo:PortDescriptor EdgeDirection="OUT" LabelPlacementWithEdge="{y:GraphMLReference 8}" LabelText="out" X="50.0" Y="15.0" x:Key="9"/>
+      <demo:PortDescriptor EdgeDirection="IN" LabelPlacementWithEdge="{y:GraphMLReference 41}" LabelText="in1" X="0.0" Y="5.0" x:Key="10"/>
+      <demo:PortDescriptor EdgeDirection="IN" LabelPlacementWithEdge="{y:GraphMLReference 42}" LabelText="in2" X="0.0" Y="25.0" x:Key="11"/>
+      <y:PortAnchoredLabelModelParameter LabelRatio="0.0,1.0" LocationOffset="5.0,-3.0" x:Key="12"/>
+      <demo:PortDescriptor EdgeDirection="OUT" LabelPlacementWithEdge="{y:GraphMLReference 12}" LabelText="out" X="50.0" Y="15.0" x:Key="13"/>
+      <y:PortAnchoredLabelModelParameter LabelRatio="1.0,1.0" LocationOffset="-5.0,-3.0" x:Key="14"/>
+      <demo:PortDescriptor EdgeDirection="IN" LabelPlacementWithEdge="{y:GraphMLReference 14}" LabelText="in1" X="0.0" Y="5.0" x:Key="15"/>
+      <y:PortAnchoredLabelModelParameter LabelRatio="1.0,0.0" LocationOffset="-5.0,3.0" x:Key="16"/>
+      <demo:PortDescriptor EdgeDirection="IN" LabelPlacementWithEdge="{y:GraphMLReference 16}" LabelText="in2" X="0.0" Y="25.0" x:Key="17"/>
+      <y:PortAnchoredLabelModelParameter LabelRatio="0.0,1.0" LocationOffset="5.0,-3.0" x:Key="18"/>
+      <demo:PortDescriptor EdgeDirection="OUT" LabelPlacementWithEdge="{y:GraphMLReference 18}" LabelText="out" X="50.0" Y="15.0" x:Key="19"/>
+      <demo:LogicGateNodeStyle GateType="NOR" x:Key="20"/>
+      <demo:LogicGateNodeStyle GateType="NOT" x:Key="21"/>
+      <y:PortAnchoredLabelModelParameter LabelRatio="1.0,1.0" LocationOffset="-5.0,-3.0" x:Key="22"/>
+      <y:InsideOutsidePortLabelModelParameter Outside="False" x:Key="23">
+        <y:InsideOutsidePortLabelModelParameter.Model>
+          <y:InsideOutsidePortLabelModel/>
+        </y:InsideOutsidePortLabelModelParameter.Model>
+      </y:InsideOutsidePortLabelModelParameter>
+      <demo:PortDescriptor EdgeDirection="IN" LabelPlacementWithEdge="{y:GraphMLReference 23}" LabelText="Vin" X="0.0" Y="20.0" x:Key="24"/>
+      <demo:PortDescriptor EdgeDirection="IN" LabelPlacementWithEdge="{y:GraphMLReference 23}" LabelText="gnd" X="0.0" Y="40.0" x:Key="25"/>
+      <demo:PortDescriptor EdgeDirection="IN" LabelPlacementWithEdge="{y:GraphMLReference 23}" LabelText="Vref" X="0.0" Y="80.0" x:Key="26"/>
+      <demo:PortDescriptor EdgeDirection="IN" LabelPlacementWithEdge="{y:GraphMLReference 23}" LabelText="clk" X="0.0" Y="100.0" x:Key="27"/>
+      <demo:PortDescriptor EdgeDirection="OUT" LabelPlacementWithEdge="{y:GraphMLReference 23}" LabelText="d1" X="70.0" Y="20.0" x:Key="28"/>
+      <demo:PortDescriptor EdgeDirection="OUT" LabelPlacementWithEdge="{y:GraphMLReference 23}" LabelText="d2" X="70.0" Y="40.0" x:Key="29"/>
+      <demo:PortDescriptor EdgeDirection="OUT" LabelPlacementWithEdge="{y:GraphMLReference 23}" LabelText="sign" X="70.0" Y="100.0" x:Key="30"/>
+      <y:InsideOutsidePortLabelModelParameter Outside="False" x:Key="31">
+        <y:InsideOutsidePortLabelModelParameter.Model>
+          <y:InsideOutsidePortLabelModel/>
+        </y:InsideOutsidePortLabelModelParameter.Model>
+      </y:InsideOutsidePortLabelModelParameter>
+      <demo:PortDescriptor EdgeDirection="IN" LabelPlacementWithEdge="{y:GraphMLReference 31}" LabelText="gnd" X="0.0" Y="20.0" x:Key="32"/>
+      <demo:PortDescriptor EdgeDirection="IN" LabelPlacementWithEdge="{y:GraphMLReference 31}" LabelText="trig" X="0.0" Y="40.0" x:Key="33"/>
+      <demo:PortDescriptor EdgeDirection="OUT" LabelPlacementWithEdge="{y:GraphMLReference 31}" LabelText="out" X="0.0" Y="80.0" x:Key="34"/>
+      <demo:PortDescriptor EdgeDirection="IN" LabelPlacementWithEdge="{y:GraphMLReference 31}" LabelText="rst" X="0.0" Y="100.0" x:Key="35"/>
+      <demo:PortDescriptor EdgeDirection="IN" LabelPlacementWithEdge="{y:GraphMLReference 31}" LabelText="Vcc" X="70.0" Y="20.0" x:Key="36"/>
+      <demo:PortDescriptor EdgeDirection="OUT" LabelPlacementWithEdge="{y:GraphMLReference 31}" LabelText="dis" X="70.0" Y="40.0" x:Key="37"/>
+      <demo:PortDescriptor EdgeDirection="IN" LabelPlacementWithEdge="{y:GraphMLReference 31}" LabelText="thr" X="70.0" Y="80.0" x:Key="38"/>
+      <demo:PortDescriptor EdgeDirection="IN" LabelPlacementWithEdge="{y:GraphMLReference 31}" LabelText="ctrl" X="70.0" Y="100.0" x:Key="39"/>
+      <demo:LogicGateNodeStyle GateType="NAND" x:Key="40"/>
+      <y:PortAnchoredLabelModelParameter LabelRatio="1.0,1.0" LocationOffset="-5.0,-3.0" x:Key="41"/>
+      <y:PortAnchoredLabelModelParameter LabelRatio="1.0,0.0" LocationOffset="-5.0,3.0" x:Key="42"/>
+      <yfj:Arrow Type="NONE" x:Key="43"/>
+      <yfj:PolylineEdgeStyle SourceArrow="{y:GraphMLReference 43}" TargetArrow="{y:GraphMLReference 43}" x:Key="44">
+        <yfj:PolylineEdgeStyle.Pen>
+          <yfj:Pen EndCap="Square" Thickness="3.0"/>
+        </yfj:PolylineEdgeStyle.Pen>
+      </yfj:PolylineEdgeStyle>
+    </y:SharedData>
+  </data>
+  <graph id="G">
+    <node id="n0">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="29.0,19.0" Style="{y:GraphMLReference 6}">
+            <y:Label.Text>AND</y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="30.0" Width="50.0" X="0.0" Y="-187.5"/>
+      </data>
+      <data key="d3">
+        <demo:LogicGateNodeStyle GateType="AND"/>
+      </data>
+      <port name="p0">
+        <data key="d7">
+          <x:List>
+            <y:Label PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 1}">
+              <y:Label.LayoutParameter>
+                <y:InsideOutsidePortLabelModelParameter>
+                  <y:InsideOutsidePortLabelModelParameter.Model>
+                    <y:InsideOutsidePortLabelModel/>
+                  </y:InsideOutsidePortLabelModelParameter.Model>
+                </y:InsideOutsidePortLabelModelParameter>
+              </y:Label.LayoutParameter>
+              <y:Label.Text>in1</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Offset="0.0,5.0" Ratio="0.0,0.0"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="1"/>
+        </data>
+      </port>
+      <port name="p1">
+        <data key="d7">
+          <x:List>
+            <y:Label PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 3}">
+              <y:Label.LayoutParameter>
+                <y:InsideOutsidePortLabelModelParameter>
+                  <y:InsideOutsidePortLabelModelParameter.Model>
+                    <y:InsideOutsidePortLabelModel/>
+                  </y:InsideOutsidePortLabelModelParameter.Model>
+                </y:InsideOutsidePortLabelModelParameter>
+              </y:Label.LayoutParameter>
+              <y:Label.Text>in2</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Offset="0.0,25.0" Ratio="0.0,0.0"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="3"/>
+        </data>
+      </port>
+      <port name="p2">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 4}" PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 5}">
+              <y:Label.Text>out</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="DodgerBlue" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="5"/>
+        </data>
+      </port>
+    </node>
+    <node id="n1">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="29.0,19.0" Style="{y:GraphMLReference 6}">
+            <y:Label.Text>NOT</y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="30.0" Width="50.0" X="0.0" Y="-120.5"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="21"/>
+      </data>
+      <port name="p0">
+        <data key="d7">
+          <x:List>
+            <y:Label PreferredSize="14.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 7}">
+              <y:Label.LayoutParameter>
+                <y:InsideOutsidePortLabelModelParameter>
+                  <y:InsideOutsidePortLabelModelParameter.Model>
+                    <y:InsideOutsidePortLabelModel/>
+                  </y:InsideOutsidePortLabelModelParameter.Model>
+                </y:InsideOutsidePortLabelModelParameter>
+              </y:Label.LayoutParameter>
+              <y:Label.Text>in</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Offset="0.0,15.0" Ratio="0.0,0.0"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="7"/>
+        </data>
+      </port>
+      <port name="p1">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 8}" PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 9}">
+              <y:Label.Text>out</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="DodgerBlue" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="9"/>
+        </data>
+      </port>
+    </node>
+    <node id="n2">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="38.0,19.0" Style="{y:GraphMLReference 6}">
+            <y:Label.Text>NAND</y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="30.0" Width="50.0" X="0.0" Y="-53.5"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="40"/>
+      </data>
+      <port name="p0">
+        <data key="d7">
+          <x:List>
+            <y:Label PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 10}">
+              <y:Label.LayoutParameter>
+                <y:InsideOutsidePortLabelModelParameter>
+                  <y:InsideOutsidePortLabelModelParameter.Model>
+                    <y:InsideOutsidePortLabelModel/>
+                  </y:InsideOutsidePortLabelModelParameter.Model>
+                </y:InsideOutsidePortLabelModelParameter>
+              </y:Label.LayoutParameter>
+              <y:Label.Text>in1</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Offset="0.0,5.0" Ratio="0.0,0.0"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="10"/>
+        </data>
+      </port>
+      <port name="p1">
+        <data key="d7">
+          <x:List>
+            <y:Label PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 11}">
+              <y:Label.LayoutParameter>
+                <y:InsideOutsidePortLabelModelParameter>
+                  <y:InsideOutsidePortLabelModelParameter.Model>
+                    <y:InsideOutsidePortLabelModel/>
+                  </y:InsideOutsidePortLabelModelParameter.Model>
+                </y:InsideOutsidePortLabelModelParameter>
+              </y:Label.LayoutParameter>
+              <y:Label.Text>in2</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Offset="0.0,25.0" Ratio="0.0,0.0"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="11"/>
+        </data>
+      </port>
+      <port name="p2">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 12}" PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 13}">
+              <y:Label.Text>out</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="DodgerBlue" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="13"/>
+        </data>
+      </port>
+    </node>
+    <node id="n3">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="31.0,19.0" Style="{y:GraphMLReference 6}">
+            <y:Label.Text>NOR</y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="30.0" Width="50.0" X="132.0" Y="-174.0"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="20"/>
+      </data>
+      <port name="p0">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 14}" PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 15}">
+              <y:Label.Text>in1</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="0.0,0.16666666666666666"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="15"/>
+        </data>
+      </port>
+      <port name="p1">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 16}" PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 17}">
+              <y:Label.Text>in2</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="0.0,0.8333333333333334"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="17"/>
+        </data>
+      </port>
+      <port name="p2">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 18}" PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 19}">
+              <y:Label.Text>out</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="DodgerBlue" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="19"/>
+        </data>
+      </port>
+    </node>
+    <node id="n4">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="31.0,19.0" Style="{y:GraphMLReference 6}">
+            <y:Label.Text>NOR</y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="30.0" Width="50.0" X="132.0" Y="-80.0"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="20"/>
+      </data>
+      <port name="p0">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 14}" PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 15}">
+              <y:Label.Text>in1</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="0.0,0.16666666666666666"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="15"/>
+        </data>
+      </port>
+      <port name="p1">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 16}" PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 17}">
+              <y:Label.Text>in2</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="0.0,0.8333333333333334"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="17"/>
+        </data>
+      </port>
+      <port name="p2">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 18}" PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 19}">
+              <y:Label.Text>out</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="DodgerBlue" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="19"/>
+        </data>
+      </port>
+    </node>
+    <node id="n5">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="29.0,19.0" Style="{y:GraphMLReference 6}">
+            <y:Label.Text>NOT</y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="30.0" Width="50.0" X="237.0" Y="-174.0"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="21"/>
+      </data>
+      <port name="p0">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 22}" PreferredSize="14.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 7}">
+              <y:Label.Text>in</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="0.0,0.5"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="7"/>
+        </data>
+      </port>
+      <port name="p1">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 8}" PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 9}">
+              <y:Label.Text>out</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="DodgerBlue" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="9"/>
+        </data>
+      </port>
+    </node>
+    <node id="n6">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="57.0,34.0" Style="{y:GraphMLReference 6}">
+            <y:Label.Text><![CDATA[2-bit A/D
+Converter]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="120.0" Width="70.0" X="327.0" Y="-162.0"/>
+      </data>
+      <data key="d3">
+        <yfj:ShapeNodeStyle>
+          <yfj:ShapeNodeStyle.Pen>
+            <yfj:Pen Thickness="2.0"/>
+          </yfj:ShapeNodeStyle.Pen>
+        </yfj:ShapeNodeStyle>
+      </data>
+      <port name="p0">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 23}" PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 24}">
+              <y:Label.Text>Vin</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="0.0,0.16666666666666666"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="24"/>
+        </data>
+      </port>
+      <port name="p1">
+        <data key="d7">
+          <x:List>
+            <y:Label PreferredSize="25.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 25}">
+              <y:Label.LayoutParameter>
+                <y:InsideOutsidePortLabelModelParameter>
+                  <y:InsideOutsidePortLabelModelParameter.Model>
+                    <y:InsideOutsidePortLabelModel/>
+                  </y:InsideOutsidePortLabelModelParameter.Model>
+                </y:InsideOutsidePortLabelModelParameter>
+              </y:Label.LayoutParameter>
+              <y:Label.Text>gnd</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Offset="0.0,40.0" Ratio="0.0,0.0"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="25"/>
+        </data>
+      </port>
+      <port name="p2">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 23}" PreferredSize="25.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 26}">
+              <y:Label.Text>Vref</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="0.0,0.6666666666666666"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="26"/>
+        </data>
+      </port>
+      <port name="p3">
+        <data key="d7">
+          <x:List>
+            <y:Label PreferredSize="19.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 27}">
+              <y:Label.LayoutParameter>
+                <y:InsideOutsidePortLabelModelParameter>
+                  <y:InsideOutsidePortLabelModelParameter.Model>
+                    <y:InsideOutsidePortLabelModel/>
+                  </y:InsideOutsidePortLabelModelParameter.Model>
+                </y:InsideOutsidePortLabelModelParameter>
+              </y:Label.LayoutParameter>
+              <y:Label.Text>clk</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Offset="0.0,100.0" Ratio="0.0,0.0"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="27"/>
+        </data>
+      </port>
+      <port name="p4">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 23}" PreferredSize="18.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 28}">
+              <y:Label.Text>d1</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="1.0,0.16666666666666666"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="DodgerBlue" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="28"/>
+        </data>
+      </port>
+      <port name="p5">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 23}" PreferredSize="18.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 29}">
+              <y:Label.Text>d2</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="1.0,0.3333333333333333"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="DodgerBlue" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="29"/>
+        </data>
+      </port>
+      <port name="p6">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 23}" PreferredSize="28.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 30}">
+              <y:Label.Text>sign</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="1.0,0.8333333333333334"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="DodgerBlue" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="30"/>
+        </data>
+      </port>
+    </node>
+    <node id="n7">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="25.0,19.0" Style="{y:GraphMLReference 6}">
+            <y:Label.Text>555</y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="120.0" Width="70.0" X="417.0" Y="-162.0"/>
+      </data>
+      <data key="d3">
+        <yfj:ShapeNodeStyle>
+          <yfj:ShapeNodeStyle.Pen>
+            <yfj:Pen Thickness="2.0"/>
+          </yfj:ShapeNodeStyle.Pen>
+        </yfj:ShapeNodeStyle>
+      </data>
+      <port name="p0">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 31}" PreferredSize="25.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 32}">
+              <y:Label.Text>gnd</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="0.0,0.16666666666666666"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="32"/>
+        </data>
+      </port>
+      <port name="p1">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 31}" PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 33}">
+              <y:Label.Text>trig</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="0.0,0.3333333333333333"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="33"/>
+        </data>
+      </port>
+      <port name="p2">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 31}" PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 34}">
+              <y:Label.Text>out</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="0.0,0.6666666666666666"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="DodgerBlue" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="34"/>
+        </data>
+      </port>
+      <port name="p3">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 31}" PreferredSize="18.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 35}">
+              <y:Label.Text>rst</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="0.0,0.8333333333333334"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="35"/>
+        </data>
+      </port>
+      <port name="p4">
+        <data key="d7">
+          <x:List>
+            <y:Label PreferredSize="23.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 36}">
+              <y:Label.LayoutParameter>
+                <y:InsideOutsidePortLabelModelParameter>
+                  <y:InsideOutsidePortLabelModelParameter.Model>
+                    <y:InsideOutsidePortLabelModel/>
+                  </y:InsideOutsidePortLabelModelParameter.Model>
+                </y:InsideOutsidePortLabelModelParameter>
+              </y:Label.LayoutParameter>
+              <y:Label.Text>Vcc</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Offset="70.0,20.0" Ratio="0.0,0.0"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="36"/>
+        </data>
+      </port>
+      <port name="p5">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 31}" PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 37}">
+              <y:Label.Text>dis</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="1.0,0.3333333333333333"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="DodgerBlue" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="37"/>
+        </data>
+      </port>
+      <port name="p6">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 31}" PreferredSize="18.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 38}">
+              <y:Label.Text>thr</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="1.0,0.6666666666666666"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="38"/>
+        </data>
+      </port>
+      <port name="p7">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 31}" PreferredSize="20.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 39}">
+              <y:Label.Text>ctrl</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="1.0,0.8333333333333334"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="39"/>
+        </data>
+      </port>
+    </node>
+    <node id="n8">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="31.0,19.0" Style="{y:GraphMLReference 6}">
+            <y:Label.Text>NOR</y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="30.0" Width="50.0" X="551.0" Y="-145.0"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="20"/>
+      </data>
+      <port name="p0">
+        <data key="d7">
+          <x:List>
+            <y:Label PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 15}">
+              <y:Label.LayoutParameter>
+                <y:InsideOutsidePortLabelModelParameter>
+                  <y:InsideOutsidePortLabelModelParameter.Model>
+                    <y:InsideOutsidePortLabelModel/>
+                  </y:InsideOutsidePortLabelModelParameter.Model>
+                </y:InsideOutsidePortLabelModelParameter>
+              </y:Label.LayoutParameter>
+              <y:Label.Text>in1</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Offset="0.0,5.0" Ratio="0.0,0.0"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="15"/>
+        </data>
+      </port>
+      <port name="p1">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 16}" PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 17}">
+              <y:Label.Text>in2</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="0.0,0.8333333333333334"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="17"/>
+        </data>
+      </port>
+      <port name="p2">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 18}" PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 19}">
+              <y:Label.Text>out</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="DodgerBlue" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="19"/>
+        </data>
+      </port>
+    </node>
+    <node id="n9">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="29.0,19.0" Style="{y:GraphMLReference 6}">
+            <y:Label.Text>NOT</y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="30.0" Width="50.0" X="551.0" Y="-40.0"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="21"/>
+      </data>
+      <port name="p0">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 22}" PreferredSize="14.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 7}">
+              <y:Label.Text>in</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="0.0,0.5"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="7"/>
+        </data>
+      </port>
+      <port name="p1">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 8}" PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 9}">
+              <y:Label.Text>out</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="DodgerBlue" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="9"/>
+        </data>
+      </port>
+    </node>
+    <node id="n10">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="38.0,19.0" Style="{y:GraphMLReference 6}">
+            <y:Label.Text>NAND</y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="30.0" Width="50.0" X="683.0" Y="-93.5"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="40"/>
+      </data>
+      <port name="p0">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 41}" PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 10}">
+              <y:Label.Text>in1</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="0.0,0.16666666666666666"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="10"/>
+        </data>
+      </port>
+      <port name="p1">
+        <data key="d7">
+          <x:List>
+            <y:Label LayoutParameter="{y:GraphMLReference 42}" PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 11}">
+              <y:Label.Text>in2</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Ratio="0.0,0.8333333333333334"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="Green" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="11"/>
+        </data>
+      </port>
+      <port name="p2">
+        <data key="d7">
+          <x:List>
+            <y:Label PreferredSize="21.0,19.0" Style="{y:GraphMLReference 2}" Tag="{y:GraphMLReference 13}">
+              <y:Label.LayoutParameter>
+                <y:InsideOutsidePortLabelModelParameter>
+                  <y:InsideOutsidePortLabelModelParameter.Model>
+                    <y:InsideOutsidePortLabelModel/>
+                  </y:InsideOutsidePortLabelModelParameter.Model>
+                </y:InsideOutsidePortLabelModelParameter>
+              </y:Label.LayoutParameter>
+              <y:Label.Text>out</y:Label.Text>
+            </y:Label>
+          </x:List>
+        </data>
+        <data key="d8">
+          <y:FreeNodePortLocationModelParameter Offset="50.0,15.0" Ratio="0.0,0.0"/>
+        </data>
+        <data key="d9">
+          <yfj:NodeStylePortStyleAdapter>
+            <yfj:ShapeNodeStyle Paint="DodgerBlue" Pen="{x:Null}"/>
+          </yfj:NodeStylePortStyleAdapter>
+        </data>
+        <data key="d2">
+          <y:GraphMLReference ResourceKey="13"/>
+        </data>
+      </port>
+    </node>
+    <edge id="e0" source="n0" sourceport="p2" target="n3" targetport="p0">
+      <data key="d5">
+        <x:List>
+          <y:Bend Location="60.0,-172.5"/>
+          <y:Bend Location="60.0,-169.0"/>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="44"/>
+      </data>
+    </edge>
+    <edge id="e1" source="n1" sourceport="p1" target="n3" targetport="p1">
+      <data key="d5">
+        <x:List>
+          <y:Bend Location="96.0,-105.5"/>
+          <y:Bend Location="96.0,-149.0"/>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="44"/>
+      </data>
+    </edge>
+    <edge id="e2" source="n1" sourceport="p1" target="n4" targetport="p0">
+      <data key="d5">
+        <x:List>
+          <y:Bend Location="96.0,-105.5"/>
+          <y:Bend Location="96.0,-75.0"/>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="44"/>
+      </data>
+    </edge>
+    <edge id="e3" source="n2" sourceport="p2" target="n4" targetport="p1">
+      <data key="d5">
+        <x:List>
+          <y:Bend Location="86.0,-38.5"/>
+          <y:Bend Location="86.0,-55.0"/>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="44"/>
+      </data>
+    </edge>
+    <edge id="e4" source="n3" sourceport="p2" target="n5" targetport="p0">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="44"/>
+      </data>
+    </edge>
+    <edge id="e5" source="n5" sourceport="p1" target="n6" targetport="p0">
+      <data key="d5">
+        <x:List>
+          <y:Bend Location="297.0,-159.0"/>
+          <y:Bend Location="297.0,-142.0"/>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="44"/>
+      </data>
+    </edge>
+    <edge id="e6" source="n4" sourceport="p2" target="n6" targetport="p2">
+      <data key="d5">
+        <x:List>
+          <y:Bend Location="272.0,-65.0"/>
+          <y:Bend Location="272.0,-82.0"/>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="44"/>
+      </data>
+    </edge>
+    <edge id="e7" source="n6" sourceport="p4" target="n7" targetport="p0">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="44"/>
+      </data>
+    </edge>
+    <edge id="e8" source="n6" sourceport="p5" target="n7" targetport="p1">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="44"/>
+      </data>
+    </edge>
+    <edge id="e9" source="n6" sourceport="p6" target="n7" targetport="p3">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="44"/>
+      </data>
+    </edge>
+    <edge id="e10" source="n7" sourceport="p5" target="n8" targetport="p1">
+      <data key="d5">
+        <x:List>
+          <y:Bend Location="497.0,-122.0"/>
+          <y:Bend Location="497.0,-120.0"/>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="44"/>
+      </data>
+    </edge>
+    <edge id="e11" source="n7" sourceport="p2" target="n9" targetport="p0">
+      <data key="d5">
+        <x:List>
+          <y:Bend Location="407.0,-82.0"/>
+          <y:Bend Location="407.0,-25.0"/>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="44"/>
+      </data>
+    </edge>
+    <edge id="e12" source="n8" sourceport="p2" target="n10" targetport="p0">
+      <data key="d5">
+        <x:List>
+          <y:Bend Location="621.0,-130.0"/>
+          <y:Bend Location="621.0,-88.5"/>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="44"/>
+      </data>
+    </edge>
+    <edge id="e13" source="n9" sourceport="p1" target="n10" targetport="p1">
+      <data key="d5">
+        <x:List>
+          <y:Bend Location="647.0,-25.0"/>
+          <y:Bend Location="647.0,-68.5"/>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="44"/>
+      </data>
+    </edge>
+    <edge id="e14" source="n9" sourceport="p1" target="n7" targetport="p7">
+      <data key="d5">
+        <x:List>
+          <y:Bend Location="637.0,-25.0"/>
+          <y:Bend Location="637.0,-62.0"/>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="44"/>
+      </data>
+    </edge>
+    <edge id="e15" source="n8" sourceport="p2" target="n7" targetport="p6">
+      <data key="d5">
+        <x:List>
+          <y:Bend Location="611.0,-130.0"/>
+          <y:Bend Location="611.0,-83.0"/>
+          <y:Bend Location="502.0,-83.0"/>
+          <y:Bend Location="502.0,-82.0"/>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="44"/>
+      </data>
+    </edge>
+  </graph>
+</graphml>

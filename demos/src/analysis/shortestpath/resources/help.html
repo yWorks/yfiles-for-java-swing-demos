@@ -1,0 +1,54 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+
+<h1>Description</h1>
+
+<p>
+  yFiles for Java (Swing) is shipped with its own armada of graph analysis algorithms to attack problems to efficiently
+  visualize your data. One of these is the shortest path search which is visualized in this small demo.
+</p>
+
+<h2> Things to try</h2>
+
+<ul>
+  <li>
+    Mark source and target nodes by selecting a node, then clicking on the <em>Mark as Source</em> or <em>Mark as Target</em>
+    button.
+    Select multiple nodes by a marquee selection with the mouse, or use the Ctrl/Command key when clicking on a
+    node to add it to an existing selection.
+    <ul>
+      <li>
+        The shortest path is calculated and marked in red as soon as at least one source and one target are
+        selected.
+      </li>
+      <li>
+        The shortest path is the one with the smallest cost, where cost is the sum of the visible lengths of the
+        edges.
+      </li>
+    </ul>
+  </li>
+  <li>
+    Use <em>Uniform Edge Labels</em> to give each edge equal weight specified in the text field. The shortest path becomes
+    the one where the sum of the edge weights is the smallest, i.e. the one with the fewest edges.
+  </li>
+  <li>
+    Press F2 to open the label editor for a selected edge and change the weight to see how the shortest
+    paths are affected.
+  </li>
+  <li>
+    Toggle between <em>Directed</em> and <em>Undirected</em> edges to either taking edge direction into account or ignoring it
+    when performing a shortest path search.
+  </li>
+  <li>
+    Edit the graph by creating, deleting, or moving nodes, edges, and bends. Observe how paths are affected. Edits
+    immediately trigger a new shortest path search.
+  </li>
+  <li>
+    Select different automatic layout styles from the drop-down in the toolbar and observe how the changed edge
+    lengths affect the shortest path search.
+  </li>
+</ul>
+</body>

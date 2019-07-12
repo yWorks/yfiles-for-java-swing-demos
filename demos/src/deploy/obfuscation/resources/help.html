@@ -1,0 +1,52 @@
+<html>
+<head>
+  <link rel="stylesheet" href="./demo.css"/>
+</head>
+<body class="demo-description">
+<p>
+  yGuard is a Java byte code obfuscator that can be used for effective name obfuscation of Java byte code. It is freely
+  available at <a href="http://www.yworks.com/products/yguard">www.yworks.com/products/yguard</a>.
+</p>
+
+<h2>Obfuscation</h2>
+
+<p>
+  Obfuscation changes class, field, and method names in a consistent
+  but nonsensical way that does not change the functionality of the
+  software but makes decompiled Java code harder to read and publicly
+  available API description of the original code inapplicable to the
+  obfuscated code. Obfuscation is an important step in the process
+  of deploying an application in order to protect your software.
+  See how to obfuscate the yFiles library, which
+  is required per license agreement for deploying an application
+  that uses it.
+</p>
+
+<p>
+  Since some names need to be kept at runtime in order for Java
+  applications to work, yGuard provides several mechanisms to control
+  the obfuscation process. In this demo, annotations are used for this.
+  For a fully documentation of the annotation mechanism click
+  on the <i>yGuard</i> tab above or visit our website at <b>www.yworks.com</b>.
+</p>
+
+<h2>The Demo Application</h2>
+<p>
+  A simple <code>GraphComponent</code> with a trivial graph is shown.
+  In the background of the component is a blue rectangle that is positioned and
+  sized to match the content rectangle of the component.
+</p>
+<h2>Things to try</h2>
+<ul>
+  <li>
+    Create new nodes and see how the background rectangle resizes and repositions accordingly.
+  </li>
+  <li>
+    Run the <em>show</em> ant task to inspect the obfuscation.
+  </li>
+  <li>
+    Switch to the <em>yGuard</em> tab to have a look at the yGuard documentation.
+  </li>
+</ul>
+</body>
+</html>

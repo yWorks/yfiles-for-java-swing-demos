@@ -1,0 +1,39 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../resources/demo.css"/>
+</head>
+<body class="demo-description">
+
+<h2>Step 15: Commands and Command Binding</h2>
+<p>
+  The built-in command framework of yFiles can be used to easily connect actions with shortcuts
+  that benefit from automatic management of enabling/disabling.
+</p>
+<p>
+  Note that using custom commands is purely optional: all yFiles functionality can be
+  accessed with conventional GUI programming techniques, e.g. plain event listeners.
+  Commands can however help to reduce code coupling and encapsulate user interaction code.
+</p>
+<p>
+  In this step we specify a command for calculating the automatic layout introduced in the previous step.
+</p>
+<p>
+  The layout calculation can now be started with the shortcut Ctrl/Command+L as well as with the toolbar button.
+</p>
+<p>
+  See the sources for details.
+</p>
+<br/>
+<h3>Relevant Chapters in the Developers Guide:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/customizing_concepts_commands">Command Pattern</a></li>
+</ul>
+<h3>Relevant API:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.ICommand">ICommand</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.CommandAction">CommandAction</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.KeyboardInputMode%23KeyboardInputMode-method-addCommandBinding">KeyboardInputMode#addCommandBinding</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.KeyboardInputMode%23KeyboardInputMode-method-addKeyBinding">KeyboardInputMode#addKeyBinding</a></li>
+</ul>
+</body>
+</html>

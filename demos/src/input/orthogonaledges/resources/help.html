@@ -1,0 +1,44 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+
+<h1>Description</h1>
+
+<p>
+  Enable orthogonal edge editing using the <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.GraphEditorInputMode">GraphEditorInputMode</a>. Customize the behavior by implementing the
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.IOrthogonalEdgeHelper">IOrthogonalEdgeHelper</a> interface and adding instances to the edge decorator of the graph.
+</p>
+<h2>
+    Things to try
+</h2>
+Drag segments and bends of the edges and observe the different characteristics.
+<h2>
+  Edge Types
+</h2>
+<ul>
+    <li>
+      <font color="#b22222"><b>Red edges</b></font> behave like normal edges with no orthogonal editing. The segments are
+      straight lines with arbitrary slope. Dragging an unselected segment always creates a new bend.
+    </li>
+    <li>
+      <font color="#228b22"><b>Green edges</b></font> demonstrate the default orthogonal edge editing behavior. While dragging,
+      all segments stay orthogonal and new bends are created as needed.
+    </li>
+    <li>
+      <font color="#800080"><b>Purple edges</b></font> behave just like green edges except that the locations of the source
+      port and target port are constraint to the given port candidates of the nodes.
+    </li>
+    <li>
+      <font color="#ff8c00"><b>Orange edges</b></font> behave just like green edges except that the source and
+      target port can be placed at any location inside the node since they use dynamic port candidates.
+    </li>
+    <li>
+      <font color="#4169e1"><b>Blue edges</b></font> behave just like green edges for the inner segments. The first and
+      the last segment can have an arbitrary slope. If a new bend is added to one of these two segments, the newly
+      created inner segment becomes orthogonal immediately.
+    </li>
+</ul>
+</body>
+</html>

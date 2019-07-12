@@ -1,0 +1,135 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+
+<h1>Quick Reference</h1>
+<p>
+  Experience intuitive diagram creation, editing capabilities, and automatic diagram layout provided by yFiles for Java (Swing).
+</p>
+<p>
+  It is very easy to add, delete, move and label nodes and
+  edges to create a nice diagram. You can interact with the diagram using zoom and pan, undo/redo, copy/paste, and
+  much more.
+</p>
+
+<h3>Creating nodes</h3>
+<ul>
+    <li>Click at an empty location on the canvas.</li>
+</ul>
+
+<h3>Creating edges</h3>
+<ul>
+    <li>Drag the mouse with the left button held down on a node.</li>
+    <li>Complete the creation by releasing the mouse button on a target node.</li>
+    <li>Abort the creation by pressing the Esc key.</li>
+    <li>Create control points (bends) during edge creation by clicking on an empty area
+    of the canvas, remove the last control point and finally cancel edge creation with Right-Click.</li>
+</ul>
+
+<h3>Creating and editing labels</h3>
+<ul>
+    <li>Press the F2 key while an element or connection is selected.</li>
+    <li>Alternatively double-click an element, connection or label.</li>
+</ul>
+
+<h3>Panning and zooming</h3>
+<ul>
+    <li>Move the diagram view by dragging the mouse while Ctrl/Command is pressed.</li>
+    <li>The zoom factor is changed with the mouse wheel or the zoom buttons in the toolbar.</li>
+    <li>Use Ctrl/Command + mouse wheel to zoom in or out on the center of the displayed area.</li>
+    <li>Display the entire diagram using the <em>Fit Contents</em> button in the tool bar.</li>
+</ul>
+
+<h3>Selection</h3>
+<ul>
+    <li>Single object: click these items with the left mouse button. If the Ctrl/Command key is
+    pressed, clicked items are added to the current selection.</li>
+    <li>Multiple objects: you can toggle between marquee and lasso selection in the toolbar. Drag the mouse over the canvas. All elements inside the resulting rectangle/lasso path will be selected.</li>
+    <li>All objects are selected by pressing Ctrl/Command + A.</li>
+    <li>Deselect single items: click on them with the Ctrl/Command key held down. Deselect all items: click on an empty
+    part of the canvas.</li>
+    <li>Select labels: Click on the label while holding down the Shift key.</li>
+</ul>
+
+<h3>Moving items</h3>
+<ul>
+    <li>Selected elements: drag the mouse, starting over a selected item.</li>
+    <li>Move selected labels: drag to the indicate positions.</li>
+    <li>Note that items have to be selected before they can be moved.</li>
+</ul>
+
+<h3>Resizing elements</h3>
+<ul>
+    <li>Drag one of the handles that are shown when an element is selected.</li>
+</ul>
+
+<h3>Clipboard</h3>
+<ul>
+    <li>Cut or copy selected elements to the clipboard by pressing Ctrl/Command + X or Ctrl/Command + C, respectively.
+    The clipboard's contents can be pasted into the diagram with Ctrl/Command + V.</li>
+    <li>Cut, copy, and paste are also available in the tool bar and the <em>Edit</em> menu.</li>
+</ul>
+
+<h3>Undo/Redo</h3>
+<ul>
+    <li>The last edit operations can be undone by pressing Ctrl/Command + Z, clicking the undo button in the
+    toolbar or selecting <em>Undo</em> from the <em>Edit</em> menu. Undone operations can be restored by pressing
+    Ctrl/Command + Y, the redo button or selecting <em>Edit</em>/<em>Redo</em> from the menu.</li>
+</ul>
+
+<h3>Removing or duplicating elements</h3>
+<ul>
+  <li>All currently selected items are removed by pressing the delete key. Removing is also available in the tool bar
+    and the <em>Edit</em> menu.</li>
+  <li>All currently selected items are duplicated by pressing Ctrl/Command + D. Duplicating is also available in the <em>Edit</em> menu.
+  </li>
+</ul>
+
+<h3>Changing edge direction</h3>
+<ul>
+  <li>To change the direction of the currently selected edges press Ctrl/Command + R or the appropriate menu item in the <em>Edit</em>
+    menu.</li>
+</ul>
+
+<h3>Grouping</h3>
+<ul>
+    <li>Selected nodes can be grouped into a group node by pressing Ctrl/Command + G. The group node's site will
+    be adjusted to its contents.
+    A node can be added to a group node or removed from a group node by dragging it with the Shift
+    key held down. The group which will be the node's parent is indicated by highlighted corners.</li>
+    <li>Deleting a group node will remove the group node but not its children.</li>
+</ul>
+
+<h3>Collapsing and expanding groups</h3>
+<ul>
+    <li>Collapse a selected and expanded group node by pressing Ctrl/Command + Minus. Collapse
+    is also available in the <em>Grouping</em> menu. Collapse an unselected and expanded
+    group node by clicking on the Minus button in the top left corner of the node.</li>
+    <li>Expand a selected and collapsed group node by pressing Ctrl/Command + Plus. Expand is
+    also available in the <em>Grouping</em> menu. Expand an unselected and collapsed group
+    node by clicking the Plus button in the top left corner of the node.</li>
+</ul>
+
+<h3>Entering and exiting groups</h3>
+<ul>
+    <li>Enter a selected group node by pressing Ctrl/Command + ENTER. Enter is also available in the <em>Grouping</em> menu.</li>
+    <li>Exit a group node by pressing Ctrl/Command + BACKSPACE. Exit is also available in the <em>Grouping</em> menu.</li>
+</ul>
+
+<h3>Orthogonal edge creation</h3>
+<ul>
+    <li>Switch orthogonal edges on/off in the toolbar.</li>
+    <li>Change the outgoing node side by pressing the space bar while creating an orthogonal edge (before creating a bend).</li>
+</ul>
+
+<h3>Snapping</h3>
+<ul>
+    <li>Switch snapping on/off in the toolbar.</li>
+    <li>Drag nodes, edges and bends near other graph elements to make them snap.</li>
+    <li>Drag node and edge labels along the border/path of their owner to make them snap.</li>
+    <li>Switch on snapping to make orthogonal edge segments snap to other graph elements during edge creation.</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+
+<h1>Description</h1>
+
+<p>
+This demo shows edge-to-edge connections.
+The input mode of this demo is configured to allow edges to connected not only to nodes but also to edges.
+</p>
+<p>
+  This application also demonstrates how to provide port candidates at edges to allow interactive creation
+  of edge-to-edge connections. Please take a look at the code behind to observe some of the customization
+  possibilities.
+</p>
+
+<h2>Things to Try</h2>
+
+<ul>
+    <li>
+      Create a connection between a node and an edge by pressing the left mouse button on an unselected node and dragging
+      the edge onto another edge.
+    </li>
+    <li>
+      Create a connection between two edges by dragging the mouse from an edge onto another edge.
+    </li>
+    <li>
+      Hold down the shift modifier when moving the ends of an edge across another edge to create dynamic port candidates
+      that best match the mouse location.
+    </li>
+    <li>
+      Start dragging the mouse from various positions on an edge to observe that the best available port location is
+      chosen for the source port.
+    </li>
+    <li>
+      Re-connect an existing edge by selecting it and dragging the source or target onto another node or edge.
+    </li>
+    <li>
+      Try to re-connect an edge's source or target to itself or another edge that connects to the edge that is being re-connected.
+      There will be no port candidates since connecting an edge to itself or creating a mutual dependency is forbidden in this demo.
+    </li>
+</ul>
+<p>
+  Please note that the bend creation gesture has been customized in this demo. Press the Shift button and drag the mouse on an unselected edge
+  to create a bend.
+</p>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+
+<h1>Description</h1>
+
+<p>
+  This demo shows the usage of ports by taking the example of a digital system consisted of logic gates.
+</p>
+
+<p>
+  Each node in this system has specific ports for incoming and outgoing edges.
+</p>
+<p>
+  Incoming edges are connected only to green ports (usually on the left side of the target node).
+  Outgoing edges connect to blue ports (usually on the right side of the source node).
+</p>
+<p>
+  To achieve this, the notions of <em>PortConstraint</em> and <em>PortCandidate</em> have been used.
+</p>
+
+<h2>Things to try</h2>
+
+<ul>
+  <li>Drag nodes from the palette. Notice that the new nodes already have green and blue ports.</li>
+  <li>Hover over a node to see which ports are valid (highlighted with green color) and
+    invalid (highlighted with red color) to start an edge creation.</li>
+  <li>Create a new edge by dragging from a valid port. While creating the connection, the valid and invalid end ports are
+    indicated with green and red color again.
+    The edge will be created in the direction that has been selected from the <em>Edge Direction Policy</em>:
+  <ul>
+    <li><em>Start at source</em>: Edges can only be created from source (blue) to target (green) ports.</li>
+    <li><em>Start at target</em>: Edges can only be created from target (green) to source (blue) port.</li>
+    <li><em>Keep direction</em>: Edges will be created in the same direction as last time.</li>
+    <li><em>Determine from port candidates</em>: Edges will be created in the direction depending on whether the
+      creation started at a source or target port.</li>
+  </ul>
+  </li>
+  <li>Re-assign a connection by selecting the edge and dragging one of its endpoints.</li>
+  <li>Apply a new <em>HierarchicLayout</em> or <em>Route Edges</em> and notice that the ports remain unchanged.</li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ////////////////////////////////////////////////////////////////////////
+     //
+     // This demo file is part of yFiles for Java (Swing) 3.3.
+     //
+     // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // 72070 Tuebingen, Germany. All rights reserved.
+     //
+     // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
+     // of demo resource files, with or without modification, is not permitted.
+     // Owners of a valid software license for a yFiles for Java (Swing) version that this
+     // demo is shipped with are allowed to use the resource file as basis for
+     // their own yFiles for Java (Swing) powered applications. Use of such programs is
+     // governed by the rights and conditions as set out in the yFiles for Java (Swing)
+     // license agreement.
+     //
+     // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+     // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+     // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+     // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+     // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+     // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     // 
+     ////////////////////////////////////////////////////////////////////////-->
+<!--Created by yFiles for Java 3.1-->
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+         xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/3.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:y="http://www.yworks.com/xml/yfiles-common/3.0"
+         xmlns:yfj="http://www.yworks.com/xml/yfiles-for-java/3.1"
+         xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml.java/3.1/ygraphml.xsd ">
+<key id="d0" for="all" attr.name="UserTags" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/UserTags" />
+  <key id="d1" for="node" attr.name="NodeLabels" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeLabels" />
+  <key id="d2" for="node" attr.name="NodeGeometry" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeGeometry" />
+  <key id="d3" for="node" attr.name="NodeStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeStyle" />
+  <key id="d4" for="edge" attr.name="EdgeLabels" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeLabels" />
+  <key id="d5" for="edge" attr.name="EdgeGeometry" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry" />
+  <key id="d6" for="edge" attr.name="EdgeStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeStyle" />
+  <key id="d7" for="port" attr.name="PortLocationParameter" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLocationParameter">
+    <default>
+      <x:Static Member="y:FreeNodePortLocationModel.NodeCenterAnchored" />
+    </default>
+  </key>
+  <key id="d8" for="port" attr.name="PortStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortStyle">
+    <default>
+      <x:Static Member="y:VoidPortStyle.Instance" />
+    </default>
+  </key>
+  <key id="d9" attr.name="SharedData" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData" />
+  <data key="d9">
+    <y:SharedData>
+    </y:SharedData>
+  </data>
+  <graph id="G" edgedefault="directed">
+    <node id="n0">
+      <data key="d2">
+        <y:RectD X="-92.25" Y="266.5" Width="75" Height="75" />
+      </data>
+      <data key="d3">
+        <yfj:ShapeNodeStyle Paint="ForestGreen" Shape="STAR5" />
+      </data>
+    </node>
+    <node id="n1">
+      <data key="d2">
+        <y:RectD X="34.75" Y="266.5" Width="75" Height="75" />
+      </data>
+      <data key="d3">
+        <yfj:ShapeNodeStyle Paint="ForestGreen" Shape="STAR5" />
+      </data>
+    </node>
+    <node id="n2">
+      <data key="d2">
+        <y:RectD X="-79.75" Y="57" Width="50" Height="50" />
+      </data>
+      <data key="d3">
+        <yfj:ShinyPlateNodeStyle Paint="#FF000000" />
+      </data>
+      <data key="d1">
+        <x:List>
+          <y:Label>
+            <y:Label.Text><![CDATA[This node label has an extra extended super long label text
+so you can see how nodes snap all along its border.]]></y:Label.Text>
+            <y:Label.LayoutParameter>
+              <y:RatioAnchoredLabelModelParameter LayoutRatio="0.5,0" LayoutOffset="0,-25" LabelRatio="0.5,0.5" />
+            </y:Label.LayoutParameter>
+            <y:Label.Style>
+              <yfj:DefaultLabelStyle BackgroundPen="Black"/>
+            </y:Label.Style>
+          </y:Label>
+        </x:List>
+      </data>
+      <port name="p0" />
+    </node>
+    <node id="n3">
+      <data key="d2">
+        <y:RectD X="357.75" Y="279" Width="50" Height="50" />
+      </data>
+      <data key="d3">
+        <yfj:ShinyPlateNodeStyle Paint="#FF000000" />
+      </data>
+      <port name="p0" />
+    </node>
+    <node id="n4">
+      <data key="d2">
+        <y:RectD X="47.25" Y="-86" Width="50" Height="50" />
+      </data>
+      <data key="d3">
+        <yfj:ShinyPlateNodeStyle Paint="#FF000000" />
+      </data>
+    </node>
+    <edge id="e0" source="n2" target="n3" sourceport="p0" targetport="p0">
+      <data key="d5">
+        <x:List>
+          <y:Bend Location="128.25,82" />
+          <y:Bend Location="128.25,213" />
+          <y:Bend Location="282.189691817216,213" />
+          <y:Bend Location="322.189691817216,304" />
+        </x:List>
+      </data>
+      <data key="d6">
+        <yfj:PolylineEdgeStyle TargetArrow="DEFAULT" />
+      </data>
+      <data key="d4">
+        <x:List>
+          <y:Label>
+            <y:Label.Text><![CDATA[Other graph items can snap
+to this edge label as long as
+it is orthogonal.]]></y:Label.Text>
+            <y:Label.LayoutParameter>
+              <y:SmartEdgeLabelModelParameter SegmentIndex="2" Distance="9">
+                <y:SmartEdgeLabelModelParameter.Model>
+                  <y:SmartEdgeLabelModel />
+                </y:SmartEdgeLabelModelParameter.Model>
+              </y:SmartEdgeLabelModelParameter>
+            </y:Label.LayoutParameter>
+            <y:Label.Style>
+              <yfj:DefaultLabelStyle BackgroundPen="Black"/>
+            </y:Label.Style>
+          </y:Label>
+        </x:List>
+      </data>
+    </edge>
+  </graph>
+</graphml>

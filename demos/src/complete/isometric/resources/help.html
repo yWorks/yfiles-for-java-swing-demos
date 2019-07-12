@@ -1,0 +1,51 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+  <h1>Description</h1>
+  <p>
+    This demo displays graphs in an isometric fashion to create an impression
+    of a 3-dimensional view.
+  </p>
+
+  <h2>Interaction</h2>
+  <p>
+    As this demo is mainly a viewer, it is not possible to edit the graph structure.  
+  </p>
+  <ul>
+    <li>
+      Left Click on Group State Icon opens/closes the group node and
+      shows/hides its children.
+    </li>
+    <li>
+      Left Drag on View moves view according to the difference between drag
+      start and current mouse position.
+    </li>
+    <li>
+      Mouse Wheel changes the zoom level of the view.
+    </li>
+  </ul>
+
+  <h2>Layout</h2>
+  <p>
+    There are two layout algorithms well-suited for arranging graphs in
+    isometric views: Hierarchic layout and orthogonal layout.
+  </p><p>
+    By default, hierarchic layout is used.
+  </p><p>
+    However, the source code of the demo is organized in such a way that
+    switching to orthogonal layout is a simple matter of changing the value of
+    field <code>layoutStyle</code> in the main demo class.
+  </p><p>
+    Opening/closing group nodes automatically re-arranges the the current
+    diagram with the chosen layout algorithm.
+  </p>
+
+  <p>
+    See the online
+    <a href="http://live.yworks.com/demos/complete/isometric/index.html">Isometric Drawing Demo</a>
+    for additional interactive features.
+  </p>
+</body>
+</html>

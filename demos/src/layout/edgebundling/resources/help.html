@@ -1,0 +1,42 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+  <h1>Description</h1>
+  <p>
+    This demo shows how edge bundling can be applied for reducing visual cluttering in dense graphs.
+  </p>
+  <p>
+    The edge curves are drawn using piecewise cubic bezier curves with gradient colors from dark-blue (that starts from the
+    source node) to light-blue (that leads to the target node of the edge). For the approximation of the edge curves, a
+    <a href="https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.CurveFittingLayoutStage">yfiles.layout.CurveFittingLayoutStage</a> is applied.
+  </p>
+  <p>
+    For circular layouts, a circular-sector style is used for the visualization of the nodes.
+  </p>
+  <h2>Things to try:</h2>
+  <ul>
+    <li>
+      Select one of the layout algorithm that support edge bundling by adjusting the demo's <code>selectedAlgorithm</code> constant.
+    </li>
+    <li>
+      Modify the strength of the bundles by adjusting the demo's <code>bundlingStrength</code> constant and notice how this change
+      influences the shape of the curves of the bundled edges. Values close to <code>1</code> lead to tight bundles, while values
+      close to<code>0</code> lead to straight-line non-bundled edges. Values larger than <code>0.85</code> are recommended.
+    </li>
+    <li>
+      Hover over an edge to highlight its path and its source and target nodes. The edges are highlighted also with
+      gradient colors from red (source node) to gold (target node).
+    </li>
+    <li>
+      Hover over a node to highlight its incident edges.
+    </li>
+  </ul>
+  <p>
+    See the online
+    <a href="http://live.yworks.com/demos/layout/edgebundling/index.html">Edge Bundling Demo</a>
+    for additional interactive features.
+  </p>
+</body>
+</html>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<classes>
+  <class name="IA" type="interface"/>
+  <class name="IB" extends="IA" type="interface"/>
+  <class name="IC" type="interface"/>
+  <class name="A" extends="IA" type="class">
+    <class name="A.B" extends="IB" type="class"/>
+    <class name="A.ID" type="interface"/>
+  </class>
+  <class name="B" extends="A.B" type="class">
+    <class name="B.C" extends="IC" type="class"/>
+    <class name="B.D" extends="A.ID" type="class"/>
+  </class>
+</classes>

@@ -1,0 +1,52 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../resources/demo.css"/>
+</head>
+<body class="demo-description">
+<h2>Step 8: Using GraphML for Loading and Saving</h2>
+<p>
+  Graphs can be saved and loaded into an application using the GraphML format.
+</p>
+<p>
+  GraphML is the standard file format of yFiles. It is an XML format that allows for great flexibility when storing
+  custom data. However, note that these attributes (such as styles or even node locations) are not standardized. So you
+  probably won't be able to exchange all of them between different graph libraries, for example.
+</p>
+<p>
+  Class <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.GraphComponent">GraphComponent</a> already comes with several convenience methods for
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.GraphComponent%23GraphComponent-method-importFromGraphML">reading</a> and
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.GraphComponent%23GraphComponent-method-exportToGraphML">writing</a> GraphML files.
+</p>
+<p>
+  In addition, the usual
+  commands <em>Open</em>, <em>Save</em> and <em>Save as</em> are available by default but must be
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.GraphComponent%23GraphComponent-property-FileIOEnabled">enabled</a> once.
+</p>
+<p>
+  If you want to customize your I/O process, e.g., to write additional custom data, see class
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graphml.GraphMLIOHandler">GraphMLIOHandler</a> and step <em>Export Custom Data in GraphML</em> later in this tutorial.
+</p>
+
+<h3>Things to Try</h3>
+
+<ul>
+  <li>To save a graph, create one and select <em>Save...</em> in the menu <em>File</em>.</li>
+  <li>To load a graph, select <em>Open...</em> in the menu <em>File</em>.</li>
+</ul>
+<p>
+  See the sources for details.
+</p>
+<br/>
+<h3>Relevant Chapters in the Developers Guide:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/getting_started-io">Getting Started: Loading and Saving Graphs</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/io-loading_saving">Graph I/O and Printing: Loading and Saving Graphs</a></li>
+</ul>
+<h3>Relevant API:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.GraphComponent%23GraphComponent-method-importFromGraphML">GraphComponent#importFromGraphML</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.GraphComponent%23GraphComponent-method-exportToGraphML">GraphComponent#exportToGraphML</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graphml.GraphMLIOHandler">GraphMLIOHandler</a></li>
+</ul>
+</body>
+</html>

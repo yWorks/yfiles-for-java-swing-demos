@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ////////////////////////////////////////////////////////////////////////
+     //
+     // This demo file is part of yFiles for Java (Swing) 3.3.
+     //
+     // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // 72070 Tuebingen, Germany. All rights reserved.
+     //
+     // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
+     // of demo resource files, with or without modification, is not permitted.
+     // Owners of a valid software license for a yFiles for Java (Swing) version that this
+     // demo is shipped with are allowed to use the resource file as basis for
+     // their own yFiles for Java (Swing) powered applications. Use of such programs is
+     // governed by the rights and conditions as set out in the yFiles for Java (Swing)
+     // license agreement.
+     //
+     // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+     // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+     // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+     // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+     // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+     // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     // 
+     ////////////////////////////////////////////////////////////////////////-->
+<!--Created by yFiles for Java 3.1-->
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+         xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/3.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:y="http://www.yworks.com/xml/yfiles-common/3.0"
+         xmlns:yfj="http://www.yworks.com/xml/yfiles-for-java/3.1"
+         xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml.java/3.1/ygraphml.xsd ">
+  <key attr.name="NodeStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeStyle" for="node" id="d0"/>
+  <key attr.name="UserTags" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/UserTags" for="all" id="d1"/>
+  <key attr.name="NodeGeometry" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeGeometry" for="node" id="d2"/>
+  <key attr.name="NodeLabels" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeLabels" for="node" id="d3"/>
+  <key attr.name="EdgeStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeStyle" for="edge" id="d4"/>
+  <key attr.name="EdgeGeometry" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry" for="edge" id="d5"/>
+  <key attr.name="EdgeLabels" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeLabels" for="edge" id="d6"/>
+  <key attr.name="PortStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortStyle" for="port" id="d7">
+    <default>
+      <x:Static Member="y:VoidPortStyle.Instance"/>
+    </default>
+  </key>
+  <key attr.name="PortLocationParameter" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLocationParameter" for="port" id="d8">
+    <default>
+      <x:Static Member="y:FreeNodePortLocationModel.NodeCenterAnchored"/>
+    </default>
+  </key>
+  <key attr.name="SharedData" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData" id="d9"/>
+  <data key="d9">
+    <y:SharedData>
+      <yfj:ShinyPlateNodeStyle Paint="DarkOrange" xmlns:ns0="http://www.yworks.com/xml/yfiles-common/markup/2.0" ns0:Key="1"/>
+      <yfj:PolylineEdgeStyle xmlns:ns0="http://www.yworks.com/xml/yfiles-common/markup/2.0" ns0:Key="2" TargetArrow="DEFAULT"/>
+    </y:SharedData>
+  </data>
+  <graph id="G">
+    <node id="n0">
+      <data key="d0">
+        <y:GraphMLReference ResourceKey="1"/>
+      </data>
+      <data key="d2">
+        <y:RectD Height="30.0" Width="30.0" X="-215.0" Y="260.0"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+    </node>
+    <node id="n1">
+      <data key="d0">
+        <y:GraphMLReference ResourceKey="1"/>
+      </data>
+      <data key="d2">
+        <y:RectD Height="30.0" Width="30.0" X="-165.0" Y="385.0"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+    </node>
+    <node id="n2">
+      <data key="d0">
+        <y:GraphMLReference ResourceKey="1"/>
+      </data>
+      <data key="d2">
+        <y:RectD Height="30.0" Width="30.0" X="-165.0" Y="135.0"/>
+      </data>
+      <data key="d3">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Style>
+              <yfj:DefaultLabelStyle Font="Dialog;12;PLAIN" TextTrimming="WORD_ELLIPSIS" TextWrapping="WRAP"/>
+            </y:Label.Style>
+            <y:Label.Text>Node</y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+    </node>
+    <edge id="e0" source="n2" sourceport="p0" target="n1" targetport="p0">
+      <data key="d4">
+        <y:GraphMLReference ResourceKey="2"/>
+      </data>
+    </edge>
+    <edge id="e1" source="n2" sourceport="p1" target="n0" targetport="p0">
+      <data key="d4">
+        <y:GraphMLReference ResourceKey="2"/>
+      </data>
+    </edge>
+    <edge id="e2" source="n0" sourceport="p1" target="n1" targetport="p1">
+      <data key="d4">
+        <y:GraphMLReference ResourceKey="2"/>
+      </data>
+    </edge>
+  </graph>
+</graphml>

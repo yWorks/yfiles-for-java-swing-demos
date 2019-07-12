@@ -1,0 +1,33 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+
+<h1>Description</h1>
+<p>
+  This demo shows how to create and use a custom <i>IPortLocationModel</i>.
+</p>
+
+
+<h2>Things to try</h2>
+<ul>
+  <li>
+    <p>Create new nodes in the canvas and interconnect them with new edges.</p>
+    <p>Note that a specialized set of possible port candidates is shown.
+      The candidates use a custom port location model that offers five possible locations
+      on each node.</p>
+  </li>
+  <li>
+    <p>Click on one of the nodes and then drag the handle that depicts a port.</p>
+    <p>Note that you can only drag the handle to the locations that are supported by the model.</p>
+  </li>
+  <li>
+    <p>Try saving and loading the graph. Note that for this custom port location model serialization is easy
+      because of the MarkupExtension based serialization mechanism that is used to
+      serialize the (otherwise) internal parameter class which can only be created via the factory methods.</p>
+  </li>
+</ul>
+
+</body>
+</html>

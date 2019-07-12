@@ -1,0 +1,44 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+
+<h1>Description</h1>
+<p>
+  Configure the <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.GraphEditorInputMode">GraphEditorInputMode</a> so that only one graph item can be selected at a time.
+</p>
+
+<h2>Things to try</h2>
+<ul>
+    <li>
+      Toggle single selection mode using the respective button.
+    </li>
+    <li>
+      Try to drag the mouse over a set of nodes to select them. Marquee selection is completely disabled in single selection mode.
+    </li>
+    <li>
+      Click select a node. Try to extend the selection by holding the Ctrl/Command key down and click another node.
+    </li>
+    <li>
+      Click select a node. Try to extend the selection by holding the Shift key down and press one of the arrow keys
+      to extend the selection to a certain direction.
+    </li>
+    <li>
+      Try to select all nodes by pressing Ctrl/Command-A.
+    </li>
+    <li>
+      Select a single node. You can toggle the selection state by hitting Ctrl/Command-Space. This works for single
+      selection as well as in <em>normal</em> mode due to a custom command binding.
+    </li>
+    <li>
+      Click select a single node. Move the item focus (indicated by a thin dashed line) by holding the Ctrl/Command key down
+      and pressing one of the arrow keys. Toggle the selection state of the focused item by pressing Ctrl/Command-Space.
+    </li>
+    <li>
+      Take a look at the source code, especially <em>enableSingleSelection</em>.
+    </li>
+</ul>
+
+</body>
+</html>

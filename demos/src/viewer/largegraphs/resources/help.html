@@ -1,0 +1,131 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+
+<h1>Description</h1>
+<p>This demo illustrates improvements in rendering performance for very large graphs
+  in yFiles for Java (Swing). The default settings are adequate for graphs up to a few hundred elements.
+  Scaling to several thousands of elements is possible with a bit of tweaking, though.</p>
+<p>The impact of each individual setting depends on the graph, its layout, and how you
+  interact with it. This demo comes with settings tailored to each example graph. Your use
+  cases might require different parameters or even other methods.</p>
+
+<h2>Things To Try</h2>
+
+<ul>
+  <li>
+    <p>Modify the different parameters on the left to see their effect on performance</p>
+  </li>
+  <li>
+    <p>Use the animations in the lower left to quickly test setting changes on
+      common interaction patterns like zooming or panning the viewport (the spiral zoom
+      tests both at the same time), or moving nodes.</p>
+  </li>
+  <li>
+    <p>Watch the information counters in the lower left to see the impact of the
+      parameters on frame rate. Frame rate must be observed while running an animation, though.</p>
+  </li>
+  <li>
+    <p>Select nodes, edges and labels either by clicking them, using marquee
+      selection or by using the selection tools in the lower left. Observe the impact
+      on performance, especially with large selections.</p>
+  </li>
+  <li>
+    <p>Read on below and in the source code for an explanation of each parameter
+      and technique.</p>
+  </li>
+</ul>
+
+<h2>Overview</h2>
+
+<p>Drawing the overview is costly since the number of visuals in the overview component
+  is the same as in the normal graph control. Therefore, before investigating other aspects
+  it is recommended to disable the overview.</p>
+
+<h2>Faster Item Styles</h2>
+
+<p>A large portion of rendering time is spent in creating and updating the visuals for
+  graph items via their styles. In this case, features with large performance impact are:</p>
+<ul>
+  <li>
+    <p>Label text is rendered at zoom levels where definitely no text is readable anymore.</p>
+  </li>
+  <li>
+    <p>Label placement is costly, especially with edge labels, where most label
+      models will take the edge's path into account.</p>
+  </li>
+  <li>
+    <p>Edge paths are clipped at their end node shapes, which isn't visible at low
+      zoom levels.</p>
+  </li>
+</ul>
+
+<h3>Label Text Improvements</h3>
+
+<ul>
+  <li>
+    <p>Label text is approximated by lines instead of drawing the actual text.
+      This helps to still see where labels are but text at those sizes wouldn't be readable.</p>
+  </li>
+  <li>
+    <p>Labels are hidden completely below a certain zoom level.</p>
+  </li>
+</ul>
+
+<h3>Edge Improvements</h3>
+
+<ul>
+  <li>
+    <p>Omit clipping the edge at the node's shape and simply draw line segments
+      to the port locations.</p>
+  </li>
+  <li>
+    <p>For lower zoom levels ignore bends and just draw a straight line between
+      the two ports. Note that in this case labels would be placed wrongly, so it's
+      advisable to only display edge labels above this threshold.</p>
+  </li>
+  <li>
+    <p>For lower zoom levels, if the edge would be drawn at a very short length
+      on screen, omit them instead. This especially concerns edges between nodes that
+      are very close together, in which case the nodes provide enough visual aid to see
+      the graph structure.</p>
+  </li>
+</ul>
+
+<h2>Selection Performance</h2>
+
+<p>Selections, especially drawing the selection decoration and the resize handles, can
+  be slow, especially when several thousand elements are selected. Basically this adds at
+  least as many elements to the visual tree as there are selected items, so a performance
+  drop can be expected. By disabling handles and using dedicated decoration renderers we can
+  keep the impact a bit lower.</p>
+
+<h2>Label Model Baking</h2>
+
+<p>As mentioned before, calculating label placement can be expensive. While hiding
+  labels at low zoom levels is a good way to cope with this, there are more drastic measures
+  that can be taken if the graph is known to not change. By replacing all label's models
+  with a suitable
+  <em>FreeLabelModel</em> parameter, the
+  amount of work to determine label placement can be minimized. The drawback is that labels
+  now no longer move with their nodes or edges.
+</p>
+
+<h2>Visual Caching</h2>
+<p>
+  Creating a visual can be expensive when for example text size calculation or geometric calculations are involved.
+</p>
+<p>
+  When an item is moved outside the viewport, it usually gets disposed and has to be recreated when it comes inside
+  again.
+  With a weak or strong <em>VisualCachingPolicy</em>, visuals that have a registered <em>IDisposeVisualCallback</em>
+  may get cached and reused later when they got visible again.
+</p>
+<p>
+  This can reduce expensive visual creation but has the drawback of an increased memory consumption.
+</p>
+
+</body>
+</html>

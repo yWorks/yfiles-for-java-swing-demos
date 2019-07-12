@@ -1,0 +1,623 @@
+<html lang="en-US">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>yFiles for Java (Swing) Programming Samples</title>
+<style type="text/css">
+        @import url('https://fonts.googleapis.com/css?family=News+Cycle');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,500');
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  90% {
+    transform: scale(1.02);
+  }
+  95% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.pulse {
+  animation-duration: 3s;
+  animation-name: pulse;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+template {
+  display: none;
+}
+html,
+body {
+  margin: 0;
+}
+body {
+  font-family: "Roboto", "Source Sans Pro", "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial, sans-serif;
+  color: #404040;
+  font-size: 16px;
+  font-weight: 300;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+dt {
+  color: #336699;
+  font-weight: bold;
+  font-weight: 500;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+span.angle-right {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='10' d='M20 20l30 30-30 30'/%3E%3C/svg%3E") no-repeat 100% 100%;
+  padding: 16px 16px 16px 16px;
+  margin-left: 8px;
+  height: 15px;
+}
+header .logo {
+  padding: 28px 28px 19px 28px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-77.706 -29.575 512 512'%3E%3Ccircle fill='%2369C' cx='177.3' cy='267.6' r='177.3'/%3E%3Cpath fill='%23FFF' d='M198.4 0c-32.7 0-62.2 41.5-76.2 86.3 1.3 6 5.3 10.7 12.7 8.7 14-28 25.3-50.8 38.7-50.8 12.7 0 24 26 25.4 100.3.8 57-4 118.4-13.3 152.5-12.7 44.2-42 86.3-58.8 100.3-16.2 13.4-28.2 18.8-37 18.8-10.6 0-16.6-8.6-18.7-12-4.6-6.7-11.3-10.7-18-10.7-14.7 0-26.8 12-26.8 28.8s13.4 31 34.8 31 55-10.8 104.4-67.7c53.5-61 77-105 110.3-160.5 59.5-101 78.3-187.3 77.6-204 0-7.4-2-10.7-6-13.4-5.4-3.4-14-6-18.7-6-4.8 0-15 1.3-16.2 20.7-.7 17.5-10.7 85-24.7 124-14.7 40.6-34 82-56 115H229c9.3-55.6 10.7-104.4 10-147.3C238 67 232.5 0 198.4 0'/%3E%3C/svg%3E") no-repeat 100% 100%;
+}
+.footer-block.logo {
+  width: 160px;
+  height: 200px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-77.706 -29.575 512 512'%3E%3Ccircle fill='%23706f6f' cx='177.3' cy='267.6' r='177.3'/%3E%3Cpath fill='%23FFF' d='M198.4 0c-32.7 0-62.2 41.5-76.2 86.3 1.3 6 5.3 10.7 12.7 8.7 14-28 25.3-50.8 38.7-50.8 12.7 0 24 26 25.4 100.3.8 57-4 118.4-13.3 152.5-12.7 44.2-42 86.3-58.8 100.3-16.2 13.4-28.2 18.8-37 18.8-10.6 0-16.6-8.6-18.7-12-4.6-6.7-11.3-10.7-18-10.7-14.7 0-26.8 12-26.8 28.8s13.4 31 34.8 31 55-10.8 104.4-67.7c53.5-61 77-105 110.3-160.5 59.5-101 78.3-187.3 77.6-204 0-7.4-2-10.7-6-13.4-5.4-3.4-14-6-18.7-6-4.8 0-15 1.3-16.2 20.7-.7 17.5-10.7 85-24.7 124-14.7 40.6-34 82-56 115H229c9.3-55.6 10.7-104.4 10-147.3C238 67 232.5 0 198.4 0'/%3E%3C/svg%3E") no-repeat 100% 100%;
+}
+a {
+  color: #336699;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+strong,
+b {
+  font-weight: bold;
+  font-weight: 500;
+}
+pre {
+  padding: 10px 20px;
+  background-color: #f7f7f7;
+  border-left: 5px solid #e1e1e1;
+  line-height: 1.5em;
+  overflow: auto;
+  font-style: normal;
+  font-family: monospace;
+}
+code {
+  background-color: #f7f7f7;
+  padding: 1px 4px;
+  border: 1px solid #e1e1e1;
+}
+.important {
+  padding: 10px 20px;
+  background-color: #fbeeed;
+  border-left: 5px solid #d9534f;
+  margin-bottom: 10px;
+  -webkit-transition: background-color 0.5s ease-out;
+  -moz-transition: background-color 0.5s ease-out;
+  -ms-transition: background-color 0.5s ease-out;
+  -o-transition: background-color 0.5s ease-out;
+  transition: background-color 0.5s ease-out;
+}
+.highlight-important {
+  background-color: #ffbebe;
+}
+.note {
+  padding: 10px 20px;
+  background-color: #f6fbfe;
+  border-left: 5px solid #6bb9f0;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+header {
+  position: relative;
+  height: 60px;
+  line-height: 60px;
+  background-color: #336699;
+  display: flex;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+header a {
+  color: white;
+}
+header .logo {
+  width: 60px;
+  height: 60px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+header .title {
+  color: white;
+  display: flex;
+  font-size: 1.2em;
+}
+header .title #header-angle {
+  height: 60px;
+  width: 30px;
+  margin-left: 5px;
+}
+body > .content {
+  line-height: 1.5em;
+  padding-top: 20px;
+  width: 800px;
+  padding-left: 250px;
+  padding-bottom: 20px;
+}
+@media screen and (max-width: 1500px) {
+  body > .content {
+    width: 600px;
+    padding-left: 200px;
+  }
+}
+@media screen and (max-width: 900px) {
+  body > .content {
+    width: 600px;
+    padding-left: 150px;
+  }
+}
+@media screen and (max-width: 900px) {
+  body > .content {
+    width: 400px;
+    padding-left: 80px;
+  }
+}
+@media screen and (max-width: 600px) {
+  body > .content {
+    width: 250px;
+    padding-left: 20px;
+  }
+}
+.main {
+  display: flex;
+}
+.main .content {
+  padding: 20px 20px;
+}
+@media screen and (max-width: 900px) {
+  .main .content {
+    padding: 20px 10px;
+  }
+}
+@media screen and (max-width: 900px) {
+  .main {
+    flex-direction: column;
+  }
+}
+.content li {
+  margin-top: .7em;
+}
+.content li > p {
+  margin-top: .25em;
+  margin-bottom: 0;
+}
+.content li:first-child {
+  margin-top: 0;
+}
+.content li > ul,
+.content li > ol,
+.content li li {
+  margin: .4em 0;
+}
+.content dt {
+  font-weight: bold;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+.content dt:first-child {
+  margin-top: 0;
+}
+.content dd > p {
+  margin: 0.5em 0;
+}
+.content h2 {
+  margin-top: 1.3em;
+  margin-bottom: .7em;
+}
+.content h3 {
+  margin-top: 1.1em;
+  margin-bottom: .4em;
+}
+.content h4 {
+  margin-bottom: .4em;
+}
+.content h1:first-child {
+  margin-top: 0;
+}
+.content td p.tableblock {
+  margin: 0;
+}
+.sidebar {
+  position: relative;
+  flex: 0 0 300px;
+  background-color: #eee;
+  padding: 20px;
+}
+@media screen and (max-width: 900px) {
+  .sidebar {
+    flex: 0 0 auto;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
+}
+.sidebar .search-container {
+  text-align: right;
+  width: 300px;
+}
+.sidebar .search-container #search {
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid lightgray;
+  width: 270px;
+  margin-bottom: 2em;
+  background: none;
+  padding: 5px 30px 5px 5px;
+}
+@media screen and (max-width: 900px) {
+  .sidebar .search-container #search {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    font-size: 24px;
+    padding-left: 20px;
+  }
+}
+.sidebar .search-container svg {
+  vertical-align: top;
+}
+.sidebar .accordion-pane {
+  transition: background-color 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+@media screen and (max-width: 900px) {
+  .sidebar .accordion-pane {
+    display: none;
+  }
+}
+.sidebar .accordion-pane .accordion-title {
+  padding: 5px;
+  margin: 0;
+  font-weight: 500;
+  font-size: 1em;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+.sidebar .accordion-pane a {
+  font-weight: 500;
+}
+.sidebar .accordion-pane .accordion-icon {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='none' stroke='%23666' stroke-width='10' d='M20 35l30 30 30-30'/%3E%3C/svg%3E") no-repeat 50% 50%;
+  background-size: 24px 24px;
+  width: 16px;
+  height: 100%;
+  display: inline-block;
+  position: absolute;
+  right: 10px;
+  top: 0;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+.sidebar .accordion-pane .accordion-content {
+  padding: 20px;
+  display: none;
+}
+.sidebar .accordion-pane.expanded {
+  background-color: #e6e6e6;
+  margin-top: 5px;
+}
+.sidebar .accordion-pane.expanded .accordion-title {
+  background-color: #cccccc;
+}
+.sidebar .accordion-pane.expanded .accordion-content {
+  display: block;
+}
+.sidebar .accordion-pane.expanded .accordion-icon {
+  transform: rotateZ(180deg);
+}
+.demo-items > div {
+  font-size: 14px;
+  line-height: 2em;
+}
+.demo-items > div:not(:last-of-type) {
+  margin-bottom: 5px;
+}
+.demo-items > div.filtered {
+  opacity: 0.5;
+}
+@media screen and (max-width: 900px) {
+  footer {
+    text-align: inherit;
+  }
+}
+.demo-grid {
+  display: block;
+  margin-top: 2em;
+}
+.demo-grid .grid-item {
+  background-color: #eee;
+  position: relative;
+  display: inline-block;
+  vertical-align: text-top;
+  width: 240px;
+  height: 300px;
+  margin: 16px 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  overflow: hidden;
+  transition: box-shadow 0.3s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+.demo-grid .grid-item:focus {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+.demo-grid .grid-item:hover,
+.demo-grid .grid-item:focus {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+.demo-grid .grid-item:hover .description,
+.demo-grid .grid-item:focus .description {
+  height: 200px;
+}
+.demo-grid .grid-item:hover .description .details,
+.demo-grid .grid-item:focus .description .details {
+  opacity: 1;
+}
+.demo-grid .grid-item:hover .thumbnail,
+.demo-grid .grid-item:focus .thumbnail {
+  height: 100px;
+}
+.demo-grid .grid-item:hover .thumbnail img,
+.demo-grid .grid-item:focus .thumbnail img {
+  transform: translate(-50%, -50%) scale(0.8);
+  opacity: 0.6;
+}
+.demo-grid .grid-item:hover .thumbnail .actions,
+.demo-grid .grid-item:focus .thumbnail .actions {
+  opacity: 0.7;
+}
+.demo-grid .grid-item:hover .thumbnail .actions:hover,
+.demo-grid .grid-item:focus .thumbnail .actions:hover {
+  opacity: 1;
+}
+.demo-grid .grid-item.filtered {
+  display: none;
+}
+.demo-grid .grid-item .thumbnail {
+  position: relative;
+  overflow: hidden;
+  height: 200px;
+  transition: height 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+.demo-grid .grid-item .thumbnail .category {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  padding: 6px 10px;
+  background-color: #336699;
+  color: #f0f0f0;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 11px;
+}
+.demo-grid .grid-item .thumbnail img {
+  height: 200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s, opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+.demo-grid .grid-item .thumbnail .actions {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 10px;
+  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+.demo-grid .grid-item .thumbnail .actions a {
+  font-size: 14px;
+  color: #333;
+  line-height: 22px;
+  height: 20px;
+  display: inline-block;
+}
+.demo-grid .grid-item .thumbnail .actions a.action-run {
+  background: url("data:image/svg+xml,%3Csvg fill='%23333' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z'/%3E%3C/svg%3E") no-repeat;
+  background-size: 60px 60px;
+  padding: 30px;
+  animation-duration: 3s;
+  animation-name: pulse;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+.demo-grid .grid-item .thumbnail .actions a.action-source {
+  background: url("data:image/svg+xml,%3Csvg fill='%23333' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z'/%3E%3C/svg%3E") no-repeat;
+  background-size: 20px 20px;
+  padding-left: 20px;
+}
+.demo-grid .grid-item .description {
+  position: relative;
+  padding: 10px;
+  height: 100px;
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: height 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+.demo-grid .grid-item .description .title {
+  position: relative;
+  margin: 0;
+  font-size: 1.1em;
+  z-index: 1;
+  font-weight: 500;
+}
+.demo-grid .grid-item .description .details {
+  margin: 0.5em 0 0 0;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+.demo-grid .grid-item .tags {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 10px 5px 10px;
+  transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+.demo-grid .grid-item .tags .tag {
+  display: inline-block;
+  font-size: 11px;
+  background-color: #a7d2ff;
+  padding: 0 6px;
+  height: 24px;
+  line-height: 24px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+.demoTable {
+  font-weight: 300;
+}
+p.demoCategoryLocation {
+  margin-bottom: 20px;
+}
+footer {
+  font-family: "News Cycle", "Source Sans Pro", "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial, sans-serif;
+  background-color: #454545;
+  text-align: center;
+  color: #d2d2d2;
+  display: block;
+  font-size: 14px;
+  padding: 20px;
+}
+footer a {
+  color: #fff;
+}
+footer a:hover {
+  color: #7DA3C9;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+@media screen and (max-width: 900px) {
+  footer {
+    text-align: inherit;
+  }
+}
+footer h4 {
+  color: #79a4d0;
+  text-transform: uppercase;
+}
+footer .logo {
+  height: 100%;
+  max-height: 200px;
+  max-width: 200px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+@media screen and (max-width: 900px) {
+  footer .logo {
+    visibility: collapse;
+  }
+}
+footer .footer-block {
+  vertical-align: top;
+  text-align: left;
+  padding: 5px 20px;
+  display: inline-block;
+}
+@media screen and (max-width: 900px) {
+  footer .footer-block {
+    text-align: inherit;
+  }
+}
+footer .social a {
+  margin-right: 5px;
+}
+footer .copyright {
+  margin-top: 5em;
+  display: inline-block;
+}
+@media screen and (max-width: 900px) {
+  footer .copyright {
+    margin-top: 1em;
+  }
+}
+
+      </style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+</head>
+<body>
+<header>
+<div class="logo"></div>
+<div class="title">
+<a href="../../../../README.html">yFiles for Java (Swing)</a><span class="angle-right"></span><a href="../../../README.html">Programming Samples</a><span class="angle-right"></span><a href="../README.html">Input</a><span class="angle-right"></span>Drag and Drop</div>
+</header>
+<div class="content">
+<h1>Drag and Drop</h1>
+    
+<p>
+      Set up drag-and-drop support for a <code>GraphComponent</code> in yFiles for Java (Swing) and use a <code>JList</code>
+      as drag source for nodes, labels and ports with different styles which can be dropped into the demo's <code>GraphComponent</code>.
+    </p>
+  
+</div>
+<footer>
+<div class="footer-block">
+<h4>Contents</h4>
+<a href="../../../../README.html">Welcome Page</a>
+<br>
+<a target="_blank" href="../../../../doc/api/index.html">API Documentation</a>
+<br>
+<a target="_blank" href="../../../../doc/api/index.html#/dguide/getting_started">Getting Started</a>
+<br>
+<a href="../../../../doc/readme/legal/SOFTWARE_LICENSE_AGREEMENT.html">License Agreement</a>
+<br>
+<a href="../../../../doc/readme/support.html">Help and Support</a>
+</div>
+<div class="footer-block">
+<h4>Contact</h4>
+        yWorks GmbH<br>
+        Vor dem Kreuzberg 28<br>
+        72070 T&uuml;bingen<br>
+        Germany<br>
+        Phone: <a href="tel:+497071979050">+49 7071 979050</a>
+<br>
+        Email: <a href="https://www.yworks.com/contact" target="_blank">contact(at)yworks.com</a>
+<br>
+</div>
+<div class="footer-block">
+<h4>Follow Us</h4>
+<div class="social">
+<a href="@PRODUCT_URL@" target="_blank" class="web">Homepage</a><a href="https://www.yworks.com/newsfeed" target="_blank" class="rss">RSS-Feed</a><a href="https://twitter.com/yworks" target="_blank" class="tw">Twitter</a><a href="https://www.youtube.com/user/yWorksTube" target="_blank" class="yt">YouTube</a>
+</div>
+<span class="copyright">COPYRIGHT &copy; 2019 yWorks</span>
+<br>
+<a href="https://www.yworks.com/company/legal/imprint" target="_blank">Imprint</a>
+        | <a href="https://www.yworks.com/company/legal/terms-of-use" target="_blank">Terms of Use</a>
+        | <a href="https://www.yworks.com/company/legal/privacy" target="_blank">Privacy Policy</a>
+</div>
+<div class="footer-block logo"></div>
+</footer>
+</body>
+</html>

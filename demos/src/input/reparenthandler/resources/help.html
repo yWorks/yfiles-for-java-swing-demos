@@ -1,0 +1,35 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+
+<h1>Description</h1>
+<p>
+  Customize the re-parenting behavior of nodes by implementing the <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.IReparentNodeHandler">IReparentNodeHandler</a> interface and
+  specifying an instance as default re-parent handler of the <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.GraphEditorInputMode">GraphEditorInputMode</a>.
+</p>
+
+<h2>Things to try</h2>
+<ul>
+    <li>
+      Select and move a node. While dragging, press the <code>Shift</code> key to add or remove a node from a group.
+      Angled indicators are shown at the group's corners if adding or removing is possible.
+    </li>
+  </ul>
+<h2>Node Types</h2>
+<ul>
+    <li>
+      <font color="#b22222"><b>Red nodes</b></font> cannot be added to any group.
+    </li>
+    <li>
+      <font color="#228b22"><b>Green nodes</b></font> and <font color="#4169e1"><b>blue nodes</b></font> can be added
+      only to groups of the same color.
+    </li>
+    <li>
+      <font color="#228b22"><b>Green nodes</b></font> can be re-parented without pressing the Shift key.
+    </li>
+</ul>
+
+</body>
+</html>

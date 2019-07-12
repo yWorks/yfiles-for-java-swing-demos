@@ -1,0 +1,38 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+
+<h1>Description</h1>
+<p>
+  Customize the movement behavior of nodes by implementing the <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.IPositionHandler">IPositionHandler</a> interface and adding
+  instances to the node decorator of the graph.
+</p>
+
+<h2>Things to try</h2>
+<ul>
+    <li>
+        Select and move the nodes.
+    </li>
+</ul>
+<h2>Node Types</h2>
+
+<ul>
+    <li>
+        <font color="#b22222"><b>Red nodes</b></font> are unmovable.
+    </li>
+    <li>
+        <font color="#228b22"><b>Green nodes</b></font> move only vertically or horizontally from the current start point.
+    </li>
+    <li>
+        <font color="#ff8c00"><b>Orange nodes</b></font> move freely within the displayed rectangle but cannot leave it.
+    </li>
+    <li>
+      <font color="#4169e1"><b>Blue nodes</b></font> combine the green and orange restrictions: they move only
+        vertically or horizontally and cannot leave the rectangle.
+    </li>
+</ul>
+
+</body>
+</html>

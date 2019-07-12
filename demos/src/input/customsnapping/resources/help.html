@@ -1,0 +1,43 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../toolkit/style/demo.css"/>
+</head>
+<body class="demo-description">
+
+<h1>Description</h1>
+<p>
+  Enable and customize the snapping behaviour of graph items.
+</p>
+<p>
+  The snapping feature can be customized, so that it adds snap lines to the bounds of node and edge labels,
+  lets star shaped nodes snap to the grid points with their outline and uses free additional snap lines nodes and labels
+  can snap to.
+</p>
+
+<h2>Things to try</h2>
+<ul>
+    <li>
+        Move the topmost black node and one of the star shaped nodes around and compare their different
+        grid snapping behaviour. While the black node only snaps to grid points with its center, the star shaped
+        node snaps with all points of its outline, but then again only to the grid points, not in between.
+    </li>
+    <li>
+        Move the unconnected black node close to an orthogonal node or edge label to snap it to the label's bounds.
+    </li>
+    <li>
+        Move an edge label to a non-orthogonal edge segment to disable node snapping for this label.
+        Nodes cannot snap to non-orthogonal labels.
+    </li>
+    <li>
+        Move node and edge labels along their owner's border/path to snap them to other particular positions relative to the owner.
+    </li>
+    <li>
+        Move a node close to the red snap lines to snap it to these non-graph elements.
+    </li>
+    <li>
+        Change the position of a red snap line by dragging it around.
+    </li>
+</ul>
+
+</body>
+</html>

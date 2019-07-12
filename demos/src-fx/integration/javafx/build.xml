@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ////////////////////////////////////////////////////////////////////////
+     //
+     // This demo file is part of yFiles for Java (Swing) 3.3.
+     //
+     // Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // 72070 Tuebingen, Germany. All rights reserved.
+     //
+     // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
+     // of demo resource files, with or without modification, is not permitted.
+     // Owners of a valid software license for a yFiles for Java (Swing) version that this
+     // demo is shipped with are allowed to use the resource file as basis for
+     // their own yFiles for Java (Swing) powered applications. Use of such programs is
+     // governed by the rights and conditions as set out in the yFiles for Java (Swing)
+     // license agreement.
+     //
+     // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+     // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+     // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+     // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+     // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+     // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     // 
+     ////////////////////////////////////////////////////////////////////////-->
+<!-- Ant build script to run the JavaFX integration demo.             -->
+<!-- The Java based Ant tool is available from         -->
+<!-- http://ant.apache.org/                            -->
+<project name="JavaFX integration Demo" default="run" basedir="../.." >
+
+  <!-- prints a help text -->
+  <target name="help">
+    <echo>
+      This Ant script can be used to run the JavaFX integration demo which demonstrates how to integrate
+      yFiles for Java (Swing) in a JavaFX application.
+    </echo>
+  </target>
+
+  <!-- checks if the ant version is 1.8.3 or newer -->
+  <target name="-check-ant">
+    <antversion property="version.running" />
+    <echo>Using ANT version ${version.running}</echo>
+    <condition property="bad.ant">
+      <not><antversion atleast="1.8.3"/></not>
+    </condition>
+    <fail if="bad.ant" message="Incompatible ANT version (${version.running}). Please use Ant 1.8.3 to be able to use at least Java 1.8."/>
+  </target>
+
+  <!-- defines some properties that are used throughout the tasks -->
+  <target name="-init" depends="-check-ant">
+    <property name="distdir" value="${basedir}/../.."/>
+    <!-- the directory with libraries needed for this demo -->
+    <property name="lib.dir" value="${distdir}/lib"/>
+    <!-- the directory that is the source root of the demo -->
+    <property name="demo.src.dir" value="${basedir}"/>
+    <!-- the directory with the class files of the demo -->
+    <property name="demo.class.dir" value="${distdir}/demos/out/classes"/>
+    <!-- the directory with icon resources used in the demo -->
+    <property name="demo.resources.dir" value="${distdir}/demos/src/resources"/>
+
+    <!-- the jar archive of yFiles for Java (Swing) -->
+    <property name="yfiles.jar" value="${lib.dir}/yfiles-for-java-swing.jar"/>
+
+    <!-- the class path for the demo -->
+    <path id="demo.classpath">
+      <pathelement location="${demo.class.dir}"/>
+      <pathelement location="${demo.src.dir}"/>
+      <pathelement location="${yfiles.jar}"/>
+    </path>
+  </target>
+
+  <target name="check-fx-sdk">
+    <condition
+     property="path.to.fx.isset"
+     value="true"
+     else="false">
+      <isset property="path.to.fx"/>
+    </condition>
+    <property name="java.fx.args" value=""/>
+    <script language="javascript">
+    try {
+      load("nashorn:mozilla_compat.js");
+      importClass(javafx.scene.paint.Color);
+      var color = Color.RED;
+      print("FX classes found");
+    } catch(e) {
+      print(e + e.message);
+      print("FX classes not found");
+      if(project.getProperty("path.to.fx.isset").equals("false")) {
+        var fail = project.createTask("fail");
+        fail.setMessage("FX modules could not be found. Please specify the 'path.to.fx' property. See https://openjfx.io/openjfx-docs/#install-javafx for more information.");
+        fail.execute();
+      } else {
+        print("path.to.fx = " + project.getProperty("path.to.fx"));
+        project.setProperty("java.fx.args",
+              "--module-path "
+              + project.getProperty("path.to.fx")
+              + " --add-modules=javafx.fxml,javafx.web,javafx.swing,javafx.swt");
+      }
+    }
+    </script>
+    <echo>java.fx.args = ${java.fx.args}</echo>
+  </target>
+
+  <!-- compiles the application's classes -->
+  <target name="compile" description="Compiles the demo files" depends="-init,check-fx-sdk">
+    <mkdir dir="${demo.class.dir}"/>
+    <javac includeAntRuntime="false" includes="**/*.java" destdir="${demo.class.dir}" debug="true">
+      <src path="${demo.src.dir}"/>
+      <classpath refid="demo.classpath"/>
+      <compilerarg line="${java.fx.args}"/>
+    </javac>
+    <copy todir="${demo.class.dir}">
+      <fileset dir="${demo.src.dir}">
+        <exclude name="**/*.java"/>
+      </fileset>
+    </copy>
+    <copy todir="${demo.class.dir}/resources">
+      <fileset dir="${demo.resources.dir}">
+        <exclude name="**/*.java"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <!-- runs the application -->
+  <target name="run" description="Runs the JavaFX integration application" depends="-init,compile">
+    <java failonerror="true" fork="true" classname="integration.javafx.JavaFxDemo">
+      <classpath refid="demo.classpath"/>
+      <jvmarg line="${java.fx.args}"/>
+    </java>
+  </target>
+
+  <!-- removes everything that has been built -->
+  <target name="clean" description="Removes builds" depends="-init">
+    <delete dir="${demo.class.dir}"/>
+  </target>
+</project>
