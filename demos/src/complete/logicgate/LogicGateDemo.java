@@ -124,11 +124,6 @@ public class LogicGateDemo extends AbstractDemo {
   // the default style
   private static final LogicGateNodeStyle DEFAULT_STYLE = new LogicGateNodeStyle(LogicGateType.AND);
 
-  private EdgeRouter er;
-  private PolylineEdgeRouterData erData;
-  private HierarchicLayout hl;
-  private HierarchicLayoutData hlData;
-
   private JList<INode> palette;
   private JComboBox<NamedEntry> edgeDirectionPolicyComboBox;
   private JButton hlButton;
@@ -189,8 +184,8 @@ public class LogicGateDemo extends AbstractDemo {
     toolBar.add(new JLabel("Edge Direction Policy: "));
     toolBar.add(edgeDirectionPolicyComboBox = createEdgeDirectionPolicyComboBox());
     toolBar.addSeparator();
-    toolBar.add(hlButton = createButton("Hierarchic Layout", "layout-hierarchic.png", () -> onHLLayoutClick()));
-    toolBar.add(erButton = createButton("Route Edges", "layout-tree-16.png", () -> onEdgeRouterButtonClick()));
+    toolBar.add(hlButton = createButton("Hierarchic Layout", "layout-hierarchic.png", () -> applyHierarchicLayout()));
+    toolBar.add(erButton = createButton("Route Edges", "layout-tree-16.png", () -> applyEdgeRouting()));
   }
 
   /**
@@ -229,7 +224,6 @@ public class LogicGateDemo extends AbstractDemo {
 
   @Override
   public void initialize() {
-    initializeLayout();
     populateNodesList();
   }
 
@@ -300,7 +294,7 @@ public class LogicGateDemo extends AbstractDemo {
     }
 
     // apply a new hierarchic layout
-    applyLayout(hl, hlData, true);
+    applyHierarchicLayout();
   }
 
   /**
@@ -412,39 +406,6 @@ public class LogicGateDemo extends AbstractDemo {
   }
 
   /**
-   * Initializes the layout algorithm and its layout data.
-   */
-  private void initializeLayout() {
-    er = new EdgeRouter();
-    er.setNodeLabelConsiderationEnabled(true);
-
-    hl = new HierarchicLayout();
-    hl.setOrthogonalRoutingEnabled(true);
-    hl.setLayoutOrientation(LayoutOrientation.LEFT_TO_RIGHT);
-    hl.setNodeLabelConsiderationEnabled(true);
-
-    // outgoing edges must be routed to the right of the node
-    // we use the same value for all edges, which is a strong port constraint that forces
-    // the edge to leave at the east (right) side
-    PortConstraint east = PortConstraint.create(PortSide.EAST, true);
-    // incoming edges must be routed to the left of the node
-    // we use the same value for all edges, which is a strong port constraint that forces
-    // the edge to enter at the west (left) side
-    PortConstraint west = PortConstraint.create(PortSide.WEST, true);
-
-    Function<IEdge, PortConstraint> sourceFunction = edge -> ((PortDescriptor) edge.getSourcePort().getTag()).getX() == 0 ? west : east;
-    Function<IEdge, PortConstraint> targetFunction = edge -> ((PortDescriptor) edge.getTargetPort().getTag()).getX() == 0 ? west : east;
-
-    erData = new PolylineEdgeRouterData();
-    erData.setSourcePortConstraints(sourceFunction);
-    erData.setTargetPortConstraints(targetFunction);
-
-    hlData = new HierarchicLayoutData();
-    hlData.setSourcePortConstraints(sourceFunction);
-    hlData.setTargetPortConstraints(targetFunction);
-  }
-
-  /**
    * Fill the node list that acts as a source for nodes.
    */
   private void populateNodesList() {
@@ -515,13 +476,52 @@ public class LogicGateDemo extends AbstractDemo {
   }
 
 
+  private void applyHierarchicLayout() {
+    HierarchicLayout hl = new HierarchicLayout();
+    hl.setOrthogonalRoutingEnabled(true);
+    hl.setLayoutOrientation(LayoutOrientation.LEFT_TO_RIGHT);
+    hl.setNodeLabelConsiderationEnabled(true);
 
-  private void onHLLayoutClick() {
+    HierarchicLayoutData hlData = new HierarchicLayoutData();
+    configurePortConstraints(hlData);
+
     applyLayout(hl, hlData, true);
   }
 
-  private void onEdgeRouterButtonClick() {
+  private void applyEdgeRouting() {
+    EdgeRouter er = new EdgeRouter();
+    er.setNodeLabelConsiderationEnabled(true);
+
+    PolylineEdgeRouterData erData = new PolylineEdgeRouterData();
+    configurePortConstraints(erData);
+
     applyLayout(er, erData, false);
+  }
+
+  private void configurePortConstraints( LayoutData layoutData ) {
+    // outgoing edges must be routed to the right of the node
+    // we use the same value for all edges, which is a strong port constraint that forces
+    // the edge to leave at the east (right) side
+    PortConstraint east = PortConstraint.create(PortSide.EAST, true);
+    // incoming edges must be routed to the left of the node
+    // we use the same value for all edges, which is a strong port constraint that forces
+    // the edge to enter at the west (left) side
+    PortConstraint west = PortConstraint.create(PortSide.WEST, true);
+
+    Function<IEdge, PortConstraint> sourceFunction =
+            edge -> ((PortDescriptor) edge.getSourcePort().getTag()).getX() == 0 ? west : east;
+    Function<IEdge, PortConstraint> targetFunction =
+            edge -> ((PortDescriptor) edge.getTargetPort().getTag()).getX() == 0 ? west : east;
+
+    if (layoutData instanceof HierarchicLayoutData) {
+      HierarchicLayoutData hlData = (HierarchicLayoutData) layoutData;
+      hlData.setSourcePortConstraints(sourceFunction);
+      hlData.setTargetPortConstraints(targetFunction);
+    } else if (layoutData instanceof PolylineEdgeRouterData) {
+      PolylineEdgeRouterData erData = (PolylineEdgeRouterData) layoutData;
+      erData.setSourcePortConstraints(sourceFunction);
+      erData.setTargetPortConstraints(targetFunction);
+    }
   }
 
   /**
@@ -543,7 +543,6 @@ public class LogicGateDemo extends AbstractDemo {
     });
     executor.start();
   }
-
 
 
   /**
