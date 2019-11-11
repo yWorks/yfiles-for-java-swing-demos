@@ -1,0 +1,2 @@
+# Edge Reconnection
+ Enable and customize the reconnection behavior of edges to other ports by implementing the `IEdgeReconnectionPortCandidateProvider` interface and adding instances to the edge decorator of the graph. 
