@@ -1,0 +1,61 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../resources/help.css"/>
+</head>
+<body class="demo-description">
+<h2>Step 26: Custom Group Style</h2>
+
+<p>
+  Implement a special node style for group nodes that paints the node as a file card with a tab
+  in the upper left corner.
+</p>
+
+<p>
+  The style provides custom <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.INodeSizeConstraintProvider">INodeSizeConstraintProvider</a>
+  and <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.INodeInsetsProvider">INodeInsetsProvider</a> implementations to
+  customize the minimum size as well as the insets that are used to calculate the group node bounds.
+</p>
+
+<p>
+  The rendering of the tab visual on the group's top side depends on the node width. The tab text is not a label, but is
+  rendered by the node style.
+</p>
+
+<p>
+  The collapse and expand buttons are customized by deriving
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.styles.CollapsibleNodeStyleDecorator">CollapsibleNodeStyleDecorator</a>.
+</p>
+
+<p>
+  The shape of the arrow now depends on whether its edge ends at a normal node or a group node.
+</p>
+
+<h3>Things to Try</h3>
+
+<ul>
+  <li>
+    Move nodes around in the group node to see the group automatically adjust its size while respecting the insets and
+    minimum size.
+  </li>
+  <li>
+    Resize a group to see the tab visual adjust to the node size.
+  </li>
+  <li>
+    Take a look at the source code of <code>MyGroupNodeStyle</code> and <code>MyCollapsibleNodeStyleDecorator</code>.
+  </li>
+</ul>
+
+<br/>
+<h3>Relevant Chapters in the Developers Guide:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/folding%23folding-styles">Style Implementations for Folding</a></li>
+</ul>
+<h3>Relevant API:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.IGraph%23IGraph-property-GroupNodeDefaults">IGraph#GroupNodeDefaults</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.styles.CollapsibleNodeStyleDecorator">CollapsibleNodeStyleDecorator</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.INodeSizeConstraintProvider">INodeSizeConstraintProvider</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.INodeInsetsProvider">INodeInsetsProvider</a></li>
+</ul>
+</body>
+</html>

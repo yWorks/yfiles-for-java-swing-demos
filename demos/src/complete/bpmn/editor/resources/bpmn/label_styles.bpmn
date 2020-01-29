@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Label_Styles" name="Label_Styles" >
+  <bpmn:process id="Process_1fh67o1" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_1vrk69b" name="Start Event">
+      <bpmn:outgoing>SequenceFlow_19ahvup</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_119e75d" name="Task 1">
+      <bpmn:incoming>SequenceFlow_19ahvup</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1p6ofnz</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_19ahvup" sourceRef="StartEvent_1vrk69b" targetRef="Task_119e75d" />
+    <bpmn:task id="Task_0o0yk0i" name="Task 2">
+      <bpmn:incoming>SequenceFlow_1p6ofnz</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1c03wc4</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_0kvu59z" name="End Event">
+      <bpmn:incoming>SequenceFlow_1c03wc4</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1c03wc4" sourceRef="Task_0o0yk0i" targetRef="EndEvent_0kvu59z" />
+    <bpmn:sequenceFlow id="SequenceFlow_1p6ofnz" sourceRef="Task_119e75d" targetRef="Task_0o0yk0i" />
+    <bpmn:textAnnotation id="TextAnnotation_0pxzh5d">
+      <bpmn:text>This Task uses a different BPMNLabelStyle
+</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1f7jawj" sourceRef="Task_0o0yk0i" targetRef="TextAnnotation_0pxzh5d" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="Label_Styles" name="Label_Styles">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1fh67o1">
+            <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1vrk69b">
+        <dc:Bounds x="156" y="81" width="36" height="36" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_1">
+          <dc:Bounds x="147" y="124" width="54" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_119e75d_di" bpmnElement="Task_119e75d">
+        <dc:Bounds x="242" y="59" width="100" height="80" />
+		<bpmndi:BPMNLabel labelStyle="LabelStyle_1"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_19ahvup_di" bpmnElement="SequenceFlow_19ahvup">
+        <di:waypoint x="192" y="99" />
+        <di:waypoint x="242" y="99" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_0o0yk0i_di" bpmnElement="Task_0o0yk0i">
+        <dc:Bounds x="420" y="59" width="100" height="80" />
+		<bpmndi:BPMNLabel labelStyle="LabelStyle_2"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0kvu59z_di" bpmnElement="EndEvent_0kvu59z">
+        <dc:Bounds x="582" y="81" width="36" height="36" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_1">
+          <dc:Bounds x="576" y="124" width="49" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1c03wc4_di" bpmnElement="SequenceFlow_1c03wc4">
+        <di:waypoint x="520" y="99" />
+        <di:waypoint x="582" y="99" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_0pxzh5d_di" bpmnElement="TextAnnotation_0pxzh5d">
+        <dc:Bounds x="519" y="169" width="162" height="37" />
+		<bpmndi:BPMNLabel labelStyle="LabelStyle_1"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1f7jawj_di" bpmnElement="Association_1f7jawj">
+        <di:waypoint x="492" y="139" />
+        <di:waypoint x="519" y="188" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1p6ofnz_di" bpmnElement="SequenceFlow_1p6ofnz">
+        <di:waypoint x="342" y="99" />
+        <di:waypoint x="420" y="99" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+	<bpmndi:BPMNLabelStyle id="LabelStyle_2">
+		<dc:Font isBold="true" isItalic="false" isStrikeThrough="false" isUnderline="true" name="Times New Roman" size="12.0"/>
+	</bpmndi:BPMNLabelStyle>
+	<bpmndi:BPMNLabelStyle id="LabelStyle_1">
+		<dc:Font isBold="false" isItalic="false" isStrikeThrough="false" isUnderline="false" name="Arial" size="12.0"/>
+	</bpmndi:BPMNLabelStyle>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

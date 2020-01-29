@@ -1,0 +1,2 @@
+# Label Handle Provider
+ Shows how to implement custom [handles](https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.IHandle) for interactive rotation and resizing of labels. 

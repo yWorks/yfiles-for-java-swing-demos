@@ -2,7 +2,7 @@
  **
  ** This demo file is part of yFiles for Java (Swing) 3.3.
  **
- ** Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -44,11 +44,12 @@ public class JavaFxDemo extends Application {
   @Override
   public void start(final Stage primaryStage) throws Exception {
     Image[] windowIcons = {
-        new Image("resources/logo_29.png"),
-        new Image("resources/logo_36.png"),
+        new Image("resources/logo_16.png"),
+        new Image("resources/logo_24.png"),
+        new Image("resources/logo_32.png"),
         new Image("resources/logo_48.png"),
-        new Image("resources/logo_57.png"),
-        new Image("resources/logo_129.png")};
+        new Image("resources/logo_64.png"),
+        new Image("resources/logo_128.png")};
 
     Parent root = FXMLLoader.load(getClass().getResource("JavaFxDemo.fxml"));
     Scene scene = new Scene(root, 1365, 768);

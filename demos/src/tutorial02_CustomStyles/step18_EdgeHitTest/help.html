@@ -1,0 +1,60 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../resources/help.css"/>
+</head>
+<body class="demo-description">
+<h2>Step 18: Edge Hit Test</h2>
+
+<p>
+  Take the thickness of an edge into account when checking if the edge was clicked.
+</p>
+<p>
+  <em>Note:</em>For the purpose of this demo, the thickness of edges is set to a high value.
+</p>
+
+<h3>Things to Try</h3>
+
+<ul>
+  <li>
+    Select an edge by clicking not in the middle but in the outer region. Even in a small range around the edge the
+    hit test is positive. This is due to property <code>HitTestRadius</code> of class <code>ICanvasContext</code>.
+    This space gets bigger if you zoom out to make the selection more convenient for the user.
+  </li>
+  <li>
+    Take a look at method <code>isHit()</code> in class <code>MySimpleEdgeStyle</code>.
+  </li>
+</ul>
+
+<h3>Left to Do</h3>
+
+<ul>
+  <li>
+    Crop the edges so they don't extend into the nodes.
+  </li>
+  <li>
+    Change the style of an edge when selected.
+  </li>
+  <li>
+    Add arrows to the edges.
+  </li>
+  <li>
+    Create a custom arrow which fits the style of the demo.
+  </li>
+  <li>
+    Create a custom port style for nodes.
+  </li>
+</ul>
+
+<br/>
+<h3>Relevant Chapters in the Developers Guide:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/customizing_styles">Customizing Styles</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/custom-styles_basic">Basic Custom Style Implementation</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/custom-styles_advanced-functionality%23__api_name_text_ihittestable">Customizing Styles: IHitTestable</a></li>
+</ul>
+<h3>Relevant API:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.styles.AbstractEdgeStyle%23AbstractEdgeStyle-method-isHit">AbstractEdgeStyle#isHit</a></li>
+</ul>
+</body>
+</html>

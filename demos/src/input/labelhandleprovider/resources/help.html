@@ -1,0 +1,30 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../resources/help.css"/>
+</head>
+<body class="demo-description">
+<h1>Description</h1>
+<p>
+  This demo shows how to implement custom
+  <a href="https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.IHandle">IHandles</a>
+  that allow interactive resizing and rotation of labels.
+</p>
+<h2>Things to Try</h2>
+<ul>
+  <li>
+    Select a node label or an edge label and change its size by dragging its resize handle (the square).
+  </li>
+  <li>
+    The <em>Free Node Label</em> can also be rotated: Select that label and drag its rotate handle (the dot).
+  </li>
+  <li>
+    Take a look at the source code, especially <em>LabelHandleProvider</em>, <em>LabelResizeHandle</em>, and <em>LabelRotateHandle</em>.
+  </li>
+</ul>
+<p>
+  Note that the actual resize behavior depends on the label model parameter, since some
+  parameters constrain the label's center to stay at the same position. For these parameters,
+  the label is resized symmetrically in both directions.
+</p>
+</body>
+</html>

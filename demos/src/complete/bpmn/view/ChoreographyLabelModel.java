@@ -2,7 +2,7 @@
  **
  ** This demo file is part of yFiles for Java (Swing) 3.3.
  **
- ** Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -126,6 +126,29 @@ public class ChoreographyLabelModel implements ILabelModel, ILabelModelParameter
   @Obfuscation(stripAfterObfuscation = false, exclude = true)
   public final ILabelModelParameter createParticipantParameter( boolean top, int index ) {
     return new ParticipantParameter(top, index);
+  }
+
+  /**
+   * Determines, if these two parameters are equal.
+   */
+  public static final boolean areEqual( ILabelModelParameter parameter1, ILabelModelParameter parameter2 ) {
+    if (parameter1.getClass() == ParticipantParameter.class && parameter2.getClass() == ParticipantParameter.class) {
+      if (((ParticipantParameter)parameter1).index == ((ParticipantParameter)parameter2).index && ((ParticipantParameter)parameter1).top == ((ParticipantParameter)parameter2).top) {
+        return true;
+      }
+    }
+
+    if (parameter1.getClass() == TaskNameBandParameter.class && parameter2.getClass() == TaskNameBandParameter.class) {
+      return true;
+    }
+
+    if (parameter1.getClass() == MessageParameter.class && parameter2.getClass() == MessageParameter.class) {
+      if (((MessageParameter)parameter1).isNorth() == ((MessageParameter)parameter2).isNorth()) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   @Obfuscation(stripAfterObfuscation = false, exclude = true)

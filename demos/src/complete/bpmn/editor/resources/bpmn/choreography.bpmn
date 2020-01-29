@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<semantic:definitions id="Job_Search_Choreography" name="Job_Search_Choreography" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:semantic="http://www.omg.org/spec/BPMN/20100524/MODEL">
+    <semantic:choreography id="job_search_choreography">
+        <semantic:participant name="Developer" id="P1275674668568"/>
+		<semantic:participant name="Human Resources" id="P1275674668569"/>
+        <semantic:participant name="CEO" id="P1275674668709"/>
+        <semantic:messageFlow name="Can I have the job?" sourceRef="P1275674668568" targetRef="P1275674668569" id="_1275674669071"/>
+        <semantic:messageFlow name="Come in on Monday." sourceRef="P1275674668569" targetRef="P1275674668568" id="_1275674669072"/>
+		<semantic:messageFlow name="You have the job!" sourceRef="P1275674668569" targetRef="P1275674668568" id="_1275674669073"/>
+		<semantic:messageFlow name="Questions" sourceRef="P1275674668709" targetRef="P1275674668568" id="_1275674669074"/>
+		<semantic:messageFlow name="Answers" sourceRef="P1275674668568" targetRef="P1275674668709" id="_1275674669075"/>
+        <semantic:startEvent name="Job Search" id="StartEvent_StartEvent">
+            <semantic:outgoing>SequenceFlow_apply</semantic:outgoing>
+        </semantic:startEvent>
+        <semantic:choreographyTask initiatingParticipantRef="P1275674668569" name="Job Application" id="ChoreographyTask_CT1">
+            <semantic:incoming>SequenceFlow_apply</semantic:incoming>
+            <semantic:outgoing>SequenceFlow_wait</semantic:outgoing>
+            <semantic:participantRef>P1275674668568</semantic:participantRef>
+            <semantic:participantRef>P1275674668569</semantic:participantRef>
+            <semantic:messageFlowRef>_1275674669071</semantic:messageFlowRef>
+        </semantic:choreographyTask>
+        <semantic:choreographyTask initiatingParticipantRef="P1275674668569" name="Reply" id="ChoreographyTask_CT2">
+            <semantic:incoming>SequenceFlow_wait</semantic:incoming>
+            <semantic:outgoing>SequenceFlow_interview</semantic:outgoing>
+            <semantic:participantRef>P1275674668568</semantic:participantRef>
+            <semantic:participantRef>P1275674668569</semantic:participantRef>
+            <semantic:messageFlowRef>_1275674669072</semantic:messageFlowRef>
+        </semantic:choreographyTask>
+        <semantic:subChoreography initiatingParticipantRef="P1275674668569" name="Job Interview" id="SubChoreography_SC">
+            <semantic:incoming>SequenceFlow_interview</semantic:incoming>
+            <semantic:outgoing>SequenceFlow_reply2</semantic:outgoing>
+            <semantic:participantRef>P1275674668568</semantic:participantRef>
+            <semantic:participantRef>P1275674668709</semantic:participantRef>
+            <semantic:participantRef>P1275674668569</semantic:participantRef>
+			<semantic:messageFlowRef>_1275674669075</semantic:messageFlowRef>
+			<semantic:messageFlowRef>_1275674669074</semantic:messageFlowRef>
+        </semantic:subChoreography>
+		<semantic:choreographyTask initiatingParticipantRef="P1275674668569" name="Decision" id="ChoreographyTask_CT3">
+            <semantic:incoming>SequenceFlow_reply2</semantic:incoming>
+            <semantic:outgoing>SequenceFlow_term</semantic:outgoing>
+            <semantic:participantRef>P1275674668568</semantic:participantRef>
+            <semantic:participantRef>P1275674668569</semantic:participantRef>
+            <semantic:messageFlowRef>_1275674669073</semantic:messageFlowRef>
+        </semantic:choreographyTask>
+        <semantic:endEvent name="Job Search Done" id="EndEvent_EndEvent">
+            <semantic:incoming>SequenceFlow_term</semantic:incoming>
+        </semantic:endEvent>
+        <semantic:sequenceFlow sourceRef="StartEvent_StartEvent" targetRef="ChoreographyTask_CT1" name="apply" id="SequenceFlow_apply"/>
+        <semantic:sequenceFlow sourceRef="ChoreographyTask_CT1" targetRef="ChoreographyTask_CT2" name="wait for &#10;reply" id="SequenceFlow_wait"/>
+        <semantic:sequenceFlow sourceRef="ChoreographyTask_CT2" targetRef="SubChoreography_SC" name="go to &#10;interview" id="SequenceFlow_interview"/>
+        <semantic:sequenceFlow sourceRef="SubChoreography_SC" targetRef="ChoreographyTask_CT3" name="wait for &#10;reply" id="SequenceFlow_reply2"/>
+		<semantic:sequenceFlow sourceRef="ChoreographyTask_CT3" targetRef="EndEvent_EndEvent" name="" id="SequenceFlow_term"/>
+    </semantic:choreography>
+    <bpmndi:BPMNDiagram documentation="" id="Job_Search_Choreography" name="Job_Search_Choreography" resolution="96.00000267028808">
+        <bpmndi:BPMNPlane bpmnElement="job_search_choreography">
+            <bpmndi:BPMNShape bpmnElement="StartEvent_StartEvent" id="StartEvent_StartEvent">
+                <dc:Bounds height="30.0" width="30.0" x="72.0" y="138.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="ChoreographyTask_CT1" id="ChoreographyTask_CT1">
+                <dc:Bounds height="114.0" width="96.0" x="156.0" y="96.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="P1275674668568" choreographyActivityShape="ChoreographyTask_CT1" isMessageVisible="true" participantBandKind="top_initiating" id="P1275674669272">
+                <dc:Bounds height="20.0" width="96.0" x="156.0" y="96.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="P1275674668569" choreographyActivityShape="ChoreographyTask_CT1" isMessageVisible="false" participantBandKind="bottom_non_initiating" id="P1275674669273">
+                <dc:Bounds height="20.0" width="96.0" x="156.0" y="190.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="ChoreographyTask_CT2" id="ChoreographyTask_CT2">
+                <dc:Bounds height="114.0" width="96.0" x="312.0" y="96.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="P1275674668568" choreographyActivityShape="ChoreographyTask_CT2" isMessageVisible="false" participantBandKind="top_non_initiating" id="P1275674669274">
+                <dc:Bounds height="20.0" width="96.0" x="312.0" y="96.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="P1275674668569" choreographyActivityShape="ChoreographyTask_CT2" isMessageVisible="true" participantBandKind="bottom_initiating" id="P1275674669275">
+                <dc:Bounds height="20.0" width="96.0" x="312.0" y="190.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="ChoreographyTask_CT3" id="ChoreographyTask_CT3">
+                <dc:Bounds height="114.0" width="96.0" x="624.0" y="96.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="P1275674668568" choreographyActivityShape="ChoreographyTask_CT3" isMessageVisible="false" participantBandKind="top_non_initiating" id="P1275674669274">
+                <dc:Bounds height="20.0" width="96.0" x="624.0" y="96.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="P1275674668569" choreographyActivityShape="ChoreographyTask_CT3" isMessageVisible="true" participantBandKind="bottom_initiating" id="P1275674669275">
+                <dc:Bounds height="20.0" width="96.0" x="624.0" y="190.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="SubChoreography_SC" isExpanded="false" id="SubChoreography_SC">
+                <dc:Bounds height="117.0" width="96.0" x="468.0" y="94.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="P1275674668568" choreographyActivityShape="SubChoreography_SC" isMessageVisible="true" participantBandKind="top_non_initiating" id="P1275674669276">
+                <dc:Bounds height="20.0" width="96.0" x="468.0" y="94.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="P1275674668709" choreographyActivityShape="SubChoreography_SC" isMessageVisible="true" participantBandKind="bottom_initiating" id="P1275674669277">
+                <dc:Bounds height="20.0" width="96.0" x="468.0" y="191.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="P1275674668569" choreographyActivityShape="SubChoreography_SC" isMessageVisible="false" participantBandKind="middle_non_initiating" id="P1275674669278">
+                <dc:Bounds height="20.0" width="96.0" x="468.0" y="171.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="EndEvent_EndEvent" id="EndEvent_EndEvent">
+                <dc:Bounds height="32.0" width="32.0" x="780.0" y="137.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge bpmnElement="SequenceFlow_wait" id="SequenceFlow_wait">
+                <di:waypoint x="252.0" y="153.0"/>
+                <di:waypoint x="312.0" y="153.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="SequenceFlow_reply2" id="SequenceFlow_reply2">
+                <di:waypoint x="564.0" y="153.0"/>
+                <di:waypoint x="624.0" y="153.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="SequenceFlow_term" id="SequenceFlow_term">
+                <di:waypoint x="720.0" y="153.0"/>
+                <di:waypoint x="780.0" y="153.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="SequenceFlow_apply" id="SequenceFlow_apply">
+                <di:waypoint x="102.0" y="153.0"/>
+                <di:waypoint x="156.0" y="153.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="SequenceFlow_interview" id="SequenceFlow_interview">
+                <di:waypoint x="408.0" y="153.0"/>
+                <di:waypoint x="468.0" y="153.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNEdge>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</semantic:definitions>
+

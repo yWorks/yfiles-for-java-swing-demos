@@ -1,0 +1,55 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../resources/help.css"/>
+</head>
+<body class="demo-description">
+<h2>Step 10: IsVisible</h2>
+
+<p>
+  A connector to a label should be visible as long as it is within the view port, even if the node itself is currently
+  outside of the view port. This behavior may be achieved by overriding the method <code>isVisible()</code> of class
+  <code>AbstractNodeStyle</code> and have it check if any part of the node is within the view port. Otherwise the
+  node is removed from the yFiles internal scene graph entirely.
+</p>
+
+<h3>Things to Try</h3>
+
+<ul>
+  <li>
+    Take a look at <code>MySimpleNodeStyle.isVisible()</code>.
+  </li>
+  <li>
+    If you scroll the view so that the node with the label lies completely outside the view port, but the connector to
+    the label is still inside, the connector remains visible. If you uncomment the first line of
+    <code>isVisible()</code> so the base implementation is used and do the same thing, you will notice the connector
+    disappears as soon as the node is outside of the view port.
+  </li>
+</ul>
+
+<h3>Left to Do</h3>
+
+<ul>
+  <li>
+    Create a custom label style.
+  </li>
+  <li>
+    Create a custom edge style.
+  </li>
+  <li>
+    Create a custom port style for nodes.
+  </li>
+</ul>
+
+<br/>
+<h3>Relevant Chapters in the Developers Guide:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/customizing_styles">Customizing Styles</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/custom-styles_basic">Basic Custom Style Implementation</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/custom-styles_advanced-functionality%23__api_name_text_ivisibilitytestable">Customizing Styles: IVisibilityTestable</a></li>
+</ul>
+<h3>Relevant API:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.styles.AbstractNodeStyle%23AbstractNodeStyle-method-isVisible">AbstractNodeStyle#isVisible</a></li>
+</ul>
+</body>
+</html>

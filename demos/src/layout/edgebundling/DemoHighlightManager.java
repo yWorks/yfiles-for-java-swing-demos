@@ -2,7 +2,7 @@
  **
  ** This demo file is part of yFiles for Java (Swing) 3.3.
  **
- ** Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -38,6 +38,7 @@ import com.yworks.yfiles.view.Colors;
 import com.yworks.yfiles.view.EdgeStyleDecorationInstaller;
 import com.yworks.yfiles.view.GraphComponent;
 import com.yworks.yfiles.view.GraphModelManager;
+import com.yworks.yfiles.view.HierarchicNestingPolicy;
 import com.yworks.yfiles.view.HighlightIndicatorManager;
 import com.yworks.yfiles.view.ICanvasObjectGroup;
 import com.yworks.yfiles.view.ICanvasObjectInstaller;
@@ -60,6 +61,7 @@ class DemoHighlightManager extends HighlightIndicatorManager<IModelItem> {
   DemoHighlightManager( GraphComponent graphComponent ) {
     super(graphComponent);
     GraphModelManager modelManager = graphComponent.getGraphModelManager();
+    modelManager.setHierarchicNestingPolicy(HierarchicNestingPolicy.NONE);
     edgeHighlightGroup = modelManager.getContentGroup().addGroup();
     edgeHighlightGroup.below(modelManager.getNodeGroup());
   }

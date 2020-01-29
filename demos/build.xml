@@ -27,12 +27,28 @@
     Showcase of one of our central layout algorithms, the HierarchicLayout.</echo>
 <echo>run-InteractiveOrganicLayout
     Use InteractiveOrganicLayout for organic layout in interactive environments.</echo>
+<echo>run-FamilyTree
+    This demo shows how genealogical graphs (family trees) can be visualized.</echo>
+<echo>run-CriticalPaths
+    This demo shows how to emphazise important paths with hierarchic and tree layout algorithms.</echo>
 <echo>run-EdgeBundling
     Shows how edge bundling can be applied for reducing visual cluttering in dense graphs.</echo>
+<echo>run-EdgeGrouping
+    Shows the effects of edge and port grouping when arranging graphs with HierarchicLayout.</echo>
+<echo>run-PartialLayout
+    Shows how to arrange some elements in a graph while keeping other elements fixed.</echo>
 <echo>run-PartitionGrid
     Demonstrates the usage of a PartitionGrid for hierarchic and organic layout calculations.</echo>
 <echo>run-Sankey
     Showcase of how a Sankey diagram can be produced by means of the HierarchicLayout.</echo>
+<echo>run-SplitEdges
+    Shows how to align edges at group nodes using RecursiveGroupLayout together with HierarchicLayout.</echo>
+<echo>run-TreeLayout
+    Demonstrates the tree layout style and the different ways in which this layout can arrange a node and its children.</echo>
+<echo>run-TreeMap
+    Shows disk usage of a directory tree with the Tree Map layout.</echo>
+<echo>run-CustomLabelModel
+    Customize label placement model.</echo>
 <echo>run-CustomPortModel
     Customize port location model.</echo>
 <echo>run-CustomSnapping
@@ -43,6 +59,8 @@
     Enable and customize the reconnection behavior of edges.</echo>
 <echo>run-Hyperlink
     Add hyperlink support to HTML formatted labels.</echo>
+<echo>run-LabelHandleProvider
+    Enable interactive rotating and resizing labels.</echo>
 <echo>run-OrthogonalEdges
     Enable and customize orthogonal edge editing.</echo>
 <echo>run-PopupMenu
@@ -59,22 +77,44 @@
     Configure the GraphEditorInputMode for single selection mode.</echo>
 <echo>run-SizeConstraintProvider
     Customize the resizing behavior of nodes.</echo>
+<echo>run-BackgroundImage
+    Shows how to add background visualizations to a graph component.</echo>
+<echo>run-ClickableStyleDecorator
+    Shows how to handle mouse clicks in specific areas of a node's visualization.</echo>
 <echo>run-EdgeToEdge
     Shows edge-to-edge connections.</echo>
 <echo>run-GraphEvents
     Explore the different kinds of events dispatched by yFiles for Java (Swing).</echo>
+<echo>run-Filtering
+    Shows how to temporarily remove nodes or edges from the graph.</echo>
+<echo>run-FilteringWithFolding
+    Shows how to combine yFiles filtering and folding features.</echo>
+<echo>run-Folding
+    Shows how to use yFiles folding feature.</echo>
+<echo>run-GraphCopy
+    Shows how to copy a graph or sub graph.</echo>
 <echo>run-GraphMLCompatibility
     Shows how to enable read compatibility for GraphML files from older versions.</echo>
 <echo>run-GraphViewer
     Showcase of different kinds of graphs created with yFiles for Java (Swing).</echo>
+<echo>run-GridSnapping
+    Demonstrates how to enable grid snapping functionality for graph elements.</echo>
 <echo>run-ImageExport
     Export a graph as a bitmap image.</echo>
 <echo>run-LargeGraphs
     Improve the rendering performance for very large graphs in yFiles for Java (Swing).</echo>
+<echo>run-LevelOfDetail
+    Demonstrates how to change the level of detail when zooming in and out.</echo>
 <echo>run-Printing
     Print a graph by using the yFiles CanvasPrintable.</echo>
 <echo>run-RenderingOrder
     Shows the effect of different rendering policies to the model items.</echo>
+<echo>run-SmartClickNavigation
+    Demonstrates how to navigate in a large graph.</echo>
+<echo>run-Snapping
+    Demonstrates how to enable snapping functionality for graph elements.</echo>
+<echo>run-Tooltips
+    Demonstrates how to add tooltips to graph items.</echo>
 <echo>run-SimpleCustomStyle
     Implement sophisticated styles for graph objects in yFiles for Java (Swing).</echo>
 <echo>run-JComponentStyle
@@ -202,8 +242,28 @@
 <classpath refid="democlasspath"/>
 </java>
 </target>
+<target name="run-FamilyTree" depends="compile" description="This demo shows how genealogical graphs (family trees) can be visualized.">
+<java classname="layout.familytree.FamilyTreeDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-CriticalPaths" depends="compile" description="This demo shows how to emphazise important paths with hierarchic and tree layout algorithms.">
+<java classname="layout.criticalpaths.CriticalPathsDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
 <target name="run-EdgeBundling" depends="compile" description="Shows how edge bundling can be applied for reducing visual cluttering in dense graphs.">
 <java classname="layout.edgebundling.EdgeBundlingDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-EdgeGrouping" depends="compile" description="Shows the effects of edge and port grouping when arranging graphs with HierarchicLayout.">
+<java classname="layout.edgegrouping.EdgeGroupingDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-PartialLayout" depends="compile" description="Shows how to arrange some elements in a graph while keeping other elements fixed.">
+<java classname="layout.partiallayout.PartialLayoutDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 </java>
 </target>
@@ -214,6 +274,26 @@
 </target>
 <target name="run-Sankey" depends="compile" description="Showcase of how a Sankey diagram can be produced by means of the HierarchicLayout.">
 <java classname="layout.sankey.SankeyDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-SplitEdges" depends="compile" description="Shows how to align edges at group nodes using RecursiveGroupLayout together with HierarchicLayout.">
+<java classname="layout.splitedges.SplitEdgesDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-TreeLayout" depends="compile" description="Demonstrates the tree layout style and the different ways in which this layout can arrange a node and its children.">
+<java classname="layout.treelayout.TreeLayoutDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-TreeMap" depends="compile" description="Shows disk usage of a directory tree with the Tree Map layout.">
+<java classname="layout.treemap.TreeMapDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-CustomLabelModel" depends="compile" description="Customize label placement model.">
+<java classname="input.customlabelmodel.CustomLabelModelDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 </java>
 </target>
@@ -239,6 +319,11 @@
 </target>
 <target name="run-Hyperlink" depends="compile" description="Add hyperlink support to HTML formatted labels.">
 <java classname="input.hyperlink.HyperlinkDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-LabelHandleProvider" depends="compile" description="Enable interactive rotating and resizing labels.">
+<java classname="input.labelhandleprovider.LabelHandleProviderDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 </java>
 </target>
@@ -282,6 +367,16 @@
 <classpath refid="democlasspath"/>
 </java>
 </target>
+<target name="run-BackgroundImage" depends="compile" description="Shows how to add background visualizations to a graph component.">
+<java classname="viewer.backgroundimage.BackgroundImageDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-ClickableStyleDecorator" depends="compile" description="Shows how to handle mouse clicks in specific areas of a node's visualization.">
+<java classname="viewer.clickablestyledecorator.ClickableStyleDecoratorDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
 <target name="run-EdgeToEdge" depends="compile" description="Shows edge-to-edge connections.">
 <java classname="viewer.edgetoedge.EdgeToEdgeDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
@@ -289,6 +384,26 @@
 </target>
 <target name="run-GraphEvents" depends="compile" description="Explore the different kinds of events dispatched by yFiles for Java (Swing).">
 <java classname="viewer.events.GraphEventsDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-Filtering" depends="compile" description="Shows how to temporarily remove nodes or edges from the graph.">
+<java classname="viewer.filtering.FilteringDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-FilteringWithFolding" depends="compile" description="Shows how to combine yFiles filtering and folding features.">
+<java classname="viewer.filteringandfolding.FilteringAndFoldingDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-Folding" depends="compile" description="Shows how to use yFiles folding feature.">
+<java classname="viewer.folding.FoldingDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-GraphCopy" depends="compile" description="Shows how to copy a graph or sub graph.">
+<java classname="viewer.graphcopy.GraphCopyDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 </java>
 </target>
@@ -302,6 +417,11 @@
 <classpath refid="democlasspath"/>
 </java>
 </target>
+<target name="run-GridSnapping" depends="compile" description="Demonstrates how to enable grid snapping functionality for graph elements.">
+<java classname="viewer.gridsnapping.GridSnappingDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
 <target name="run-ImageExport" depends="compile" description="Export a graph as a bitmap image.">
 <java classname="viewer.imageexport.ImageExportDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
@@ -312,6 +432,11 @@
 <classpath refid="democlasspath"/>
 </java>
 </target>
+<target name="run-LevelOfDetail" depends="compile" description="Demonstrates how to change the level of detail when zooming in and out.">
+<java classname="viewer.levelofdetail.LevelOfDetailDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
 <target name="run-Printing" depends="compile" description="Print a graph by using the yFiles CanvasPrintable.">
 <java classname="viewer.printing.PrintingDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
@@ -319,6 +444,21 @@
 </target>
 <target name="run-RenderingOrder" depends="compile" description="Shows the effect of different rendering policies to the model items.">
 <java classname="viewer.renderingorder.RenderingOrderDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-SmartClickNavigation" depends="compile" description="Demonstrates how to navigate in a large graph.">
+<java classname="viewer.smartclicknavigation.SmartClickNavigationDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-Snapping" depends="compile" description="Demonstrates how to enable snapping functionality for graph elements.">
+<java classname="viewer.snapping.SnappingDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-Tooltips" depends="compile" description="Demonstrates how to add tooltips to graph items.">
+<java classname="viewer.tooltips.TooltipsDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 </java>
 </target>

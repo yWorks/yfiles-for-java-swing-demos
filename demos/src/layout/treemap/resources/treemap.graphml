@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ////////////////////////////////////////////////////////////////////////
+     //
+     // This demo file is part of yFiles for Java (Swing) 3.3.
+     //
+     // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // 72070 Tuebingen, Germany. All rights reserved.
+     //
+     // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
+     // of demo resource files, with or without modification, is not permitted.
+     // Owners of a valid software license for a yFiles for Java (Swing) version that this
+     // demo is shipped with are allowed to use the resource file as basis for
+     // their own yFiles for Java (Swing) powered applications. Use of such programs is
+     // governed by the rights and conditions as set out in the yFiles for Java (Swing)
+     // license agreement.
+     //
+     // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+     // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+     // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+     // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+     // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+     // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     // 
+     ////////////////////////////////////////////////////////////////////////-->
+<!--Created by yFiles for Java (Swing) 3.3-->
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:demo="http://www.yworks.com/yfiles-for-java/TreeMap/1.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/yfiles-common/3.0" xmlns:yfj="http://www.yworks.com/xml/yfiles-for-java/3.1" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml.java/3.1/ygraphml.xsd ">
+  <key attr.name="NodeLabels" for="node" id="d0" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeLabels"/>
+  <key attr.name="UserTags" for="all" id="d1" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/UserTags"/>
+  <key attr.name="NodeStyle" for="node" id="d2" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeStyle"/>
+  <key attr.name="EdgeLabels" for="edge" id="d3" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeLabels"/>
+  <key attr.name="EdgeGeometry" for="edge" id="d4" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry"/>
+  <key attr.name="EdgeStyle" for="edge" id="d5" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeStyle"/>
+  <key attr.name="PortLabels" for="port" id="d6" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLabels"/>
+  <key attr.name="PortLocationParameter" for="port" id="d7" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLocationParameter">
+    <default>
+      <x:Static Member="y:FreeNodePortLocationModel.NodeCenterAnchored"/>
+    </default>
+  </key>
+  <key attr.name="PortStyle" for="port" id="d8" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortStyle">
+    <default>
+      <x:Static Member="y:VoidPortStyle.Instance"/>
+    </default>
+  </key>
+  <key attr.name="SharedData" id="d9" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData"/>
+  <data key="d9">
+    <y:SharedData>
+      <yfj:ShapeNodeStyle Paint="#FF4D4D4D" x:Key="1"/>
+      <yfj:ShapeNodeStyle Paint="#FF00B3BD" x:Key="2"/>
+      <yfj:ShapeNodeStyle Paint="#FF00DE98" x:Key="3"/>
+      <yfj:ShapeNodeStyle Paint="#FF00A489" x:Key="4"/>
+    </y:SharedData>
+  </data>
+  <graph id="G">
+    <node id="n0">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}">
+            <y:Label.Style>
+              <yfj:DefaultLabelStyle Insets="4.0" TextAlignment="CENTER" TextPaint="White" TextWrapping="NO_WRAP"/>
+            </y:Label.Style>
+            <y:Label.Text>yFiles-for-Java-Swing-Complete</y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <demo:FileView Path="yFiles-for-Java-Swing-Complete" Size="160486922"/>
+      </data>
+      <data key="d2">
+        <y:GraphMLReference ResourceKey="1"/>
+      </data>
+      <graph id="n0:">
+        <node id="n0::n0">
+          <data key="d0">
+            <x:List>
+              <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}">
+                <y:Label.Style>
+                  <yfj:DefaultLabelStyle Insets="4.0" TextAlignment="CENTER" TextPaint="White" TextWrapping="NO_WRAP"/>
+                </y:Label.Style>
+                <y:Label.Text>lib</y:Label.Text>
+              </y:Label>
+            </x:List>
+          </data>
+          <data key="d1">
+            <demo:FileView Path="yFiles-for-Java-Swing-Complete/lib" Size="8100143"/>
+          </data>
+          <data key="d2">
+            <y:GraphMLReference ResourceKey="1"/>
+          </data>
+          <graph id="n0::n0:">
+            <node id="n0::n0::n0">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[yfiles-for-java-swing.jar
+(8mb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-Java-Swing-Complete/lib/yfiles-for-java-swing.jar" Size="8100143"/>
+              </data>
+              <data key="d2">
+                <yfj:ShapeNodeStyle Paint="#FF00A9CD"/>
+              </data>
+            </node>
+          </graph>
+        </node>
+        <node id="n0::n1">
+          <data key="d0">
+            <x:List>
+              <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}">
+                <y:Label.Style>
+                  <yfj:DefaultLabelStyle Insets="4.0" TextAlignment="CENTER" TextPaint="White" TextWrapping="NO_WRAP"/>
+                </y:Label.Style>
+                <y:Label.Text>demos</y:Label.Text>
+              </y:Label>
+            </x:List>
+          </data>
+          <data key="d1">
+            <demo:FileView Path="yFiles-for-Java-Swing-Complete/demos" Size="11016915"/>
+          </data>
+          <data key="d2">
+            <y:GraphMLReference ResourceKey="1"/>
+          </data>
+          <graph id="n0::n1:">
+            <node id="n0::n1::n0">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[src-neo4j
+(75kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-Java-Swing-Complete/demos/src-neo4j" Size="75074"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="2"/>
+              </data>
+            </node>
+            <node id="n0::n1::n1">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[src-svg
+(181kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-Java-Swing-Complete/demos/src-svg" Size="181461"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="2"/>
+              </data>
+            </node>
+            <node id="n0::n1::n2">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[README.html
+(35kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-Java-Swing-Complete/demos/README.html" Size="35166"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="2"/>
+              </data>
+            </node>
+            <node id="n0::n1::n3">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[src
+(10mb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-Java-Swing-Complete/demos/src" Size="10576093"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="2"/>
+              </data>
+            </node>
+            <node id="n0::n1::n4">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[src-pdf
+(45kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-Java-Swing-Complete/demos/src-pdf" Size="45015"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="2"/>
+              </data>
+            </node>
+            <node id="n0::n1::n5">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[build.xml
+(20kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-Java-Swing-Complete/demos/build.xml" Size="20430"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="2"/>
+              </data>
+            </node>
+            <node id="n0::n1::n6">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[src-fx
+(83kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-Java-Swing-Complete/demos/src-fx" Size="83676"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="2"/>
+              </data>
+            </node>
+          </graph>
+        </node>
+        <node id="n0::n2">
+          <data key="d0">
+            <x:List>
+              <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                <y:Label.Style>
+                  <demo:DemoLabelStyle/>
+                </y:Label.Style>
+                <y:Label.Text><![CDATA[README.html
+(5kb)]]></y:Label.Text>
+              </y:Label>
+            </x:List>
+          </data>
+          <data key="d1">
+            <demo:FileView Path="yFiles-for-Java-Swing-Complete/README.html" Size="5610"/>
+          </data>
+          <data key="d2">
+            <yfj:ShapeNodeStyle Paint="#FF00AFA1"/>
+          </data>
+        </node>
+        <node id="n0::n3">
+          <data key="d0">
+            <x:List>
+              <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}">
+                <y:Label.Style>
+                  <yfj:DefaultLabelStyle Insets="4.0" TextAlignment="CENTER" TextPaint="White" TextWrapping="NO_WRAP"/>
+                </y:Label.Style>
+                <y:Label.Text>tutorials</y:Label.Text>
+              </y:Label>
+            </x:List>
+          </data>
+          <data key="d1">
+            <demo:FileView Path="yFiles-for-Java-Swing-Complete/tutorials" Size="2157354"/>
+          </data>
+          <data key="d2">
+            <y:GraphMLReference ResourceKey="1"/>
+          </data>
+          <graph id="n0::n3:">
+            <node id="n0::n3::n0">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[tutorial02_CustomStyles
+(1mb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-Java-Swing-Complete/tutorials/tutorial02_CustomStyles" Size="1559623"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="3"/>
+              </data>
+            </node>
+            <node id="n0::n3::n1">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[tutorial01_GettingStarted
+(555kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-Java-Swing-Complete/tutorials/tutorial01_GettingStarted" Size="555297"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="3"/>
+              </data>
+            </node>
+            <node id="n0::n3::n2">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[README.html
+(3kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-Java-Swing-Complete/tutorials/README.html" Size="3837"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="3"/>
+              </data>
+            </node>
+            <node id="n0::n3::n3">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[resources
+(38kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-Java-Swing-Complete/tutorials/resources" Size="38597"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="3"/>
+              </data>
+            </node>
+          </graph>
+        </node>
+        <node id="n0::n4">
+          <data key="d0">
+            <x:List>
+              <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}">
+                <y:Label.Style>
+                  <yfj:DefaultLabelStyle Insets="4.0" TextAlignment="CENTER" TextPaint="White" TextWrapping="NO_WRAP"/>
+                </y:Label.Style>
+                <y:Label.Text>doc</y:Label.Text>
+              </y:Label>
+            </x:List>
+          </data>
+          <data key="d1">
+            <demo:FileView Path="yFiles-for-Java-Swing-Complete/doc" Size="139206900"/>
+          </data>
+          <data key="d2">
+            <y:GraphMLReference ResourceKey="1"/>
+          </data>
+          <graph id="n0::n4:">
+            <node id="n0::n4::n0">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[api
+(31mb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-Java-Swing-Complete/doc/api" Size="31274326"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="4"/>
+              </data>
+            </node>
+            <node id="n0::n4::n1">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[documentation-style.css
+(18kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-Java-Swing-Complete/doc/documentation-style.css" Size="18753"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="4"/>
+              </data>
+            </node>
+            <node id="n0::n4::n2">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[javadoc
+(107mb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-Java-Swing-Complete/doc/javadoc" Size="107560009"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="4"/>
+              </data>
+            </node>
+            <node id="n0::n4::n3">
+              <data key="d0">
+                <x:List>
+                  <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}">
+                    <y:Label.Style>
+                      <demo:DemoLabelStyle/>
+                    </y:Label.Style>
+                    <y:Label.Text><![CDATA[readme
+(353kb)]]></y:Label.Text>
+                  </y:Label>
+                </x:List>
+              </data>
+              <data key="d1">
+                <demo:FileView Path="yFiles-for-Java-Swing-Complete/doc/readme" Size="353812"/>
+              </data>
+              <data key="d2">
+                <y:GraphMLReference ResourceKey="4"/>
+              </data>
+            </node>
+          </graph>
+        </node>
+      </graph>
+    </node>
+  </graph>
+</graphml>

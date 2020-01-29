@@ -1,0 +1,61 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../resources/help.css"/>
+</head>
+<body class="demo-description">
+<h2>Step 13: High Performance Rendering Of Label</h2>
+
+<p>
+  Implement high-performance rendering for labels.
+</p>
+
+<p>
+  To do this, you need to implement <code>updateVisual()</code> which is called when the component decides to update
+  the visual representation of a label. In contrast to <code>createVisual()</code>, we try to re-use the old visual
+  instead of creating a new one.
+</p>
+
+<p>
+  The <code>LabelVisual</code> class saves the relevant data for painting a visual. <code>LabelVisual.update()</code>
+  checks whether this data has changed. If it hasn't changed, the old visual can be returned, otherwise the whole or
+  part of the visual has to be re-created.
+</p>
+
+<h3>Things to Try</h3>
+
+<ul>
+  <li>
+    Take a look at <code>MySimpleLabelStyle.updateVisual()</code> as well as class <code>LabelVisual</code>.
+  </li>
+</ul>
+
+<h3>Left to Do</h3>
+
+<ul>
+  <li>
+    Implement a button to open the label editor.
+  </li>
+  <li>
+    Allow to change the background color of labels.
+  </li>
+  <li>
+    Create a custom edge style.
+  </li>
+  <li>
+    Create a custom port style for nodes.
+  </li>
+</ul>
+
+<br/>
+<h3>Relevant Chapters in the Developers Guide:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/customizing_styles">Customizing Styles</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/custom-styles_basic">Basic Custom Style Implementation</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/custom-styles_basic%23custom-styles_basic_efficient-styles">Efficient Style Implementation</a></li>
+</ul>
+<h3>Relevant API:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.styles.AbstractLabelStyle%23AbstractLabelStyle-method-updateVisual">AbstractLabelStyle#updateVisual</a></li>
+</ul>
+</body>
+</html>

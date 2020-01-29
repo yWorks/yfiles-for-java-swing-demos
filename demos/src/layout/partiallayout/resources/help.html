@@ -1,0 +1,35 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../resources/help.css"/>
+</head>
+<body class="demo-description">
+<h1>Description</h1>
+<p>
+  This demo shows how to integrate (new) graph elements into an existing graph layout with
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.partial.PartialLayout">PartialLayout</a>.
+</p>
+<p>
+  This layout algorithm changes the coordinates of a given set of graph elements (called partial elements) and leaves
+  the location and size of all other elements (called fixed elements) unchanged. The algorithm aims to place the
+  partial elements such that the resulting drawing (including the fixed elements) has a good quality with respect
+  to common graph drawing aesthetics.
+</p>
+  Partial node elements can be assigned to so-called subgraph components. During the layout process each subgraph
+  induced by the nodes of a component is first laid out using the specified subgraph layout. Then, the different
+  components are placed one-by-one onto the drawing area such that the number of overlaps among graph elements
+  is small. The user can specify different placement strategies for finding 'good' positions for subgraph components.
+<p>
+  The demo allows for specifying fixed and partial elements. Fixed elements are drawn gray and partial elements
+  are colored. The current fixed/partial state of the selected elements can be toggled with a mouse-double-click.
+  To start partial layout, click on the <em>Run Layout</em> button.
+</p>
+<p>
+  Different scenarios for hierarchic, orthogonal, organic or circular layout are available (see the code for more
+  information and changing the scenario/settings). A scenario consists of a layout algorithm for subgraph components
+  and a corresponding sample graph with partial and fixed elements.
+  Additional options for
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.partial.PartialLayout">PartialLayout</a>
+  algorithm are pre-configured.
+</p>
+</body>
+</html>

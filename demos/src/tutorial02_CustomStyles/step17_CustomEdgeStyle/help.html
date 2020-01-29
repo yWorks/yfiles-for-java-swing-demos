@@ -1,0 +1,56 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../resources/help.css"/>
+</head>
+<body class="demo-description">
+<h2>Step 17: Custom Edge Style</h2>
+
+<p>
+  Create a custom edge style which allows to specify the edge thickness by setting a property
+  on the style. The <code>createVisual</code> and <code>updateVisual</code> methods are implemented like in class
+  <code>MySimpleNodeStyle</code> and <code>MySimpleLabelStyle</code>.
+</p>
+
+<h3>Things to Try</h3>
+
+<ul>
+  <li>
+    Zoom in on an edge and try selecting it by clicking near its borders.
+  </li>
+</ul>
+
+<h3>Left to Do</h3>
+
+<ul>
+  <li>
+    Adjust the hit test which checks if an edge was clicked to take the edge's thickness into account.
+  </li>
+  <li>
+    Crop the edges so they don't extend into the nodes.
+  </li>
+  <li>
+    Change the style of an edge when selected.
+  </li>
+  <li>
+    Add arrows to the edges.
+  </li>
+  <li>
+    Create a custom arrow which fits the style of the demo.
+  </li>
+  <li>
+    Create a custom port style for nodes.
+  </li>
+</ul>
+
+<br/>
+<h3>Relevant Chapters in the Developers Guide:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/customizing_styles">Customizing Styles</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/custom-styles_basic">Basic Custom Style Implementation</a></li>
+</ul>
+<h3>Relevant API:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.styles.AbstractEdgeStyle">AbstractEdgeStyle</a></li>
+</ul>
+</body>
+</html>

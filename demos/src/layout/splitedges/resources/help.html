@@ -1,0 +1,30 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../resources/help.css"/>
+</head>
+<body class="demo-description">
+  <h1>Description</h1>
+  <p>
+    This demo shows how to use split IDs to align edges outside group nodes
+    with edges inside group nodes when arranging graphs with
+    <a href="https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.RecursiveGroupLayout">RecursiveGroupLayout</a>.
+  </p>
+  <p>
+    With this algorithm, the routing for inter-edges (i.e. edges connecting
+    nodes outside a group with nodes inside said group) is sometimes not
+    satisfactory because these edges are routed after the rest of the graph is
+    already arranged. Thus inter-edges sometimes do not fit into the overall
+    layout style.
+    <br>
+    However, when replacing a given inter-edge with two separate edges -
+    one connecting the node outside to the group node and one connecting
+    the group node to the node inside - and using 
+    <a href="https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.hierarchic.HierarchicLayout">HierarchicLayout</a>
+    as the core layout algorithm, RecursiveGroupLayout's support for split edges
+    and HierarchicLayout's support for
+    <a href="https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.hierarchic.EdgeLayoutDescriptor%23EdgeLayoutDescriptor-property-DirectGroupContentEdgeRoutingEnabled">direct group content edge routing</a>
+    may be used to align the two split edges at the corresponding group node's
+    border.
+  </p>
+</body>
+</html>

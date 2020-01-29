@@ -2,7 +2,7 @@
  **
  ** This demo file is part of yFiles for Java (Swing) 3.3.
  **
- ** Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -112,12 +112,10 @@ public class GroupNodeStyle implements INodeStyle, Cloneable {
   /**
    * An {@link INodeStyleRenderer} implementation used by {@link GroupNodeStyle}.
    */
-  static class GroupNodeStyleRenderer implements INodeStyleRenderer, ILookup, IHitTestable {
+  static class GroupNodeStyleRenderer implements INodeStyleRenderer, ILookup {
     private INode lastNode;
 
     private GroupNodeStyle lastStyle;
-
-    private GeneralPath lastOutline;
 
     public final IVisualCreator getVisualCreator( INode item, INodeStyle style ) {
       return SHAPE_NODE_STYLE.getRenderer().getVisualCreator(item, SHAPE_NODE_STYLE);
@@ -133,12 +131,8 @@ public class GroupNodeStyle implements INodeStyle, Cloneable {
 
     public final IHitTestable getHitTestable( INode item, INodeStyle style ) {
       IShapeGeometry geometry = SHAPE_NODE_STYLE.getRenderer().getShapeGeometry(item, SHAPE_NODE_STYLE);
-      lastOutline = geometry.getOutline();
-      return this;
-    }
-
-    public final boolean isHit( IInputModeContext context, PointD location ) {
-      return lastOutline.pathContains(location, context.getHitTestRadius());
+      GeneralPath outline = geometry.getOutline();
+      return new PathHitTestable(outline);
     }
 
     public final IMarqueeTestable getMarqueeTestable( INode item, INodeStyle style ) {
@@ -180,6 +174,17 @@ public class GroupNodeStyle implements INodeStyle, Cloneable {
 
     }
 
+    private static class PathHitTestable implements IHitTestable {
+      private final GeneralPath path;
+
+      public PathHitTestable( GeneralPath path ) {
+        this.path = path;
+      }
+
+      public final boolean isHit( IInputModeContext context, PointD location ) {
+        return path.pathContains(location, context.getHitTestRadius());
+      }
+    }
   }
 
   static {

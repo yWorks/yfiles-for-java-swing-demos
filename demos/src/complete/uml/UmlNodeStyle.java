@@ -2,7 +2,7 @@
  **
  ** This demo file is part of yFiles for Java (Swing) 3.3.
  **
- ** Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -560,7 +560,7 @@ public class UmlNodeStyle extends AbstractNodeStyle {
     private static void removeItem( IInputModeContext context, INode node, boolean attribute ) {
       UmlClassModel model = UmlClassLabelSupport.getModel(node);
       int selectedListId = attribute ? UmlClassModel.LIST_ATTRIBUTES : UmlClassModel.LIST_OPERATIONS;
-      if (model.getSelectedList() == selectedListId) {
+      if (model.getSelectedList() == selectedListId && model.getSelectedListIndex() > -1) {
         UmlNodeAnimation.createRemoveItemAnimation((GraphComponent) context.getCanvasComponent(), node).play();
       }
     }

@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ////////////////////////////////////////////////////////////////////////
+     //
+     // This demo file is part of yFiles for Java (Swing) 3.3.
+     //
+     // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // 72070 Tuebingen, Germany. All rights reserved.
+     //
+     // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
+     // of demo resource files, with or without modification, is not permitted.
+     // Owners of a valid software license for a yFiles for Java (Swing) version that this
+     // demo is shipped with are allowed to use the resource file as basis for
+     // their own yFiles for Java (Swing) powered applications. Use of such programs is
+     // governed by the rights and conditions as set out in the yFiles for Java (Swing)
+     // license agreement.
+     //
+     // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+     // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+     // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+     // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+     // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+     // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     // 
+     ////////////////////////////////////////////////////////////////////////-->
+<!--Created by yFiles for Java (Swing) 3.3-->
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/yfiles-common/3.0" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml.java/3.1/ygraphml.xsd ">
+  <key attr.name="NodeLabels" for="node" id="d0" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeLabels"/>
+  <key attr.name="NodeGeometry" for="node" id="d1" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeGeometry"/>
+  <key attr.name="UserTags" for="all" id="d2" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/UserTags"/>
+  <key attr.name="EdgeLabels" for="edge" id="d3" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeLabels"/>
+  <key attr.name="EdgeGeometry" for="edge" id="d4" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry"/>
+  <key attr.name="PortLabels" for="port" id="d5" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLabels"/>
+  <key attr.name="PortLocationParameter" for="port" id="d6" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLocationParameter">
+    <default>
+      <x:Static Member="y:FreeNodePortLocationModel.NodeCenterAnchored"/>
+    </default>
+  </key>
+  <key attr.name="SharedData" id="d7" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData"/>
+  <data key="d7">
+    <y:SharedData/>
+  </data>
+  <graph id="G">
+    <node id="n0">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[John Fitzgerald
+Kennedy]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[* 29 MAY 1917]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[✝ 22 NOV 1963]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="80.0" Width="200.0" X="0.0" Y="0.0"/>
+      </data>
+      <data key="d2">
+        <sys:String>MALE</sys:String>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+    </node>
+    <node id="n1">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[Jaqueline Lee
+Bouvier]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[* 28 JUL 1929]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[✝ 19 MAY 1994]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="80.0" Width="200.0" X="0.0" Y="0.0"/>
+      </data>
+      <data key="d2">
+        <sys:String>FEMALE</sys:String>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+    </node>
+    <node id="n2">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[John Vernou
+Bouvier III]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[* 19 MAY 1891]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[✝ 3 AUG 1957]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="80.0" Width="200.0" X="0.0" Y="0.0"/>
+      </data>
+      <data key="d2">
+        <sys:String>MALE</sys:String>
+      </data>
+      <port name="p0"/>
+    </node>
+    <node id="n3">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[Janet Norton
+Lee]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[* 3 DEC 1907]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[✝ 22 JUL 1989]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="80.0" Width="200.0" X="0.0" Y="0.0"/>
+      </data>
+      <data key="d2">
+        <sys:String>FEMALE</sys:String>
+      </data>
+      <port name="p0"/>
+    </node>
+    <node id="n4">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[Caroline Bouvier
+Kennedy]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[* 27 NOV 1957]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="80.0" Width="200.0" X="0.0" Y="0.0"/>
+      </data>
+      <data key="d2">
+        <sys:String>FEMALE</sys:String>
+      </data>
+      <port name="p0"/>
+    </node>
+    <node id="n5">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[John Fitzgerald
+Kennedy]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[* 25 NOV 1960]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[✝ 16 JUL 1999]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="80.0" Width="200.0" X="0.0" Y="0.0"/>
+      </data>
+      <data key="d2">
+        <sys:String>MALE</sys:String>
+      </data>
+      <port name="p0"/>
+    </node>
+    <node id="n6">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[Patrick Bouvier
+Kennedy]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[* 07 AUG 1963]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[✝ 09 AUG 1963]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="80.0" Width="200.0" X="0.0" Y="0.0"/>
+      </data>
+      <data key="d2">
+        <sys:String>MALE</sys:String>
+      </data>
+      <port name="p0"/>
+    </node>
+    <node id="n7">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[Joseph Patrick
+Kennedy]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[* 06 SEP 1888]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[✝ 16 NOV 1969]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="80.0" Width="200.0" X="0.0" Y="0.0"/>
+      </data>
+      <data key="d2">
+        <sys:String>MALE</sys:String>
+      </data>
+      <port name="p0"/>
+    </node>
+    <node id="n8">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[Rose Elizabeth
+Fitzgerald]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[* 22 JUL 1890]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[✝ 22 JAN 1995]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="80.0" Width="200.0" X="0.0" Y="0.0"/>
+      </data>
+      <data key="d2">
+        <sys:String>FEMALE</sys:String>
+      </data>
+      <port name="p0"/>
+    </node>
+    <node id="n9">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[Joseph Patrick
+Kennedy Jr]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[* 22 JUL 1915]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[✝ 12 AUG 1944]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="80.0" Width="200.0" X="0.0" Y="0.0"/>
+      </data>
+      <data key="d2">
+        <sys:String>MALE</sys:String>
+      </data>
+      <port name="p0"/>
+    </node>
+    <node id="n10">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[Rosemary
+Kennedy]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[* 13 SEP 1918]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[✝ 7 JAN 1918]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="80.0" Width="200.0" X="0.0" Y="0.0"/>
+      </data>
+      <data key="d2">
+        <sys:String>FEMALE</sys:String>
+      </data>
+      <port name="p0"/>
+    </node>
+    <node id="n11">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[Kathleen
+Kennedy]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[* 20 FEB 1920]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[✝ 13 MAY 1948]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="80.0" Width="200.0" X="0.0" Y="0.0"/>
+      </data>
+      <data key="d2">
+        <sys:String>FEMALE</sys:String>
+      </data>
+      <port name="p0"/>
+    </node>
+    <node id="n12">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[Eunice Mary 
+Kennedy Shriver]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[* 10 JUL 1921]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[✝ 11 AUG 2009]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="80.0" Width="200.0" X="0.0" Y="0.0"/>
+      </data>
+      <data key="d2">
+        <sys:String>FEMALE</sys:String>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+    </node>
+    <node id="n13">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[Robert Sargent
+Shriver Jr]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[* 9 NOV 1915]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[✝ 18 JAN 2011]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="80.0" Width="200.0" X="0.0" Y="0.0"/>
+      </data>
+      <data key="d2">
+        <sys:String>MALE</sys:String>
+      </data>
+      <port name="p0"/>
+    </node>
+    <node id="n14">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[Aristotle
+Onassis]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[* 20 JAN 1906]]></y:Label.Text>
+          </y:Label>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Text><![CDATA[✝ 15 MAR 1975]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="80.0" Width="200.0" X="0.0" Y="0.0"/>
+      </data>
+      <data key="d2">
+        <sys:String>MALE</sys:String>
+      </data>
+      <port name="p0"/>
+    </node>
+    <node id="n15">
+      <data key="d1">
+        <y:RectD Height="15.0" Width="15.0" X="0.0" Y="0.0"/>
+      </data>
+      <data key="d2">
+        <sys:String>FAMILY</sys:String>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+      <port name="p3"/>
+      <port name="p4"/>
+    </node>
+    <node id="n16">
+      <data key="d1">
+        <y:RectD Height="15.0" Width="15.0" X="0.0" Y="0.0"/>
+      </data>
+      <data key="d2">
+        <sys:String>FAMILY</sys:String>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+      <port name="p3"/>
+      <port name="p4"/>
+      <port name="p5"/>
+      <port name="p6"/>
+    </node>
+    <node id="n17">
+      <data key="d1">
+        <y:RectD Height="15.0" Width="15.0" X="0.0" Y="0.0"/>
+      </data>
+      <data key="d2">
+        <sys:String>FAMILY</sys:String>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+    </node>
+    <node id="n18">
+      <data key="d1">
+        <y:RectD Height="15.0" Width="15.0" X="0.0" Y="0.0"/>
+      </data>
+      <data key="d2">
+        <sys:String>FAMILY</sys:String>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+    </node>
+    <node id="n19">
+      <data key="d1">
+        <y:RectD Height="15.0" Width="15.0" X="0.0" Y="0.0"/>
+      </data>
+      <data key="d2">
+        <sys:String>FAMILY</sys:String>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+    </node>
+    <edge id="e0" source="n0" sourceport="p0" target="n15" targetport="p0"/>
+    <edge id="e1" source="n1" sourceport="p0" target="n15" targetport="p1"/>
+    <edge id="e2" source="n15" sourceport="p2" target="n4" targetport="p0"/>
+    <edge id="e3" source="n15" sourceport="p3" target="n5" targetport="p0"/>
+    <edge id="e4" source="n15" sourceport="p4" target="n6" targetport="p0"/>
+    <edge id="e5" source="n7" sourceport="p0" target="n16" targetport="p0"/>
+    <edge id="e6" source="n8" sourceport="p0" target="n16" targetport="p1"/>
+    <edge id="e7" source="n16" sourceport="p2" target="n9" targetport="p0"/>
+    <edge id="e8" source="n16" sourceport="p3" target="n0" targetport="p1"/>
+    <edge id="e9" source="n16" sourceport="p4" target="n10" targetport="p0"/>
+    <edge id="e10" source="n16" sourceport="p5" target="n11" targetport="p0"/>
+    <edge id="e11" source="n16" sourceport="p6" target="n12" targetport="p0"/>
+    <edge id="e12" source="n14" sourceport="p0" target="n17" targetport="p0"/>
+    <edge id="e13" source="n1" sourceport="p1" target="n17" targetport="p1"/>
+    <edge id="e14" source="n2" sourceport="p0" target="n18" targetport="p0"/>
+    <edge id="e15" source="n3" sourceport="p0" target="n18" targetport="p1"/>
+    <edge id="e16" source="n18" sourceport="p2" target="n1" targetport="p2"/>
+    <edge id="e17" source="n13" sourceport="p0" target="n19" targetport="p0"/>
+    <edge id="e18" source="n12" sourceport="p1" target="n19" targetport="p1"/>
+  </graph>
+</graphml>

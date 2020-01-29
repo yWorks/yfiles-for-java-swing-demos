@@ -1,0 +1,45 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../resources/help.css"/>
+</head>
+<body class="demo-description">
+<h2>Step 4: Modifying the Visualizations</h2>
+<p>
+  The visual appearance for each type of graph element (except bends) is specified by means of <em>styles</em>.
+</p>
+<p>
+  By default, all <em>newly created</em> elements get the style set to the
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.IGraph%23IGraph-property-NodeDefaults">NodeDefaults</a> and
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.IGraph%23IGraph-property-EdgeDefaults">EdgeDefaults</a>
+  properties of <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.IGraph">IGraph</a>.
+</p>
+<p>
+  To set a specific style for a graph element, either create it with one of the various
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.IGraph%23IGraph-method-createNode">createNode</a>/<a
+    href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.IGraph%23IGraph-method-createEdge">createEdge</a>/<a
+    href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.IGraph%23IGraph-method-addLabel">addLabel</a>/<a
+    href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.IGraph%23IGraph-method-addPort">addPort</a> methods
+  that have a style parameter or change the
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.IGraph%23IGraph-method-setStyle">style property</a> later on.
+</p>
+<p>
+  yFiles already comes with a number of useful styles for most graph element types. The custom style tutorial shows how
+  to create your own custom style for nodes, edges, ports and labels.
+</p>
+<p>
+  See the sources for details.
+</p>
+<br/>
+<h3>Relevant Chapters in the Developers Guide:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/getting_started-setting_styles">Setting Styles</a></li>
+</ul>
+<h3>Relevant API:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.IGraph%23IGraph-property-NodeDefaults">IGraph#NodeDefaults</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.IGraph%23IGraph-property-EdgeDefaults">IGraph#EdgeDefaults</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.IGraph%23IGraph-method-createNode(RectD,INodeStyle,Object)">IGraph#createNode</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.IGraph%23IGraph-method-setStyle(INode,INodeStyle)">IGraph#setStyle</a></li>
+</ul>
+</body>
+</html>

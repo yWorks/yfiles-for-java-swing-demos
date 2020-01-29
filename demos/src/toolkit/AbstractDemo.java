@@ -2,7 +2,7 @@
  **
  ** This demo file is part of yFiles for Java (Swing) 3.3.
  **
- ** Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,9 +29,6 @@
  ***************************************************************************/
 package toolkit;
 
-import com.yworks.yfiles.geometry.InsetsD;
-import com.yworks.yfiles.geometry.RectD;
-import com.yworks.yfiles.geometry.SizeD;
 import com.yworks.yfiles.view.GraphComponent;
 import com.yworks.yfiles.view.input.CommandAction;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
@@ -192,11 +189,12 @@ public abstract class AbstractDemo {
   protected JFrame createFrame(String title) {
     JFrame frame = new JFrame(title);
     frame.setIconImages(Arrays.asList(
-        createIcon("logo_29.png").getImage(),
-        createIcon("logo_36.png").getImage(),
+        createIcon("logo_16.png").getImage(),
+        createIcon("logo_24.png").getImage(),
+        createIcon("logo_32.png").getImage(),
         createIcon("logo_48.png").getImage(),
-        createIcon("logo_57.png").getImage(),
-        createIcon("logo_129.png").getImage()));
+        createIcon("logo_64.png").getImage(),
+        createIcon("logo_128.png").getImage()));
     frame.setSize(1365, 768);
     frame.setLocationRelativeTo(null);
     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

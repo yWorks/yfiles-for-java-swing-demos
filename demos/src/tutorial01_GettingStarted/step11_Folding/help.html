@@ -1,0 +1,53 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../resources/help.css"/>
+</head>
+<body class="demo-description">
+<h2>Step 11: Folding</h2>
+<p>
+  Folding is the ability to collapse and expand group nodes. Collapsing a group node hides all of its children,
+  while expanding the group node makes them visible again.
+</p>
+<p>
+  The class <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.FoldingManager">FoldingManager</a>
+  allows to add folding support to a graph. It provides and handles the so-called
+  managed views that enable folding operations in a graph hierarchy.
+</p>
+<p>
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.GraphEditorInputMode">GraphEditorInputMode</a>
+  provides the following default gestures for collapsing and expanding:
+</p>
+<ul>
+  <li>Ctrl/Command+[+] opens (expands) a closed group node.</li>
+  <li>Ctrl/Command+[-] closes (collapses) an open group node.</li>
+  <li>Ctrl/Command+Return enters (navigates into) a group node.</li>
+  <li>Ctrl/Command+Backspace exits (navigates out of) a group node.</li>
+</ul>
+<p>
+  Conceptually, folding is implemented by separating the
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.FoldingManager%23FoldingManager-property-MasterGraph">master graph</a>
+  that always contains the full (unfolded)
+  information from one or more
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.FoldingManager%23FoldingManager-property-Views">folding views</a>.
+  A folding view keeps the folding state used to dynamically hide
+  and un-hide parts of the graph, create representatives for merged edges etc. Usually, the graph from such a folding
+  view can be used transparently in place of the master graph. However, some care must be taken when working with graph
+  elements that don't exist explicitly in the model graph, such as representative edges for multiple edges that connect
+  into a folded group node.
+</p>
+<p>
+  See the sources for details.
+</p>
+<br/>
+<h3>Relevant Chapters in the Developers Guide:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/folding">Folding</a></li>
+</ul>
+<h3>Relevant API:</h3>
+<ul>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.FoldingManager">FoldingManager</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.IFoldingView">IFoldingView</a></li>
+  <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.NavigationInputMode">NavigationInputMode</a></li>
+</ul>
+</body>
+</html>

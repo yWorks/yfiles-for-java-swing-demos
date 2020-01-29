@@ -1,0 +1,62 @@
+<html>
+<head>
+    <link rel="stylesheet" href="../../resources/help.css"/>
+</head>
+<body class="demo-description">
+<h2>Step 11: Custom Label Style</h2>
+
+<p>
+    Create a custom label style.
+</p>
+
+<h3>Things to Try</h3>
+
+<ul>
+    <li>
+        Take a look at class <code>MySimpleLabelStyle</code>.
+    </li>
+    <li>
+        Select a label and open the label editor using F2 to edit the label's text. The size of the label doesn't adjust
+        to the size of the text. If you move the node label from North to East, for example, this results in an overlap.
+    </li>
+    <li>
+        Create a label using Shift+F2 when a node or an edge is selected.
+    </li>
+</ul>
+
+<h3>Left to Do</h3>
+
+<ul>
+    <li>
+        Make the label size adjust to its text.
+    </li>
+    <li>
+        Override <code>updateVisual()</code> to get high-performance rendering.
+    </li>
+    <li>
+        Implement a button to open the label editor.
+    </li>
+    <li>
+        Allow to change the background color of labels.
+    </li>
+   <li>
+        Create a custom edge style.
+    </li>
+    <li>
+        Create a custom port style for nodes.
+    </li>
+</ul>
+
+<br/>
+<h3>Relevant Chapters in the Developers Guide:</h3>
+<ul>
+    <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/customizing_styles">Customizing Styles</a></li>
+    <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/dguide/custom-styles_basic">Basic Custom Style Implementation</a></li>
+</ul>
+<h3>Relevant API:</h3>
+<ul>
+    <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.styles.AbstractLabelStyle">AbstractLabelStyle</a></li>
+    <li><a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.styles.AbstractLabelStyle%23AbstractLabelStyle-method-createVisual">AbstractLabelStyle#createVisual</a></li>
+</ul>
+</body>
+</html>

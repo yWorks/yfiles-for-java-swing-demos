@@ -2,7 +2,7 @@
  **
  ** This demo file is part of yFiles for Java (Swing) 3.3.
  **
- ** Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -76,6 +76,19 @@ public class MessageLabelStyle implements ILabelStyle {
   @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
   public final void setInitiating( boolean value ) {
     this.initiating = value;
+  }
+
+
+  public static final ILabelStyle createInitiatingStyle() {
+    MessageLabelStyle messageLabelStyle = new MessageLabelStyle();
+    messageLabelStyle.setInitiating(true);
+    return messageLabelStyle;
+  }
+
+  public static final ILabelStyle createResponseStyle() {
+    MessageLabelStyle messageLabelStyle = new MessageLabelStyle();
+    messageLabelStyle.setInitiating(false);
+    return messageLabelStyle;
   }
 
   @Obfuscation(stripAfterObfuscation = false, exclude = true)

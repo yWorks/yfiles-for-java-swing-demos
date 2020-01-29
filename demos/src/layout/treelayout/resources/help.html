@@ -1,0 +1,54 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../resources/help.css"/>
+</head>
+<body class="demo-description">
+  <h1>Description</h1>
+  <p>
+    Demonstrates the tree layout style and the different ways in which this algorithm can arrange a node and its children.
+  </p><p>
+    With tree layout, each node can have a separate
+    <a href="https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.tree.INodePlacer">INodePlacer</a>
+    which is responsible for the arrangement of its children in a certain style.
+  </p>
+  <p>
+    The demo provides sample configurations for the following types of node
+    placer:
+  </p>
+  <dl>
+    <dt>Mixed</dt>
+    <dd>
+      arranges child nodes either with
+      <a href="https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.tree.DefaultNodePlacer">DefaultNodePlacer</a>
+      or
+      <a href="https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.tree.LeftRightNodePlacer">LeftRightNodePlacer</a>.
+      Which of the two placers is used for a
+      given subtree depends on the tree depth of the subtree's root.
+    </dd>
+    <dt><a href="https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.tree.DefaultNodePlacer">DefaultNodePlacer</a></dt>
+    <dd>
+      arranges child nodes horizontally aligned below their root node.
+      It offers options to change the orientation of the subtree, the edge
+      routing style, and the alignment of the root node.
+    </dd>
+    <dt><a href="https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.tree.CompactNodePlacer">CompactNodePlacer</a></dt>
+    <dd>
+      uses a dynamic optimization approach that chooses a placement strategy
+      for children of a local root such that the overall result is compact
+      with respect to the specified aspect ratio.
+    </dd>
+    <dt><a href="https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.tree.AssistantNodePlacer">AssistantNodePlacer</a></dt>
+    <dd>
+      delegates to two different node placers to arrange the child nodes:
+      Nodes that are marked as <em>Assistants</em> are placed using
+      <a href="https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.tree.LeftRightNodePlacer">LeftRightNodePlacer</a>.
+      Other children are arranged below the assistant nodes using
+      <a href="https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.tree.SimpleNodePlacer">SimpleNodePlacer</a>.
+    </dd>
+    <dt><a href="https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.tree.AspectRatioNodePlacer">AspectRatioNodePlacer</a></dt>
+    <dd>
+      arranges child nodes such that a given aspect ratio is obeyed.
+    </dd>
+  </dl>
+</body>
+</html>

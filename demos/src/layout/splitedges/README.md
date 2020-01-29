@@ -1,0 +1,2 @@
+# Split Edges
+ Shows how to align edges at group nodes using [RecursiveGroupLayout](https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.RecursiveGroupLayout) 's support for split edges together with [HierarchicLayout](https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.hierarchic.HierarchicLayout) 's support for [direct group content edge routing](https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.hierarchic.EdgeLayoutDescriptor%23EdgeLayoutDescriptor-property-DirectGroupContentEdgeRoutingEnabled) . 

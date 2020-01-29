@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ////////////////////////////////////////////////////////////////////////
+     //
+     // This demo file is part of yFiles for Java (Swing) 3.3.
+     //
+     // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // 72070 Tuebingen, Germany. All rights reserved.
+     //
+     // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
+     // of demo resource files, with or without modification, is not permitted.
+     // Owners of a valid software license for a yFiles for Java (Swing) version that this
+     // demo is shipped with are allowed to use the resource file as basis for
+     // their own yFiles for Java (Swing) powered applications. Use of such programs is
+     // governed by the rights and conditions as set out in the yFiles for Java (Swing)
+     // license agreement.
+     //
+     // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+     // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+     // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+     // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+     // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+     // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     // 
+     ////////////////////////////////////////////////////////////////////////-->
+<!--Created by yFiles for Java (Swing) 3.3-->
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/yfiles-common/3.0" xmlns:yfj="http://www.yworks.com/xml/yfiles-for-java/3.1" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml.java/3.1/ygraphml.xsd ">
+  <key attr.name="NodeLabels" for="node" id="d0" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeLabels"/>
+  <key attr.name="NodeGeometry" for="node" id="d1" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeGeometry"/>
+  <key attr.name="UserTags" for="all" id="d2" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/UserTags"/>
+  <key attr.name="NodeStyle" for="node" id="d3" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeStyle"/>
+  <key attr.name="EdgeLabels" for="edge" id="d4" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeLabels"/>
+  <key attr.name="EdgeGeometry" for="edge" id="d5" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry"/>
+  <key attr.name="EdgeStyle" for="edge" id="d6" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeStyle"/>
+  <key attr.name="GraphSettings" for="graph" id="d7" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/GraphSettings"/>
+  <key attr.name="PortLabels" for="port" id="d8" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLabels"/>
+  <key attr.name="PortLocationParameter" for="port" id="d9" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLocationParameter">
+    <default>
+      <x:Static Member="y:FreeNodePortLocationModel.NodeCenterAnchored"/>
+    </default>
+  </key>
+  <key attr.name="PortStyle" for="port" id="d10" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortStyle">
+    <default>
+      <x:Static Member="y:VoidPortStyle.Instance"/>
+    </default>
+  </key>
+  <key attr.name="SharedData" id="d11" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData"/>
+  <data key="d11">
+    <y:SharedData>
+      <java:Color xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" Value="#FFD6E5F8" x:Key="1"/>
+      <yfj:ShapeNodeStyle Paint="DarkOrange" x:Key="2"/>
+      <yfj:DefaultLabelStyle TextAlignment="RIGHT" x:Key="3"/>
+      <yfj:PanelNodeStyle Color="{y:GraphMLReference 1}" Insets="5.0,23.0,5.0,5.0" LabelInsetsColor="{y:GraphMLReference 1}" x:Key="4"/>
+      <yfj:PolylineEdgeStyle TargetArrow="DEFAULT" x:Key="5"/>
+    </y:SharedData>
+  </data>
+  <graph id="G">
+    <data key="d7">
+      <y:GraphSettings>
+        <y:GraphSettings.EdgeDefaults>
+          <y:EdgeDefaults Style="{y:GraphMLReference 5}">
+            <y:EdgeDefaults.Ports>
+              <y:PortDefaults LocationParameter="{x:Static y:BendAnchoredPortLocationModel.FirstBend}" Style="{x:Static y:VoidPortStyle.Instance}">
+                <y:PortDefaults.Labels>
+                  <y:LabelDefaults AutoAdjustPreferredSize="True" ShareLayoutParameterInstance="True" ShareStyleInstance="True">
+                    <y:LabelDefaults.LayoutParameter>
+                      <y:PortAnchoredLabelModelParameter LabelRatio="0.5,1.0" LocationOffset="0.0,1.0"/>
+                    </y:LabelDefaults.LayoutParameter>
+                    <y:LabelDefaults.Style>
+                      <yfj:DefaultLabelStyle/>
+                    </y:LabelDefaults.Style>
+                  </y:LabelDefaults>
+                </y:PortDefaults.Labels>
+              </y:PortDefaults>
+            </y:EdgeDefaults.Ports>
+            <y:EdgeDefaults.Labels>
+              <y:LabelDefaults AutoAdjustPreferredSize="True" ShareLayoutParameterInstance="True" ShareStyleInstance="True">
+                <y:LabelDefaults.LayoutParameter>
+                  <y:EdgeSegmentLabelModelParameter>
+                    <y:EdgeSegmentLabelModelParameter.Model>
+                      <y:EdgeSegmentLabelModel AutoRotationEnabled="False"/>
+                    </y:EdgeSegmentLabelModelParameter.Model>
+                  </y:EdgeSegmentLabelModelParameter>
+                </y:LabelDefaults.LayoutParameter>
+                <y:LabelDefaults.Style>
+                  <yfj:DefaultLabelStyle/>
+                </y:LabelDefaults.Style>
+              </y:LabelDefaults>
+            </y:EdgeDefaults.Labels>
+          </y:EdgeDefaults>
+        </y:GraphSettings.EdgeDefaults>
+        <y:GraphSettings.GroupNodeDefaults>
+          <y:NodeDefaults Size="30.0,30.0" Style="{y:GraphMLReference 4}">
+            <y:NodeDefaults.Ports>
+              <y:PortDefaults LocationParameter="{x:Static y:FreeNodePortLocationModel.NodeCenterAnchored}" Style="{x:Static y:VoidPortStyle.Instance}">
+                <y:PortDefaults.Labels>
+                  <y:LabelDefaults AutoAdjustPreferredSize="True" ShareLayoutParameterInstance="True" ShareStyleInstance="True">
+                    <y:LabelDefaults.LayoutParameter>
+                      <y:PortAnchoredLabelModelParameter LabelRatio="0.5,1.0" LocationOffset="0.0,1.0"/>
+                    </y:LabelDefaults.LayoutParameter>
+                    <y:LabelDefaults.Style>
+                      <yfj:DefaultLabelStyle/>
+                    </y:LabelDefaults.Style>
+                  </y:LabelDefaults>
+                </y:PortDefaults.Labels>
+              </y:PortDefaults>
+            </y:NodeDefaults.Ports>
+            <y:NodeDefaults.Labels>
+              <y:LabelDefaults AutoAdjustPreferredSize="True" LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}" ShareLayoutParameterInstance="True" ShareStyleInstance="True" Style="{y:GraphMLReference 3}"/>
+            </y:NodeDefaults.Labels>
+          </y:NodeDefaults>
+        </y:GraphSettings.GroupNodeDefaults>
+        <y:GraphSettings.NodeDefaults>
+          <y:NodeDefaults Size="40.0,40.0" Style="{y:GraphMLReference 2}">
+            <y:NodeDefaults.Ports>
+              <y:PortDefaults LocationParameter="{x:Static y:FreeNodePortLocationModel.NodeCenterAnchored}" Style="{x:Static y:VoidPortStyle.Instance}">
+                <y:PortDefaults.Labels>
+                  <y:LabelDefaults AutoAdjustPreferredSize="True" ShareLayoutParameterInstance="True" ShareStyleInstance="True">
+                    <y:LabelDefaults.LayoutParameter>
+                      <y:PortAnchoredLabelModelParameter LabelRatio="0.5,1.0" LocationOffset="0.0,1.0"/>
+                    </y:LabelDefaults.LayoutParameter>
+                    <y:LabelDefaults.Style>
+                      <yfj:DefaultLabelStyle/>
+                    </y:LabelDefaults.Style>
+                  </y:LabelDefaults>
+                </y:PortDefaults.Labels>
+              </y:PortDefaults>
+            </y:NodeDefaults.Ports>
+            <y:NodeDefaults.Labels>
+              <y:LabelDefaults AutoAdjustPreferredSize="True" ShareLayoutParameterInstance="True" ShareStyleInstance="True">
+                <y:LabelDefaults.LayoutParameter>
+                  <y:RatioAnchoredLabelModelParameter LabelRatio="0.5,0.5" LayoutRatio="0.5,0.5"/>
+                </y:LabelDefaults.LayoutParameter>
+                <y:LabelDefaults.Style>
+                  <yfj:DefaultLabelStyle/>
+                </y:LabelDefaults.Style>
+              </y:LabelDefaults>
+            </y:NodeDefaults.Labels>
+          </y:NodeDefaults>
+        </y:GraphSettings.NodeDefaults>
+      </y:GraphSettings>
+    </data>
+    <node id="n0">
+      <data key="d1">
+        <y:RectD Height="40.0" Width="40.0" X="30.0" Y="280.0"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="2"/>
+      </data>
+      <port name="p0">
+        <data key="d9">
+          <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0"/>
+        </data>
+      </port>
+    </node>
+    <node id="n1">
+      <data key="d1">
+        <y:RectD Height="40.0" Width="40.0" X="130.0" Y="280.0"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="2"/>
+      </data>
+      <port name="p0">
+        <data key="d9">
+          <y:FreeNodePortLocationModelParameter Ratio="0.25,0.0"/>
+        </data>
+      </port>
+      <port name="p1">
+        <data key="d9">
+          <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0"/>
+        </data>
+      </port>
+    </node>
+    <node id="n2">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}" PreferredSize="54.0,18.0" Style="{y:GraphMLReference 3}">
+            <y:Label.Text><![CDATA[Group 1]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="168.0" Width="150.0" X="75.0" Y="7.0"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="4"/>
+      </data>
+      <graph id="n2:">
+        <node id="n2::n0">
+          <data key="d1">
+            <y:RectD Height="40.0" Width="40.0" X="130.0" Y="30.0"/>
+          </data>
+          <data key="d3">
+            <y:GraphMLReference ResourceKey="2"/>
+          </data>
+          <port name="p0">
+            <data key="d9">
+              <y:FreeNodePortLocationModelParameter Ratio="0.8332500000000003,1.0"/>
+            </data>
+          </port>
+          <port name="p1">
+            <data key="d9">
+              <y:FreeNodePortLocationModelParameter Ratio="0.16674999999999968,1.0"/>
+            </data>
+          </port>
+          <port name="p2">
+            <data key="d9">
+              <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+            </data>
+          </port>
+        </node>
+        <node id="n2::n1">
+          <data key="d1">
+            <y:RectD Height="40.0" Width="40.0" X="180.0" Y="130.0"/>
+          </data>
+          <data key="d3">
+            <y:GraphMLReference ResourceKey="2"/>
+          </data>
+          <port name="p0">
+            <data key="d9">
+              <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0"/>
+            </data>
+          </port>
+        </node>
+        <node id="n2::n2">
+          <data key="d1">
+            <y:RectD Height="40.0" Width="40.0" X="80.0" Y="130.0"/>
+          </data>
+          <data key="d3">
+            <y:GraphMLReference ResourceKey="2"/>
+          </data>
+          <port name="p0">
+            <data key="d9">
+              <y:FreeNodePortLocationModelParameter Ratio="0.5,0.0"/>
+            </data>
+          </port>
+          <port name="p1">
+            <data key="d9">
+              <y:FreeNodePortLocationModelParameter Ratio="0.25,1.0"/>
+            </data>
+          </port>
+          <port name="p2">
+            <data key="d9">
+              <y:FreeNodePortLocationModelParameter Ratio="0.75,1.0"/>
+            </data>
+          </port>
+        </node>
+        <edge id="n2::e0" source="n2::n0" sourceport="p0" target="n2::n1" targetport="p0">
+          <data key="d5">
+            <x:List>
+              <y:Bend Location="163.33,100.0"/>
+              <y:Bend Location="200.0,100.0"/>
+            </x:List>
+          </data>
+          <data key="d6">
+            <y:GraphMLReference ResourceKey="5"/>
+          </data>
+        </edge>
+        <edge id="n2::e1" source="n2::n0" sourceport="p1" target="n2::n2" targetport="p0">
+          <data key="d5">
+            <x:List>
+              <y:Bend Location="136.67,100.0"/>
+              <y:Bend Location="100.0,100.0"/>
+            </x:List>
+          </data>
+          <data key="d6">
+            <y:GraphMLReference ResourceKey="5"/>
+          </data>
+        </edge>
+      </graph>
+    </node>
+    <edge id="e0" source="n2::n2" sourceport="p1" target="n0" targetport="p0">
+      <data key="d5">
+        <x:List>
+          <y:Bend Location="90.0,250.0"/>
+          <y:Bend Location="50.0,250.0"/>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="5"/>
+      </data>
+    </edge>
+    <edge id="e1" source="n2::n2" sourceport="p2" target="n1" targetport="p0">
+      <data key="d5">
+        <x:List>
+          <y:Bend Location="110.0,250.0"/>
+          <y:Bend Location="140.0,250.0"/>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="5"/>
+      </data>
+    </edge>
+    <edge id="e2" source="n2::n0" sourceport="p2" target="n1" targetport="p1">
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="5"/>
+      </data>
+    </edge>
+  </graph>
+</graphml>

@@ -2,7 +2,7 @@
  **
  ** This demo file is part of yFiles for Java (Swing) 3.3.
  **
- ** Copyright (c) 2000-2019 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -246,6 +246,8 @@ public class GraphTransformerConfig extends LayoutConfiguration {
   @Label("Horizontal Distance")
   @OptionGroupAnnotation(name = "TranslateGroup", position = 10)
   @DefaultValue(doubleValue = 0.0d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
+  @MinMax(min = -999d, max = 999d, step = 1)
+  @ComponentType(ComponentTypes.SLIDER)
   public final double getTranslateXItem() {
     return this.translateXItem;
   }
@@ -253,6 +255,8 @@ public class GraphTransformerConfig extends LayoutConfiguration {
   @Label("Horizontal Distance")
   @OptionGroupAnnotation(name = "TranslateGroup", position = 10)
   @DefaultValue(doubleValue = 0.0d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
+  @MinMax(min = -999d, max = 999d, step = 1)
+  @ComponentType(ComponentTypes.SLIDER)
   public final void setTranslateXItem( double value ) {
     this.translateXItem = value;
   }
@@ -266,6 +270,8 @@ public class GraphTransformerConfig extends LayoutConfiguration {
   @Label("Vertical Distance")
   @OptionGroupAnnotation(name = "TranslateGroup", position = 20)
   @DefaultValue(doubleValue = 0.0d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
+  @MinMax(min = -999d, max = 999d, step = 1)
+  @ComponentType(ComponentTypes.SLIDER)
   public final double getTranslateYItem() {
     return this.translateYItem;
   }
@@ -273,6 +279,8 @@ public class GraphTransformerConfig extends LayoutConfiguration {
   @Label("Vertical Distance")
   @OptionGroupAnnotation(name = "TranslateGroup", position = 20)
   @DefaultValue(doubleValue = 0.0d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
+  @MinMax(min = -999d, max = 999d, step = 1)
+  @ComponentType(ComponentTypes.SLIDER)
   public final void setTranslateYItem( double value ) {
     this.translateYItem = value;
   }
