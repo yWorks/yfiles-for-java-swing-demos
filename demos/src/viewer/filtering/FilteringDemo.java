@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -162,7 +162,25 @@ public class FilteringDemo extends AbstractDemo {
     // enable the undo functionality
     fullGraph.setUndoEngineEnabled(true);
 
+    // update the reset filter button depending on the current graph state
+    fullGraph.getUndoEngine().addUnitUndoneListener((source, evt) -> updateState());
+    fullGraph.getUndoEngine().addUnitRedoneListener((source, evt) -> updateState());
+
     return fullGraph;
+  }
+
+  /**
+   * Updates the 'Reset Filter' button state based on the current graph state.
+   */
+  private void updateState() {
+    final FilteredGraphWrapper filteredGraph = (FilteredGraphWrapper) graphComponent.getGraph();
+    filteredGraph.nodePredicateChanged();
+    filteredGraph.edgePredicateChanged();
+
+    final IGraph fullGraph = getFullGraph();
+    boolean hasFilteredItems = fullGraph.getNodes().stream().anyMatch(node -> node.getTag() != null && node.getTag() == "filtered") ||
+        fullGraph.getEdges().stream().anyMatch(edge -> edge.getTag() != null && edge.getTag() == "filtered");
+    resetButton.setEnabled(hasFilteredItems);
   }
 
   /**

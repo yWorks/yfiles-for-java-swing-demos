@@ -1,0 +1,47 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../resources/help.css"/>
+</head>
+<body class="demo-description">
+<h1>Description</h1>
+
+<p>
+  Shows how to fill free space after deleting nodes.
+</p>
+<p>
+  When nodes are deleted interactively, the
+  <a href="https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.partial.FillAreaLayout">FillAreaLayout</a>
+  algorithm tries to fill free space with graph elements by moving nearby
+  elements towards it, with the goal to make the existing layout more compact
+  and not changing it too much. 
+</p>
+
+<h2>Things to Try</h2>
+
+<p>
+  You can choose between different strategies for assigning nodes to components whose elements should preferably not be separated:
+</p>
+
+<ul>
+  <li>
+    Single: Each node is a separate component.
+  </li>
+  <li>
+    Connected: Components are defined by the connected components.
+  </li>
+  <li>
+    Clustering: Components are defined by edge betweenness clustering.
+  </li>
+</ul>
+
+<ul>
+  <li>
+    Mark some nodes in the Graph and delete them.
+  </li>
+  <li>
+    Observe how the remaining nodes are rearranged filling the space once occupied by the deleted nodes.
+  </li>
+</ul>
+
+</body>
+</html>

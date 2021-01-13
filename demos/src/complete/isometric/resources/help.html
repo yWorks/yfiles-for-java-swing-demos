@@ -1,51 +1,44 @@
 <html>
 <head>
-  <link rel="stylesheet" href="../../../resources/help.css"/>
+    <link rel="stylesheet" href="../../../resources/help.css"/>
 </head>
 <body class="demo-description">
-  <h1>Description</h1>
-  <p>
-    This demo displays graphs in an isometric fashion to create an impression
-    of a 3-dimensional view.
-  </p>
+<h1>Description</h1>
+<p>
+    This demo displays graphs isometrically. It features the full range of interactions using GraphEditorInputMode.
+    Also, each node has an additional handle at the "top" which, when dragged, will change the height of the node.
+</p>
 
-  <h2>Interaction</h2>
-  <p>
-    As this demo is mainly a viewer, it is not possible to edit the graph structure.  
-  </p>
-  <ul>
+<h2>Things to try</h2>
+<ul>
     <li>
-      Left Click on Group State Icon opens/closes the group node and
-      shows/hides its children.
+        Select a node and drag the handle at the "top" to change the height of that node.
     </li>
     <li>
-      Left Drag on View moves view according to the difference between drag
-      start and current mouse position.
+        Use the "Rotation" slider to adjust change the rotation of the scene.
     </li>
     <li>
-      Mouse Wheel changes the zoom level of the view.
+        Click on an empty space in the canvas to create a new node with a random color and height.
     </li>
-  </ul>
+</ul>
 
-  <h2>Layout</h2>
-  <p>
-    There are two layout algorithms well-suited for arranging graphs in
-    isometric views: Hierarchic layout and orthogonal layout.
-  </p><p>
-    By default, hierarchic layout is used.
-  </p><p>
-    However, the source code of the demo is organized in such a way that
-    switching to orthogonal layout is a simple matter of changing the value of
-    field <code>layoutStyle</code> in the main demo class.
-  </p><p>
+<h2>Layout</h2>
+<p>
+    There are two suitable layout algorithms to apply to the graph.
+</p>
+<ul>
+    <li>Hierarchic layout</li>
+    <li>Orthogonal layout</li>
+</ul>
+<p>
     Opening/closing group nodes automatically re-arranges the the current
-    diagram with the chosen layout algorithm.
-  </p>
+    diagram with the last chosen layout algorithm.
+</p>
 
-  <p>
-    See the online
-    <a href="http://live.yworks.com/demos/complete/isometric/index.html">Isometric Drawing Demo</a>
-    for additional interactive features.
-  </p>
+<h2>Loading Graphs</h2>
+<p>
+    Load your own graph and display it isometrically.
+</p>
+
 </body>
 </html>

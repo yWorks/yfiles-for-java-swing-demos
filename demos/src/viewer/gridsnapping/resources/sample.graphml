@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.3.
+     // This demo file is part of yFiles for Java (Swing) 3.4.
      //
-     // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -54,7 +54,11 @@
       <yfj:ShapeNodeStyle Paint="DarkOrange" x:Key="2"/>
       <yfj:DefaultLabelStyle TextAlignment="RIGHT" x:Key="3"/>
       <yfj:PanelNodeStyle Color="{y:GraphMLReference 1}" Insets="5.0,23.0,5.0,5.0" LabelInsetsColor="{y:GraphMLReference 1}" x:Key="4"/>
-      <yfj:PolylineEdgeStyle TargetArrow="DEFAULT" x:Key="5"/>
+      <yfj:PolylineEdgeStyle TargetArrow="DEFAULT" x:Key="5">
+        <yfj:PolylineEdgeStyle.Pen>
+          <yfj:Pen Thickness="2.0"/>
+        </yfj:PolylineEdgeStyle.Pen>
+      </yfj:PolylineEdgeStyle>
     </y:SharedData>
   </data>
   <graph id="G">
@@ -177,7 +181,7 @@
     <node id="n2">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}" PreferredSize="54.0,18.0" Style="{y:GraphMLReference 3}">
+          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}" Style="{y:GraphMLReference 3}">
             <y:Label.Text><![CDATA[Group 1]]></y:Label.Text>
           </y:Label>
         </x:List>

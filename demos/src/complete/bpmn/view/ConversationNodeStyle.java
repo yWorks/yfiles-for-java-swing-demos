@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -38,13 +38,13 @@ import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graphml.DefaultValue;
 import java.util.Arrays;
 import com.yworks.yfiles.utils.Obfuscation;
+import java.awt.Paint;
 
 /**
  * An {@link com.yworks.yfiles.graph.styles.INodeStyle} implementation representing a Conversation according to the BPMN.
  */
 @Obfuscation(stripAfterObfuscation = false, exclude = true, applyToMembers = false)
 public class ConversationNodeStyle extends BpmnNodeStyle {
-
   private ConversationType type;
 
   /**
@@ -69,34 +69,120 @@ public class ConversationNodeStyle extends BpmnNodeStyle {
     if (type != value || getIcon() == null) {
       setModCount(getModCount() + 1);
       type = value;
-
-      IIcon typeIcon = IconFactory.createConversation(type);
-      IIcon markerIcon = IconFactory.createConversationMarker(type);
-
-      if (markerIcon != null) {
-        markerIcon = IconFactory.createPlacedIcon(markerIcon, BpmnConstants.Placements.CONVERSATION_MARKER, BpmnConstants.Sizes.MARKER);
-        typeIcon = IconFactory.createCombinedIcon(Arrays.asList(typeIcon, markerIcon));
-      }
-
-      setIcon(IconFactory.createPlacedIcon(typeIcon, BpmnConstants.Placements.CONVERSATION, BpmnConstants.Sizes.CONVERSATION));
+      updateIcon();
     }
   }
 
+  private Paint background = BpmnConstants.CONVERSATION_DEFAULT_BACKGROUND;
+
+  /**
+   * Gets the background color of the conversation.
+   * @return The Background.
+   * @see #setBackground(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "ConversationDefaultBackground", classValue = BpmnConstants.class)
+  public final Paint getBackground() {
+    return background;
+  }
+
+  /**
+   * Sets the background color of the conversation.
+   * @param value The Background to set.
+   * @see #getBackground()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "ConversationDefaultBackground", classValue = BpmnConstants.class)
+  public final void setBackground( Paint value ) {
+    if (background != value) {
+      setModCount(getModCount() + 1);
+      background = value;
+      updateIcon();
+    }
+  }
+
+  private Paint outline = BpmnConstants.CONVERSATION_DEFAULT_OUTLINE;
+
+  /**
+   * Gets the outline color of the conversation.
+   * @return The Outline.
+   * @see #setOutline(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "ConversationDefaultOutline", classValue = BpmnConstants.class)
+  public final Paint getOutline() {
+    return outline;
+  }
+
+  /**
+   * Sets the outline color of the conversation.
+   * @param value The Outline to set.
+   * @see #getOutline()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "ConversationDefaultOutline", classValue = BpmnConstants.class)
+  public final void setOutline( Paint value ) {
+    if (outline != value) {
+      setModCount(getModCount() + 1);
+      outline = value;
+      updateIcon();
+    }
+  }
+
+  private Paint iconColor = BpmnConstants.DEFAULT_ICON_COLOR;
+
+  /**
+   * Gets the primary color for icons and markers.
+   * @return The IconColor.
+   * @see #setIconColor(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultIconColor", classValue = BpmnConstants.class)
+  public final Paint getIconColor() {
+    return iconColor;
+  }
+
+  /**
+   * Sets the primary color for icons and markers.
+   * @param value The IconColor to set.
+   * @see #getIconColor()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultIconColor", classValue = BpmnConstants.class)
+  public final void setIconColor( Paint value ) {
+    if (iconColor != value) {
+      setModCount(getModCount() + 1);
+      iconColor = value;
+      updateIcon();
+    }
+  }
 
   /**
    * Creates a new instance.
    */
   public ConversationNodeStyle() {
     setType(ConversationType.CONVERSATION);
-    setMinimumSize(BpmnConstants.Sizes.CONVERSATION);
+    setMinimumSize(BpmnConstants.CONVERSATION_SIZE);
+  }
+
+  private void updateIcon() {
+    IIcon typeIcon = IconFactory.createConversation(type, getBackground(), getOutline());
+    IIcon markerIcon = IconFactory.createConversationMarker(type, getIconColor());
+
+    if (markerIcon != null) {
+      markerIcon = IconFactory.createPlacedIcon(markerIcon, BpmnConstants.CONVERSATION_MARKER_PLACEMENT, BpmnConstants.MARKER_SIZE);
+      typeIcon = IconFactory.createCombinedIcon(Arrays.asList(typeIcon, markerIcon));
+    }
+
+    setIcon(IconFactory.createPlacedIcon(typeIcon, BpmnConstants.CONVERSATION_PLACEMENT, BpmnConstants.CONVERSATION_SIZE));
   }
 
   @Override
   @Obfuscation(stripAfterObfuscation = false, exclude = true)
   protected GeneralPath getOutline( INode node ) {
     IRectangle layout = node.getLayout().toRectD();
-    double width = Math.min(layout.getWidth(), layout.getHeight() / BpmnConstants.Sizes.CONVERSATION_WIDTH_HEIGHT_RATIO);
-    double height = width * BpmnConstants.Sizes.CONVERSATION_WIDTH_HEIGHT_RATIO;
+    double width = Math.min(layout.getWidth(), layout.getHeight() / BpmnConstants.CONVERSATION_WIDTH_HEIGHT_RATIO);
+    double height = width * BpmnConstants.CONVERSATION_WIDTH_HEIGHT_RATIO;
     RectD bounds = new RectD(layout.getCenter().x - width / 2, layout.getCenter().y - height / 2, width, height);
 
     GeneralPath path = new GeneralPath(16);

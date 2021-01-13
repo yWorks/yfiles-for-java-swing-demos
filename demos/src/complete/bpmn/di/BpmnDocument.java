@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -163,7 +163,7 @@ class BpmnDocument {
       BpmnElement element = diagram.getPlane().getElement();
       String elementId = element.getId();
       String elementName = element.getName();
-      if ("process".equals(elementName) || "choreography".equals(elementName) || "collaboration".equals(elementName)) {
+      if (BpmnDiConstants.PROCESS_ELEMENT.compareTo(elementName) == 0 || BpmnDiConstants.CHOREOGRAPHY_ELEMENT.compareTo(elementName) == 0 || BpmnDiConstants.COLLABORATION_ELEMENT.compareTo(elementName) == 0) {
         getTopLevelDiagrams().add(diagram);
         for (BpmnElement callingElement : callingElements) {
           if (elementId == null
@@ -248,9 +248,8 @@ class BpmnDocument {
         // Add all bpmn elements to the dictionary
         recursiveElements(xChild, element, callingElements);
       } else if (nameSpace.equals(BpmnNamespaceManager.NS_BPMN_DI)) {
-
         // Parse a diagram as whole
-        if ("BPMNDiagram".equals(localName)) {
+        if (BpmnDiConstants.BPMN_DIAGRAM_ELEMENT.compareTo(localName) == 0) {
           BpmnDiagram diagram = buildDiagram(xChild);
           if (diagram.getPlane() != null) {
             getDiagrams().add(diagram);
@@ -272,12 +271,12 @@ class BpmnDocument {
   private BpmnDiagram buildDiagram( Element xNode ) {
     BpmnDiagram diagram = new BpmnDiagram(xNode);
 
-    BpmnPlane bpmnPlane = buildPlane(BpmnNamespaceManager.getElement(xNode, BpmnNamespaceManager.NS_BPMN_DI, "BPMNPlane"));
+    BpmnPlane bpmnPlane = buildPlane(BpmnNamespaceManager.getElement(xNode, BpmnNamespaceManager.NS_BPMN_DI, BpmnDiConstants.BPMN_PLANE_ELEMENT));
     if (bpmnPlane != null) {
       diagram.addPlane(bpmnPlane);
     }
 
-    for (Element xChild : BpmnNamespaceManager.getElements(xNode, BpmnNamespaceManager.NS_BPMN_DI, "BPMNLabelStyle")) {
+    for (Element xChild : BpmnNamespaceManager.getElements(xNode, BpmnNamespaceManager.NS_BPMN_DI, BpmnDiConstants.BPMN_LABEL_STYLE_ELEMENT)) {
       BpmnLabelStyle style = new BpmnLabelStyle(xChild);
       diagram.addStyle(style);
     }
@@ -299,7 +298,7 @@ class BpmnDocument {
     }
 
     // All Shapes
-    for (Element xChild : BpmnNamespaceManager.getElements(xNode, BpmnNamespaceManager.NS_BPMN_DI, "BPMNShape")) {
+    for (Element xChild : BpmnNamespaceManager.getElements(xNode, BpmnNamespaceManager.NS_BPMN_DI, BpmnDiConstants.BPMN_SHAPE_ELEMENT)) {
       BpmnShape shape = new BpmnShape(xChild, getElements());
       if (shape.getElement() != null) {
         plane.addShape(shape);
@@ -309,20 +308,20 @@ class BpmnDocument {
       }
 
       // Shapes usually define their bounds
-      shape.addBounds(BpmnNamespaceManager.getElement(xChild, BpmnNamespaceManager.NS_DC, "Bounds"));
+      shape.addBounds(BpmnNamespaceManager.getElement(xChild, BpmnNamespaceManager.NS_DC, BpmnDiConstants.BOUNDS_ELEMENT));
 
       // Shapes can have a BPMNLabel as child
-      Element bpmnLabel = BpmnNamespaceManager.getElement(xChild, BpmnNamespaceManager.NS_BPMN_DI, "BPMNLabel");
+      Element bpmnLabel = BpmnNamespaceManager.getElement(xChild, BpmnNamespaceManager.NS_BPMN_DI, BpmnDiConstants.BPMN_LABEL_ELEMENT);
       if (bpmnLabel != null) {
         // Label bounds
-        Element bounds = BpmnNamespaceManager.getElement(bpmnLabel, BpmnNamespaceManager.NS_DC, "Bounds");
+        Element bounds = BpmnNamespaceManager.getElement(bpmnLabel, BpmnNamespaceManager.NS_DC, BpmnDiConstants.BOUNDS_ELEMENT);
         shape.addLabel(bounds);
         // BpmnLabelStyle
-        shape.setLabelStyle(BpmnNamespaceManager.getAttributeValue(bpmnLabel, BpmnNamespaceManager.NS_BPMN_DI, "labelStyle"));
+        shape.setLabelStyle(BpmnNamespaceManager.getAttributeValue(bpmnLabel, BpmnNamespaceManager.NS_BPMN_DI, BpmnDiConstants.LABEL_STYLE_ATTRIBUTE));
       }
     }
 
-    for (Element xChild : BpmnNamespaceManager.getElements(xNode, BpmnNamespaceManager.NS_BPMN_DI, "BPMNEdge")) {
+    for (Element xChild : BpmnNamespaceManager.getElements(xNode, BpmnNamespaceManager.NS_BPMN_DI, BpmnDiConstants.BPMN_EDGE_ELEMENT)) {
       BpmnEdge edge = new BpmnEdge(xChild, getElements());
       if (edge.getElement() != null) {
         plane.addEdge(edge);
@@ -332,18 +331,18 @@ class BpmnDocument {
       }
 
       // Edges define 2 or more Waypoints
-      for (Element waypoint : BpmnNamespaceManager.getElements(xChild, BpmnNamespaceManager.NS_DI, "waypoint")) {
+      for (Element waypoint : BpmnNamespaceManager.getElements(xChild, BpmnNamespaceManager.NS_DI, BpmnDiConstants.WAYPOINT_ELEMENT)) {
         edge.addWayPoint(waypoint);
       }
 
       // Edges can have a BPMNLabel as child
-      Element bpmnLabel = BpmnNamespaceManager.getElement(xChild, BpmnNamespaceManager.NS_BPMN_DI, "BPMNLabel");
+      Element bpmnLabel = BpmnNamespaceManager.getElement(xChild, BpmnNamespaceManager.NS_BPMN_DI, BpmnDiConstants.BPMN_LABEL_ELEMENT);
       if (bpmnLabel != null) {
         // Label bounds
-        Element bounds = BpmnNamespaceManager.getElement(bpmnLabel, BpmnNamespaceManager.NS_DC, "Bounds");
+        Element bounds = BpmnNamespaceManager.getElement(bpmnLabel, BpmnNamespaceManager.NS_DC, BpmnDiConstants.BOUNDS_ELEMENT);
         edge.addLabel(bounds);
         // BpmnLabelStyle
-        edge.setLabelStyle(BpmnNamespaceManager.getAttributeValue(bpmnLabel, BpmnNamespaceManager.NS_BPMN_DI, "labelStyle"));
+        edge.setLabelStyle(BpmnNamespaceManager.getAttributeValue(bpmnLabel, BpmnNamespaceManager.NS_BPMN_DI, BpmnDiConstants.LABEL_STYLE_ATTRIBUTE));
       }
     }
     return plane;

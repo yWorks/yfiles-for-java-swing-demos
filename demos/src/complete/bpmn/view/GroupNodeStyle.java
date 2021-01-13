@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -42,6 +42,7 @@ import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
 import com.yworks.yfiles.graph.styles.ShapeNodeStyleRenderer;
 import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.utils.Obfuscation;
+import com.yworks.yfiles.view.DashStyle;
 import com.yworks.yfiles.view.IBoundsProvider;
 import com.yworks.yfiles.view.input.IHitTestable;
 import com.yworks.yfiles.view.input.IInputModeContext;
@@ -49,17 +50,17 @@ import com.yworks.yfiles.view.input.IMarqueeTestable;
 import com.yworks.yfiles.view.input.INodeInsetsProvider;
 import com.yworks.yfiles.view.IVisibilityTestable;
 import com.yworks.yfiles.view.IVisualCreator;
+import com.yworks.yfiles.view.Pen;
+
+import java.awt.BasicStroke;
+import java.awt.Paint;
 
 /**
  * An {@link INodeStyle} implementation representing an Group Node according to the BPMN.
  */
 @Obfuscation(stripAfterObfuscation = false, exclude = true, applyToMembers = false)
-public class GroupNodeStyle implements INodeStyle, Cloneable {
-
-  private static final INodeStyle SHAPE_NODE_STYLE;
-
-  private static final INodeStyleRenderer RENDERER;
-
+public class GroupNodeStyle implements INodeStyle {
+  private final GroupNodeStyleRenderer renderer = new GroupNodeStyleRenderer();
 
   private InsetsD insets = new InsetsD(15);
 
@@ -95,48 +96,114 @@ public class GroupNodeStyle implements INodeStyle, Cloneable {
     insets = value;
   }
 
-  @Obfuscation(stripAfterObfuscation = false, exclude = true)
   public final GroupNodeStyle clone() {
-    try {
-      return (GroupNodeStyle)super.clone();
-    }catch (CloneNotSupportedException exception) {
-      throw new RuntimeException("Class doesn't implement java.lang.Cloneable");
+    GroupNodeStyle groupNodeStyle = new GroupNodeStyle();
+    groupNodeStyle.setInsets(getInsets());
+    groupNodeStyle.setBackground(getBackground());
+    groupNodeStyle.setOutline(getOutline());
+    return (GroupNodeStyle)groupNodeStyle;
+  }
+
+  public final INodeStyleRenderer getRenderer() {
+    return renderer;
+  }
+
+  /**
+   * Gets the background color of the group.
+   * @return The Background.
+   * @see #setBackground(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "GroupDefaultBackground", classValue = BpmnConstants.class)
+  public final Paint getBackground() {
+    return renderer.shapeNodeStyle.getPaint();
+  }
+
+  /**
+   * Sets the background color of the group.
+   * @param value The Background to set.
+   * @see #getBackground()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "GroupDefaultBackground", classValue = BpmnConstants.class)
+  public final void setBackground( Paint value ) {
+    if (renderer.shapeNodeStyle.getPaint() != value) {
+      renderer.shapeNodeStyle.setPaint(value);
     }
   }
 
+  /**
+   * Gets the outline color of the group.
+   * @return The Outline.
+   * @see #setOutline(Paint)
+   */
   @Obfuscation(stripAfterObfuscation = false, exclude = true)
-  public final INodeStyleRenderer getRenderer() {
-    return RENDERER;
+  @DefaultValue(stringValue = "GroupDefaultOutline", classValue = BpmnConstants.class)
+  public final Paint getOutline() {
+    return renderer.shapeNodeStyle.getPen().getPaint();
+  }
+
+  /**
+   * Sets the outline color of the group.
+   * @param value The Outline to set.
+   * @see #getOutline()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "GroupDefaultOutline", classValue = BpmnConstants.class)
+  public final void setOutline( Paint value ) {
+    if (renderer.shapeNodeStyle.getPen().getPaint() != value) {
+      renderer.shapeNodeStyle.setPen(getPen(value));
+    }
+  }
+
+  private static Pen getPen( Paint outline ) {
+    Pen pen = new Pen();
+    pen.setDashStyle(DashStyle.getDashDot());
+    pen.setEndCap(BasicStroke.CAP_ROUND);
+    pen.setPaint(outline);
+    return (Pen)pen;
   }
 
   /**
    * An {@link INodeStyleRenderer} implementation used by {@link GroupNodeStyle}.
    */
   static class GroupNodeStyleRenderer implements INodeStyleRenderer, ILookup {
+    final ShapeNodeStyle shapeNodeStyle;
+
     private INode lastNode;
 
     private GroupNodeStyle lastStyle;
 
+    public GroupNodeStyleRenderer() {
+      final ShapeNodeStyleRenderer renderer = new ShapeNodeStyleRenderer();
+      renderer.setRoundRectArcRadius(BpmnConstants.GROUP_NODE_CORNER_RADIUS);
+      final ShapeNodeStyle shapeNodeStyle = new ShapeNodeStyle(renderer);
+      shapeNodeStyle.setShape(ShapeNodeShape.ROUND_RECTANGLE);
+      shapeNodeStyle.setPaint(BpmnConstants.GROUP_DEFAULT_BACKGROUND);
+      shapeNodeStyle.setPen(getPen(BpmnConstants.GROUP_DEFAULT_OUTLINE));
+      this.shapeNodeStyle = shapeNodeStyle;
+    }
+
     public final IVisualCreator getVisualCreator( INode item, INodeStyle style ) {
-      return SHAPE_NODE_STYLE.getRenderer().getVisualCreator(item, SHAPE_NODE_STYLE);
+      return shapeNodeStyle.getRenderer().getVisualCreator(item, shapeNodeStyle);
     }
 
     public final IBoundsProvider getBoundsProvider( INode item, INodeStyle style ) {
-      return SHAPE_NODE_STYLE.getRenderer().getBoundsProvider(item, SHAPE_NODE_STYLE);
+      return shapeNodeStyle.getRenderer().getBoundsProvider(item, shapeNodeStyle);
     }
 
     public final IVisibilityTestable getVisibilityTestable( INode item, INodeStyle style ) {
-      return SHAPE_NODE_STYLE.getRenderer().getVisibilityTestable(item, SHAPE_NODE_STYLE);
+      return shapeNodeStyle.getRenderer().getVisibilityTestable(item, shapeNodeStyle);
     }
 
     public final IHitTestable getHitTestable( INode item, INodeStyle style ) {
-      IShapeGeometry geometry = SHAPE_NODE_STYLE.getRenderer().getShapeGeometry(item, SHAPE_NODE_STYLE);
+      IShapeGeometry geometry = shapeNodeStyle.getRenderer().getShapeGeometry(item, shapeNodeStyle);
       GeneralPath outline = geometry.getOutline();
       return new PathHitTestable(outline);
     }
 
     public final IMarqueeTestable getMarqueeTestable( INode item, INodeStyle style ) {
-      return SHAPE_NODE_STYLE.getRenderer().getMarqueeTestable(item, SHAPE_NODE_STYLE);
+      return shapeNodeStyle.getRenderer().getMarqueeTestable(item, shapeNodeStyle);
     }
 
     public final ILookup getContext( INode item, INodeStyle style ) {
@@ -146,7 +213,7 @@ public class GroupNodeStyle implements INodeStyle, Cloneable {
     }
 
     public final IShapeGeometry getShapeGeometry( INode node, INodeStyle style ) {
-      return SHAPE_NODE_STYLE.getRenderer().getShapeGeometry(node, SHAPE_NODE_STYLE);
+      return shapeNodeStyle.getRenderer().getShapeGeometry(node, shapeNodeStyle);
     }
 
     @Obfuscation(stripAfterObfuscation = false, exclude = true)
@@ -154,14 +221,14 @@ public class GroupNodeStyle implements INodeStyle, Cloneable {
       if (type == INodeInsetsProvider.class && lastStyle != null) {
         return (TLookup)new GroupInsetsProvider(lastStyle);
       }
-      ILookup lookup = SHAPE_NODE_STYLE.getRenderer().getContext(lastNode, SHAPE_NODE_STYLE);
+      ILookup lookup = shapeNodeStyle.getRenderer().getContext(lastNode, shapeNodeStyle);
       return lookup != null ? lookup.lookup(type) : null;
     }
 
     /**
      * Uses the style insets extended by the size of the participant bands.
      */
-    private static class GroupInsetsProvider implements INodeInsetsProvider {
+    private static final class GroupInsetsProvider implements INodeInsetsProvider {
       private final GroupNodeStyle style;
 
       GroupInsetsProvider( GroupNodeStyle style ) {
@@ -185,16 +252,6 @@ public class GroupNodeStyle implements INodeStyle, Cloneable {
         return path.pathContains(location, context.getHitTestRadius());
       }
     }
-  }
-
-  static {
-    ShapeNodeStyle shapeNodeStyle = new ShapeNodeStyle();
-    shapeNodeStyle.setShape(ShapeNodeShape.ROUND_RECTANGLE);
-    shapeNodeStyle.setPaint(BpmnConstants.Paints.GROUP_NODE);
-    shapeNodeStyle.setPen(BpmnConstants.Pens.GROUP_NODE);
-    SHAPE_NODE_STYLE = shapeNodeStyle;
-    ((ShapeNodeStyleRenderer)SHAPE_NODE_STYLE.getRenderer()).setRoundRectArcRadius(BpmnConstants.GROUP_NODE_CORNER_RADIUS);
-    RENDERER = new GroupNodeStyleRenderer();
   }
 
 }

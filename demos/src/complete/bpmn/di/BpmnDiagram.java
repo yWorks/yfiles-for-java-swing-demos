@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -168,17 +168,17 @@ class BpmnDiagram {
     setResolution("");
 
     // Name Diagram "Unnamed", if it has no name (for choosing, if file contains multiple diagrams)
-    String name = BpmnNamespaceManager.getAttributeValue(xNode, BpmnNamespaceManager.NS_BPMN, "name");
+    String name = BpmnNamespaceManager.getAttributeValue(xNode, BpmnNamespaceManager.NS_BPMN, BpmnDiConstants.NAME_ATTRIBUTE);
     setName(null == name || "".equals(name) ? "Unnamed Diagram" : name);
 
     // Get id, if it exists
-    setId(BpmnNamespaceManager.getAttributeValue(xNode, BpmnNamespaceManager.NS_BPMN, "id"));
+    setId(BpmnNamespaceManager.getAttributeValue(xNode, BpmnNamespaceManager.NS_BPMN, BpmnDiConstants.ID_ATTRIBUTE));
 
     // Get documentation, if it exists
-    setDocumentation(BpmnNamespaceManager.getAttributeValue(xNode, BpmnNamespaceManager.NS_BPMN, "documentation"));
+    setDocumentation(BpmnNamespaceManager.getAttributeValue(xNode, BpmnNamespaceManager.NS_BPMN, BpmnDiConstants.DOCUMENTATION_ATTRIBUTE));
 
     // Get resolution, if it exists
-    setResolution(BpmnNamespaceManager.getAttributeValue(xNode, BpmnNamespaceManager.NS_BPMN, "resolution"));
+    setResolution(BpmnNamespaceManager.getAttributeValue(xNode, BpmnNamespaceManager.NS_BPMN, BpmnDiConstants.RESOLUTION_ATTRIBUTE));
   }
 
   private DefaultLabelStyle defaultStyle;

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -43,29 +43,24 @@ import com.yworks.yfiles.view.input.IHitTestable;
 import com.yworks.yfiles.view.input.IMarqueeTestable;
 import com.yworks.yfiles.view.IVisibilityTestable;
 import com.yworks.yfiles.view.IVisualCreator;
+import com.yworks.yfiles.view.Pen;
+import java.awt.Paint;
 
 /**
  * An {@link ILabelStyle} implementation representing a Message according to the BPMN.
  */
 @Obfuscation(stripAfterObfuscation = false, exclude = true, applyToMembers = false)
 public class MessageLabelStyle implements ILabelStyle {
-
-  private static final ILabelStyleRenderer INITIATING_RENDERER;
-
-  private static final ILabelStyleRenderer RESPONSE_RENDERER;
-
-
-
-  private boolean initiating;
+  private final MessageLabelStyleRenderer renderer;
 
   /**
    * Gets if this Message is initiating.
    * @return The Initiating.
    * @see #setInitiating(boolean)
    */
-  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
+  @DefaultValue(booleanValue = true, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
   public final boolean isInitiating() {
-    return this.initiating;
+    return isInitiating;
   }
 
   /**
@@ -73,41 +68,143 @@ public class MessageLabelStyle implements ILabelStyle {
    * @param value The Initiating to set.
    * @see #isInitiating()
    */
-  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
+  @DefaultValue(booleanValue = true, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
   public final void setInitiating( boolean value ) {
-    this.initiating = value;
+    if (isInitiating != value) {
+      isInitiating = value;
+      updateIcon();
+    }
   }
 
+  private Paint outline;
 
-  public static final ILabelStyle createInitiatingStyle() {
-    MessageLabelStyle messageLabelStyle = new MessageLabelStyle();
-    messageLabelStyle.setInitiating(true);
-    return messageLabelStyle;
-  }
+  Pen messagePen;
 
-  public static final ILabelStyle createResponseStyle() {
-    MessageLabelStyle messageLabelStyle = new MessageLabelStyle();
-    messageLabelStyle.setInitiating(false);
-    return messageLabelStyle;
-  }
-
+  /**
+   * Gets the outline color of the message.
+   * @return The Outline.
+   * @see #setOutline(Paint)
+   */
   @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultMessageOutline", classValue = BpmnConstants.class)
+  public final Paint getOutline() {
+    return outline;
+  }
+
+  /**
+   * Sets the outline color of the message.
+   * @param value The Outline to set.
+   * @see #getOutline()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultMessageOutline", classValue = BpmnConstants.class)
+  public final void setOutline( Paint value ) {
+    if (outline != value) {
+      outline = value;
+      messagePen = (Pen)new Pen(outline, 1);
+      updateIcon();
+    }
+  }
+
+  private Paint initiatingColor = BpmnConstants.DEFAULT_INITIATING_MESSAGE_COLOR;
+
+  /**
+   * Gets the color for an initiating message.
+   * @return The InitiatingColor.
+   * @see #setInitiatingColor(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultInitiatingMessageColor", classValue = BpmnConstants.class)
+  public final Paint getInitiatingColor() {
+    return initiatingColor;
+  }
+
+  /**
+   * Sets the color for an initiating message.
+   * @param value The InitiatingColor to set.
+   * @see #getInitiatingColor()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultInitiatingMessageColor", classValue = BpmnConstants.class)
+  public final void setInitiatingColor( Paint value ) {
+    if (initiatingColor != value) {
+      initiatingColor = value;
+      if (isInitiating()) {
+        updateIcon();
+      }
+    }
+  }
+
+  private Paint responseColor = BpmnConstants.DEFAULT_RECEIVING_MESSAGE_COLOR;
+
+  private boolean isInitiating = true;
+
+  /**
+   * Gets the color for a response message.
+   * @return The ResponseColor.
+   * @see #setResponseColor(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultReceivingMessageColor", classValue = BpmnConstants.class)
+  public final Paint getResponseColor() {
+    return responseColor;
+  }
+
+  /**
+   * Sets the color for a response message.
+   * @param value The ResponseColor to set.
+   * @see #getResponseColor()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultReceivingMessageColor", classValue = BpmnConstants.class)
+  public final void setResponseColor( Paint value ) {
+    if (responseColor != value) {
+      responseColor = value;
+      if (!isInitiating()) {
+        updateIcon();
+      }
+    }
+  }
+
+  public MessageLabelStyle() {
+    final BpmnNodeStyle messageStyle = new BpmnNodeStyle();
+    messageStyle.setIcon(IconFactory.createMessage(
+        new Pen(BpmnConstants.DEFAULT_MESSAGE_OUTLINE, 1),
+        BpmnConstants.DEFAULT_RECEIVING_MESSAGE_COLOR,
+        false));
+    messageStyle.setMinimumSize(BpmnConstants.MESSAGE_SIZE);
+    renderer = new MessageLabelStyleRenderer(new NodeStyleLabelStyleAdapter(messageStyle, new DefaultLabelStyle()));
+
+    setOutline(BpmnConstants.DEFAULT_MESSAGE_OUTLINE);
+  }
+
+  private void updateIcon() {
+    NodeStyleLabelStyleAdapter adapter = renderer.adapter;
+    BpmnNodeStyle nodeStyle = (BpmnNodeStyle)adapter.getNodeStyle();
+    nodeStyle.setIcon(IconFactory.createMessage(messagePen, isInitiating() ? getInitiatingColor() : getResponseColor(), false));
+    nodeStyle.setModCount(nodeStyle.getModCount() + 1);
+  }
+
   public final MessageLabelStyle clone() {
-    return (MessageLabelStyle)this;
+    MessageLabelStyle messageLabelStyle = new MessageLabelStyle();
+    messageLabelStyle.setInitiating(isInitiating());
+    messageLabelStyle.setInitiatingColor(getInitiatingColor());
+    messageLabelStyle.setResponseColor(getResponseColor());
+    messageLabelStyle.setOutline(getOutline());
+    return (MessageLabelStyle)messageLabelStyle;
   }
 
-  @Obfuscation(stripAfterObfuscation = false, exclude = true)
   public final ILabelStyleRenderer getRenderer() {
-    return isInitiating() ? INITIATING_RENDERER : RESPONSE_RENDERER;
+    return renderer;
   }
 
   /**
    * An {@link ILabelStyleRenderer} implementation used by {@link MessageLabelStyle}.
    */
   static class MessageLabelStyleRenderer implements ILabelStyleRenderer {
-    private ILabelStyle adapter;
+    NodeStyleLabelStyleAdapter adapter;
 
-    public MessageLabelStyleRenderer( ILabelStyle adapter ) {
+    public MessageLabelStyleRenderer( NodeStyleLabelStyleAdapter adapter ) {
       this.adapter = adapter;
     }
 
@@ -141,25 +238,16 @@ public class MessageLabelStyle implements ILabelStyle {
 
   }
 
-  static {
+  public static final ILabelStyle createInitiatingStyle() {
+    MessageLabelStyle messageLabelStyle = new MessageLabelStyle();
+    messageLabelStyle.setInitiating(true);
+    return messageLabelStyle;
+  }
 
-    // Initiate the renderer for the initiating Message
-    IIcon messageIcon = IconFactory.createMessage(BpmnConstants.Pens.MESSAGE, BpmnConstants.Paints.INITIATING_MESSAGE);
-    BpmnNodeStyle bpmnNodeStyle = new BpmnNodeStyle();
-    bpmnNodeStyle.setIcon(messageIcon);
-    bpmnNodeStyle.setMinimumSize(BpmnConstants.Sizes.MESSAGE);
-    DefaultLabelStyle labelStyle = new DefaultLabelStyle();
-    NodeStyleLabelStyleAdapter adapter = new NodeStyleLabelStyleAdapter(bpmnNodeStyle, labelStyle);
-    INITIATING_RENDERER = new MessageLabelStyleRenderer(adapter);
-
-    // Initiate the renderer for the response Message
-    messageIcon = IconFactory.createMessage(BpmnConstants.Pens.MESSAGE, BpmnConstants.Paints.RECEIVING_MESSAGE);
-    bpmnNodeStyle = new BpmnNodeStyle();
-    bpmnNodeStyle.setIcon(messageIcon);
-    bpmnNodeStyle.setMinimumSize(BpmnConstants.Sizes.MESSAGE);
-    labelStyle = new DefaultLabelStyle();
-    adapter = new NodeStyleLabelStyleAdapter(bpmnNodeStyle, labelStyle);
-    RESPONSE_RENDERER = new MessageLabelStyleRenderer(adapter);
+  public static final ILabelStyle createResponseStyle() {
+    MessageLabelStyle messageLabelStyle = new MessageLabelStyle();
+    messageLabelStyle.setInitiating(false);
+    return messageLabelStyle;
   }
 
 }

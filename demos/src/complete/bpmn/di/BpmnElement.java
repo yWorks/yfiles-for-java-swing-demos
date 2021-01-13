@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -424,23 +424,23 @@ class BpmnElement {
     for (Attr attribute : BpmnNamespaceManager.attributesInNamespace(xNode, BpmnNamespaceManager.NS_BPMN)) {
       String localName = attribute.getName();
       switch (localName) {
-        case "id":
+        case BpmnDiConstants.ID_ATTRIBUTE:
           setId(attribute.getValue());
           break;
-        case "name":
+        case BpmnDiConstants.NAME_ATTRIBUTE:
           setLabel(attribute.getValue());
           break;
-        case "sourceRef":
+        case BpmnDiConstants.SOURCE_REF_ATTRIBUTE:
           setSource(attribute.getValue());
           break;
-        case "targetRef":
+        case BpmnDiConstants.TARGET_REF_ATTRIBUTE:
           setTarget(attribute.getValue());
           break;
-        case "processRef":
+        case BpmnDiConstants.PROCESS_REF_ATTRIBUTE:
           setProcess(attribute.getValue());
           break;
-        case "calledElement":
-        case "calledChoreographyRef":
+        case BpmnDiConstants.CALLED_ELEMENT_ATTRIBUTE:
+        case BpmnDiConstants.CALLED_CHOREOGRAPHY_REF_ATTRIBUTE:
           setCalledElement(attribute.getValue());
           break;
         default:
@@ -452,11 +452,11 @@ class BpmnElement {
     setValue(xNode.getTextContent());
     setName(xNode.getLocalName());
     switch (getName()) {
-      case "group":
-        setLabel(BpmnNamespaceManager.getAttributeValue(xNode, BpmnNamespaceManager.NS_BPMN, "categoryValueRef"));
+      case BpmnDiConstants.GROUP_ELEMENT:
+        setLabel(BpmnNamespaceManager.getAttributeValue(xNode, BpmnNamespaceManager.NS_BPMN, BpmnDiConstants.CATEGORY_VALUE_REF_ATTRIBUTE));
         break;
-      case "textAnnotation":
-        Element element = BpmnNamespaceManager.getElement(xNode, BpmnNamespaceManager.NS_BPMN, "text");
+      case BpmnDiConstants.TEXT_ANNOTATION_ELEMENT:
+        Element element = BpmnNamespaceManager.getElement(xNode, BpmnNamespaceManager.NS_BPMN, BpmnDiConstants.TEXT_ELEMENT);
         if (element != null) {
           setLabel(element.getTextContent());
         }
@@ -533,7 +533,7 @@ class BpmnElement {
    */
   public final String loadSourceFromChild() {
     for (BpmnElement child : getChildren()) {
-      if ("sourceRef".equals(child.getName())) {
+      if (BpmnDiConstants.SOURCE_REF_ELEMENT.equals(child.getName())) {
         return child.getValue();
       }
     }
@@ -546,7 +546,7 @@ class BpmnElement {
    */
   public final String loadTargetFromChild() {
     for (BpmnElement child : getChildren()) {
-      if ("targetRef".equals(child.getName())) {
+      if (BpmnDiConstants.TARGET_REF_ELEMENT.equals(child.getName())) {
         return child.getValue();
       }
     }
@@ -560,21 +560,21 @@ class BpmnElement {
   public final void setINodeInputOutput( INode node ) {
     for (BpmnElement child : getChildren()) {
       String name = child.getName();
-      if ("ioSpecification".equals(name)) {
+      if (BpmnDiConstants.IO_SPECIFICATION_ELEMENT.compareTo(name) == 0) {
         for (BpmnElement childChild : child.getChildren()) {
           String childName = childChild.getName();
-          if ("dataOutput".equals(childName) || "dataInput".equals(childName)) {
+          if (BpmnDiConstants.DATA_OUTPUT_ELEMENT.compareTo(childName) == 0 || BpmnDiConstants.DATA_INPUT_ELEMENT.compareTo(childName) == 0) {
             childChild.setNode(node);
           }
         }
       }
-      if ("dataInput".equals(name)) {
+      if (BpmnDiConstants.DATA_INPUT_ELEMENT.compareTo(name) == 0) {
         child.setNode(node);
       }
-      if ("dataOutput".equals(name)) {
+      if (BpmnDiConstants.DATA_OUTPUT_ELEMENT.compareTo(name) == 0) {
         child.setNode(node);
       }
-      if ("property".equals(name)) {
+      if (BpmnDiConstants.PROPERTY_ELEMENT.compareTo(name) == 0) {
         child.setNode(node);
       }
     }
@@ -584,15 +584,15 @@ class BpmnElement {
    * Returns the Loop Characteristics of this Element.
    */
   public final LoopCharacteristic getLoopCharacteristics() {
-    if (hasChild("multiInstanceLoopCharacteristics")) {
-      if ("true".equals(getChildAttribute("multiInstanceLoopCharacteristics", "isSequential"))) {
+    if (hasChild(BpmnDiConstants.MULTI_INSTANCE_LOOP_CHARACTERISTICS_ELEMENT)) {
+      if ("true".equals(getChildAttribute(BpmnDiConstants.MULTI_INSTANCE_LOOP_CHARACTERISTICS_ELEMENT, BpmnDiConstants.IS_SEQUENTIAL_ATTRIBUTE))) {
         return LoopCharacteristic.SEQUENTIAL;
       }
 
       return LoopCharacteristic.PARALLEL;
     }
 
-    if (hasChild("standardLoopCharacteristics")) {
+    if (hasChild(BpmnDiConstants.STANDARD_LOOP_CHARACTERISTICS_ELEMENT)) {
       return LoopCharacteristic.LOOP;
     }
 

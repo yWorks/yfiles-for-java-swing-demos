@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -60,7 +60,10 @@ public class DragAndDropSupport {
    */
   public static DataFlavor newFlavor( Class<?> type )  {
     try {
-      return new DataFlavor(DataFlavor.javaJVMLocalObjectMimeType + ";class=" + type.getName());
+      return new DataFlavor(
+        DataFlavor.javaJVMLocalObjectMimeType + ";class=" + type.getName(),
+        null,
+        type.getClassLoader());
     } catch (ClassNotFoundException e) {
       throw new RuntimeException(e);
     }

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -268,7 +268,7 @@ public class BpmnLayoutData extends HierarchicLayoutData {
     // after another with a minimum label-to-label distance
     setEdgeLayoutDescriptors(edge -> {
       EdgeLayoutDescriptor descriptor = new EdgeLayoutDescriptor();
-      descriptor.setRoutingStyle(new RoutingStyle(EdgeRoutingStyle.ORTHOGONAL));
+      descriptor.setRoutingStyle(new RoutingStyle(EdgeRoutingStyle.ORTHOGONAL, false));
       double minLength = 0;
       for (ILabel label : edge.getLabels()) {
         RectD labelSize = label.getLayout().getBounds();

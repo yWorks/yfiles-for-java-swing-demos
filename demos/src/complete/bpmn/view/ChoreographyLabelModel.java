@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -132,17 +132,17 @@ public class ChoreographyLabelModel implements ILabelModel, ILabelModelParameter
    * Determines, if these two parameters are equal.
    */
   public static final boolean areEqual( ILabelModelParameter parameter1, ILabelModelParameter parameter2 ) {
-    if (parameter1.getClass() == ParticipantParameter.class && parameter2.getClass() == ParticipantParameter.class) {
+    if (parameter1 instanceof ParticipantParameter && parameter2 instanceof ParticipantParameter) {
       if (((ParticipantParameter)parameter1).index == ((ParticipantParameter)parameter2).index && ((ParticipantParameter)parameter1).top == ((ParticipantParameter)parameter2).top) {
         return true;
       }
     }
 
-    if (parameter1.getClass() == TaskNameBandParameter.class && parameter2.getClass() == TaskNameBandParameter.class) {
+    if (parameter1 instanceof TaskNameBandParameter && parameter2 instanceof TaskNameBandParameter) {
       return true;
     }
 
-    if (parameter1.getClass() == MessageParameter.class && parameter2.getClass() == MessageParameter.class) {
+    if (parameter1 instanceof MessageParameter && parameter2 instanceof MessageParameter) {
       if (((MessageParameter)parameter1).isNorth() == ((MessageParameter)parameter2).isNorth()) {
         return true;
       }
@@ -333,7 +333,7 @@ public class ChoreographyLabelModel implements ILabelModel, ILabelModelParameter
   }
 
   @GraphML(singletonContainers = {ChoreographyLabelModel.class})
-  private static class TaskNameBandParameter extends ChoreographyParameter {
+  private static final class TaskNameBandParameter extends ChoreographyParameter {
     @Override
     public IOrientedRectangle getGeometry( ILabel label ) {
       if (!(label.getOwner() instanceof INode)) {
@@ -358,7 +358,7 @@ public class ChoreographyLabelModel implements ILabelModel, ILabelModelParameter
   }
 
   @GraphML(singletonContainers = {ChoreographyLabelModel.class})
-  private static class MessageParameter extends ChoreographyParameter implements Cloneable {
+  private static final class MessageParameter extends ChoreographyParameter implements Cloneable {
     private static final ILabelModelParameter NORTH_PARAMETER;
 
     private static final ILabelModelParameter SOUTH_PARAMETER;

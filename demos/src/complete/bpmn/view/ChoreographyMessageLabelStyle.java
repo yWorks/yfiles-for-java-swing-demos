@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -52,7 +52,10 @@ import com.yworks.yfiles.view.IRenderContext;
 import com.yworks.yfiles.view.IVisibilityTestable;
 import com.yworks.yfiles.view.IVisual;
 import com.yworks.yfiles.view.IVisualCreator;
+import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.VisualGroup;
+import java.awt.Paint;
+import java.util.Objects;
 
 /**
  * A label style for message labels of nodes using a {@link ChoreographyNodeStyle}.
@@ -63,34 +66,26 @@ import com.yworks.yfiles.view.VisualGroup;
  */
 @Obfuscation(stripAfterObfuscation = false, exclude = true, applyToMembers = false)
 public class ChoreographyMessageLabelStyle implements ILabelStyle, Cloneable {
-
   private static final ChoreographyMessageLabelStyleRenderer RENDERER = new ChoreographyMessageLabelStyleRenderer();
 
   private static final BpmnEdgeStyle CONNECTOR_STYLE;
 
-  private static final DefaultLabelStyle TEXT_STYLE;
+  private static final DefaultLabelStyle TEXT_STYLE = new DefaultLabelStyle();
 
-  private static final ILabelModelParameter DEFAULT_TEXT_PLACEMENT;
+  public static final ILabelModelParameter DEFAULT_TEXT_PLACEMENT;
 
-  private static final BpmnNodeStyle INITIATING_MESSAGE_STYLE;
-
-  private static final BpmnNodeStyle RESPONSE_MESSAGE_STYLE;
-
-  private ConnectedIconLabelStyle delegateStyle;
-
-  static final ILabelModelParameter getDefaultTextPlacement() {
-    return DEFAULT_TEXT_PLACEMENT;
+  static {
+    final BpmnEdgeStyle connectorStyle = new BpmnEdgeStyle();
+    connectorStyle.setType(EdgeType.ASSOCIATION);
+    CONNECTOR_STYLE = connectorStyle;
+    final ExteriorLabelModel textPlacement = new ExteriorLabelModel();
+    textPlacement.setInsets(new InsetsD(5));
+    DEFAULT_TEXT_PLACEMENT = textPlacement.createParameter(ExteriorLabelModel.Position.WEST);
   }
 
-  static final BpmnNodeStyle getInitiatingMessageStyle() {
-    return INITIATING_MESSAGE_STYLE;
-  }
+  private final BpmnNodeStyle messageStyle;
 
-  static final BpmnNodeStyle getResponseMessageStyle() {
-    return RESPONSE_MESSAGE_STYLE;
-  }
-
-
+  private final ConnectedIconLabelStyle delegateStyle;
 
   /**
    * Gets where the text is placed relative to the message icon.
@@ -122,28 +117,26 @@ public class ChoreographyMessageLabelStyle implements ILabelStyle, Cloneable {
     }
   }
 
-  final ConnectedIconLabelStyle getDelegateStyle() {
-    return delegateStyle;
-  }
-
-
   /**
    * Creates a new instance.
    */
   public ChoreographyMessageLabelStyle() {
+    final BpmnNodeStyle messageStyle = new BpmnNodeStyle();
+    messageStyle.setMinimumSize(BpmnConstants.MESSAGE_SIZE);
+    this.messageStyle = messageStyle;
+
     ConnectedIconLabelStyle connectedIconLabelStyle = new ConnectedIconLabelStyle();
-    connectedIconLabelStyle.setIconSize(BpmnConstants.Sizes.MESSAGE);
-    connectedIconLabelStyle.setIconStyle(getInitiatingMessageStyle());
+    connectedIconLabelStyle.setIconSize(BpmnConstants.MESSAGE_SIZE);
+    connectedIconLabelStyle.setIconStyle(this.messageStyle);
     connectedIconLabelStyle.setTextStyle(TEXT_STYLE);
     connectedIconLabelStyle.setConnectorStyle(CONNECTOR_STYLE);
     connectedIconLabelStyle.setLabelConnectorLocation(FreeNodePortLocationModel.NODE_BOTTOM_ANCHORED);
     connectedIconLabelStyle.setNodeConnectorLocation(FreeNodePortLocationModel.NODE_TOP_ANCHORED);
     delegateStyle = connectedIconLabelStyle;
 
-    setTextPlacement(getDefaultTextPlacement());
+    setTextPlacement(DEFAULT_TEXT_PLACEMENT);
   }
 
-  @Obfuscation(stripAfterObfuscation = false, exclude = true)
   public final ChoreographyMessageLabelStyle clone() {
     try {
       return (ChoreographyMessageLabelStyle)super.clone();
@@ -152,11 +145,9 @@ public class ChoreographyMessageLabelStyle implements ILabelStyle, Cloneable {
     }
   }
 
-  @Obfuscation(stripAfterObfuscation = false, exclude = true)
   public final ILabelStyleRenderer getRenderer() {
     return RENDERER;
   }
-
 
   /**
    * An {@link ILabelStyleRenderer} implementation used by {@link ChoreographyMessageLabelStyle}.
@@ -168,7 +159,9 @@ public class ChoreographyMessageLabelStyle implements ILabelStyle, Cloneable {
 
     private boolean north;
 
-    private boolean responseMessage;
+    private Paint messageColor;
+
+    private Pen messageOutline;
 
     private ILabelStyle getCurrentStyle( ILabel item, ILabelStyle style ) {
 
@@ -178,7 +171,8 @@ public class ChoreographyMessageLabelStyle implements ILabelStyle, Cloneable {
       ChoreographyMessageLabelStyle labelStyle = (ChoreographyMessageLabelStyle)style;
 
       north = true;
-      responseMessage = false;
+      messageColor = BpmnConstants.DEFAULT_INITIATING_MESSAGE_COLOR;
+      messageOutline = null;
       ILabelOwner owner = item.getOwner();
       INode node = (owner instanceof INode) ? (INode)owner : null;
       if (node != null) {
@@ -186,12 +180,16 @@ public class ChoreographyMessageLabelStyle implements ILabelStyle, Cloneable {
         INodeStyle s = node.getStyle();
         ChoreographyNodeStyle nodeStyle = (s instanceof ChoreographyNodeStyle) ? (ChoreographyNodeStyle)s : null;
         if (nodeStyle != null) {
-          responseMessage = nodeStyle.isInitiatingAtTop() ^ north;
+          boolean responseMessage = nodeStyle.isInitiatingAtTop() ^ north;
+          messageColor = responseMessage ? nodeStyle.getResponseColor() : nodeStyle.getInitiatingColor();
+          messageOutline = nodeStyle.messagePen;
         }
       }
+      messageOutline = messageOutline != null ? messageOutline : (Pen)new Pen(BpmnConstants.DEFAULT_MESSAGE_OUTLINE, 1);
 
-      ConnectedIconLabelStyle delegateStyle = labelStyle.getDelegateStyle();
-      delegateStyle.setIconStyle(responseMessage ? getResponseMessageStyle() : getInitiatingMessageStyle());
+      ConnectedIconLabelStyle delegateStyle = labelStyle.delegateStyle;
+      delegateStyle.setIconStyle(labelStyle.messageStyle);
+      labelStyle.messageStyle.setIcon(IconFactory.createMessage(messageOutline, messageColor, false));
       delegateStyle.setLabelConnectorLocation(north ? FreeNodePortLocationModel.NODE_BOTTOM_ANCHORED : FreeNodePortLocationModel.NODE_TOP_ANCHORED);
       delegateStyle.setNodeConnectorLocation(north ? FreeNodePortLocationModel.NODE_TOP_ANCHORED : FreeNodePortLocationModel.NODE_BOTTOM_ANCHORED);
       return delegateStyle;
@@ -234,7 +232,7 @@ public class ChoreographyMessageLabelStyle implements ILabelStyle, Cloneable {
     }
 
     public final IVisual createVisual( IRenderContext context ) {
-      MyVisual container = new MyVisual(getTextPlacement(), responseMessage, north);
+      MyVisual container = new MyVisual(getTextPlacement(), north, messageColor, messageOutline);
       ILabelStyle delegateStyle = getCurrentStyle(item, style);
       container.add(delegateStyle.getRenderer().getVisualCreator(item, delegateStyle).createVisual(context));
       return container;
@@ -248,7 +246,7 @@ public class ChoreographyMessageLabelStyle implements ILabelStyle, Cloneable {
         return createVisual(context);
       }
       ILabelModelParameter textPlacement = container.getTextPlacement();
-      if (!(textPlacement == getTextPlacement() && container.isNorth() == north && container.isResponseMessage() == responseMessage) || container.getChildren().size() != 1) {
+      if (!(textPlacement == getTextPlacement() && container.isNorth() == north && container.messageColor == messageColor && container.messageOutline == messageOutline) || container.getChildren().size() != 1) {
         return createVisual(context);
       }
       IVisual oldDelegateVisual = container.getChildren().get(0);
@@ -258,7 +256,8 @@ public class ChoreographyMessageLabelStyle implements ILabelStyle, Cloneable {
       }
       container.setNorth(north);
       container.setTextPlacement(textPlacement);
-      container.setResponseMessage(responseMessage);
+      container.setMessageColor(messageColor);
+      container.setMessageOutline(messageOutline);
       return container;
     }
 
@@ -268,10 +267,11 @@ public class ChoreographyMessageLabelStyle implements ILabelStyle, Cloneable {
 
     static class MyVisual extends VisualGroup {
 
-      public MyVisual(ILabelModelParameter textPlacement, boolean north, boolean responseMessage) {
+      public MyVisual(ILabelModelParameter textPlacement, boolean north, Paint messageColor, Pen messageOutline) {
         this.textPlacement = textPlacement;
         this.north = north;
-        this.responseMessage = responseMessage;
+        this.messageColor = messageColor;
+        this.messageOutline = messageOutline;
       }
 
       private ILabelModelParameter textPlacement;
@@ -294,14 +294,24 @@ public class ChoreographyMessageLabelStyle implements ILabelStyle, Cloneable {
         this.north = value;
       }
 
-      private boolean responseMessage;
+      private Paint messageColor;
 
-      private final boolean isResponseMessage() {
-        return this.responseMessage;
+      private final Paint getMessageColor() {
+        return this.messageColor;
       }
 
-      public final void setResponseMessage( boolean value ) {
-        this.responseMessage = value;
+      public final void setMessageColor( Paint value ) {
+        this.messageColor = value;
+      }
+
+      private Pen messageOutline;
+
+      private final Pen getMessageOutline() {
+        return this.messageOutline;
+      }
+
+      public final void setMessageOutline( Pen value ) {
+        this.messageOutline = value;
       }
 
       @Override
@@ -310,29 +320,11 @@ public class ChoreographyMessageLabelStyle implements ILabelStyle, Cloneable {
         if (other == null) {
           return false;
         }
-        return getTextPlacement() == other.getTextPlacement() && isNorth() == other.isNorth() && isResponseMessage() == other.isResponseMessage();
+        return getTextPlacement() == other.getTextPlacement() && isNorth() == other.isNorth() && Objects.equals(getMessageColor(), other.getMessageColor()) && Objects.equals(getMessageOutline(), other.getMessageOutline());
       }
 
     }
 
-  }
-
-  static {
-    ExteriorLabelModel exteriorLabelModel = new ExteriorLabelModel();
-    exteriorLabelModel.setInsets(new InsetsD(5));
-    DEFAULT_TEXT_PLACEMENT = exteriorLabelModel.createParameter(ExteriorLabelModel.Position.WEST);
-    BpmnNodeStyle bpmnNodeStyle = new BpmnNodeStyle();
-    bpmnNodeStyle.setIcon(IconFactory.createMessage(BpmnConstants.Pens.MESSAGE, BpmnConstants.Paints.CHOREOGRAPHY_INITIALIZING_PARTICIPANT));
-    bpmnNodeStyle.setMinimumSize(BpmnConstants.Sizes.MESSAGE);
-    INITIATING_MESSAGE_STYLE = bpmnNodeStyle;
-    BpmnNodeStyle bpmnNodeStyle2 = new BpmnNodeStyle();
-    bpmnNodeStyle2.setIcon(IconFactory.createMessage(BpmnConstants.Pens.MESSAGE, BpmnConstants.Paints.CHOREOGRAPHY_RECEIVING_PARTICIPANT));
-    bpmnNodeStyle2.setMinimumSize(BpmnConstants.Sizes.MESSAGE);
-    RESPONSE_MESSAGE_STYLE = bpmnNodeStyle2;
-    BpmnEdgeStyle bpmnEdgeStyle = new BpmnEdgeStyle();
-    bpmnEdgeStyle.setType(EdgeType.ASSOCIATION);
-    CONNECTOR_STYLE = bpmnEdgeStyle;
-    TEXT_STYLE = new DefaultLabelStyle();
   }
 
 }

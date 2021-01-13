@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -33,6 +33,7 @@ import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.layout.circular.CircularLayout;
 import com.yworks.yfiles.layout.circular.CircularLayoutData;
+import com.yworks.yfiles.layout.circular.EdgeRoutingPolicy;
 import com.yworks.yfiles.layout.circular.LayoutStyle;
 import com.yworks.yfiles.layout.circular.PartitionStyle;
 import com.yworks.yfiles.layout.EdgeBundleDescriptor;
@@ -73,8 +74,14 @@ public class CircularLayoutConfig extends LayoutConfiguration {
     setChoosingRadiusAutomaticallyItem(true);
     setFixedRadiusItem(200);
 
+    setEdgeRoutingPolicyItem(EdgeRoutingPolicy.INTERIOR);
+    setCircleDistanceItem(20);
+    setEdgeToEdgeDistanceItem(10);
+    setPreferredCurveLengthItem(20);
+    setPreferredAngleItem(10);
+    setSmoothnessItem(0.7);
     setEdgeBundlingEnabledItem(false);
-    setEdgeBundlingStrengthItem(1);
+    setEdgeBundlingStrengthItem(0.95);
 
     setPreferredChildWedgeItem(treeLayout.getPreferredChildWedge());
     setMinimumEdgeLengthItem(treeLayout.getMinimumEdgeLength());
@@ -97,6 +104,12 @@ public class CircularLayoutConfig extends LayoutConfiguration {
     BalloonLayout balloonLayout = layout.getBalloonLayout();
 
     layout.setLayoutStyle(getLayoutStyleItem());
+    layout.setEdgeRoutingPolicy(getEdgeRoutingPolicyItem());
+    layout.getExteriorEdgeLayoutDescriptor().setCircleDistance(getCircleDistanceItem());
+    layout.getExteriorEdgeLayoutDescriptor().setEdgeToEdgeDistance(getEdgeToEdgeDistanceItem());
+    layout.getExteriorEdgeLayoutDescriptor().setPreferredAngle(getPreferredAngleItem());
+    layout.getExteriorEdgeLayoutDescriptor().setPreferredCurveLength(getPreferredCurveLengthItem());
+    layout.getExteriorEdgeLayoutDescriptor().setSmoothness(getSmoothnessItem());
     layout.setSubgraphLayoutEnabled(isActingOnSelectionOnlyItem());
     layout.setMaximumDeviationAngle(getMaximumDeviationAngleItem());
     layout.setFromSketchModeEnabled(isFromSketchModeEnabledItem());
@@ -144,6 +157,10 @@ public class CircularLayoutConfig extends LayoutConfiguration {
       layoutData.setCustomGroups(node -> graph.getParent(node));
     }
 
+    if (getEdgeRoutingPolicyItem() == EdgeRoutingPolicy.MARKED_EXTERIOR) {
+      layoutData.getExteriorEdges().setSource(graphComponent.getSelection().getSelectedEdges());
+    }
+
     return layoutData;
   }
 
@@ -162,10 +179,15 @@ public class CircularLayoutConfig extends LayoutConfiguration {
   @ComponentType(ComponentTypes.OPTION_GROUP)
   public Object CycleGroup;
 
-  @Label("Edge Bundling")
+  @Label("Edges")
   @OptionGroupAnnotation(name = "RootGroup", position = 25)
   @ComponentType(ComponentTypes.OPTION_GROUP)
-  public Object EdgeBundlingGroup;
+  public Object EdgesGroup;
+
+  @Label("Exterior edges")
+  @OptionGroupAnnotation(name = "EdgesGroup", position = 20)
+  @ComponentType(ComponentTypes.OPTION_GROUP)
+  public Object ExteriorEdgesGroup;
 
   @Label("Tree")
   @OptionGroupAnnotation(name = "RootGroup", position = 30)
@@ -350,17 +372,161 @@ public class CircularLayoutConfig extends LayoutConfiguration {
     return isChoosingRadiusAutomaticallyItem();
   }
 
+  private EdgeRoutingPolicy edgeRoutingPolicyItem = EdgeRoutingPolicy.INTERIOR;
+
+  @Label("Edge Routing")
+  @OptionGroupAnnotation(name = "EdgesGroup", position = 10)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = EdgeRoutingPolicy.class, stringValue = "INTERIOR")
+  @EnumValueAnnotation(label = "Inside", value = "INTERIOR")
+  @EnumValueAnnotation(label = "Outside", value = "EXTERIOR")
+  @EnumValueAnnotation(label = "Automatic", value = "AUTOMATIC")
+  @EnumValueAnnotation(label = "Selected edges outside", value = "MARKED_EXTERIOR")
+  public final EdgeRoutingPolicy getEdgeRoutingPolicyItem() {
+    return this.edgeRoutingPolicyItem;
+  }
+
+  @Label("Edge Routing")
+  @OptionGroupAnnotation(name = "EdgesGroup", position = 10)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = EdgeRoutingPolicy.class, stringValue = "INTERIOR")
+  @EnumValueAnnotation(label = "Inside", value = "INTERIOR")
+  @EnumValueAnnotation(label = "Outside", value = "EXTERIOR")
+  @EnumValueAnnotation(label = "Automatic", value = "AUTOMATIC")
+  @EnumValueAnnotation(label = "Selected edges outside", value = "MARKED_EXTERIOR")
+  public final void setEdgeRoutingPolicyItem( EdgeRoutingPolicy value ) {
+    this.edgeRoutingPolicyItem = value;
+  }
+
+  private double circleDistanceItem;
+
+  @Label("Distance from circle")
+  @OptionGroupAnnotation(name = "ExteriorEdgesGroup", position = 10)
+  @DefaultValue(doubleValue = 20d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
+  @MinMax(min = 10.0d, max = 100.0d)
+  @ComponentType(ComponentTypes.SLIDER)
+  public final double getCircleDistanceItem() {
+    return this.circleDistanceItem;
+  }
+
+  @Label("Distance from circle")
+  @OptionGroupAnnotation(name = "ExteriorEdgesGroup", position = 10)
+  @DefaultValue(doubleValue = 20d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
+  @MinMax(min = 10.0d, max = 100.0d)
+  @ComponentType(ComponentTypes.SLIDER)
+  public final void setCircleDistanceItem( double value ) {
+    this.circleDistanceItem = value;
+  }
+
+  public final boolean isCircleDistanceItemDisabled() {
+    return getEdgeRoutingPolicyItem() == EdgeRoutingPolicy.INTERIOR;
+  }
+
+  private double edgeToEdgeDistanceItem;
+
+  @Label("Edge to edge distance")
+  @OptionGroupAnnotation(name = "ExteriorEdgesGroup", position = 20)
+  @DefaultValue(doubleValue = 10d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
+  @MinMax(min = 5.0d, max = 50.0d)
+  @ComponentType(ComponentTypes.SLIDER)
+  public final double getEdgeToEdgeDistanceItem() {
+    return this.edgeToEdgeDistanceItem;
+  }
+
+  @Label("Edge to edge distance")
+  @OptionGroupAnnotation(name = "ExteriorEdgesGroup", position = 20)
+  @DefaultValue(doubleValue = 10d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
+  @MinMax(min = 5.0d, max = 50.0d)
+  @ComponentType(ComponentTypes.SLIDER)
+  public final void setEdgeToEdgeDistanceItem( double value ) {
+    this.edgeToEdgeDistanceItem = value;
+  }
+
+  public final boolean isEdgeToEdgeDistanceItemDisabled() {
+    return getEdgeRoutingPolicyItem() == EdgeRoutingPolicy.INTERIOR;
+  }
+
+  private double preferredCurveLengthItem;
+
+  @Label("Corner radius")
+  @OptionGroupAnnotation(name = "ExteriorEdgesGroup", position = 30)
+  @DefaultValue(doubleValue = 20d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
+  @MinMax(min = 0.0d, max = 100.0d)
+  @ComponentType(ComponentTypes.SLIDER)
+  public final double getPreferredCurveLengthItem() {
+    return this.preferredCurveLengthItem;
+  }
+
+  @Label("Corner radius")
+  @OptionGroupAnnotation(name = "ExteriorEdgesGroup", position = 30)
+  @DefaultValue(doubleValue = 20d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
+  @MinMax(min = 0.0d, max = 100.0d)
+  @ComponentType(ComponentTypes.SLIDER)
+  public final void setPreferredCurveLengthItem( double value ) {
+    this.preferredCurveLengthItem = value;
+  }
+
+  public final boolean isPreferredCurveLengthItemDisabled() {
+    return getEdgeRoutingPolicyItem() == EdgeRoutingPolicy.INTERIOR;
+  }
+
+  private double preferredAngleItem;
+
+  @Label("Angle")
+  @OptionGroupAnnotation(name = "ExteriorEdgesGroup", position = 40)
+  @DefaultValue(doubleValue = 10d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
+  @MinMax(min = 0.0d, max = 45.0d)
+  @ComponentType(ComponentTypes.SLIDER)
+  public final double getPreferredAngleItem() {
+    return this.preferredAngleItem;
+  }
+
+  @Label("Angle")
+  @OptionGroupAnnotation(name = "ExteriorEdgesGroup", position = 40)
+  @DefaultValue(doubleValue = 10d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
+  @MinMax(min = 0.0d, max = 45.0d)
+  @ComponentType(ComponentTypes.SLIDER)
+  public final void setPreferredAngleItem( double value ) {
+    this.preferredAngleItem = value;
+  }
+
+  public final boolean isPreferredAngleItemDisabled() {
+    return getEdgeRoutingPolicyItem() == EdgeRoutingPolicy.INTERIOR;
+  }
+
+  private double smoothnessItem;
+
+  @Label("Smoothness")
+  @OptionGroupAnnotation(name = "ExteriorEdgesGroup", position = 50)
+  @DefaultValue(doubleValue = 0.7d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
+  @MinMax(min = 0.0d, max = 1.0d, step = 0.1d)
+  @ComponentType(ComponentTypes.SLIDER)
+  public final double getSmoothnessItem() {
+    return this.smoothnessItem;
+  }
+
+  @Label("Smoothness")
+  @OptionGroupAnnotation(name = "ExteriorEdgesGroup", position = 50)
+  @DefaultValue(doubleValue = 0.7d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
+  @MinMax(min = 0.0d, max = 1.0d, step = 0.1d)
+  @ComponentType(ComponentTypes.SLIDER)
+  public final void setSmoothnessItem( double value ) {
+    this.smoothnessItem = value;
+  }
+
+  public final boolean isSmoothnessItemDisabled() {
+    return getEdgeRoutingPolicyItem() == EdgeRoutingPolicy.INTERIOR;
+  }
+
   private boolean edgeBundlingEnabledItem;
 
   @Label("Enable Edge Bundling")
-  @OptionGroupAnnotation(name = "EdgeBundlingGroup", position = 40)
+  @OptionGroupAnnotation(name = "EdgesGroup", position = 40)
   @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
   public final boolean isEdgeBundlingEnabledItem() {
     return this.edgeBundlingEnabledItem;
   }
 
   @Label("Enable Edge Bundling")
-  @OptionGroupAnnotation(name = "EdgeBundlingGroup", position = 40)
+  @OptionGroupAnnotation(name = "EdgesGroup", position = 40)
   @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
   public final void setEdgeBundlingEnabledItem( boolean value ) {
     this.edgeBundlingEnabledItem = value;
@@ -373,7 +539,7 @@ public class CircularLayoutConfig extends LayoutConfiguration {
   private double edgeBundlingStrengthItem;
 
   @Label("Bundling Strength")
-  @OptionGroupAnnotation(name = "EdgeBundlingGroup", position = 50)
+  @OptionGroupAnnotation(name = "EdgesGroup", position = 50)
   @DefaultValue(doubleValue = 0.95d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   @MinMax(min = 0.0d, max = 1.0d, step = 0.01d)
   @ComponentType(ComponentTypes.SLIDER)
@@ -382,7 +548,7 @@ public class CircularLayoutConfig extends LayoutConfiguration {
   }
 
   @Label("Bundling Strength")
-  @OptionGroupAnnotation(name = "EdgeBundlingGroup", position = 50)
+  @OptionGroupAnnotation(name = "EdgesGroup", position = 50)
   @DefaultValue(doubleValue = 0.95d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   @MinMax(min = 0.0d, max = 1.0d, step = 0.01d)
   @ComponentType(ComponentTypes.SLIDER)

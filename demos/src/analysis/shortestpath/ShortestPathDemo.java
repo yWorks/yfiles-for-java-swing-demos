@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -39,6 +39,8 @@ import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.IPort;
 import com.yworks.yfiles.graph.portlocationmodels.IPortLocationModelParameter;
+import com.yworks.yfiles.graph.styles.Arrow;
+import com.yworks.yfiles.graph.styles.ArrowType;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.graph.styles.IArrow;
 import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
@@ -224,9 +226,9 @@ public class ShortestPathDemo extends AbstractDemo {
     comboBox.setSelectedIndex(directed ? 0 : 1);
     comboBox.addActionListener(e -> {
       int index = comboBox.getSelectedIndex();
-      defaultEdgeStyle.setTargetArrow(arrows[index]);
-      pathEdgeStyle.setTargetArrow(arrows[index]);
       directed = (index == 0);
+      defaultEdgeStyle.setTargetArrow(arrows[index]);
+      pathEdgeStyle.setTargetArrow(directed ? new Arrow(ArrowType.DEFAULT, new Pen(Color.RED), Color.RED) : arrows[index]);
       calculateShortestPath(graphComponent, IEventArgs.EMPTY);
     });
     return comboBox;
@@ -480,7 +482,7 @@ public class ShortestPathDemo extends AbstractDemo {
 
     pathEdgeStyle = new PolylineEdgeStyle();
     pathEdgeStyle.setPen(new Pen(Color.RED, 4.0));
-    pathEdgeStyle.setTargetArrow(directed ? IArrow.DEFAULT : IArrow.NONE);
+    pathEdgeStyle.setTargetArrow(directed ? new Arrow(ArrowType.DEFAULT, new Pen(Color.RED), Color.RED)  : IArrow.NONE);
 
     graphComponent.getGraph().getNodeDefaults().setStyle(defaultNodeStyle);
     graphComponent.getGraph().getNodeDefaults().setSize(new SizeD(30, 30));

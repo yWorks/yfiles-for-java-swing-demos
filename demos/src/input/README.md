@@ -18,6 +18,6 @@
 |[PortCandidateProvider](../../src/input/portcandidateprovider/)| Customize the ports at which edges connect to nodes. |
 |[PositionHandler](../../src/input/positionhandler/)| Customize the movement behavior of nodes. |
 |[ReparentHandler](../../src/input/reparenthandler/)| Customize the re-parenting behavior of nodes. |
-|[ReshapeHandleProvider](../../src/input/reshapehandleprovider/)| Customize the reshape handles of nodes. |
+|[ReshapeHandleProvider](../../src/input/reshapehandleprovider/)| Customize the reshape behavior of nodes. |
 |[SingleSelection](../../src/input/singleselection/)| Configure the `GraphEditorInputMode` for single selection mode. |
 |[SizeConstraintProvider](../../src/input/sizeconstraintprovider/)| Customize the resizing behavior of nodes. |

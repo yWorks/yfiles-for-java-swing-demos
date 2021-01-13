@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -50,7 +50,7 @@ import java.awt.geom.Path2D;
 /**
  * Label style that is used as a zoom-invariant selection decorator.
  * <p>
- * This style essentially displays a rotated rectangle and scales its stroke thickness and brush by 1 / zoom level.
+ * This style essentially displays a rotated rectangle and scales its stroke thickness and brush by 1&nbsp;/&nbsp;zoom level.
  * This means that positioning considerations can still be done in world coordinates and the path doesn't require a
  * series of transformations to end up where it should be.
  * </p>
@@ -205,7 +205,7 @@ public class FastLabelSelectionStyle extends AbstractLabelStyle {
       path.lineTo(anchor.getX() + up.getX() * layout.getHeight(), anchor.getY() + up.getY() * layout.getHeight());
       path.closePath();
 
-      // Fill – only drawn when a brush was set
+      // Fill -- only drawn when a brush was set
       if (fill != null) {
         g.setBackground(fill);
         g.fill(path);
@@ -219,7 +219,7 @@ public class FastLabelSelectionStyle extends AbstractLabelStyle {
 
     /**
      * Re-creates the scaled stroke brush if necessary and sets it on the rectangle.
-     * @param scale The scale. This is 1 / zoom level.
+     * @param scale The scale. This is 1&nbsp;/&nbsp;zoom level.
      */
     private void updatePen(double scale) {
       if (pen != null) {

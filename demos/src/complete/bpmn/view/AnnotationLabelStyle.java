@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -50,30 +50,23 @@ import com.yworks.yfiles.view.IVisibilityTestable;
 import com.yworks.yfiles.view.IVisual;
 import com.yworks.yfiles.view.IVisualCreator;
 import com.yworks.yfiles.view.VisualGroup;
+import java.awt.Paint;
 
 /**
  * A label style for annotations according to the BPMN.
  */
 @Obfuscation(stripAfterObfuscation = false, exclude = true, applyToMembers = false)
-public class AnnotationLabelStyle implements ILabelStyle, Cloneable {
+public class AnnotationLabelStyle implements ILabelStyle {
 
   private static final AnnotationLabelStyleRenderer RENDERER = new AnnotationLabelStyleRenderer();
 
-  private static final BpmnEdgeStyle CONNECTOR_STYLE;
+  private final BpmnEdgeStyle connectorStyle;
 
-  private static final DefaultLabelStyle TEXT_STYLE;
+  private static final DefaultLabelStyle TEXT_STYLE = new DefaultLabelStyle();
 
-  private static final AnnotationNodeStyle LEFT_ANNOTATION_STYLE;
+  private final AnnotationNodeStyle leftAnnotationStyle;
 
-  private static final AnnotationNodeStyle RIGHT_ANNOTATION_STYLE;
-
-  static final AnnotationNodeStyle getLeftAnnotationStyle() {
-    return LEFT_ANNOTATION_STYLE;
-  }
-
-  static final AnnotationNodeStyle getRightAnnotationStyle() {
-    return RIGHT_ANNOTATION_STYLE;
-  }
+  private final AnnotationNodeStyle rightAnnotationStyle;
 
 
 
@@ -107,31 +100,98 @@ public class AnnotationLabelStyle implements ILabelStyle, Cloneable {
     return delegateStyle;
   }
 
+  /**
+   * Gets the background color of the annotation.
+   * @return The Background.
+   * @see #setBackground(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "AnnotationDefaultBackground", classValue = BpmnConstants.class)
+  public final Paint getBackground() {
+    return leftAnnotationStyle.getBackground();
+  }
+
+  /**
+   * Sets the background color of the annotation.
+   * @param value The Background to set.
+   * @see #getBackground()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "AnnotationDefaultBackground", classValue = BpmnConstants.class)
+  public final void setBackground( Paint value ) {
+    if (leftAnnotationStyle.getBackground() != value) {
+      leftAnnotationStyle.setBackground(value);
+      rightAnnotationStyle.setBackground(value);
+    }
+  }
+
+  /**
+   * Gets the outline color of the annotation.
+   * <p>
+   * This also influences the color of the line to the annotated element.
+   * </p>
+   * @return The Outline.
+   * @see #setOutline(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "AnnotationDefaultOutline", classValue = BpmnConstants.class)
+  public final Paint getOutline() {
+    return leftAnnotationStyle.getOutline();
+  }
+
+  /**
+   * Sets the outline color of the annotation.
+   * <p>
+   * This also influences the color of the line to the annotated element.
+   * </p>
+   * @param value The Outline to set.
+   * @see #getOutline()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "AnnotationDefaultOutline", classValue = BpmnConstants.class)
+  public final void setOutline( Paint value ) {
+    if (leftAnnotationStyle.getOutline() != value) {
+      leftAnnotationStyle.setOutline(value);
+      rightAnnotationStyle.setOutline(value);
+      connectorStyle.setColor(value);
+    }
+  }
+
 
   /**
    * Creates a new instance.
    */
   public AnnotationLabelStyle() {
+    final BpmnEdgeStyle connectorStyle = new BpmnEdgeStyle();
+    connectorStyle.setType(EdgeType.ASSOCIATION);
+    this.connectorStyle = connectorStyle;
+
+    final AnnotationNodeStyle leftAnnotationStyle = new AnnotationNodeStyle();
+    leftAnnotationStyle.setLeft(true);
+    this.leftAnnotationStyle = leftAnnotationStyle;
+
+    final AnnotationNodeStyle rightAnnotationStyle = new AnnotationNodeStyle();
+    rightAnnotationStyle.setLeft(false);
+    this.rightAnnotationStyle = rightAnnotationStyle;
+
     ConnectedIconLabelStyle connectedIconLabelStyle = new ConnectedIconLabelStyle();
-    connectedIconLabelStyle.setIconStyle(getLeftAnnotationStyle());
+    connectedIconLabelStyle.setIconStyle(this.leftAnnotationStyle);
     connectedIconLabelStyle.setTextStyle(TEXT_STYLE);
     connectedIconLabelStyle.setTextPlacement(InteriorLabelModel.CENTER);
-    connectedIconLabelStyle.setConnectorStyle(CONNECTOR_STYLE);
+    connectedIconLabelStyle.setConnectorStyle(this.connectorStyle);
     connectedIconLabelStyle.setLabelConnectorLocation(FreeNodePortLocationModel.NODE_LEFT_ANCHORED);
     connectedIconLabelStyle.setNodeConnectorLocation(FreeNodePortLocationModel.NODE_CENTER_ANCHORED);
     delegateStyle = connectedIconLabelStyle;
   }
 
-  @Obfuscation(stripAfterObfuscation = false, exclude = true)
   public final AnnotationLabelStyle clone() {
-    try {
-      return (AnnotationLabelStyle)super.clone();
-    }catch (CloneNotSupportedException exception) {
-      throw new RuntimeException("Class doesn't implement java.lang.Cloneable");
-    }
+    AnnotationLabelStyle annotationLabelStyle = new AnnotationLabelStyle();
+    annotationLabelStyle.setInsets(getInsets());
+    annotationLabelStyle.setBackground(getBackground());
+    annotationLabelStyle.setOutline(getOutline());
+    return (AnnotationLabelStyle)annotationLabelStyle;
   }
 
-  @Obfuscation(stripAfterObfuscation = false, exclude = true)
   public final ILabelStyleRenderer getRenderer() {
     return RENDERER;
   }
@@ -140,7 +200,7 @@ public class AnnotationLabelStyle implements ILabelStyle, Cloneable {
   /**
    * An {@link ILabelStyleRenderer} implementation used by {@link AnnotationLabelStyle}.
    */
-  private static class AnnotationLabelStyleRenderer implements ILabelStyleRenderer, IVisualCreator {
+  private static final class AnnotationLabelStyleRenderer implements ILabelStyleRenderer, IVisualCreator {
     private ILabel label;
 
     private ILabelStyle labelStyle;
@@ -161,7 +221,7 @@ public class AnnotationLabelStyle implements ILabelStyle, Cloneable {
       insets = annotationLabelStyle.getInsets();
 
       ConnectedIconLabelStyle delegateStyle = annotationLabelStyle.getDelegateStyle();
-      delegateStyle.setIconStyle(left ? getLeftAnnotationStyle() : getRightAnnotationStyle());
+      delegateStyle.setIconStyle(left ? annotationLabelStyle.leftAnnotationStyle : annotationLabelStyle.rightAnnotationStyle);
       delegateStyle.setLabelConnectorLocation(left ? FreeNodePortLocationModel.NODE_LEFT_ANCHORED : FreeNodePortLocationModel.NODE_RIGHT_ANCHORED);
       return delegateStyle;
     }
@@ -257,19 +317,6 @@ public class AnnotationLabelStyle implements ILabelStyle, Cloneable {
 
     }
 
-  }
-
-  static {
-    AnnotationNodeStyle annotationNodeStyle = new AnnotationNodeStyle();
-    annotationNodeStyle.setLeft(true);
-    LEFT_ANNOTATION_STYLE = annotationNodeStyle;
-    AnnotationNodeStyle annotationNodeStyle2 = new AnnotationNodeStyle();
-    annotationNodeStyle2.setLeft(false);
-    RIGHT_ANNOTATION_STYLE = annotationNodeStyle2;
-    BpmnEdgeStyle bpmnEdgeStyle = new BpmnEdgeStyle();
-    bpmnEdgeStyle.setType(EdgeType.ASSOCIATION);
-    CONNECTOR_STYLE = bpmnEdgeStyle;
-    TEXT_STYLE = new DefaultLabelStyle();
   }
 
 }

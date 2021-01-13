@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -82,7 +82,7 @@ public class LevelOfDetailStyleContainer<T> implements Iterable<T> {
    * Determines whether two zoom levels would correspond to the same style.
    * @param z1 The first zoom level.
    * @param z2 The second zoom level.
-   * @return <code>true</code>, if both zoom levels would fall into the same style »bucket«, <code>false</code> otherwise.
+   * @return <code>true</code>, if both zoom levels would fall into the same style 'bucket', <code>false</code> otherwise.
    */
   public boolean hasSameStyle(double z1, double z2) {
     return getIndex(z1) == getIndex(z2);

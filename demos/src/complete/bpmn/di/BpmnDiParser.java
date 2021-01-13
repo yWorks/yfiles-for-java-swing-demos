@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -31,6 +31,7 @@ package complete.bpmn.di;
 
 import com.yworks.yfiles.geometry.IRectangle;
 import com.yworks.yfiles.geometry.InsetsD;
+import com.yworks.yfiles.geometry.OrientedRectangle;
 import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.geometry.SizeD;
@@ -52,7 +53,7 @@ import com.yworks.yfiles.graph.labelmodels.EdgePathLabelModel;
 import com.yworks.yfiles.graph.labelmodels.EdgeSegmentLabelModel;
 import com.yworks.yfiles.graph.labelmodels.EdgeSides;
 import com.yworks.yfiles.graph.labelmodels.ExteriorLabelModel;
-import com.yworks.yfiles.graph.labelmodels.FreeLabelModel;
+import com.yworks.yfiles.graph.labelmodels.FreeEdgeLabelModel;
 import com.yworks.yfiles.graph.labelmodels.FreeNodeLabelModel;
 import com.yworks.yfiles.graph.labelmodels.GenericLabelModel;
 import com.yworks.yfiles.graph.labelmodels.ILabelModelParameter;
@@ -102,8 +103,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -118,6 +117,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Parser for the BPMN 2.0 abstract syntax.
@@ -186,7 +186,7 @@ public class BpmnDiParser {
     this.genericLabelModel = value;
   }
 
-  // Flags
+
   /**
    * Flag that sets the rearrangement of labels. Does not work properly with custom label bounds.
    */
@@ -217,6 +217,7 @@ public class BpmnDiParser {
    * right way to do would be overriding the renderer.
    */
   private static final boolean MULTI_LINE_EXTERIOR_NODE_LABELS = false;
+
 
   // Can't use BPMN-Constants here, so we have to add the standard size of message envelopes.
   private final SizeD bpmnMessageSize = new SizeD(20, 14);
@@ -413,6 +414,20 @@ public class BpmnDiParser {
         }
       }
     }
+
+    List<INode> groupNodes = this.getMasterGraph().getNodes().stream()
+        .filter(node -> node.getStyle() instanceof GroupNodeStyle)
+        .collect(Collectors.toList());
+    for (INode groupNode : groupNodes) {
+      if (getMasterGraph().getChildren(groupNode).size() == 0) {
+        List<INode> newChildren = getMasterGraph().getChildren(getMasterGraph().getParent(groupNode)).stream()
+            .filter(child -> child != groupNode && groupNode.getLayout().contains(child.getLayout().getTopLeft()) && groupNode.getLayout().contains(child.getLayout().getBottomRight()))
+            .collect(Collectors.toList());
+        for (INode newChild : newChildren) {
+          getMasterGraph().setParent(newChild, groupNode);
+        }
+      }
+    }
   }
 
   /**
@@ -588,20 +603,20 @@ public class BpmnDiParser {
 
     switch (shape.getElement().getName()) {
         // Gateways
-      case "exclusiveGateway":
+      case BpmnDiConstants.EXCLUSIVE_GATEWAY_ELEMENT:
         if (shape.isMarkerVisible()) {
           buildGatewayNode(shape, bounds, GatewayType.EXCLUSIVE_WITH_MARKER);
         } else {
           buildGatewayNode(shape, bounds, GatewayType.EXCLUSIVE_WITHOUT_MARKER);
         }
         break;
-      case "parallelGateway":
+      case BpmnDiConstants.PARALLEL_GATEWAY_ELEMENT:
         buildGatewayNode(shape, bounds, GatewayType.PARALLEL);
         break;
-      case "inclusiveGateway":
+      case BpmnDiConstants.INCLUSIVE_GATEWAY_ELEMENT:
         buildGatewayNode(shape, bounds, GatewayType.INCLUSIVE);
         break;
-      case "eventBasedGateway":
+      case BpmnDiConstants.EVENT_BASED_GATEWAY_ELEMENT:
         if ("Exclusive".equals(shape.getAttribute("eventGatewayType"))) {
           buildGatewayNode(shape, bounds, GatewayType.EXCLUSIVE_EVENT_BASED);
         } else if ("Parallel".equals(shape.getAttribute("eventGatewayType"))) {
@@ -610,41 +625,48 @@ public class BpmnDiParser {
           buildGatewayNode(shape, bounds, GatewayType.EVENT_BASED);
         }
         break;
-      case "complexGateway":
+      case BpmnDiConstants.COMPLEX_GATEWAY_ELEMENT:
         buildGatewayNode(shape, bounds, GatewayType.COMPLEX);
         break;
 
         // Activities - Tasks
-      case "task":
+      case BpmnDiConstants.TASK_ELEMENT:
         buildTaskNode(shape, bounds, TaskType.ABSTRACT);
         break;
-      case "userTask":
+      case BpmnDiConstants.USER_TASK_ELEMENT:
         buildTaskNode(shape, bounds, TaskType.USER);
         break;
-      case "manualTask":
+      case BpmnDiConstants.MANUAL_TASK_ELEMENT:
         buildTaskNode(shape, bounds, TaskType.MANUAL);
         break;
-      case "serviceTask":
+      case BpmnDiConstants.SERVICE_TASK_ELEMENT:
         buildTaskNode(shape, bounds, TaskType.SERVICE);
         break;
-      case "scriptTask":
+      case BpmnDiConstants.SCRIPT_TASK_ELEMENT:
         buildTaskNode(shape, bounds, TaskType.SCRIPT);
         break;
-      case "sendTask":
+      case BpmnDiConstants.SEND_TASK_ELEMENT:
         buildTaskNode(shape, bounds, TaskType.SEND);
         break;
-      case "receiveTask":
+      case BpmnDiConstants.RECEIVE_TASK_ELEMENT:
         buildTaskNode(shape, bounds, TaskType.RECEIVE);
         break;
-      case "businessRuleTask":
+      case BpmnDiConstants.BUSINESS_RULE_TASK_ELEMENT:
         buildTaskNode(shape, bounds, TaskType.BUSINESS_RULE);
         break;
 
         // Activities - subProcess
-        // Activities - Ad-Hoc Sub-Process
-      case "subProcess":
-      case "adHocSubProcess":
-        if ("true".equals(shape.getAttribute("triggeredByEvent"))) {
+      case BpmnDiConstants.SUB_PROCESS_ELEMENT:
+        if ("true".equals(shape.getAttribute(BpmnDiConstants.TRIGGERED_BY_EVENT_ATTRIBUTE))) {
+          buildSubProcessNode(shape, bounds, ActivityType.EVENT_SUB_PROCESS);
+        } else {
+          buildSubProcessNode(shape, bounds, ActivityType.SUB_PROCESS);
+        }
+        break;
+
+        // Activities - Ad-Hoc Sub-Process 
+      case BpmnDiConstants.AD_HOC_SUB_PROCESS_ELEMENT:
+        if ("true".equals(shape.getAttribute(BpmnDiConstants.TRIGGERED_BY_EVENT_ATTRIBUTE))) {
           buildSubProcessNode(shape, bounds, ActivityType.EVENT_SUB_PROCESS);
         } else {
           buildSubProcessNode(shape, bounds, ActivityType.SUB_PROCESS);
@@ -652,51 +674,51 @@ public class BpmnDiParser {
         break;
 
         // Activities - Transaction
-      case "transaction":
+      case BpmnDiConstants.TRANSACTION_ELEMENT:
         buildSubProcessNode(shape, bounds, ActivityType.TRANSACTION);
         break;
 
         // Activities - callActivity
-      case "callActivity":
+      case BpmnDiConstants.CALL_ACTIVITY_ELEMENT:
         buildSubProcessNode(shape, bounds, ActivityType.CALL_ACTIVITY);
         break;
 
         //Events
-      case "startEvent":
-        if ("true".equals(shape.getAttribute("isInterrupting"))) {
+      case BpmnDiConstants.START_EVENT_ELEMENT:
+        if ("true".equals(shape.getAttribute(BpmnDiConstants.IS_INTERRUPTING_ATTRIBUTE))) {
           buildEventNode(shape, bounds, EventCharacteristic.SUB_PROCESS_INTERRUPTING);
-        } else if ("false".equals(shape.getAttribute("isInterrupting"))) {
+        } else if ("false".equals(shape.getAttribute(BpmnDiConstants.IS_INTERRUPTING_ATTRIBUTE))) {
           buildEventNode(shape, bounds, EventCharacteristic.SUB_PROCESS_NON_INTERRUPTING);
         } else {
           buildEventNode(shape, bounds, EventCharacteristic.START);
         }
         break;
-      case "endEvent":
+      case BpmnDiConstants.END_EVENT_ELEMENT:
         buildEventNode(shape, bounds, EventCharacteristic.END);
         break;
-      case "boundaryEvent":
+      case BpmnDiConstants.BOUNDARY_EVENT_ELEMENT:
         // Boundary Events are realized as Ports instead of Nodes
         buildBoundaryEvent(shape);
         break;
-      case "intermediateThrowEvent":
+      case BpmnDiConstants.INTERMEDIATE_THROW_EVENT_ELEMENT:
         buildEventNode(shape, bounds, EventCharacteristic.THROWING);
         break;
-      case "intermediateCatchEvent":
+      case BpmnDiConstants.INTERMEDIATE_CATCH_EVENT_ELEMENT:
         buildEventNode(shape, bounds, EventCharacteristic.CATCHING);
         break;
 
         // Conversation
-      case "conversation":
+      case BpmnDiConstants.CONVERSATION_ELEMENT:
         buildConversationNode(shape, bounds, ConversationType.CONVERSATION, null);
         break;
-      case "callConversation":
-        final BpmnElement refElement = getElementForId(shape.getAttribute("calledCollaborationRef"));
+      case BpmnDiConstants.CALL_CONVERSATION_ELEMENT:
+        final BpmnElement refElement = getElementForId(shape.getAttribute(BpmnDiConstants.CALLED_COLLABORATION_REF_ATTRIBUTE));
         if (refElement != null) {
           switch (refElement.getName()) {
-            case "collaboration":
+            case BpmnDiConstants.COLLABORATION_ELEMENT:
               buildConversationNode(shape, bounds, ConversationType.CALLING_COLLABORATION, refElement);
               break;
-            case "globalConversation":
+            case BpmnDiConstants.GLOBAL_CONVERSATION_ELEMENT:
               buildConversationNode(shape, bounds, ConversationType.CALLING_GLOBAL_CONVERSATION, refElement);
               break;
             default:
@@ -706,19 +728,19 @@ public class BpmnDiParser {
           }
         }
         break;
-      case "subConversation":
+      case BpmnDiConstants.SUB_CONVERSATION_ELEMENT:
         buildConversationNode(shape, bounds, ConversationType.SUB_CONVERSATION, null);
         break;
 
         // Choreography
-      case "choreographyTask":
-      case "subChoreography":
-      case "callChoreography":
+      case BpmnDiConstants.CHOREOGRAPHY_TASK_ELEMENT:
+      case BpmnDiConstants.SUB_CHOREOGRAPHY_ELEMENT:
+      case BpmnDiConstants.CALL_CHOREOGRAPHY_ELEMENT:
         buildChoreographyNode(shape, bounds);
         break;
 
         // Participants 
-      case "participant":
+      case BpmnDiConstants.PARTICIPANT_ELEMENT:
         BpmnElement parent = originalElement.getParent();
         // If the participant is not part of a choreography node, create a node
         if (!parent.getName().toLowerCase().contains("choreography")) {
@@ -732,41 +754,41 @@ public class BpmnDiParser {
 
         break;
         // Text Annotations 
-      case "textAnnotation":
+      case BpmnDiConstants.TEXT_ANNOTATION_ELEMENT:
         buildTextAnnotationNode(shape, bounds);
         break;
 
         // Groups
-      case "group":
+      case BpmnDiConstants.GROUP_ELEMENT:
         buildGroupNode(shape, bounds);
         break;
 
         // DataObject
-      case "dataObjectReference":
+      case BpmnDiConstants.DATA_OBJECT_REFERENCE_ELEMENT:
         // Find out, if the data Object is a collection
         boolean collection = false;
-        final BpmnElement dataObject = getElementForId(shape.getAttribute("dataObjectRef"));
+        final BpmnElement dataObject = getElementForId(shape.getAttribute(BpmnDiConstants.DATA_OBJECT_REF_ATTRIBUTE));
         if (dataObject != null) {
-          final String collectionString = dataObject.getAttributes().get("isCollection");
+          final String collectionString = dataObject.getAttributes().get(BpmnDiConstants.IS_COLLECTION_ATTRIBUTE);
           if ("true".equals(collectionString)) {
             collection = true;
           }
         }
         buildDataObjectNode(shape, bounds, DataObjectType.NONE, collection);
         break;
-      case "dataInput":
+      case BpmnDiConstants.DATA_INPUT_ELEMENT:
         // Find out, if the data Object is a collection
-        collection = "true".equals(shape.getAttribute("isCollection"));
+        collection = "true".equals(shape.getAttribute(BpmnDiConstants.IS_COLLECTION_ATTRIBUTE));
         buildDataObjectNode(shape, bounds, DataObjectType.INPUT, collection);
         break;
-      case "dataOutput":
+      case BpmnDiConstants.DATA_OUTPUT_ELEMENT:
         // Find out, if the data Object is a collection
-        collection = "true".equals(shape.getAttribute("isCollection"));
+        collection = "true".equals(shape.getAttribute(BpmnDiConstants.IS_COLLECTION_ATTRIBUTE));
         buildDataObjectNode(shape, bounds, DataObjectType.OUTPUT, collection);
         break;
 
         // DataStore
-      case "dataStoreReference":
+      case BpmnDiConstants.DATA_STORE_REFERENCE_ELEMENT:
         buildDataStoreReferenceNode(shape, bounds);
         break;
     }
@@ -785,8 +807,8 @@ public class BpmnDiParser {
     BpmnElement source = edge.getSource();
     IEdge iEdge = null;
     switch (element.getName()) {
-      case "sequenceFlow":
-        if (element.getChild("conditionExpression") != null && !(source.getName().endsWith("Gateway"))) {
+      case BpmnDiConstants.SEQUENCE_FLOW_ELEMENT:
+        if (element.getChild(BpmnDiConstants.CONDITION_EXPRESSION_ELEMENT) != null && !(source.getName().endsWith(BpmnDiConstants.GATEWAY_SUFFIX))) {
           iEdge = buildDefaultEdge(edge, EdgeType.CONDITIONAL_FLOW);
         } else  {
           String elementId = element.getId();
@@ -800,8 +822,8 @@ public class BpmnDiParser {
           }
         }
         break;
-      case "association":
-        String direction = edge.getAttribute("associationDirection");
+      case BpmnDiConstants.ASSOCIATION_ELEMENT:
+        String direction = edge.getAttribute(BpmnDiConstants.ASSOCIATION_DIRECTION_ATTRIBUTE);
         if (direction == null) {
           direction = "";
         }
@@ -821,17 +843,19 @@ public class BpmnDiParser {
             break;
         }
         break;
-      case "dataAssociation":
+      case BpmnDiConstants.DATA_ASSOCIATION_ELEMENT:
         iEdge = buildDefaultEdge(edge, EdgeType.ASSOCIATION);
         break;
-      case "conversationLink":
+      case BpmnDiConstants.CONVERSATION_LINK_ELEMENT:
         iEdge = buildDefaultEdge(edge, EdgeType.CONVERSATION);
         break;
-      case "messageFlow":
+      case BpmnDiConstants.MESSAGE_FLOW_ELEMENT:
         iEdge = buildMessageFlow(edge);
         break;
-      case "dataInputAssociation":
-      case "dataOutputAssociation":
+      case BpmnDiConstants.DATA_INPUT_ASSOCIATION_ELEMENT:
+        iEdge = buildDefaultEdge(edge, EdgeType.DIRECTED_ASSOCIATION);
+        break;
+      case BpmnDiConstants.DATA_OUTPUT_ASSOCIATION_ELEMENT:
         iEdge = buildDefaultEdge(edge, EdgeType.DIRECTED_ASSOCIATION);
         break;
     }
@@ -952,7 +976,7 @@ public class BpmnDiParser {
     element.setINodeInputOutput(node);
 
     ActivityNodeStyle activityStyle = new ActivityNodeStyle();
-    activityStyle.setCompensation("true".equals(shape.getAttribute("isForCompensation")));
+    activityStyle.setCompensation("true".equals(shape.getAttribute(BpmnDiConstants.IS_FOR_COMPENSATION_ATTRIBUTE)));
     activityStyle.setLoopCharacteristic(element.getLoopCharacteristics());
     // Get, if the subProcess is expanded
     ILabel label = addNodeLabel(node, shape);
@@ -960,7 +984,7 @@ public class BpmnDiParser {
     activityStyle.setActivityType(type);
     activityStyle.setTriggerEventType(getEventType(shape));
 
-    if ("true".equals(shape.getAttribute("isInterrupting"))) {
+    if ("true".equals(shape.getAttribute(BpmnDiConstants.IS_INTERRUPTING_ATTRIBUTE))) {
       activityStyle.setTriggerEventCharacteristic(EventCharacteristic.SUB_PROCESS_INTERRUPTING);
     } else {
       activityStyle.setTriggerEventCharacteristic(EventCharacteristic.SUB_PROCESS_NON_INTERRUPTING);
@@ -1000,12 +1024,12 @@ public class BpmnDiParser {
 
   // Builds a Boundary Event, realized as a port instead of a node
   private void buildBoundaryEvent( BpmnShape shape ) {
-    final BpmnElement parent = getElementForId(shape.getAttribute("attachedToRef"));
+    final BpmnElement parent = getElementForId(shape.getAttribute(BpmnDiConstants.ATTACHED_TO_REF_ATTRIBUTE));
     EventPortStyle portStyle = new EventPortStyle();
     portStyle.setType(getEventType(shape));
-    portStyle.setCharacteristic("false".equals(shape.getAttribute("cancelActivity")) ? EventCharacteristic.BOUNDARY_NON_INTERRUPTING : EventCharacteristic.BOUNDARY_INTERRUPTING);
+    portStyle.setCharacteristic("false".equals(shape.getAttribute(BpmnDiConstants.CANCEL_ACTIVITY_ATTRIBUTE)) ? EventCharacteristic.BOUNDARY_NON_INTERRUPTING : EventCharacteristic.BOUNDARY_INTERRUPTING);
     if (parent == null) {
-      throw new IllegalArgumentException("Shape with no parent");
+      throw new IllegalArgumentException("Parameter 'shape': Shape with no parent");
     }
     if (parent.getNode() == null) {
       getDocument().getMessages().add("The node for boundaryEvent " + shape.getId() + " was not (yet) created!");
@@ -1141,8 +1165,8 @@ public class BpmnDiParser {
       element.setINodeInputOutput(node);
 
       PoolNodeStyle partStyle = createTable(shape);
-      if (element.hasChild("participantMultiplicity")) {
-        if (Integer.parseInt(element.getChildAttribute("participantMultiplicity", "maximum")) > 1) {
+      if (element.hasChild(BpmnDiConstants.PARTICIPANT_MULTIPLICITY_ELEMENT)) {
+        if (Integer.parseInt(element.getChildAttribute(BpmnDiConstants.PARTICIPANT_MULTIPLICITY_ELEMENT, "maximum")) > 1) {
           partStyle.setMultipleInstance(true);
         }
       }
@@ -1170,8 +1194,8 @@ public class BpmnDiParser {
     boolean multipleInstance = false;
     BpmnElement element = shape.getElement();
 
-    if (element.hasChild("participantMultiplicity")) {
-      if (Integer.parseInt(element.getChildAttribute("participantMultiplicity", "maximum")) > 1) {
+    if (element.hasChild(BpmnDiConstants.PARTICIPANT_MULTIPLICITY_ELEMENT)) {
+      if (Integer.parseInt(element.getChildAttribute(BpmnDiConstants.PARTICIPANT_MULTIPLICITY_ELEMENT, "maximum")) > 1) {
         multipleInstance = true;
       }
     }
@@ -1247,8 +1271,8 @@ public class BpmnDiParser {
     getMasterGraph().setStyle(label, defaultLabelStyle);
 
     // checks, if there is a message, if yes, tries to set text label
-    if (shape.isMessageVisible() && choreography.hasChild("messageFlowRef")) {
-      Iterable<BpmnElement> children = choreography.getChildren("messageFlowRef");
+    if (shape.isMessageVisible() && choreography.hasChild(BpmnDiConstants.MESSAGE_FLOW_REF_ELEMENT)) {
+      Iterable<BpmnElement> children = choreography.getChildren(BpmnDiConstants.MESSAGE_FLOW_REF_ELEMENT);
 
       String elementId = element.getId();
       for (BpmnElement child : children) {
@@ -1296,10 +1320,6 @@ public class BpmnDiParser {
     BpmnElement element = shape.getElement();
     INode node = getMasterGraph().createGroupNode(element.getParent().getNode(), bounds);
     element.setNode(node);
-
-    // Add Style
-    GroupNodeStyle groupStyle = new GroupNodeStyle();
-    getMasterGraph().setStyle(node, groupStyle);
 
     // Before Adding a Label, we need to get the Label Text, which is located in a categoryValue
     // The id of this category value is located in the Label
@@ -1350,40 +1370,40 @@ public class BpmnDiParser {
     EventType eventType = EventType.PLAIN;
     BpmnElement element = shape.getElement();
 
-    if (element.hasChild("messageEventDefinition")) {
+    if (element.hasChild(BpmnDiConstants.MESSAGE_EVENT_DEFINITION_ELEMENT)) {
       eventType = EventType.MESSAGE;
     }
-    if (element.hasChild("timerEventDefinition")) {
+    if (element.hasChild(BpmnDiConstants.TIMER_EVENT_DEFINITION_ELEMENT)) {
       eventType = EventType.TIMER;
     }
-    if (element.hasChild("terminateEventDefinition")) {
+    if (element.hasChild(BpmnDiConstants.TERMINATE_EVENT_DEFINITION_ELEMENT)) {
       eventType = EventType.TERMINATE;
     }
-    if (element.hasChild("escalationEventDefinition")) {
+    if (element.hasChild(BpmnDiConstants.ESCALATION_EVENT_DEFINITION_ELEMENT)) {
       eventType = EventType.ESCALATION;
     }
-    if (element.hasChild("errorEventDefinition")) {
+    if (element.hasChild(BpmnDiConstants.ERROR_EVENT_DEFINITION_ELEMENT)) {
       eventType = EventType.ERROR;
     }
-    if (element.hasChild("conditionalEventDefinition")) {
+    if (element.hasChild(BpmnDiConstants.CONDITIONAL_EVENT_DEFINITION_ELEMENT)) {
       eventType = EventType.CONDITIONAL;
     }
-    if (element.hasChild("compensateEventDefinition")) {
+    if (element.hasChild(BpmnDiConstants.COMPENSATE_EVENT_DEFINITION_ELEMENT)) {
       eventType = EventType.COMPENSATION;
     }
-    if (element.hasChild("cancelEventDefinition")) {
+    if (element.hasChild(BpmnDiConstants.CANCEL_EVENT_DEFINITION_ELEMENT)) {
       eventType = EventType.CANCEL;
     }
-    if (element.hasChild("linkEventDefinition")) {
+    if (element.hasChild(BpmnDiConstants.LINK_EVENT_DEFINITION_ELEMENT)) {
       eventType = EventType.LINK;
     }
-    if (element.hasChild("signalEventDefinition")) {
+    if (element.hasChild(BpmnDiConstants.SIGNAL_EVENT_DEFINITION_ELEMENT)) {
       eventType = EventType.SIGNAL;
     }
-    if (element.hasChild("multipleEventDefinition")) {
+    if (element.hasChild(BpmnDiConstants.MULTIPLE_EVENT_DEFINITION_ELEMENT)) {
       eventType = EventType.MULTIPLE;
     }
-    if (element.hasChild("parallelEventDefinition")) {
+    if (element.hasChild(BpmnDiConstants.PARALLEL_EVENT_DEFINITION_ELEMENT)) {
       eventType = EventType.PARALLEL_MULTIPLE;
     }
     return eventType;
@@ -1458,8 +1478,15 @@ public class BpmnDiParser {
 
   // Sets label style, if there are fixed bounds for this label
   private void setFixedBoundsLabelStyle( ILabel label, RectD bounds ) {
-    FreeLabelModel model = new FreeLabelModel();
-    getMasterGraph().setLabelLayoutParameter(label, model.createAbsolute(bounds.getBottomLeft(), 0));
+    ILabelModelParameter parameter = null;
+    if (label.getOwner() instanceof INode) {
+      FreeNodeLabelModel model = new FreeNodeLabelModel();
+      parameter = model.findBestParameter(label, model, new OrientedRectangle(bounds));
+    } else {
+      FreeEdgeLabelModel model = new FreeEdgeLabelModel();
+      parameter = model.findBestParameter(label, model, new OrientedRectangle(bounds));
+    }
+    getMasterGraph().setLabelLayoutParameter(label, parameter);
     DefaultLabelStyle defaultLabelStyle = setCustomLabelStyle(label);
     defaultLabelStyle.setInsets(InsetsD.EMPTY);
     getMasterGraph().setStyle(label, defaultLabelStyle);
@@ -1593,7 +1620,7 @@ public class BpmnDiParser {
     IPort targetPort = null;
 
     // Use boundary event port, if source is a boundary event
-    if ("boundaryEvent".equals(sourceVar.getName())) {
+    if (BpmnDiConstants.BOUNDARY_EVENT_ELEMENT.compareTo(sourceVar.getName()) == 0) {
       sourcePort = sourceVar.getPort();
       if (sourcePort != null) {
         sourceNode = (INode)sourcePort.getOwner();
@@ -1606,7 +1633,7 @@ public class BpmnDiParser {
     }
 
     // Use boundary event port, if target is a boundary event
-    if ("boundaryEvent".equals(targetVar.getName())) {
+    if (BpmnDiConstants.BOUNDARY_EVENT_ELEMENT.compareTo(targetVar.getName()) == 0) {
       targetPort = targetVar.getPort();
       if (targetPort != null) {
         targetNode = (INode)targetPort.getOwner();
@@ -1686,8 +1713,8 @@ public class BpmnDiParser {
     waypoints.remove(target);
 
     // Get source & target port
-    IPort sourcePort = "boundaryEvent".equals(sourceVar.getName()) ? sourceVar.getPort() : getMasterGraph().addPort(sourceNode, source);
-    IPort targetPort = "boundaryEvent".equals(targetVar.getName()) ? targetVar.getPort() : getMasterGraph().addPort(targetNode, target);
+    IPort sourcePort = BpmnDiConstants.BOUNDARY_EVENT_ELEMENT.equals(sourceVar.getName()) ? sourceVar.getPort() : getMasterGraph().addPort(sourceNode, source);
+    IPort targetPort = BpmnDiConstants.BOUNDARY_EVENT_ELEMENT.equals(targetVar.getName()) ? targetVar.getPort() : getMasterGraph().addPort(targetNode, target);
 
     IEdge iEdge = getMasterGraph().createEdge(sourcePort, targetPort);
     for (PointD point : waypoints) {
@@ -1731,7 +1758,7 @@ public class BpmnDiParser {
 
   private INode buildPool( BpmnElement element, BpmnPlane plane, INode localRoot ) {
     BpmnElement parent = element.getParent();
-    while (!"process".equals(parent.getName()) && !"subProcess".equals(parent.getName())) {
+    while (BpmnDiConstants.PROCESS_ELEMENT.compareTo(parent.getName()) != 0 && BpmnDiConstants.SUB_PROCESS_ELEMENT.compareTo(parent.getName()) != 0) {
       parent = parent.getParent();
     }
 
@@ -1745,8 +1772,8 @@ public class BpmnDiParser {
       final BpmnElement processRefSource = getProcessRefSource().get(parent);
       if (tableShape == null && processRefSource != null) {
         tableShape = getShape(processRefSource, plane);
-        if (processRefSource.hasChild("participantMultiplicity")) {
-          if (Integer.parseInt(processRefSource.getChildAttribute("participantMultiplicity", "maximum")) > 1) {
+        if (processRefSource.hasChild(BpmnDiConstants.PARTICIPANT_MULTIPLICITY_ELEMENT)) {
+          if (Integer.parseInt(processRefSource.getChildAttribute(BpmnDiConstants.PARTICIPANT_MULTIPLICITY_ELEMENT, "maximum")) > 1) {
             multipleInstance = true;
           }
         }
@@ -1830,7 +1857,7 @@ public class BpmnDiParser {
   }
 
   private void addChildLanes( BpmnElement element, ITable table, IStripe parentStripe, BpmnPlane plane, INode node ) {
-    for (BpmnElement lane : element.getChildren("lane")) {
+    for (BpmnElement lane : element.getChildren(BpmnDiConstants.LANE_ELEMENT)) {
       BpmnShape laneShape = getShape(lane, plane);
       if (laneShape != null) {
         IStripe addedStripe = addToTable(laneShape, table, node, parentStripe);
@@ -1986,10 +2013,7 @@ public class BpmnDiParser {
 
   private static Document read( InputStream stream ) throws IOException {
     try {
-      DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-      dbf.setNamespaceAware(true);
-      DocumentBuilder db = dbf.newDocumentBuilder();
-      return db.parse(stream);
+      return toolkit.XmlUtils.parse(stream);
     } catch (Exception e) {
       if (e instanceof IOException) {
         throw (IOException) e;

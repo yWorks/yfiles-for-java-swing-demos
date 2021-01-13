@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -180,7 +180,7 @@ class BpmnEdge {
   private List<PointD> waypoints;
 
   /**
-   * List of all waypoints (ports &amp; bends).
+   * List of all waypoints (ports and bends).
    * @return The Waypoints.
    */
   public final List<PointD> getWaypoints() {
@@ -188,7 +188,7 @@ class BpmnEdge {
   }
 
   /**
-   * List of all waypoints (ports &amp; bends).
+   * List of all waypoints (ports and bends).
    * @param value The Waypoints to set.
    * @see #getWaypoints()
    */
@@ -249,10 +249,10 @@ class BpmnEdge {
     setMessageVisibleK(MessageVisibleKind.UNSPECIFIED);
 
     // Get id
-    setId(BpmnNamespaceManager.getAttributeValue(xEdge, BpmnNamespaceManager.NS_BPMN_DI, "Id"));
+    setId(BpmnNamespaceManager.getAttributeValue(xEdge, BpmnNamespaceManager.NS_BPMN_DI, BpmnDiConstants.ID_ATTRIBUTE));
     // Get and link element
-    if (BpmnNamespaceManager.getAttributeValue(xEdge, BpmnNamespaceManager.NS_BPMN_DI, "bpmnElement") != null) {
-      setElement(elements.get(BpmnNamespaceManager.getAttributeValue(xEdge, BpmnNamespaceManager.NS_BPMN_DI, "bpmnElement")));
+    if (BpmnNamespaceManager.getAttributeValue(xEdge, BpmnNamespaceManager.NS_BPMN_DI, BpmnDiConstants.BPMN_ELEMENT_ATTRIBUTE) != null) {
+      setElement(elements.get(BpmnNamespaceManager.getAttributeValue(xEdge, BpmnNamespaceManager.NS_BPMN_DI, BpmnDiConstants.BPMN_ELEMENT_ATTRIBUTE)));
     }
 
     // If there is no element, skip
@@ -279,6 +279,7 @@ class BpmnEdge {
     setSource(elements.get(sourceRef));
 
 
+
     // Getting target element id
     String targetVar = getElement().getTarget();
     if (targetVar != null) {
@@ -290,7 +291,7 @@ class BpmnEdge {
     // Getting and linking target element
     setTarget(elements.get(targetRef));
 
-    String kind = BpmnNamespaceManager.getAttributeValue(xEdge, BpmnNamespaceManager.NS_BPMN_DI, "messageVisibleKind");
+    String kind = BpmnNamespaceManager.getAttributeValue(xEdge, BpmnNamespaceManager.NS_BPMN_DI, BpmnDiConstants.MESSAGE_VISIBLE_KIND_ATTRIBUTE);
     if (kind == null) {
       kind = "";
     }
@@ -321,22 +322,22 @@ class BpmnEdge {
     double labelWidth = 100;
     double labelHeight = 20;
 
-    String attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, "x");
+    String attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, BpmnDiConstants.X_ATTRIBUTE);
     if (attr != null) {
       labelX = Double.parseDouble(attr);
     }
 
-    attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, "y");
+    attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, BpmnDiConstants.Y_ATTRIBUTE);
     if (attr != null) {
       labelY = Double.parseDouble(attr);
     }
 
-    attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, "height");
+    attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, BpmnDiConstants.HEIGHT_ATTRIBUTE);
     if (attr != null) {
       labelHeight = Double.parseDouble(attr);
     }
 
-    attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, "width");
+    attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, BpmnDiConstants.WIDTH_ATTRIBUTE);
     if (attr != null) {
       labelWidth = Double.parseDouble(attr);
     }
@@ -361,11 +362,11 @@ class BpmnEdge {
     double x = 0;
     double y = 0;
 
-    String attr = BpmnNamespaceManager.getAttributeValue(xWaypoint, BpmnNamespaceManager.NS_DI, "x");
+    String attr = BpmnNamespaceManager.getAttributeValue(xWaypoint, BpmnNamespaceManager.NS_DI, BpmnDiConstants.X_ATTRIBUTE);
     if (attr != null) {
       x = Double.parseDouble(attr);
     }
-    attr = BpmnNamespaceManager.getAttributeValue(xWaypoint, BpmnNamespaceManager.NS_DI, "y");
+    attr = BpmnNamespaceManager.getAttributeValue(xWaypoint, BpmnNamespaceManager.NS_DI, BpmnDiConstants.Y_ATTRIBUTE);
     if (attr != null) {
       y = Double.parseDouble(attr);
     }

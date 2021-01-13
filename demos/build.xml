@@ -17,6 +17,8 @@
     An editor for networks of logic gates with dedicated ports for incoming and outgoing connections.</echo>
 <echo>run-CollapsibleTree
     Interactively collapse and expand subgraphs.</echo>
+<echo>run-AggregateGraphWrapper
+    Analyzing a graph by aggregating groups of nodes.</echo>
 <echo>run-TableEditor
     Interactive creation and editing of tables.</echo>
 <echo>run-Uml
@@ -29,12 +31,16 @@
     Use InteractiveOrganicLayout for organic layout in interactive environments.</echo>
 <echo>run-FamilyTree
     This demo shows how genealogical graphs (family trees) can be visualized.</echo>
+<echo>run-MarqueeClearAreaLayout
+    Shows how to interactively move graph elements around a marquee rectangle in a given graph layout so that the modifications in the graph are minimal.</echo>
 <echo>run-CriticalPaths
     This demo shows how to emphazise important paths with hierarchic and tree layout algorithms.</echo>
 <echo>run-EdgeBundling
     Shows how edge bundling can be applied for reducing visual cluttering in dense graphs.</echo>
 <echo>run-EdgeGrouping
     Shows the effects of edge and port grouping when arranging graphs with HierarchicLayout.</echo>
+<echo>run-FillAreaAfterDeletion
+    Shows howto fill free space in the graph after deleting nodes.</echo>
 <echo>run-PartialLayout
     Shows how to arrange some elements in a graph while keeping other elements fixed.</echo>
 <echo>run-PartitionGrid
@@ -72,7 +78,7 @@
 <echo>run-ReparentHandler
     Customize the re-parenting behavior of nodes.</echo>
 <echo>run-ReshapeHandleProvider
-    Customize the reshape handles of nodes.</echo>
+    Customize the reshape behavior of nodes.</echo>
 <echo>run-SingleSelection
     Configure the GraphEditorInputMode for single selection mode.</echo>
 <echo>run-SizeConstraintProvider
@@ -87,10 +93,12 @@
     Explore the different kinds of events dispatched by yFiles for Java (Swing).</echo>
 <echo>run-Filtering
     Shows how to temporarily remove nodes or edges from the graph.</echo>
-<echo>run-FilteringWithFolding
+<echo>run-FilteringAndFoldingDemo
     Shows how to combine yFiles filtering and folding features.</echo>
 <echo>run-Folding
     Shows how to use yFiles folding feature.</echo>
+<echo>run-GanttChartDemo
+    Shows how to create a "Gantt chart" with yFiles for Java (Swing).</echo>
 <echo>run-GraphCopy
     Shows how to copy a graph or sub graph.</echo>
 <echo>run-GraphMLCompatibility
@@ -119,10 +127,12 @@
     Implement sophisticated styles for graph objects in yFiles for Java (Swing).</echo>
 <echo>run-JComponentStyle
     Arbitrary Swing components incorporated as graph elements.</echo>
+<echo>run-ZoomInvariantLabelStyleDemo
+    Demonstrates zoom-invariant label rendering.</echo>
 <echo>run-GraphBuilder
-    Demonstrates data binding using the GraphBuilder class.</echo>
+    Demonstrates creating a graph using the GraphBuilder class.</echo>
 <echo>run-InteractiveNodesGraphBuilder
-    Demonstrates data binding using class AdjacentNodesGraphBuilder.</echo>
+    Demonstrates creating a graph using class AdjacentNodesGraphBuilder.</echo>
 <echo>run-GraphAnalysis
     Algorithms to analyse the structure of a graph in yFiles for Java (Swing).</echo>
 <echo>run-ShortestPath
@@ -169,7 +179,7 @@
 </target>
 <target name="compile" depends="-init" description="Compiles the demo files">
 <mkdir dir="${demo.class.dir}"/>
-<javac debug="true" srcdir="${demo.src.dir}" destdir="${demo.class.dir}" includes="**/*.java" includeAntRuntime="false">
+<javac encoding="UTF-8" debug="true" srcdir="${demo.src.dir}" destdir="${demo.class.dir}" includes="**/*.java" includeAntRuntime="false">
 <classpath>
 <pathelement location="${yfiles.jar}"/>
 </classpath>
@@ -217,6 +227,11 @@
 <classpath refid="democlasspath"/>
 </java>
 </target>
+<target name="run-AggregateGraphWrapper" depends="compile" description="Analyzing a graph by aggregating groups of nodes.">
+<java classname="complete.aggregategraphwrapper.AggregateGraphWrapperDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
 <target name="run-TableEditor" depends="compile" description="Interactive creation and editing of tables.">
 <java classname="complete.tableeditor.TableEditorDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
@@ -247,6 +262,11 @@
 <classpath refid="democlasspath"/>
 </java>
 </target>
+<target name="run-MarqueeClearAreaLayout" depends="compile" description="Shows how to interactively move graph elements around a marquee rectangle in a given graph layout so that the modifications in the graph are minimal.">
+<java classname="layout.cleararea.MarqueeClearAreaLayoutDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
 <target name="run-CriticalPaths" depends="compile" description="This demo shows how to emphazise important paths with hierarchic and tree layout algorithms.">
 <java classname="layout.criticalpaths.CriticalPathsDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
@@ -259,6 +279,11 @@
 </target>
 <target name="run-EdgeGrouping" depends="compile" description="Shows the effects of edge and port grouping when arranging graphs with HierarchicLayout.">
 <java classname="layout.edgegrouping.EdgeGroupingDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-FillAreaAfterDeletion" depends="compile" description="Shows howto fill free space in the graph after deleting nodes.">
+<java classname="layout.fillarea.FillAreaAfterDeletionDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 </java>
 </target>
@@ -352,7 +377,7 @@
 <classpath refid="democlasspath"/>
 </java>
 </target>
-<target name="run-ReshapeHandleProvider" depends="compile" description="Customize the reshape handles of nodes.">
+<target name="run-ReshapeHandleProvider" depends="compile" description="Customize the reshape behavior of nodes.">
 <java classname="input.reshapehandleprovider.ReshapeHandleProviderDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 </java>
@@ -392,13 +417,18 @@
 <classpath refid="democlasspath"/>
 </java>
 </target>
-<target name="run-FilteringWithFolding" depends="compile" description="Shows how to combine yFiles filtering and folding features.">
+<target name="run-FilteringAndFoldingDemo" depends="compile" description="Shows how to combine yFiles filtering and folding features.">
 <java classname="viewer.filteringandfolding.FilteringAndFoldingDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 </java>
 </target>
 <target name="run-Folding" depends="compile" description="Shows how to use yFiles folding feature.">
 <java classname="viewer.folding.FoldingDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-GanttChartDemo" depends="compile" description="Shows how to create a &quot;Gantt chart&quot; with yFiles for Java (Swing).">
+<java classname="viewer.ganttchart.GanttChartDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 </java>
 </target>
@@ -472,13 +502,18 @@
 <classpath refid="democlasspath"/>
 </java>
 </target>
-<target name="run-GraphBuilder" depends="compile" description="Demonstrates data binding using the GraphBuilder class.">
-<java classname="databinding.graphbuilder.GraphBuilderDemo" fork="true" failonerror="true">
+<target name="run-ZoomInvariantLabelStyleDemo" depends="compile" description="Demonstrates zoom-invariant label rendering.">
+<java classname="style.zoominvariantlabelstyle.ZoomInvariantLabelStyleDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 </java>
 </target>
-<target name="run-InteractiveNodesGraphBuilder" depends="compile" description="Demonstrates data binding using class AdjacentNodesGraphBuilder.">
-<java classname="databinding.interactivenodesgraphbuilder.InteractiveNodesGraphBuilderDemo" fork="true" failonerror="true">
+<target name="run-GraphBuilder" depends="compile" description="Demonstrates creating a graph using the GraphBuilder class.">
+<java classname="builder.graphbuilder.GraphBuilderDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-InteractiveNodesGraphBuilder" depends="compile" description="Demonstrates creating a graph using class AdjacentNodesGraphBuilder.">
+<java classname="builder.interactivenodesgraphbuilder.InteractiveNodesGraphBuilderDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 </java>
 </target>

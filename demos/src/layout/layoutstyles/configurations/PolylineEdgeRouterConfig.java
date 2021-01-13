@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -30,21 +30,33 @@
 package layout.layoutstyles.configurations;
 
 import com.yworks.yfiles.graph.IBend;
+import com.yworks.yfiles.graph.IEdge;
+import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
 import com.yworks.yfiles.graphml.DefaultValue;
+import com.yworks.yfiles.layout.CurveConnectionStyle;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
 import com.yworks.yfiles.layout.labeling.GenericLabeling;
 import com.yworks.yfiles.layout.LayoutData;
 import com.yworks.yfiles.layout.router.MonotonicPathRestriction;
+import com.yworks.yfiles.layout.router.polyline.BusDescriptor;
 import com.yworks.yfiles.layout.router.polyline.EdgeLayoutDescriptor;
 import com.yworks.yfiles.layout.router.polyline.EdgeRouter;
+import com.yworks.yfiles.layout.router.polyline.EdgeRoutingStyle;
 import com.yworks.yfiles.layout.router.polyline.Grid;
 import com.yworks.yfiles.layout.router.polyline.PenaltySettings;
 import com.yworks.yfiles.layout.router.polyline.PolylineEdgeRouterData;
 import com.yworks.yfiles.layout.router.Scope;
 import com.yworks.yfiles.layout.SequentialLayout;
 import com.yworks.yfiles.utils.Obfuscation;
+import com.yworks.yfiles.utils.ObjectReference;
+import com.yworks.yfiles.view.Colors;
 import com.yworks.yfiles.view.GraphComponent;
 import com.yworks.yfiles.view.IGraphSelection;
+import java.awt.Color;
+import java.awt.Paint;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
 import toolkit.optionhandler.ComponentType;
 import toolkit.optionhandler.ComponentTypes;
 import toolkit.optionhandler.EnumValueAnnotation;
@@ -53,6 +65,8 @@ import toolkit.optionhandler.MinMax;
 import toolkit.optionhandler.OptionGroupAnnotation;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
+import java.util.function.Predicate;
 
 /**
  * Configuration options for the {@link EdgeRouter} algorithm.
@@ -83,12 +97,13 @@ public class PolylineEdgeRouterConfig extends LayoutConfiguration {
     setGridEnabledItem(grid != null);
     setGridSpacingItem(grid != null ? grid.getSpacing() : 10);
 
-    setPolylineRoutingEnabledItem(true);
-    setPreferredPolylineSegmentLengthItem(router.getPreferredPolylineSegmentLength());
+    setEdgeRoutingStyleItem(EdgeRoutingStyle.ORTHOGONAL);
+    setPreferredOctilinearSegmentLengthItem(router.getDefaultEdgeLayoutDescriptor().getPreferredOctilinearSegmentLength());
+    setMaximumOctilinearSegmentRatioItem(router.getDefaultEdgeLayoutDescriptor().getMaximumOctilinearSegmentRatio());
 
     setConsideringNodeLabelsItem(router.isNodeLabelConsiderationEnabled());
     setConsideringEdgeLabelsItem(router.isEdgeLabelConsiderationEnabled());
-    setEdgeLabelingEnabledItem(false);
+    setEdgeLabelingEnabledItem(EnumEdgeLabeling.NONE);
     setLabelPlacementAlongEdgeItem(LayoutConfiguration.EnumLabelPlacementAlongEdge.CENTERED);
     setLabelPlacementSideOfEdgeItem(LayoutConfiguration.EnumLabelPlacementSideOfEdge.ON_EDGE);
     setLabelPlacementOrientationItem(LayoutConfiguration.EnumLabelPlacementOrientation.HORIZONTAL);
@@ -112,14 +127,24 @@ public class PolylineEdgeRouterConfig extends LayoutConfiguration {
     router.setEdgeLabelConsiderationEnabled(isConsideringEdgeLabelsItem());
     router.setReroutingEnabled(isReroutingEnabledItem());
 
-    router.setPolylineRoutingEnabled(isPolylineRoutingEnabledItem());
-    router.setPreferredPolylineSegmentLength(getPreferredPolylineSegmentLengthItem());
+    // Note that CreateConfiguredLayoutData replaces the settings on the DefaultEdgeLayoutDescriptor
+    // by providing a custom one for each edge.
+    router.getDefaultEdgeLayoutDescriptor().setRoutingStyle(getEdgeRoutingStyleItem());
+    router.getDefaultEdgeLayoutDescriptor().setPreferredOctilinearSegmentLength(getPreferredOctilinearSegmentLengthItem());
+    router.getDefaultEdgeLayoutDescriptor().setMaximumOctilinearSegmentRatio(getMaximumOctilinearSegmentRatioItem());
+    router.getDefaultEdgeLayoutDescriptor().setSourceCurveConnectionStyle(getSourceConnectionStyleItem());
+    router.getDefaultEdgeLayoutDescriptor().setTargetCurveConnectionStyle(getTargetConnectionStyleItem());
+
     router.setMaximumDuration(getMaximumDurationItem() * 1000);
 
     SequentialLayout layout = new SequentialLayout();
     layout.appendLayout(router);
 
-    if (isEdgeLabelingEnabledItem()) {
+    if (getEdgeLabelingEnabledItem() == EnumEdgeLabeling.NONE) {
+      router.setIntegratedEdgeLabelingEnabled(false);
+    } else if (getEdgeLabelingEnabledItem() == EnumEdgeLabeling.INTEGRATED) {
+      router.setIntegratedEdgeLabelingEnabled(true);
+    } else if (getEdgeLabelingEnabledItem() == EnumEdgeLabeling.GENERIC) {
       GenericLabeling genericLabeling = new GenericLabeling();
       genericLabeling.setEdgeLabelPlacementEnabled(true);
       genericLabeling.setNodeLabelPlacementEnabled(false);
@@ -138,6 +163,11 @@ public class PolylineEdgeRouterConfig extends LayoutConfiguration {
 
     layoutData.setEdgeLayoutDescriptors(edge -> {
       EdgeLayoutDescriptor descriptor = new EdgeLayoutDescriptor();
+      descriptor.setRoutingStyle(getEdgeRoutingStyleItem());
+      descriptor.setPreferredOctilinearSegmentLength(getPreferredOctilinearSegmentLengthItem());
+      descriptor.setMaximumOctilinearSegmentRatio(getMaximumOctilinearSegmentRatioItem());
+      descriptor.setSourceCurveConnectionStyle(getSourceConnectionStyleItem());
+      descriptor.setTargetCurveConnectionStyle(getTargetConnectionStyleItem());
       if (getOptimizationStrategyItem() == EnumStrategies.BALANCED) {
         descriptor.setPenaltySettings(PenaltySettings.OPTIMIZATION_BALANCED);
       } else if (getOptimizationStrategyItem() == EnumStrategies.MINIMIZE_BENDS) {
@@ -184,6 +214,54 @@ public class PolylineEdgeRouterConfig extends LayoutConfiguration {
       layoutData.setAffectedNodes(node -> true);
     }
 
+    switch (getBusRoutingItem()) {
+      case SINGLE_BUS:
+        // All edges in a single bus
+        layoutData.getBuses().add(new BusDescriptor()).setPredicate(new Predicate<IEdge>(){
+          public boolean test( IEdge edge ) {
+            return true;
+          }
+        });
+        break;
+      case BY_LABEL:
+        HashMap<String, ArrayList<IEdge>> byLabel = new HashMap<String, ArrayList<IEdge>>();
+        for (IEdge edge : graphComponent.getGraph().getEdges()) {
+          if (edge.getLabels().size() > 0) {
+            String label = edge.getLabels().getItem(0).getText();
+            ArrayList<IEdge> list = null;
+            if (!byLabel.containsKey(label)) {
+              list = new ArrayList<IEdge>();
+              byLabel.put(label, list);
+            }
+            list.add(edge);
+          }
+        }
+        for (ArrayList<IEdge> edges : byLabel.values()) {
+          // Add a bus per label. Unlabeled edges don't get grouped into a bus
+          layoutData.getBuses().add(new BusDescriptor()).setSource(edges);
+        }
+        break;
+      case BY_COLOR:
+        HashMap<String, ArrayList<IEdge>> byColor = new HashMap<String, ArrayList<IEdge>>();
+        for (IEdge edge : graphComponent.getGraph().getEdges()) {
+          Paint brush = ((PolylineEdgeStyle)edge.getStyle()).getPen().getPaint();
+          String brushKey = brush.toString();
+          if (brushKey.compareTo(Colors.BLACK.toString()) != 0) {
+            ArrayList<IEdge> list = null;
+            if (!byColor.containsKey(brushKey)) {
+              list = new ArrayList<IEdge>();
+              byColor.put(brushKey, list);
+            }
+            list.add(edge);
+          }
+        }
+        for (ArrayList<IEdge> edges : byColor.values()) {
+          // Add a bus per color. Black edges don't get grouped into a bus
+          layoutData.getBuses().add(new BusDescriptor()).setSource(edges);
+        }
+        break;
+    }
+
     return layoutData;
   }
 
@@ -207,10 +285,10 @@ public class PolylineEdgeRouterConfig extends LayoutConfiguration {
   @ComponentType(ComponentTypes.OPTION_GROUP)
   public Object GridGroup;
 
-  @Label("Octilinear Routing")
+  @Label("Routing Style")
   @OptionGroupAnnotation(name = "RootGroup", position = 40)
   @ComponentType(ComponentTypes.OPTION_GROUP)
-  public Object PolylineGroup;
+  public Object RoutingStyleGroup;
 
   @Label("Labeling")
   @OptionGroupAnnotation(name = "RootGroup", position = 50)
@@ -291,6 +369,34 @@ public class PolylineEdgeRouterConfig extends LayoutConfiguration {
 
     public static final EnumMonotonyFlags fromOrdinal( int ordinal ) {
       for (EnumMonotonyFlags current : values()) {
+        if (ordinal == current.value) return current;
+      }
+      throw new IllegalArgumentException("Enum has no value " + ordinal);
+    }
+
+  }
+
+  public enum EnumBusRouting {
+    NONE(0),
+
+    SINGLE_BUS(1),
+
+    BY_LABEL(2),
+
+    BY_COLOR(3);
+
+    private final int value;
+
+    private EnumBusRouting( final int value ) {
+      this.value = value;
+    }
+
+    public int value() {
+      return this.value;
+    }
+
+    public static final EnumBusRouting fromOrdinal( int ordinal ) {
+      for (EnumBusRouting current : values()) {
         if (ordinal == current.value) return current;
       }
       throw new IllegalArgumentException("Enum has no value " + ordinal);
@@ -498,6 +604,10 @@ public class PolylineEdgeRouterConfig extends LayoutConfiguration {
     this.minimumFirstSegmentLengthItem = value;
   }
 
+  public final boolean isMinimumFirstSegmentLengthItemDisabled() {
+    return getEdgeRoutingStyleItem() == EdgeRoutingStyle.CURVED && getSourceConnectionStyleItem() == CurveConnectionStyle.ORGANIC;
+  }
+
   private double minimumLastSegmentLengthItem;
 
   @Label("Last Segment Length")
@@ -516,6 +626,10 @@ public class PolylineEdgeRouterConfig extends LayoutConfiguration {
   @ComponentType(ComponentTypes.SLIDER)
   public final void setMinimumLastSegmentLengthItem( double value ) {
     this.minimumLastSegmentLengthItem = value;
+  }
+
+  public final boolean isMinimumLastSegmentLengthItemDisabled() {
+    return getEdgeRoutingStyleItem() == EdgeRoutingStyle.CURVED && getTargetConnectionStyleItem() == CurveConnectionStyle.ORGANIC;
   }
 
   private boolean gridEnabledItem;
@@ -558,44 +672,144 @@ public class PolylineEdgeRouterConfig extends LayoutConfiguration {
     return isGridEnabledItem() == false;
   }
 
-  private boolean polylineRoutingEnabledItem;
+  private EdgeRoutingStyle edgeRoutingStyleItem = EdgeRoutingStyle.ORTHOGONAL;
 
-  @Label("Octilinear Routing")
-  @OptionGroupAnnotation(name = "PolylineGroup", position = 10)
-  @DefaultValue(booleanValue = true, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
-  public final boolean isPolylineRoutingEnabledItem() {
-    return this.polylineRoutingEnabledItem;
+  @Label("Routing Style")
+  @OptionGroupAnnotation(name = "RoutingStyleGroup", position = 10)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = EdgeRoutingStyle.class, stringValue = "ORTHOGONAL")
+  @EnumValueAnnotation(label = "Orthogonal", value = "ORTHOGONAL")
+  @EnumValueAnnotation(label = "Octilinear", value = "OCTILINEAR")
+  @EnumValueAnnotation(label = "Curved", value = "CURVED")
+  public final EdgeRoutingStyle getEdgeRoutingStyleItem() {
+    return this.edgeRoutingStyleItem;
   }
 
-  @Label("Octilinear Routing")
-  @OptionGroupAnnotation(name = "PolylineGroup", position = 10)
-  @DefaultValue(booleanValue = true, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
-  public final void setPolylineRoutingEnabledItem( boolean value ) {
-    this.polylineRoutingEnabledItem = value;
+  @Label("Routing Style")
+  @OptionGroupAnnotation(name = "RoutingStyleGroup", position = 10)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = EdgeRoutingStyle.class, stringValue = "ORTHOGONAL")
+  @EnumValueAnnotation(label = "Orthogonal", value = "ORTHOGONAL")
+  @EnumValueAnnotation(label = "Octilinear", value = "OCTILINEAR")
+  @EnumValueAnnotation(label = "Curved", value = "CURVED")
+  public final void setEdgeRoutingStyleItem( EdgeRoutingStyle value ) {
+    this.edgeRoutingStyleItem = value;
   }
 
-  private double preferredPolylineSegmentLengthItem;
+  private double preferredOctilinearSegmentLengthItem;
 
-  @Label("Preferred Polyline Segment Length")
-  @OptionGroupAnnotation(name = "PolylineGroup", position = 20)
+  @Label("Preferred Octilinear Corner Length")
+  @OptionGroupAnnotation(name = "RoutingStyleGroup", position = 20)
   @DefaultValue(doubleValue = 30.0d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   @MinMax(min = 5, max = 500)
   @ComponentType(ComponentTypes.SLIDER)
-  public final double getPreferredPolylineSegmentLengthItem() {
-    return this.preferredPolylineSegmentLengthItem;
+  public final double getPreferredOctilinearSegmentLengthItem() {
+    return this.preferredOctilinearSegmentLengthItem;
   }
 
-  @Label("Preferred Polyline Segment Length")
-  @OptionGroupAnnotation(name = "PolylineGroup", position = 20)
+  @Label("Preferred Octilinear Corner Length")
+  @OptionGroupAnnotation(name = "RoutingStyleGroup", position = 20)
   @DefaultValue(doubleValue = 30.0d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   @MinMax(min = 5, max = 500)
   @ComponentType(ComponentTypes.SLIDER)
-  public final void setPreferredPolylineSegmentLengthItem( double value ) {
-    this.preferredPolylineSegmentLengthItem = value;
+  public final void setPreferredOctilinearSegmentLengthItem( double value ) {
+    this.preferredOctilinearSegmentLengthItem = value;
   }
 
-  public final boolean isPreferredPolylineSegmentLengthItemDisabled() {
-    return !isPolylineRoutingEnabledItem();
+  public final boolean isPreferredOctilinearSegmentLengthItemDisabled() {
+    return getEdgeRoutingStyleItem() != EdgeRoutingStyle.OCTILINEAR;
+  }
+
+  private double maximumOctilinearSegmentRatioItem;
+
+  @Label("Maximum Octilinear Segment Length Ratio")
+  @OptionGroupAnnotation(name = "RoutingStyleGroup", position = 25)
+  @DefaultValue(doubleValue = 0.3d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
+  @MinMax(min = 0, max = 0.5, step = 0.05)
+  @ComponentType(ComponentTypes.SLIDER)
+  public final double getMaximumOctilinearSegmentRatioItem() {
+    return this.maximumOctilinearSegmentRatioItem;
+  }
+
+  @Label("Maximum Octilinear Segment Length Ratio")
+  @OptionGroupAnnotation(name = "RoutingStyleGroup", position = 25)
+  @DefaultValue(doubleValue = 0.3d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
+  @MinMax(min = 0, max = 0.5, step = 0.05)
+  @ComponentType(ComponentTypes.SLIDER)
+  public final void setMaximumOctilinearSegmentRatioItem( double value ) {
+    this.maximumOctilinearSegmentRatioItem = value;
+  }
+
+  public final boolean isMaximumOctilinearSegmentRatioItemDisabled() {
+    return getEdgeRoutingStyleItem() != EdgeRoutingStyle.OCTILINEAR;
+  }
+
+  private CurveConnectionStyle sourceConnectionStyleItem = CurveConnectionStyle.KEEP_PORT;
+
+  @Label("Curved connection at source")
+  @OptionGroupAnnotation(name = "RoutingStyleGroup", position = 30)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = CurveConnectionStyle.class, stringValue = "KEEP_PORT")
+  @EnumValueAnnotation(label = "Straight", value = "KEEP_PORT")
+  @EnumValueAnnotation(label = "Organic", value = "ORGANIC")
+  public final CurveConnectionStyle getSourceConnectionStyleItem() {
+    return this.sourceConnectionStyleItem;
+  }
+
+  @Label("Curved connection at source")
+  @OptionGroupAnnotation(name = "RoutingStyleGroup", position = 30)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = CurveConnectionStyle.class, stringValue = "KEEP_PORT")
+  @EnumValueAnnotation(label = "Straight", value = "KEEP_PORT")
+  @EnumValueAnnotation(label = "Organic", value = "ORGANIC")
+  public final void setSourceConnectionStyleItem( CurveConnectionStyle value ) {
+    this.sourceConnectionStyleItem = value;
+  }
+
+  public final boolean isSourceConnectionStyleItemDisabled() {
+    return getEdgeRoutingStyleItem() != EdgeRoutingStyle.CURVED;
+  }
+
+  private CurveConnectionStyle targetConnectionStyleItem = CurveConnectionStyle.KEEP_PORT;
+
+  @Label("Curved connection at target")
+  @OptionGroupAnnotation(name = "RoutingStyleGroup", position = 40)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = CurveConnectionStyle.class, stringValue = "KEEP_PORT")
+  @EnumValueAnnotation(label = "Straight", value = "KEEP_PORT")
+  @EnumValueAnnotation(label = "Organic", value = "ORGANIC")
+  public final CurveConnectionStyle getTargetConnectionStyleItem() {
+    return this.targetConnectionStyleItem;
+  }
+
+  @Label("Curved connection at target")
+  @OptionGroupAnnotation(name = "RoutingStyleGroup", position = 40)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = CurveConnectionStyle.class, stringValue = "KEEP_PORT")
+  @EnumValueAnnotation(label = "Straight", value = "KEEP_PORT")
+  @EnumValueAnnotation(label = "Organic", value = "ORGANIC")
+  public final void setTargetConnectionStyleItem( CurveConnectionStyle value ) {
+    this.targetConnectionStyleItem = value;
+  }
+
+  public final boolean isTargetConnectionStyleItemDisabled() {
+    return getEdgeRoutingStyleItem() != EdgeRoutingStyle.CURVED;
+  }
+
+  private EnumBusRouting busRoutingItem = EnumBusRouting.NONE;
+
+  @Label("Bus routing")
+  @OptionGroupAnnotation(name = "RoutingStyleGroup", position = 50)
+  @EnumValueAnnotation(label = "No Buses", value = "NONE")
+  @EnumValueAnnotation(label = "Single Bus", value = "SINGLE_BUS")
+  @EnumValueAnnotation(label = "By Edge Color", value = "BY_COLOR")
+  @EnumValueAnnotation(label = "By Edge Label", value = "BY_LABEL")
+  public final EnumBusRouting getBusRoutingItem() {
+    return this.busRoutingItem;
+  }
+
+  @Label("Bus routing")
+  @OptionGroupAnnotation(name = "RoutingStyleGroup", position = 50)
+  @EnumValueAnnotation(label = "No Buses", value = "NONE")
+  @EnumValueAnnotation(label = "Single Bus", value = "SINGLE_BUS")
+  @EnumValueAnnotation(label = "By Edge Color", value = "BY_COLOR")
+  @EnumValueAnnotation(label = "By Edge Label", value = "BY_LABEL")
+  public final void setBusRoutingItem( EnumBusRouting value ) {
+    this.busRoutingItem = value;
   }
 
   private boolean consideringNodeLabelsItem;
@@ -630,19 +844,51 @@ public class PolylineEdgeRouterConfig extends LayoutConfiguration {
     this.consideringEdgeLabelsItem = value;
   }
 
-  private boolean edgeLabelingEnabledItem;
+  public enum EnumEdgeLabeling {
+    NONE(0),
+
+    INTEGRATED(1),
+
+    GENERIC(2);
+
+    private final int value;
+
+    private EnumEdgeLabeling( final int value ) {
+      this.value = value;
+    }
+
+    public int value() {
+      return this.value;
+    }
+
+    public static final EnumEdgeLabeling fromOrdinal( int ordinal ) {
+      for (EnumEdgeLabeling current : values()) {
+        if (ordinal == current.value) return current;
+      }
+      throw new IllegalArgumentException("Enum has no value " + ordinal);
+    }
+
+  }
+
+  private EnumEdgeLabeling edgeLabelingEnabledItem = EnumEdgeLabeling.NONE;
 
   @Label("Edge Labeling")
-  @OptionGroupAnnotation(name = "EdgePropertiesGroup", position = 20)
-  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
-  public final boolean isEdgeLabelingEnabledItem() {
+  @OptionGroupAnnotation(name = "EdgePropertiesGroup", position = 10)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = EnumEdgeLabeling.class, stringValue = "NONE")
+  @EnumValueAnnotation(label = "None", value = "NONE")
+  @EnumValueAnnotation(label = "Integrated", value = "INTEGRATED")
+  @EnumValueAnnotation(label = "Generic", value = "GENERIC")
+  public final EnumEdgeLabeling getEdgeLabelingEnabledItem() {
     return this.edgeLabelingEnabledItem;
   }
 
   @Label("Edge Labeling")
-  @OptionGroupAnnotation(name = "EdgePropertiesGroup", position = 20)
-  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
-  public final void setEdgeLabelingEnabledItem( boolean value ) {
+  @OptionGroupAnnotation(name = "EdgePropertiesGroup", position = 10)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = EnumEdgeLabeling.class, stringValue = "NONE")
+  @EnumValueAnnotation(label = "None", value = "NONE")
+  @EnumValueAnnotation(label = "Integrated", value = "INTEGRATED")
+  @EnumValueAnnotation(label = "Generic", value = "GENERIC")
+  public final void setEdgeLabelingEnabledItem( EnumEdgeLabeling value ) {
     this.edgeLabelingEnabledItem = value;
   }
 
@@ -671,7 +917,7 @@ public class PolylineEdgeRouterConfig extends LayoutConfiguration {
   }
 
   public final boolean isLabelPlacementOrientationItemDisabled() {
-    return !isEdgeLabelingEnabledItem();
+    return getEdgeLabelingEnabledItem() == EnumEdgeLabeling.NONE;
   }
 
   private boolean reducingAmbiguityItem;
@@ -689,7 +935,7 @@ public class PolylineEdgeRouterConfig extends LayoutConfiguration {
   }
 
   public final boolean isReducingAmbiguityItemDisabled() {
-    return !isEdgeLabelingEnabledItem();
+    return getEdgeLabelingEnabledItem() != EnumEdgeLabeling.GENERIC;
   }
 
   private LayoutConfiguration.EnumLabelPlacementAlongEdge labelPlacementAlongEdgeItem = LayoutConfiguration.EnumLabelPlacementAlongEdge.ANYWHERE;
@@ -717,7 +963,7 @@ public class PolylineEdgeRouterConfig extends LayoutConfiguration {
   }
 
   public final boolean isLabelPlacementAlongEdgeItemDisabled() {
-    return !isEdgeLabelingEnabledItem();
+    return getEdgeLabelingEnabledItem() == EnumEdgeLabeling.NONE;
   }
 
   private LayoutConfiguration.EnumLabelPlacementSideOfEdge labelPlacementSideOfEdgeItem = LayoutConfiguration.EnumLabelPlacementSideOfEdge.ANYWHERE;
@@ -747,7 +993,7 @@ public class PolylineEdgeRouterConfig extends LayoutConfiguration {
   }
 
   public final boolean isLabelPlacementSideOfEdgeItemDisabled() {
-    return !isEdgeLabelingEnabledItem();
+    return getEdgeLabelingEnabledItem() == EnumEdgeLabeling.NONE;
   }
 
   private double labelPlacementDistanceItem;
@@ -771,7 +1017,7 @@ public class PolylineEdgeRouterConfig extends LayoutConfiguration {
   }
 
   public final boolean isLabelPlacementDistanceItemDisabled() {
-    return !isEdgeLabelingEnabledItem() || getLabelPlacementSideOfEdgeItem() == LayoutConfiguration.EnumLabelPlacementSideOfEdge.ON_EDGE;
+    return getEdgeLabelingEnabledItem() == EnumEdgeLabeling.NONE || getLabelPlacementSideOfEdgeItem() == LayoutConfiguration.EnumLabelPlacementSideOfEdge.ON_EDGE;
   }
 
 }

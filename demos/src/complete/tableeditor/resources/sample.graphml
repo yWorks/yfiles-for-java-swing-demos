@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.3.
+     // This demo file is part of yFiles for Java (Swing) 3.4.
      //
-     // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -102,27 +102,27 @@
                 <y:Row MinimumSize="50" Size="50" Insets="30,0,0,0" Style="{y:GraphMLReference 3}">
                   <y:Row MinimumSize="50" Size="150" Insets="30,5,0,5" Style="{y:GraphMLReference 3}">
                     <y:Row.Labels>
-                      <y:Label LayoutParameter="{y:GraphMLReference 11}" Style="{y:GraphMLReference 2}" PreferredSize="47,14">
+                      <y:Label LayoutParameter="{y:GraphMLReference 11}" Style="{y:GraphMLReference 2}">
                         <y:Label.Text><![CDATA[Lane 1.1]]></y:Label.Text>
                       </y:Label>
                     </y:Row.Labels>
                   </y:Row>
                   <y:Row MinimumSize="50" Size="150" Insets="30,5,0,5" Style="{y:GraphMLReference 3}">
                     <y:Row.Labels>
-                      <y:Label LayoutParameter="{y:GraphMLReference 11}" Style="{y:GraphMLReference 2}" PreferredSize="47,14">
+                      <y:Label LayoutParameter="{y:GraphMLReference 11}" Style="{y:GraphMLReference 2}">
                         <y:Label.Text><![CDATA[Lane 1.2]]></y:Label.Text>
                       </y:Label>
                     </y:Row.Labels>
                   </y:Row>
                   <y:Row.Labels>
-                    <y:Label LayoutParameter="{y:GraphMLReference 11}" Style="{y:GraphMLReference 2}" PreferredSize="37,14">
+                    <y:Label LayoutParameter="{y:GraphMLReference 11}" Style="{y:GraphMLReference 2}">
                       <y:Label.Text><![CDATA[Lane 1]]></y:Label.Text>
                     </y:Label>
                   </y:Row.Labels>
                 </y:Row>
                 <y:Row MinimumSize="50" Size="200" Insets="30,5,0,5" Style="{y:GraphMLReference 3}">
                   <y:Row.Labels>
-                    <y:Label LayoutParameter="{y:GraphMLReference 11}" Style="{y:GraphMLReference 2}" PreferredSize="37,14">
+                    <y:Label LayoutParameter="{y:GraphMLReference 11}" Style="{y:GraphMLReference 2}">
                       <y:Label.Text><![CDATA[Lane 2]]></y:Label.Text>
                     </y:Label>
                   </y:Row.Labels>
@@ -131,14 +131,14 @@
               <y:Table.Columns>
                 <y:Column Style="{y:GraphMLReference 4}" MinimumSize="200" Size="500" Insets="5,30,5,0">
                   <y:Column.Labels>
-                    <y:Label LayoutParameter="{y:GraphMLReference 5}" Style="{y:GraphMLReference 2}" PreferredSize="62,14">
+                    <y:Label LayoutParameter="{y:GraphMLReference 5}" Style="{y:GraphMLReference 2}">
                       <y:Label.Text><![CDATA[Milestone 1]]></y:Label.Text>
                     </y:Label>
                   </y:Column.Labels>
                 </y:Column>
                 <y:Column Style="{y:GraphMLReference 4}" MinimumSize="200" Size="500" Insets="5,30,5,0">
                   <y:Column.Labels>
-                    <y:Label LayoutParameter="{y:GraphMLReference 5}" Style="{y:GraphMLReference 2}" PreferredSize="62,14">
+                    <y:Label LayoutParameter="{y:GraphMLReference 5}" Style="{y:GraphMLReference 2}">
                       <y:Label.Text><![CDATA[Milestone 2]]></y:Label.Text>
                     </y:Label>
                   </y:Column.Labels>

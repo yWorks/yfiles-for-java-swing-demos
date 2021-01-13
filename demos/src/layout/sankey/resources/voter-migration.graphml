@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.3.
+     // This demo file is part of yFiles for Java (Swing) 3.4.
      //
-     // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -70,7 +70,7 @@
     <node id="n0">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="64,18.71">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Style>
               <yfj:DefaultLabelStyle Font="{y:GraphMLReference 2}" TextPaint="White"/>
             </y:Label.Style>
@@ -113,7 +113,7 @@
     <node id="n1">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="57,18.71">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Style>
               <yfj:DefaultLabelStyle Font="{y:GraphMLReference 2}" TextPaint="White"/>
             </y:Label.Style>
@@ -161,7 +161,7 @@
     <node id="n2">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="70,18.71">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Style>
               <yfj:DefaultLabelStyle Font="{y:GraphMLReference 2}"/>
             </y:Label.Style>
@@ -189,7 +189,7 @@
     <node id="n3">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="70,18.71">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Style>
               <yfj:DefaultLabelStyle Font="{y:GraphMLReference 2}" TextPaint="White"/>
             </y:Label.Style>
@@ -222,7 +222,7 @@
     <node id="n4">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="68,18.71">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Style>
               <yfj:DefaultLabelStyle Font="{y:GraphMLReference 2}"/>
             </y:Label.Style>
@@ -260,7 +260,7 @@
     <node id="n5">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="64,18.71">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Style>
               <yfj:DefaultLabelStyle Font="{y:GraphMLReference 2}" TextPaint="White"/>
             </y:Label.Style>
@@ -298,7 +298,7 @@
     <node id="n6">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="57,18.71">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Style>
               <yfj:DefaultLabelStyle Font="{y:GraphMLReference 2}" TextPaint="White"/>
             </y:Label.Style>
@@ -336,7 +336,7 @@
     <node id="n7">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="70,18.71">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Style>
               <yfj:DefaultLabelStyle Font="{y:GraphMLReference 2}"/>
             </y:Label.Style>
@@ -414,7 +414,7 @@
     <node id="n8">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="70,18.71">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Style>
               <yfj:DefaultLabelStyle Font="{y:GraphMLReference 2}" TextPaint="White"/>
             </y:Label.Style>
@@ -482,7 +482,7 @@
     <node id="n9">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="68,18.71">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Style>
               <yfj:DefaultLabelStyle Font="{y:GraphMLReference 2}"/>
             </y:Label.Style>
@@ -540,7 +540,7 @@
     <node id="n10">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="64,18.71">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Style>
               <yfj:DefaultLabelStyle Font="{y:GraphMLReference 2}" TextPaint="White"/>
             </y:Label.Style>
@@ -588,7 +588,7 @@
     <node id="n11">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="57,18.71">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Style>
               <yfj:DefaultLabelStyle Font="{y:GraphMLReference 2}" TextPaint="White"/>
             </y:Label.Style>
@@ -631,7 +631,7 @@
     <node id="n12">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="70,18.71">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Style>
               <yfj:DefaultLabelStyle Font="{y:GraphMLReference 2}" TextPaint="White"/>
             </y:Label.Style>
@@ -659,7 +659,7 @@
     <node id="n13">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="68,18.71">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Style>
               <yfj:DefaultLabelStyle Font="{y:GraphMLReference 2}"/>
             </y:Label.Style>
@@ -692,7 +692,7 @@
     <node id="n14">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="59,18.71">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Style>
               <yfj:DefaultLabelStyle Font="{y:GraphMLReference 2}" TextPaint="White"/>
             </y:Label.Style>
@@ -740,7 +740,7 @@
     <node id="n15">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="71,18.71">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Style>
               <yfj:DefaultLabelStyle Font="{y:GraphMLReference 2}" TextPaint="White"/>
             </y:Label.Style>
@@ -798,7 +798,7 @@
     <node id="n16">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="71,18.71">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Style>
               <yfj:DefaultLabelStyle Font="{y:GraphMLReference 2}" TextPaint="White"/>
             </y:Label.Style>
@@ -831,7 +831,7 @@
     <node id="n17">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 1}" PreferredSize="70,18.71">
+          <y:Label LayoutParameter="{y:GraphMLReference 1}">
             <y:Label.Style>
               <yfj:DefaultLabelStyle Font="{y:GraphMLReference 2}"/>
             </y:Label.Style>
@@ -854,7 +854,7 @@
     <edge id="e0" source="n2" sourceport="p0" target="n7" targetport="p0">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="53,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="3.2505649204219256" Ratio="0.04490571463785382">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -876,17 +876,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 11}" Thickness="62.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e1" source="n1" sourceport="p0" target="n6" targetport="p0">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="53,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="2.0382269179791432" Ratio="0.045199013358530056">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -908,17 +908,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 8}" Thickness="98.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e2" source="n3" sourceport="p0" target="n8" targetport="p0">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="53,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="3.696190646167582" Ratio="0.044764108444590056">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -940,17 +940,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 10}" Thickness="38.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e3" source="n0" sourceport="p0" target="n5" targetport="p0">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="60,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="1.3606421311306698" Ratio="0.050356058171716435">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -972,17 +972,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 7}" Thickness="136.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e4" source="n4" sourceport="p0" target="n9" targetport="p0">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="53,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="2.8029578798705828" Ratio="0.04502966136607069">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1004,17 +1004,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 9}" Thickness="36.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e5" source="n5" sourceport="p1" target="n10" targetport="p0">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="60,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-0.9003452751204913" Ratio="0.05000262956746939">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1036,17 +1036,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 7}" Thickness="146.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e6" source="n6" sourceport="p1" target="n11" targetport="p0">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="53,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-2.3798832873414106" Ratio="0.044775118533130535">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1068,17 +1068,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 8}" Thickness="97.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e7" source="n9" sourceport="p1" target="n13" targetport="p0">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="53,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Ratio="0.04503216583273767">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1094,17 +1094,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 9}" Thickness="35.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e8" source="n8" sourceport="p1" target="n12" targetport="p0">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="53,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="0.3062042595007272" Ratio="0.04502791059153203">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1126,17 +1126,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 10}" Thickness="37.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e9" source="n7" sourceport="p1" target="n17" targetport="p0">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="53,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-1.5292881883757925" Ratio="0.04492602551195946">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1158,17 +1158,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 11}" Thickness="20.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e10" source="n15" sourceport="p0" target="n14" targetport="p0">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="46,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="1.1598328422609157" Ratio="0.03995990951587931">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1190,17 +1190,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 12}" Thickness="2.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e11" source="n8" sourceport="p2" target="n16" targetport="p0">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="46,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-4.963718157789884" Ratio="0.03877062708312195">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1222,17 +1222,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 10}" Thickness="3.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e12" source="n9" sourceport="p2" target="n16" targetport="p1">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="39,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-7.289647281545669" Ratio="0.03192432160059831">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1254,13 +1254,13 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle Pen="#7F99CC00" SourceArrow="NONE" TargetArrow="NONE"/>
+        <yfj:BezierEdgeStyle Pen="#7F99CC00" SourceArrow="NONE" TargetArrow="NONE"/>
       </data>
     </edge>
     <edge id="e13" source="n7" sourceport="p2" target="n16" targetport="p2">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="46,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-11.252723541865652" Ratio="0.03356357668183099">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1282,17 +1282,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 11}" Thickness="4.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e14" source="n15" sourceport="p1" target="n11" targetport="p1">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="46,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="32.52000488913596" Ratio="0.08833300130947992">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1314,17 +1314,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 12}" Thickness="3.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e15" source="n15" sourceport="p2" target="n10" targetport="p1">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="53,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="17.898306315218388" Ratio="0.030493464994116565">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1346,17 +1346,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 12}" Thickness="11.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e16" source="n3" sourceport="p1" target="n15" targetport="p3">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="46,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Ratio="0.040345821325648415">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1372,17 +1372,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 10}" Thickness="3.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e17" source="n4" sourceport="p1" target="n15" targetport="p4">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="39,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-12.717493325307641" Ratio="0.10533242435916314">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1404,13 +1404,13 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle Pen="#7F99CC00" SourceArrow="NONE" TargetArrow="NONE"/>
+        <yfj:BezierEdgeStyle Pen="#7F99CC00" SourceArrow="NONE" TargetArrow="NONE"/>
       </data>
     </edge>
     <edge id="e18" source="n2" sourceport="p1" target="n15" targetport="p5">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="39,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-7.002770503339527" Ratio="0.03241846763968464">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1432,13 +1432,13 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle Pen="#7FFFCC00" SourceArrow="NONE" TargetArrow="NONE"/>
+        <yfj:BezierEdgeStyle Pen="#7FFFCC00" SourceArrow="NONE" TargetArrow="NONE"/>
       </data>
     </edge>
     <edge id="e19" source="n1" sourceport="p1" target="n15" targetport="p6">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="53,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-13.155856905901032" Ratio="0.03747191020865723">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1460,17 +1460,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 8}" Thickness="20.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e20" source="n0" sourceport="p1" target="n15" targetport="p7">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="53,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-18.389091285805506" Ratio="0.029920466661283233">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1492,17 +1492,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 7}" Thickness="10.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e21" source="n3" sourceport="p2" target="n7" targetport="p3">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="39,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="8.037113067440908" Ratio="0.03150354722938132">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1524,13 +1524,13 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle Pen="#7F993366" SourceArrow="NONE" TargetArrow="NONE"/>
+        <yfj:BezierEdgeStyle Pen="#7F993366" SourceArrow="NONE" TargetArrow="NONE"/>
       </data>
     </edge>
     <edge id="e22" source="n4" sourceport="p2" target="n8" targetport="p3">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="46,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Ratio="0.040345821325648415">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1546,13 +1546,13 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle Pen="#7F99CC00" SourceArrow="NONE" TargetArrow="NONE"/>
+        <yfj:BezierEdgeStyle Pen="#7F99CC00" SourceArrow="NONE" TargetArrow="NONE"/>
       </data>
     </edge>
     <edge id="e23" source="n4" sourceport="p3" target="n7" targetport="p4">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="39,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="4.275586537817724" Ratio="0.03422745161192918">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1574,13 +1574,13 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle Pen="#FF99CC00" SourceArrow="NONE" TargetArrow="NONE"/>
+        <yfj:BezierEdgeStyle Pen="#FF99CC00" SourceArrow="NONE" TargetArrow="NONE"/>
       </data>
     </edge>
     <edge id="e24" source="n1" sourceport="p2" target="n8" targetport="p4">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="53,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-26.51655632329622" Ratio="0.11489502599823406">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1602,17 +1602,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 8}" Thickness="11.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e25" source="n1" sourceport="p3" target="n9" targetport="p3">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="46,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-8.673486327338154" Ratio="0.06429887483229156">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1634,17 +1634,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 8}" Thickness="8.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e26" source="n1" sourceport="p4" target="n7" targetport="p5">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="46,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-0.6856732783050966" Ratio="0.04032162680915081">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1666,17 +1666,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 8}" Thickness="5.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e27" source="n1" sourceport="p5" target="n5" targetport="p2">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="46,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="3.836665898331714" Ratio="0.03958830767726319">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1698,17 +1698,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 8}" Thickness="8.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e28" source="n0" sourceport="p2" target="n8" targetport="p5">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="39,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-39.99854075018097" Ratio="0.0869074351200071">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1730,13 +1730,13 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle Pen="#7F000000" SourceArrow="NONE" TargetArrow="NONE"/>
+        <yfj:BezierEdgeStyle Pen="#7F000000" SourceArrow="NONE" TargetArrow="NONE"/>
       </data>
     </edge>
     <edge id="e29" source="n0" sourceport="p3" target="n9" targetport="p4">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="39,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-9.830238410189226" Ratio="0.029619267940883404">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1758,13 +1758,13 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle Pen="#7F000000" SourceArrow="NONE" TargetArrow="NONE"/>
+        <yfj:BezierEdgeStyle Pen="#7F000000" SourceArrow="NONE" TargetArrow="NONE"/>
       </data>
     </edge>
     <edge id="e30" source="n0" sourceport="p4" target="n7" targetport="p6">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="53,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-21.571989303392378" Ratio="0.11267085513345651">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1786,17 +1786,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 7}" Thickness="11.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e31" source="n7" sourceport="p7" target="n14" targetport="p1">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="46,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-26.325315436527845" Ratio="0.09880643256478643">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1818,17 +1818,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 11}" Thickness="4.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e32" source="n8" sourceport="p6" target="n13" targetport="p1">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="39,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="6.295926027408658" Ratio="0.10970247015010536">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1850,13 +1850,13 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle Pen="#7F993366" SourceArrow="NONE" TargetArrow="NONE"/>
+        <yfj:BezierEdgeStyle Pen="#7F993366" SourceArrow="NONE" TargetArrow="NONE"/>
       </data>
     </edge>
     <edge id="e33" source="n9" sourceport="p5" target="n14" targetport="p2">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="39,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-15.902919136628523" Ratio="0.10351872578355309">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1878,13 +1878,13 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle Pen="#7F99CC00" SourceArrow="NONE" TargetArrow="NONE"/>
+        <yfj:BezierEdgeStyle Pen="#7F99CC00" SourceArrow="NONE" TargetArrow="NONE"/>
       </data>
     </edge>
     <edge id="e34" source="n8" sourceport="p7" target="n14" targetport="p3">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="46,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-6.186569567916148" Ratio="0.10972773168039734">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1906,17 +1906,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 10}" Thickness="3.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e35" source="n7" sourceport="p8" target="n13" targetport="p2">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="46,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-3.1815477768979568" Ratio="0.039511781565573105">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1938,13 +1938,13 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle Pen="#7FFFCC00" SourceArrow="NONE" TargetArrow="NONE"/>
+        <yfj:BezierEdgeStyle Pen="#7FFFCC00" SourceArrow="NONE" TargetArrow="NONE"/>
       </data>
     </edge>
     <edge id="e36" source="n7" sourceport="p9" target="n12" targetport="p1">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="39,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-16.978078806496185" Ratio="0.10210059563267365">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1966,13 +1966,13 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle Pen="#7FFFCC00" SourceArrow="NONE" TargetArrow="NONE"/>
+        <yfj:BezierEdgeStyle Pen="#7FFFCC00" SourceArrow="NONE" TargetArrow="NONE"/>
       </data>
     </edge>
     <edge id="e37" source="n6" sourceport="p2" target="n14" targetport="p4">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="46,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-13.01986333076887" Ratio="0.03137359128194124">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -1994,13 +1994,13 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle Pen="#7FFF0000" SourceArrow="NONE" TargetArrow="NONE"/>
+        <yfj:BezierEdgeStyle Pen="#7FFF0000" SourceArrow="NONE" TargetArrow="NONE"/>
       </data>
     </edge>
     <edge id="e38" source="n9" sourceport="p6" target="n11" targetport="p2">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="46,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="5.001860398990918" Ratio="0.038751219878944414">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -2022,17 +2022,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 9}" Thickness="5.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e39" source="n8" sourceport="p8" target="n11" targetport="p3">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="46,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="8.247305379137408" Ratio="0.03655580281748453">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -2054,17 +2054,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 10}" Thickness="3.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e40" source="n7" sourceport="p10" target="n11" targetport="p4">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="46,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="2.8508539037946394" Ratio="0.12388322053041945">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -2086,17 +2086,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 11}" Thickness="5.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e41" source="n5" sourceport="p3" target="n14" targetport="p5">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="46,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="-16.600775308251325" Ratio="0.02595804447896216">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -2118,17 +2118,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 7}" Thickness="2.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e42" source="n9" sourceport="p7" target="n10" targetport="p2">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="46,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="29.191588503483082" Ratio="0.09261975020961045">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -2150,17 +2150,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 9}" Thickness="4.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e43" source="n8" sourceport="p9" target="n10" targetport="p3">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="46,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="36.13935446635267" Ratio="0.08276456716839155">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -2182,13 +2182,13 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle Pen="#7F993366" SourceArrow="NONE" TargetArrow="NONE"/>
+        <yfj:BezierEdgeStyle Pen="#7F993366" SourceArrow="NONE" TargetArrow="NONE"/>
       </data>
     </edge>
     <edge id="e44" source="n7" sourceport="p11" target="n10" targetport="p4">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="53,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="7.931773022195163" Ratio="0.042176928042677996">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -2210,17 +2210,17 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 11}" Thickness="21.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
     <edge id="e45" source="n6" sourceport="p3" target="n10" targetport="p5">
       <data key="d4">
         <x:List>
-          <y:Label PreferredSize="46,18.71">
+          <y:Label>
             <y:Label.LayoutParameter>
               <y:FreeEdgeLabelModelParameter Distance="1.3593672785563327" Ratio="0.03993424489951961">
                 <y:FreeEdgeLabelModelParameter.Model>
@@ -2242,11 +2242,11 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
+        <yfj:BezierEdgeStyle SourceArrow="NONE" TargetArrow="NONE">
+          <yfj:BezierEdgeStyle.Pen>
             <yfj:Pen Paint="{y:GraphMLReference 8}" Thickness="2.0"/>
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+          </yfj:BezierEdgeStyle.Pen>
+        </yfj:BezierEdgeStyle>
       </data>
     </edge>
   </graph>

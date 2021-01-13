@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -41,6 +41,7 @@ import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
 import com.yworks.yfiles.graph.styles.PolylineEdgeStyleRenderer;
 import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.utils.Obfuscation;
+import com.yworks.yfiles.view.DashStyle;
 import com.yworks.yfiles.view.IBoundsProvider;
 import com.yworks.yfiles.view.input.IHitTestable;
 import com.yworks.yfiles.view.input.IMarqueeTestable;
@@ -51,41 +52,20 @@ import com.yworks.yfiles.view.IVisualCreator;
 import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.VisualGroup;
 
+import java.awt.BasicStroke;
+import java.awt.Paint;
+import java.util.Objects;
+
 /**
  * An {@link IEdgeStyle} implementation representing a connection according to the BPMN.
  */
 @Obfuscation(stripAfterObfuscation = false, exclude = true, applyToMembers = false)
 public class BpmnEdgeStyle implements IEdgeStyle, IArrowOwner {
-
-  private static final IconArrow DEFAULT_TARGET_ARROW;
-
-  private static final IconArrow DEFAULT_SOURCE_ARROW;
-
-  private static final IconArrow ASSOCIATION_ARROW;
-
-  private static final IconArrow CONDITIONAL_SOURCE_ARROW;
-
-  private static final IconArrow MESSAGE_TARGET_ARROW;
-
-  private static final IconArrow MESSAGE_SOURCE_ARROW;
-
-
-
-  private PolylineEdgeStyle delegateStyle;
+  private final PolylineEdgeStyle delegateStyle;
 
   private EdgeType type = EdgeType.SEQUENCE_FLOW;
 
-  private double smoothingLength = 20;
-
-  private IEdgeStyleRenderer renderer;
-
-  private IArrow sourceArrow;
-
-  private IArrow targetArrow;
-
-  private Pen pen;
-
-  private Pen doubleLineCenterPen;
+  private IEdgeStyleRenderer renderer = new BpmnEdgeStyleRenderer();
 
   /**
    * Gets the edge type of this style.
@@ -107,105 +87,103 @@ public class BpmnEdgeStyle implements IEdgeStyle, IArrowOwner {
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = EdgeType.class, stringValue = "SEQUENCE_FLOW")
   public final void setType( EdgeType value ) {
     type = value;
-    switch (value) {
-      case CONDITIONAL_FLOW:
-        pen = BpmnConstants.Pens.BPMN_EDGE_STYLE;
-        sourceArrow = CONDITIONAL_SOURCE_ARROW;
-        targetArrow = DEFAULT_TARGET_ARROW;
-        break;
-      case ASSOCIATION:
-        pen = BpmnConstants.Pens.ASSOCIATION_EDGE_STYLE;
-        sourceArrow = IArrow.NONE;
-        targetArrow = IArrow.NONE;
-        break;
-      case DIRECTED_ASSOCIATION:
-        pen = BpmnConstants.Pens.ASSOCIATION_EDGE_STYLE;
-        sourceArrow = IArrow.NONE;
-        targetArrow = ASSOCIATION_ARROW;
-        break;
-      case BIDIRECTED_ASSOCIATION:
-        pen = BpmnConstants.Pens.ASSOCIATION_EDGE_STYLE;
-        sourceArrow = ASSOCIATION_ARROW;
-        targetArrow = ASSOCIATION_ARROW;
-        break;
-      case MESSAGE_FLOW:
-        pen = BpmnConstants.Pens.MESSAGE_EDGE_STYLE;
-        sourceArrow = MESSAGE_SOURCE_ARROW;
-        targetArrow = MESSAGE_TARGET_ARROW;
-        break;
-      case DEFAULT_FLOW:
-        pen = BpmnConstants.Pens.BPMN_EDGE_STYLE;
-        sourceArrow = DEFAULT_SOURCE_ARROW;
-        targetArrow = DEFAULT_TARGET_ARROW;
-        break;
-      case CONVERSATION:
-        pen = BpmnConstants.Pens.CONVERSATION_DOUBLE_LINE;
-        sourceArrow = IArrow.NONE;
-        targetArrow = IArrow.NONE;
-        break;
-      case SEQUENCE_FLOW:
-      default:
-        pen = BpmnConstants.Pens.BPMN_EDGE_STYLE;
-        sourceArrow = IArrow.NONE;
-        targetArrow = DEFAULT_TARGET_ARROW;
-        break;
-    }
-    updateDelegate();
+    updatePen(getColor());
+    updateArrow(value);
   }
 
+  /**
+   * Gets the stroke color of the edge.
+   * @return The Color.
+   * @see #setColor(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "EdgeDefaultColor", classValue = BpmnConstants.class)
+  public final Paint getColor() {
+    return delegateStyle.getPen().getPaint();
+  }
+
+  /**
+   * Sets the stroke color of the edge.
+   * @param value The Color to set.
+   * @see #getColor()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "EdgeDefaultColor", classValue = BpmnConstants.class)
+  public final void setColor( Paint value ) {
+    if (!Objects.equals(delegateStyle.getPen().getPaint(), value)) {
+      updatePen(value);
+      updateArrow(getType());
+    }
+  }
+
+  private Pen innerPen;
+
+  /**
+   * Gets the inner stroke color of the edge when {@link #getType() Type} is {@link EdgeType#CONVERSATION}.
+   * @return The InnerColor.
+   * @see #setInnerColor(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "EdgeDefaultInnerColor", classValue = BpmnConstants.class)
+  public final Paint getInnerColor() {
+    return innerPen.getPaint();
+  }
+
+  /**
+   * Sets the inner stroke color of the edge when {@link #getType() Type} is {@link EdgeType#CONVERSATION}.
+   * @param value The InnerColor to set.
+   * @see #getInnerColor()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "EdgeDefaultInnerColor", classValue = BpmnConstants.class)
+  public final void setInnerColor( Paint value ) {
+    if (innerPen == null || !Objects.equals(innerPen.getPaint(), value)) {
+      Pen pen = new Pen(value, 1);
+      pen.setLineJoin(BasicStroke.JOIN_ROUND);
+      innerPen = (Pen)pen;
+    }
+  }
 
   /**
    * Creates a new instance using {@link EdgeType#SEQUENCE_FLOW}.
    */
   public BpmnEdgeStyle() {
-    renderer = new BpmnEdgeStyleRenderer();
-    doubleLineCenterPen = BpmnConstants.Pens.CONVERSATION_CENTER_LINE;
-    delegateStyle = new PolylineEdgeStyle();
+    PolylineEdgeStyle polylineEdgeStyle = new PolylineEdgeStyle();
+    polylineEdgeStyle.setSmoothingLength(20);
+    delegateStyle = polylineEdgeStyle;
+    // Setting the type also initializes the pen and arrows correctly
     setType(EdgeType.SEQUENCE_FLOW);
+    setColor(BpmnConstants.EDGE_DEFAULT_COLOR);
+    setInnerColor(BpmnConstants.EDGE_DEFAULT_INNER_COLOR);
   }
 
   // clone constructor
   private BpmnEdgeStyle( BpmnEdgeStyle other ) {
     renderer = other.renderer;
-    doubleLineCenterPen = other.doubleLineCenterPen;
-    delegateStyle = new PolylineEdgeStyle();
-    smoothingLength = other.smoothingLength;
+    innerPen = other.innerPen;
+    // We need to clone the wrapped style since our properties just delegate there
+    delegateStyle = (PolylineEdgeStyle)other.delegateStyle.clone();
     // setting the type updates all read-only properties
     setType(other.getType());
+    innerPen = other.innerPen;
   }
 
-  @Obfuscation(stripAfterObfuscation = false, exclude = true)
   public final BpmnEdgeStyle clone() {
     return (BpmnEdgeStyle)new BpmnEdgeStyle(this);
   }
 
-  @Obfuscation(stripAfterObfuscation = false, exclude = true)
   public final IEdgeStyleRenderer getRenderer() {
     return renderer;
   }
 
   @Obfuscation(stripAfterObfuscation = false, exclude = true)
   public final IArrow getSourceArrow() {
-    return sourceArrow;
+    return delegateStyle.getSourceArrow();
   }
 
   @Obfuscation(stripAfterObfuscation = false, exclude = true)
   public final IArrow getTargetArrow() {
-    return targetArrow;
-  }
-
-  @Obfuscation(stripAfterObfuscation = false, exclude = true)
-  public final Pen getPen() {
-    return pen;
-  }
-
-  /**
-   * Gets the {@link #getPen() Pen} for the center line of a {@link EdgeType#CONVERSATION}.
-   * @return The DoubleLineCenterPen.
-   */
-  @Obfuscation(stripAfterObfuscation = false, exclude = true)
-  final Pen getDoubleLineCenterPen() {
-    return doubleLineCenterPen;
+    return delegateStyle.getTargetArrow();
   }
 
   /**
@@ -219,7 +197,7 @@ public class BpmnEdgeStyle implements IEdgeStyle, IArrowOwner {
   @Obfuscation(stripAfterObfuscation = false, exclude = true)
   @DefaultValue(doubleValue = 20.0, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   public final double getSmoothingLength() {
-    return smoothingLength;
+    return delegateStyle.getSmoothingLength();
   }
 
   /**
@@ -233,16 +211,116 @@ public class BpmnEdgeStyle implements IEdgeStyle, IArrowOwner {
   @Obfuscation(stripAfterObfuscation = false, exclude = true)
   @DefaultValue(doubleValue = 20.0, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   public final void setSmoothingLength( double value ) {
-    smoothingLength = value;
-    updateDelegate();
+    delegateStyle.setSmoothingLength(value);
   }
 
-  private void updateDelegate() {
-    if (delegateStyle != null) {
-      delegateStyle.setPen(getPen());
-      delegateStyle.setSourceArrow(getSourceArrow());
-      delegateStyle.setTargetArrow(getTargetArrow());
-      delegateStyle.setSmoothingLength(getSmoothingLength());
+  private void updatePen( Paint paint ) {
+    Pen result;
+    switch (getType()) {
+      case CONDITIONAL_FLOW:
+      case DEFAULT_FLOW:
+      case SEQUENCE_FLOW:
+      default:
+        result = new Pen(paint, 1);
+        break;
+      case ASSOCIATION:
+      case DIRECTED_ASSOCIATION:
+      case BIDIRECTED_ASSOCIATION:
+        result = new Pen();
+        result.setPaint(paint);
+        result.setDashStyle(DashStyle.getDot());
+        result.setEndCap(BasicStroke.CAP_ROUND);
+        break;
+      case MESSAGE_FLOW:
+        result = new Pen();
+        result.setPaint(paint);
+        result.setDashStyle(DashStyle.getDash());
+        break;
+      case CONVERSATION:
+        result = new Pen();
+        result.setPaint(paint);
+        result.setThickness(3);
+        result.setLineJoin(BasicStroke.JOIN_ROUND);
+        break;
+    }
+    delegateStyle.setPen((Pen)result);
+  }
+
+  private void updateArrow( EdgeType type ) {
+    switch (type) {
+      case CONDITIONAL_FLOW:
+        IconArrow iconArrow = new IconArrow(IconFactory.createArrowIcon(ArrowType.CONDITIONAL_SOURCE, getColor()));
+        iconArrow.setBounds(new SizeD(16, 8));
+        iconArrow.setCropLength(0);
+        iconArrow.setLength(16);
+        delegateStyle.setSourceArrow(iconArrow);
+        IconArrow iconArrow2 = new IconArrow(IconFactory.createArrowIcon(ArrowType.DEFAULT_TARGET, getColor()));
+        iconArrow2.setBounds(new SizeD(8, 6));
+        iconArrow2.setCropLength(0);
+        iconArrow2.setLength(8);
+        delegateStyle.setTargetArrow(iconArrow2);
+        break;
+      case ASSOCIATION:
+        delegateStyle.setSourceArrow(IArrow.NONE);
+        delegateStyle.setTargetArrow(IArrow.NONE);
+        break;
+      case DIRECTED_ASSOCIATION:
+        delegateStyle.setSourceArrow(IArrow.NONE);
+        IconArrow iconArrow3 = new IconArrow(IconFactory.createArrowIcon(ArrowType.ASSOCIATION, getColor()));
+        iconArrow3.setBounds(new SizeD(8, 6));
+        iconArrow3.setCropLength(0);
+        iconArrow3.setLength(0);
+        delegateStyle.setTargetArrow(iconArrow3);
+        break;
+      case BIDIRECTED_ASSOCIATION:
+        IconArrow iconArrow4 = new IconArrow(IconFactory.createArrowIcon(ArrowType.ASSOCIATION, getColor()));
+        iconArrow4.setBounds(new SizeD(8, 6));
+        iconArrow4.setCropLength(0);
+        iconArrow4.setLength(0);
+        delegateStyle.setSourceArrow(iconArrow4);
+        IconArrow iconArrow5 = new IconArrow(IconFactory.createArrowIcon(ArrowType.ASSOCIATION, getColor()));
+        iconArrow5.setBounds(new SizeD(8, 6));
+        iconArrow5.setCropLength(0);
+        iconArrow5.setLength(0);
+        delegateStyle.setTargetArrow(iconArrow5);
+        break;
+      case MESSAGE_FLOW:
+        IconArrow iconArrow6 = new IconArrow(IconFactory.createArrowIcon(ArrowType.MESSAGE_SOURCE, getColor()));
+        iconArrow6.setBounds(new SizeD(6, 6));
+        iconArrow6.setCropLength(0);
+        iconArrow6.setLength(6);
+        delegateStyle.setSourceArrow(iconArrow6);
+        IconArrow iconArrow7 = new IconArrow(IconFactory.createArrowIcon(ArrowType.MESSAGE_TARGET, getColor()));
+        iconArrow7.setBounds(new SizeD(8, 6));
+        iconArrow7.setCropLength(0);
+        iconArrow7.setLength(8);
+        delegateStyle.setTargetArrow(iconArrow7);
+        break;
+      case DEFAULT_FLOW:
+        IconArrow iconArrow8 = new IconArrow(IconFactory.createArrowIcon(ArrowType.DEFAULT_SOURCE, getColor()));
+        iconArrow8.setBounds(new SizeD(8, 6));
+        iconArrow8.setCropLength(0);
+        iconArrow8.setLength(0);
+        delegateStyle.setSourceArrow(iconArrow8);
+        IconArrow iconArrow9 = new IconArrow(IconFactory.createArrowIcon(ArrowType.DEFAULT_TARGET, getColor()));
+        iconArrow9.setBounds(new SizeD(8, 6));
+        iconArrow9.setCropLength(0);
+        iconArrow9.setLength(8);
+        delegateStyle.setTargetArrow(iconArrow9);
+        break;
+      case CONVERSATION:
+        delegateStyle.setSourceArrow(IArrow.NONE);
+        delegateStyle.setTargetArrow(IArrow.NONE);
+        break;
+      case SEQUENCE_FLOW:
+      default:
+        delegateStyle.setSourceArrow(IArrow.NONE);
+        IconArrow iconArrow10 = new IconArrow(IconFactory.createArrowIcon(ArrowType.DEFAULT_TARGET, getColor()));
+        iconArrow10.setBounds(new SizeD(8, 6));
+        iconArrow10.setCropLength(0);
+        iconArrow10.setLength(8);
+        delegateStyle.setTargetArrow(iconArrow10);
+        break;
     }
   }
 
@@ -300,9 +378,10 @@ public class BpmnEdgeStyle implements IEdgeStyle, IArrowOwner {
         container.add(delegateRenderer.getVisualCreator(this.edge, this.style.delegateStyle).createVisual(context));
       } else {
         container.add(delegateRenderer.getVisualCreator(this.edge, this.style.delegateStyle).createVisual(context));
-        style.delegateStyle.setPen(style.getDoubleLineCenterPen());
+        Pen oldPen = style.delegateStyle.getPen();
+        style.delegateStyle.setPen(style.innerPen);
         container.add(delegateRenderer.getVisualCreator(this.edge, this.style.delegateStyle).createVisual(context));
-        style.delegateStyle.setPen(style.getPen());
+        style.delegateStyle.setPen(oldPen);
       }
       container.edgeType = style.getType();
       return container;
@@ -321,62 +400,27 @@ public class BpmnEdgeStyle implements IEdgeStyle, IArrowOwner {
         IVisual firstChild = container.getChildren().get(0);
         IVisual newFirstChild = delegateRenderer.getVisualCreator(this.edge, this.style.delegateStyle).updateVisual(context, firstChild);
         if (firstChild != newFirstChild) {
-          container.getChildren().remove(firstChild);
-          container.getChildren().add(0, newFirstChild);
+          container.getChildren().set(0, firstChild);
         }
       } else {
         IVisual firstPath = container.getChildren().get(0);
         IVisual newFirstPath = delegateRenderer.getVisualCreator(this.edge, this.style.delegateStyle).updateVisual(context, firstPath);
         if (firstPath != newFirstPath) {
-          container.getChildren().remove(firstPath);
-          container.getChildren().add(0, newFirstPath);
+          container.getChildren().set(0, firstPath);
         }
 
-        style.delegateStyle.setPen(style.getDoubleLineCenterPen());
+        Pen oldPen = style.delegateStyle.getPen();
+        style.delegateStyle.setPen(style.innerPen);
         IVisual secondPath = container.getChildren().get(1);
         IVisual newSecondPath = delegateRenderer.getVisualCreator(this.edge, this.style.delegateStyle).updateVisual(context, secondPath);
         if (secondPath != newSecondPath) {
-          container.getChildren().remove(secondPath);
-          container.getChildren().add(1, newSecondPath);
+          container.getChildren().set(1, secondPath);
         }
-        style.delegateStyle.setPen(style.getPen());
+        style.delegateStyle.setPen(oldPen);
       }
       return container;
     }
 
-  }
-
-  static {
-    IconArrow iconArrow = new IconArrow(IconFactory.createArrowIcon(ArrowType.DEFAULT_TARGET));
-    iconArrow.setBounds(new SizeD(8, 6));
-    iconArrow.setCropLength(0);
-    iconArrow.setLength(8);
-    DEFAULT_TARGET_ARROW = iconArrow;
-    IconArrow iconArrow2 = new IconArrow(IconFactory.createArrowIcon(ArrowType.DEFAULT_SOURCE));
-    iconArrow2.setBounds(new SizeD(8, 6));
-    iconArrow2.setCropLength(0);
-    iconArrow2.setLength(0);
-    DEFAULT_SOURCE_ARROW = iconArrow2;
-    IconArrow iconArrow3 = new IconArrow(IconFactory.createArrowIcon(ArrowType.ASSOCIATION));
-    iconArrow3.setBounds(new SizeD(8, 6));
-    iconArrow3.setCropLength(0);
-    iconArrow3.setLength(0);
-    ASSOCIATION_ARROW = iconArrow3;
-    IconArrow iconArrow4 = new IconArrow(IconFactory.createArrowIcon(ArrowType.CONDITIONAL_SOURCE));
-    iconArrow4.setBounds(new SizeD(16, 8));
-    iconArrow4.setCropLength(0);
-    iconArrow4.setLength(16);
-    CONDITIONAL_SOURCE_ARROW = iconArrow4;
-    IconArrow iconArrow5 = new IconArrow(IconFactory.createArrowIcon(ArrowType.MESSAGE_TARGET));
-    iconArrow5.setBounds(new SizeD(8, 6));
-    iconArrow5.setCropLength(0);
-    iconArrow5.setLength(8);
-    MESSAGE_TARGET_ARROW = iconArrow5;
-    IconArrow iconArrow6 = new IconArrow(IconFactory.createArrowIcon(ArrowType.MESSAGE_SOURCE));
-    iconArrow6.setBounds(new SizeD(6, 6));
-    iconArrow6.setCropLength(0);
-    iconArrow6.setLength(6);
-    MESSAGE_SOURCE_ARROW = iconArrow6;
   }
 
   static class EdgeTypeVisualGroup extends VisualGroup {

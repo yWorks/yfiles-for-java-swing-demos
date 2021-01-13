@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -65,8 +65,9 @@ public class LabelRotateHandle implements IHandle {
   /**
    * Initializes a new {@code LabelRotateHandle} instance for the given label.
    */
-  public LabelRotateHandle( ILabel label ) {
+  public LabelRotateHandle(ILabel label, IInputModeContext context) {
     this.label = label;
+    inputModeContext = context;
   }
 
   /**
@@ -221,7 +222,7 @@ public class LabelRotateHandle implements IHandle {
               : layout.getUp();
 
       double offset = inputModeContext != null
-              ? 20 / inputModeContext.getCanvasComponent().getZoom()
+              ? 20 / inputModeContext.getZoom()
               : 20;
       // the rotate handle is placed above the center of the label's top border, i.e. 
       // the rotate handle location in the coordinate system of the label's oriented bounds is (0.5, 1 + d)
@@ -248,7 +249,7 @@ public class LabelRotateHandle implements IHandle {
               : layout.getUp();
 
       double offset = inputModeContext != null
-              ? 20 / inputModeContext.getCanvasComponent().getZoom()
+              ? 20 / inputModeContext.getZoom()
               : 20;
       // the rotate handle is placed above the center of the label's top border, i.e. 
       // the rotate handle location in the coordinate system of the label's oriented bounds is (0.5, 1 + d)

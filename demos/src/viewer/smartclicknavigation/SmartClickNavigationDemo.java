@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -58,6 +58,11 @@ import java.util.TimerTask;
  * when only a part of the graph is visible in the viewport.
  */
 public class SmartClickNavigationDemo extends AbstractDemo {
+
+  /**
+   * A timer that is scheduled to clear highlights after some time.
+   */
+  private Timer clearHighlightsTimer;
 
   /**
    * Initializes the graph and the input modes.
@@ -134,6 +139,13 @@ public class SmartClickNavigationDemo extends AbstractDemo {
    */
   private void updateHighlight(IModelItem item) {
     HighlightIndicatorManager<IModelItem> manager = graphComponent.getHighlightIndicatorManager();
+    
+    if (clearHighlightsTimer != null) {
+      // a timer for clearing highlights is still running - cancel it and clear highlights now
+      clearHighlightsTimer.cancel();
+      manager.clearHighlights();
+    }
+    
     if (item instanceof IEdge) {
       manager.addHighlight(item);
       manager.addHighlight(((IEdge) item).getSourceNode());
@@ -143,10 +155,11 @@ public class SmartClickNavigationDemo extends AbstractDemo {
     }
 
     // clear highlights after one second
-    Timer timer = new Timer();
-    timer.schedule(new TimerTask() {
+    clearHighlightsTimer = new Timer();
+    clearHighlightsTimer.schedule(new TimerTask() {
       @Override
       public void run() {
+        clearHighlightsTimer = null;
         manager.clearHighlights();
       }
     }, 1000);

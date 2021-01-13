@@ -6,8 +6,9 @@
 
 <h1>Description</h1>
 <p>
-    Customize the reshape handles of nodes by implementing the <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.IReshapeHandleProvider">IReshapeHandleProvider</a> interface and adding
-    instances to the node decorator of the graph.
+    Customize the reshape behavior of nodes with custom configurations of the default
+    <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.input.IReshapeHandleProvider">IReshapeHandleProvider</a> that are
+    added to the lookup of the nodes.
 </p>
 
 <h2>Things to try</h2>
@@ -24,6 +25,15 @@
     <li>
         <font color="#228b22"><b>Green nodes</b></font> show only four handles at the corners. During resizing,
         these handles maintain the aspect ratio of the node.
+    </li>
+    <li>
+        <font color="#888888"><b>Gray nodes</b></font> show only one handle at the bottom right corner. During resizing,
+        this handle always maintains the center of the node.
+    </li>
+    <li>
+        <font color="#800080"><b>Purple nodes</b></font> show four handles at the corners and four different handles
+        at the sides. During resizing, the corner handles always maintain the aspect ratio of the node while
+        the border handles don't.
     </li>
     <li>
         <font color="#ff8c00"><b>Orange nodes</b></font> cannot extend beyond the black rectangle.

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -68,7 +68,7 @@ public class FastEdgeStyle extends AbstractEdgeStyle {
   /**
    * Initializes a new instance of the {@link FastEdgeStyle} class with default settings.
    * <p>
-   * By default bends are not drawn below a zoom level of 50 % and edges shorter than 10 pixels are hidden.
+   * By default bends are not drawn below a zoom level of 50&nbsp;% and edges shorter than 10 pixels are hidden.
    * </p>
    */
   public FastEdgeStyle() {

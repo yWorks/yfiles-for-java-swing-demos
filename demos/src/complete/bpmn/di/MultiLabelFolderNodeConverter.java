@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -172,7 +172,7 @@ public class MultiLabelFolderNodeConverter extends DefaultFolderNodeConverter {
         for (int i = 0; i < labels.size(); i++) {
           ILabel label = labels.getItem(i);
           // If the node is a choreographyNode, just copy all Labels
-          if (masterNode.getStyle().getClass() == ChoreographyNodeStyle.class) {
+          if (masterNode.getStyle() instanceof ChoreographyNodeStyle) {
             state.addLabel(label.getText(), label.getLayoutParameter(), label.getStyle(), label.getPreferredSize(), label.getTag());
           } else {
             // if subProcessNode, create new Layout & Style

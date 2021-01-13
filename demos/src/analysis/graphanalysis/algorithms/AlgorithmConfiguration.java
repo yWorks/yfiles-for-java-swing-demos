@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -62,12 +62,14 @@ public abstract class AlgorithmConfiguration {
   private boolean directed;
   private boolean useUniformWeights;
   private boolean edgeRemoved;
+  private int kCore;
   private Mapper<INode, Boolean> incrementalElements;
 
   protected AlgorithmConfiguration() {
     directed = false;
     useUniformWeights = false;
     edgeRemoved = false;
+    kCore = 1;
   }
 
   /**
@@ -100,6 +102,22 @@ public abstract class AlgorithmConfiguration {
    */
   public void setUseUniformWeights(boolean useUniformWeights) {
     this.useUniformWeights = useUniformWeights;
+  }
+
+  /**
+   * Returns the k-Core value to use in the k-Core connectivity analysis
+   * @return the k-Core value
+   */
+  public int getkCore() {
+    return kCore;
+  }
+
+  /**
+   * Sets the k-Core value to use in the k-Core connectivity analysis
+   * @param kCore the k-Core value
+   */
+  public void setkCore(int kCore) {
+    this.kCore = kCore;
   }
 
   /**

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -147,7 +147,7 @@ public class PortCandidateProviderDemo extends AbstractDemo {
     INode blue1 = createNode(graph, 100, 300, 80, 30, Colors.ROYAL_BLUE, "One   Port");
     graph.addPort(blue1, blue1.getLayout().getCenter(), portStyle).setTag(Colors.BLACK);
 
-    INode blue2 = createNode(graph, 350, 300, 100, 100, Colors.ROYAL_BLUE, "Many Ports");
+    INode blue2 = createNode(graph, 350, 275, 100, 100, Colors.ROYAL_BLUE, "Many Ports");
     // pre-define a bunch of ports at the outer border of one of the blue nodes
     AbstractPortCandidateProvider portCandidateProvider = IPortCandidateProvider.fromShapeGeometry(blue2, 0, 0.25, 0.5, 0.75);
     portCandidateProvider.setStyle(portStyle);
@@ -168,6 +168,9 @@ public class PortCandidateProviderDemo extends AbstractDemo {
 
     INode n2 = createNode(graph, 350, 540, 100, 100, Colors.PURPLE, "Individual\nPort\nConstraints");
     addIndividualPorts(graph, n2);
+
+    // The olive node
+    createNode(graph, 350, 410, 100, 80, Colors.OLIVE, "No\nParallel\nEdges");
   }
 
   /**
@@ -227,6 +230,8 @@ public class PortCandidateProviderDemo extends AbstractDemo {
               return new OrangePortCandidateProvider(node);
             } else if (Colors.PURPLE.equals(nodeTag)) {
               return new PurplePortCandidateProvider(node);
+            } else if (Colors.OLIVE.equals(nodeTag)) {
+              return new OlivePortCandidateProvider(node);
             }
           }
           // otherwise revert to default behavior

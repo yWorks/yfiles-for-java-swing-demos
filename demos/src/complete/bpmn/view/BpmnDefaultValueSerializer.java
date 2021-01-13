@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -54,7 +54,7 @@ public class BpmnDefaultValueSerializer extends ValueSerializer {
 
   static {
     DEFAULTS_MAP = new HashMap<>();
-    DEFAULTS_MAP.put("ChoreographyMessageLabelStyle.DefaultTextPlacement", ChoreographyMessageLabelStyle.getDefaultTextPlacement());
+    DEFAULTS_MAP.put("ChoreographyMessageLabelStyle.DefaultTextPlacement", ChoreographyMessageLabelStyle.DEFAULT_TEXT_PLACEMENT);
   }
 
 }

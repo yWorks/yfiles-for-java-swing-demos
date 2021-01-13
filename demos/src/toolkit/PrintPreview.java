@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,9 +29,10 @@
  ***************************************************************************/
 package toolkit;
 
-import com.yworks.yfiles.view.CanvasComponent;
 import com.yworks.yfiles.geometry.InsetsD;
+import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.geometry.RectD;
+import com.yworks.yfiles.view.CanvasComponent;
 import com.yworks.yfiles.view.CanvasPrintable;
 
 import javax.swing.BorderFactory;
@@ -258,6 +259,22 @@ public class PrintPreview {
   }
 
   /**
+   * Updates the content of the preview panel with the given CanvasComponent and world points that shall be included
+   * in the print bounds.
+   */
+  public void update(CanvasComponent componentToPrint, Iterable<PointD> printPoints) {
+
+    // update the printable with the new settings
+    this.canvasPrintable.setCanvas(componentToPrint);
+    this.canvasPrintable.setPrintPoints(printPoints);
+    this.canvasPrintable.setScale(componentToPrint.getZoom());
+    this.canvasPrintable.reset();
+
+    // notify the page panel that something has has changed
+    updatePagePanel();
+  }
+
+  /**
    * Updates the page panel to the current values of the PageFormat, zoom and CanvasPrintable.
    */
   private void updatePagePanel() {
@@ -288,13 +305,13 @@ public class PrintPreview {
 
   /**
    * Called when the page format was changed to update the preview with the new values.
-   * This default implementation calls {@link #update(com.yworks.yfiles.view.CanvasComponent, com.yworks.yfiles.geometry.RectD)}
+   * This default implementation calls {@link #update(CanvasComponent, Iterable)}
    * with the values already present in the <code>canvasPrintable</code>
    * and repaints the content pane.
    */
   public void onPageFormatChanged() {
     // notify the page panel that something has has changed
-    update(this.canvasPrintable.getCanvas(), this.canvasPrintable.getPrintRectangle());
+    update(this.canvasPrintable.getCanvas(), this.canvasPrintable.getPrintPoints());
     this.contentPane.repaint();
   }
 

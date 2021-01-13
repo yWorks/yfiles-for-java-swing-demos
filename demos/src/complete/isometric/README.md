@@ -1,4 +1,4 @@
 # Isometric Drawing
   
 
- To produce a 3-dimensional view of a graph, node positions and edge routes are transformed into isometric coordinates. Additionally, nodes are represented by isometric cuboids.   
+ This demo makes use of the `Projection` feature of the `CanvasComponent` . To improve the 3-dimensional appearance, nodes are represented by isometric cuboids.   

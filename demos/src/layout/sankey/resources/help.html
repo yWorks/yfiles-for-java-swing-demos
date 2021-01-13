@@ -17,12 +17,27 @@
 </p>
 
 <h2>Things to try</h2>
+<ul>
+  <li>
+    Toggle the checked state of the checkbox in the top toolbar.
+    <br>
+    If the box is checked, the layout algorithm should use the existing drawing
+    as sketch for the next layout run.
+    <br>
+    If not checked, the layout algorithm can reduce the number of edge crossings
+    (not considering the edge thickness).
+  </li>
 
-<p>
-The user can select from the checkbox in the top toolbar, whether or not the layout algorithm should use the existing
-drawing as sketch for the next layout run. If not selected, the layout algorithm can reduce the number of edge
-crossings (not considering the edge thickness).
-</p>
+  <li>
+    Select and drag a node up or down.
+    <br>
+    A layout calculation is triggered automatically when the node is no longer
+    dragged (i.e. the mouse button is released).
+    <br>
+    Note, the new node position is considered only if the checkbox in the top
+    toolbar is checked.
+  </li>
+</ul>
 
 </body>
 </html>

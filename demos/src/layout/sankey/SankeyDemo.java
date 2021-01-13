@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -33,12 +33,9 @@ import com.yworks.yfiles.algorithms.Edge;
 import com.yworks.yfiles.algorithms.IDataProvider;
 import com.yworks.yfiles.algorithms.Node;
 import com.yworks.yfiles.algorithms.YPoint;
-import com.yworks.yfiles.graph.IEdge;
-import com.yworks.yfiles.graph.IGraph;
-import com.yworks.yfiles.graph.ILabel;
-import com.yworks.yfiles.graph.IMapper;
-import com.yworks.yfiles.graph.Mapper;
-import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
+import com.yworks.yfiles.geometry.PointD;
+import com.yworks.yfiles.graph.*;
+import com.yworks.yfiles.graph.styles.BezierEdgeStyle;
 import com.yworks.yfiles.layout.AbstractLayoutStage;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
 import com.yworks.yfiles.layout.LabelPlacements;
@@ -55,7 +52,7 @@ import com.yworks.yfiles.layout.hierarchic.LayoutMode;
 import com.yworks.yfiles.layout.labeling.GenericLabeling;
 import com.yworks.yfiles.utils.IEnumerable;
 import com.yworks.yfiles.utils.IEventListener;
-import com.yworks.yfiles.view.input.GraphEditorInputMode;
+import com.yworks.yfiles.view.input.*;
 import toolkit.AbstractDemo;
 
 import javax.swing.AbstractAction;
@@ -73,6 +70,8 @@ import java.time.Duration;
 public class SankeyDemo extends AbstractDemo {
   private boolean fromSketchEnabled = true;
 
+  private Action layoutAction;
+
   /**
    * Initializes the graph and the input modes.
    */
@@ -82,6 +81,9 @@ public class SankeyDemo extends AbstractDemo {
 
     // initialize the input mode
     initializeInputModes();
+
+    // only allow vertical moving of nodes and no resizing
+    configureNodeMovementAndResize();
   }
 
   /**
@@ -107,7 +109,28 @@ public class SankeyDemo extends AbstractDemo {
    */
   private void initializeInputModes() {
     final GraphEditorInputMode mode = new GraphEditorInputMode();
+    mode.setEditLabelAllowed(false);
+    mode.setCreateNodeAllowed(false);
+    mode.setCreateEdgeAllowed(false);
+    mode.setSelectableItems(GraphItemTypes.NODE);
+    mode.setMarqueeSelectableItems(GraphItemTypes.NONE);
+
+    mode.getMoveInputMode().addDragFinishedListener((source, args) -> {
+      layoutAction.setEnabled(false);
+      applyLayout((source1, args1) -> {
+        layoutAction.setEnabled(true); });
+    });
+
     graphComponent.setInputMode(mode);
+  }
+
+  /**
+   * Prevent resizing of nodes and only allow movement along the y-axis.
+   */
+  private void configureNodeMovementAndResize() {
+    NodeDecorator nodeDecorator = graphComponent.getGraph().getDecorator().getNodeDecorator();
+    nodeDecorator.getReshapeHandleProviderDecorator().setImplementationWrapper((node, delegateProvider) -> new NoReshapeHandleProvider());
+    nodeDecorator.getPositionHandlerDecorator().setImplementationWrapper((node, delegateHandler) -> new VerticalPositionHandler(delegateHandler));
   }
 
   @Override
@@ -119,7 +142,8 @@ public class SankeyDemo extends AbstractDemo {
     fromSketch.setSelected(true);
     fromSketch.addChangeListener(e -> fromSketchEnabled = !fromSketchEnabled);
     toolBar.add(fromSketch);
-    toolBar.add(createLayoutAction());
+    layoutAction = createLayoutAction();
+    toolBar.add(layoutAction);
   }
 
   /**
@@ -148,8 +172,8 @@ public class SankeyDemo extends AbstractDemo {
     // edge thickness is determined by the pen thickness stored in the edge styles
     final IMapper<IEdge, Double> thicknessMapper = new Mapper<>();
     for (IEdge edge : graph.getEdges()) {
-      if (edge.getStyle() instanceof PolylineEdgeStyle) {
-        final double thickness = ((PolylineEdgeStyle) edge.getStyle()).getPen().getThickness();
+      if (edge.getStyle() instanceof BezierEdgeStyle) {
+        final double thickness = ((BezierEdgeStyle) edge.getStyle()).getPen().getThickness();
         thicknessMapper.setValue(edge, thickness);
       }
     }
@@ -160,8 +184,8 @@ public class SankeyDemo extends AbstractDemo {
     layout.setLayoutOrientation(orientation);
     layout.setLayoutMode(fromSketchEnabled ? LayoutMode.INCREMENTAL : LayoutMode.FROM_SCRATCH);
     layout.setNodeToNodeDistance(50);
-    layout.getEdgeLayoutDescriptor().setMinimumFirstSegmentLength(150);
-    layout.getEdgeLayoutDescriptor().setMinimumLastSegmentLength(150);
+    layout.getEdgeLayoutDescriptor().setMinimumFirstSegmentLength(100);
+    layout.getEdgeLayoutDescriptor().setMinimumLastSegmentLength(100);
 
     // create the layout data
     final HierarchicLayoutData layoutData = new HierarchicLayoutData();
@@ -349,5 +373,44 @@ public class SankeyDemo extends AbstractDemo {
       initLnF();
       new SankeyDemo().start();
     });
+  }
+
+  /**
+   * A {@link IPositionHandler}, that restricts node movement to the y-axis.
+   */
+  private static class VerticalPositionHandler extends ConstrainedPositionHandler {
+    /**
+     * Initializes a new instance of the {@link VerticalPositionHandler} class that delegates to the
+     * {@code wrappedHandler}.
+     *
+     * @param wrappedHandler The handler to wrap.
+     */
+    protected VerticalPositionHandler(IPositionHandler wrappedHandler) {
+      super(wrappedHandler);
+    }
+
+    @Override
+    protected PointD constrainNewLocation(IInputModeContext context, PointD originalLocation, PointD newLocation) {
+      return new PointD(originalLocation.getX(), newLocation.getY());
+    }
+  }
+
+  /**
+   * An {@link IReshapeHandleProvider} that doesn't provide any handles, thus preventing
+   * node resizing.
+   */
+  private static class NoReshapeHandleProvider implements IReshapeHandleProvider {
+
+    /**
+     * Returns the indicator for no valid position.
+     */
+    public HandlePositions getAvailableHandles(IInputModeContext inputModeContext) {
+      return HandlePositions.NONE;
+    }
+
+    public IHandle getHandle(IInputModeContext inputModeContext, HandlePositions position) {
+      // Never called since getAvailableHandles returns no valid position.
+      return null;
+    }
   }
 }

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -91,8 +91,8 @@ public class BpmnPortCandidateProvider extends AbstractPortCandidateProvider {
       portCandidates.add(new DefaultPortCandidate(node, model.createParameter(new PointD(0.5, 0.5), new PointD(0, dmax)), PortCandidateValidity.VALID));
       portCandidates.add(new DefaultPortCandidate(node, model.createParameter(new PointD(0.5, 0.5), new PointD(-dmax, 0)), PortCandidateValidity.VALID));
     } else if (nodeStyle instanceof ConversationNodeStyle) {
-      double dx = 0.5 * Math.min(node.getLayout().getWidth(), node.getLayout().getHeight() / BpmnConstants.Sizes.CONVERSATION_WIDTH_HEIGHT_RATIO);
-      double dy = dx * BpmnConstants.Sizes.CONVERSATION_WIDTH_HEIGHT_RATIO;
+      double dx = 0.5 * Math.min(node.getLayout().getWidth(), node.getLayout().getHeight() / BpmnConstants.CONVERSATION_WIDTH_HEIGHT_RATIO);
+      double dy = dx * BpmnConstants.CONVERSATION_WIDTH_HEIGHT_RATIO;
       FreeNodePortLocationModel model = FreeNodePortLocationModel.INSTANCE;
       portCandidates.add(new DefaultPortCandidate(node, model.createParameter(new PointD(0.5, 0.5), new PointD(0, -dy)), PortCandidateValidity.VALID));
       portCandidates.add(new DefaultPortCandidate(node, model.createParameter(new PointD(0.5, 0.5), new PointD(dx, 0)), PortCandidateValidity.VALID));
@@ -106,7 +106,6 @@ public class BpmnPortCandidateProvider extends AbstractPortCandidateProvider {
       portCandidates.add(new DefaultPortCandidate(node, new FreeNodePortLocationModel()));
     }
     return portCandidates;
-
   }
 
 }

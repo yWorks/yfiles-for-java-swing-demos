@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -34,19 +34,79 @@ import com.yworks.yfiles.geometry.Matrix2D;
 import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.geometry.SizeD;
 import com.yworks.yfiles.graph.INode;
+import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.utils.Obfuscation;
+import java.awt.Paint;
 
 /**
  * An {@link com.yworks.yfiles.graph.styles.INodeStyle} implementation representing a Data Store according to the BPMN.
  */
 @Obfuscation(stripAfterObfuscation = false, exclude = true, applyToMembers = false)
 public class DataStoreNodeStyle extends BpmnNodeStyle {
+  private Paint background = BpmnConstants.DATA_STORE_DEFAULT_BACKGROUND;
+
+  /**
+   * Gets the background color of the data store.
+   * @return The Background.
+   * @see #setBackground(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DataStoreDefaultBackground", classValue = BpmnConstants.class)
+  public final Paint getBackground() {
+    return background;
+  }
+
+  /**
+   * Sets the background color of the data store.
+   * @param value The Background to set.
+   * @see #getBackground()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DataStoreDefaultBackground", classValue = BpmnConstants.class)
+  public final void setBackground( Paint value ) {
+    if (background != value) {
+      setModCount(getModCount() + 1);
+      background = value;
+    }
+  }
+
+  private Paint outline = BpmnConstants.DATA_STORE_DEFAULT_OUTLINE;
+
+  /**
+   * Gets the outline color of the data store.
+   * @return The Outline.
+   * @see #setOutline(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DataStoreDefaultOutline", classValue = BpmnConstants.class)
+  public final Paint getOutline() {
+    return outline;
+  }
+
+  /**
+   * Sets the outline color of the data store.
+   * @param value The Outline to set.
+   * @see #getOutline()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DataStoreDefaultOutline", classValue = BpmnConstants.class)
+  public final void setOutline( Paint value ) {
+    if (outline != value) {
+      setModCount(getModCount() + 1);
+      outline = value;
+    }
+  }
+
   /**
    * Creates a new instance.
    */
   public DataStoreNodeStyle() {
-    setIcon(IconFactory.createDataStore());
     setMinimumSize(new SizeD(30, 20));
+  }
+
+  @Override
+  void updateIcon( INode node ) {
+    setIcon(IconFactory.createDataStore(getBackground(), getOutline()));
   }
 
   @Override

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -97,7 +97,7 @@ public class MySimpleLabelStyle extends AbstractLabelStyle {
     // we need to arrange the label according to its layout. We use the dedicated method
     // AbstractLabelStyle#createLayoutTransform for this, which creates an AffineTransformation
     // that can be used to arrange an element according to a given IOrientedRectangle.
-    AffineTransform layoutTransform = createLayoutTransform(label.getLayout(), true);
+    AffineTransform layoutTransform = createLayoutTransform(context, label.getLayout(), true);
 
     LabelVisual visual = new LabelVisual();
     visual.update(label.getLayout(), label.getText(), getFont(), layoutTransform, isButtonVisible(context));
@@ -111,7 +111,7 @@ public class MySimpleLabelStyle extends AbstractLabelStyle {
   @Override
   protected IVisual updateVisual(IRenderContext context, IVisual group, ILabel label) {
     LabelVisual visual = (LabelVisual) group;
-    visual.update(label.getLayout(), label.getText(), getFont(), createLayoutTransform(label.getLayout(), true), isButtonVisible(context));
+    visual.update(label.getLayout(), label.getText(), getFont(), createLayoutTransform(context, label.getLayout(), true), isButtonVisible(context));
     return group;
   }
 

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -47,23 +47,29 @@ import com.yworks.yfiles.view.input.IClickListener;
 import com.yworks.yfiles.view.input.IInputModeContext;
 import com.yworks.yfiles.view.input.INodeInsetsProvider;
 import com.yworks.yfiles.view.Pen;
-
+import java.awt.Paint;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * An {@link com.yworks.yfiles.graph.styles.INodeStyle} implementation representing an Activity according to the BPMN.
  */
 @Obfuscation(stripAfterObfuscation = false, exclude = true, applyToMembers = false)
 public class ActivityNodeStyle extends BpmnNodeStyle {
-
   private static final ShapeNodeStyle SNS;
 
-  private static final IIcon AD_HOC_ICON;
+  static {
+    ShapeNodeStyleRenderer renderer = new ShapeNodeStyleRenderer();
+    renderer.setRoundRectArcRadius(BpmnConstants.ACTIVITY_CORNER_RADIUS);
+    ShapeNodeStyle shapeNodeStyle = new ShapeNodeStyle(renderer);
+    shapeNodeStyle.setShape(ShapeNodeShape.ROUND_RECTANGLE);
+    shapeNodeStyle.setPen(Pen.getBlack());
+    shapeNodeStyle.setPaint(null);
+    SNS = shapeNodeStyle;
+  }
 
-  private static final IIcon COMPENSATION_ICON;
+  private IIcon adHocIcon;
 
-
+  private IIcon compensationIcon;
 
   private ActivityType activityType;
 
@@ -89,7 +95,7 @@ public class ActivityNodeStyle extends BpmnNodeStyle {
     if (activityType != value || activityIcon == null) {
       incrementModCount();
       activityType = value;
-      activityIcon = IconFactory.createActivity(activityType);
+      updateActivityIcon();
     }
   }
 
@@ -205,7 +211,7 @@ public class ActivityNodeStyle extends BpmnNodeStyle {
     if (loopCharacteristic != value) {
       setModCount(getModCount() + 1);
       loopCharacteristic = value;
-      loopIcon = IconFactory.createLoopCharacteristic(value);
+      updateLoopIcon();
     }
   }
 
@@ -260,6 +266,7 @@ public class ActivityNodeStyle extends BpmnNodeStyle {
     if (adHoc != value) {
       incrementModCount();
       adHoc = value;
+      updateAdHocIcon();
     }
   }
 
@@ -287,6 +294,7 @@ public class ActivityNodeStyle extends BpmnNodeStyle {
     if (compensation != value) {
       incrementModCount();
       compensation = value;
+      updateCompensationIcon();
     }
   }
 
@@ -324,6 +332,130 @@ public class ActivityNodeStyle extends BpmnNodeStyle {
     insets = value;
   }
 
+  private Paint background = BpmnConstants.ACTIVITY_DEFAULT_BACKGROUND;
+
+  /**
+   * Gets the background color of the activity.
+   * @return The Background.
+   * @see #setBackground(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "ActivityDefaultBackground", classValue = BpmnConstants.class)
+  public final Paint getBackground() {
+    return background;
+  }
+
+  /**
+   * Sets the background color of the activity.
+   * @param value The Background to set.
+   * @see #getBackground()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "ActivityDefaultBackground", classValue = BpmnConstants.class)
+  public final void setBackground( Paint value ) {
+    if (background != value || activityIcon == null) {
+      setModCount(getModCount() + 1);
+      background = value;
+      updateActivityIcon();
+      updateTaskIcon();
+    }
+  }
+
+  private Paint outline = BpmnConstants.ACTIVITY_DEFAULT_OUTLINE;
+
+  /**
+   * Gets the outline color of the activity.
+   * @return The Outline.
+   * @see #setOutline(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "ActivityDefaultOutline", classValue = BpmnConstants.class)
+  public final Paint getOutline() {
+    return outline;
+  }
+
+  /**
+   * Sets the outline color of the activity.
+   * @param value The Outline to set.
+   * @see #getOutline()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "ActivityDefaultOutline", classValue = BpmnConstants.class)
+  public final void setOutline( Paint value ) {
+    if (outline != value || activityIcon == null) {
+      setModCount(getModCount() + 1);
+      outline = value;
+      updateActivityIcon();
+    }
+  }
+
+  private Paint iconColor = BpmnConstants.DEFAULT_ICON_COLOR;
+
+  /**
+   * Gets the primary color for icons and markers.
+   * @return The IconColor.
+   * @see #setIconColor(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultIconColor", classValue = BpmnConstants.class)
+  public final Paint getIconColor() {
+    return iconColor;
+  }
+
+  /**
+   * Sets the primary color for icons and markers.
+   * @param value The IconColor to set.
+   * @see #getIconColor()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultIconColor", classValue = BpmnConstants.class)
+  public final void setIconColor( Paint value ) {
+    if (iconColor != value) {
+      setModCount(getModCount() + 1);
+      iconColor = value;
+      updateTaskIcon();
+      updateLoopIcon();
+      updateAdHocIcon();
+      updateCompensationIcon();
+    }
+  }
+
+  // null is the default value which chooses a default color for the outline depending on the characteristic
+  private Paint eventOutline = BpmnConstants.DEFAULT_EVENT_OUTLINE;
+
+  /**
+   * Gets the outline color for event icons if {@link #getTaskType() TaskType} is {@link TaskType#EVENT_TRIGGERED}.
+   * <p>
+   * If this is set to {@code null}, the outline color is automatic, based on the
+   * {@link #getTriggerEventCharacteristic() TriggerEventCharacteristic}.
+   * </p>
+   * @return The EventOutline.
+   * @see #setEventOutline(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(valueType = DefaultValue.ValueType.NULL)
+  public final Paint getEventOutline() {
+    return eventOutline;
+  }
+
+  /**
+   * Sets the outline color for event icons if {@link #getTaskType() TaskType} is {@link TaskType#EVENT_TRIGGERED}.
+   * <p>
+   * If this is set to {@code null}, the outline color is automatic, based on the
+   * {@link #getTriggerEventCharacteristic() TriggerEventCharacteristic}.
+   * </p>
+   * @param value The EventOutline to set.
+   * @see #getEventOutline()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(valueType = DefaultValue.ValueType.NULL)
+  public final void setEventOutline( Paint value ) {
+    if (eventOutline != value) {
+      setModCount(getModCount() + 1);
+      eventOutline = value;
+      updateTaskIcon();
+    }
+  }
 
   private IIcon activityIcon;
 
@@ -347,19 +479,38 @@ public class ActivityNodeStyle extends BpmnNodeStyle {
     setTriggerEventCharacteristic(EventCharacteristic.SUB_PROCESS_INTERRUPTING);
   }
 
+  private void updateActivityIcon() {
+    activityIcon = IconFactory.createActivity(activityType, getBackground(), getOutline());
+  }
+
   private void updateTaskIcon() {
     if (getTaskType() == TaskType.EVENT_TRIGGERED) {
       EventNodeStyle eventNodeStyle = new EventNodeStyle();
       eventNodeStyle.setCharacteristic(getTriggerEventCharacteristic());
       eventNodeStyle.setType(getTriggerEventType());
+      eventNodeStyle.setBackground(getBackground());
+      eventNodeStyle.setOutline(getEventOutline());
+      eventNodeStyle.setIconColor(getIconColor());
       eventNodeStyle.updateIcon(new SimpleNode());
       taskIcon = eventNodeStyle.getIcon();
     } else {
-      taskIcon = IconFactory.createActivityTaskType(taskType);
+      taskIcon = IconFactory.createActivityTaskType(taskType, getIconColor(), getBackground());
     }
     if (taskIcon != null) {
-      taskIcon = IconFactory.createPlacedIcon(taskIcon, BpmnConstants.Placements.TASK_TYPE, BpmnConstants.Sizes.TASK_TYPE);
+      taskIcon = IconFactory.createPlacedIcon(taskIcon, BpmnConstants.TASK_TYPE_PLACEMENT, BpmnConstants.TASK_TYPE_SIZE);
     }
+  }
+
+  private void updateAdHocIcon() {
+    adHocIcon = isAdHoc() ? IconFactory.createAdHoc(getIconColor()) : null;
+  }
+
+  private void updateCompensationIcon() {
+    compensationIcon = isCompensation() ? IconFactory.createCompensation(false, getIconColor()) : null;
+  }
+
+  private void updateLoopIcon() {
+    loopIcon = IconFactory.createLoopCharacteristic(getLoopCharacteristic(), getIconColor());
   }
 
   @Override
@@ -380,28 +531,28 @@ public class ActivityNodeStyle extends BpmnNodeStyle {
 
     ArrayList<IIcon> lineUpIcons = new ArrayList<>();
     if (loopIcon != null) {
-      minimumWidth += BpmnConstants.Sizes.MARKER.width + 5;
+      minimumWidth += BpmnConstants.MARKER_SIZE.width + 5;
       lineUpIcons.add(loopIcon);
     }
     if (isAdHoc()) {
-      minimumWidth += BpmnConstants.Sizes.MARKER.width + 5;
-      lineUpIcons.add(AD_HOC_ICON);
+      minimumWidth += BpmnConstants.MARKER_SIZE.width + 5;
+      lineUpIcons.add(adHocIcon);
     }
     if (isCompensation()) {
-      minimumWidth += BpmnConstants.Sizes.MARKER.width + 5;
-      lineUpIcons.add(COMPENSATION_ICON);
+      minimumWidth += BpmnConstants.MARKER_SIZE.width + 5;
+      lineUpIcons.add(compensationIcon);
     }
     if (getSubState() != SubState.NONE) {
-      minimumWidth += BpmnConstants.Sizes.MARKER.width + 5;
+      minimumWidth += BpmnConstants.MARKER_SIZE.width + 5;
       if (getSubState() == SubState.DYNAMIC) {
-        lineUpIcons.add(IconFactory.createDynamicSubState(node));
+        lineUpIcons.add(IconFactory.createDynamicSubState(node, getIconColor()));
       } else {
-        lineUpIcons.add(IconFactory.createStaticSubState(getSubState()));
+        lineUpIcons.add(IconFactory.createStaticSubState(getSubState(), getIconColor()));
       }
     }
     if (lineUpIcons.size() > 0) {
-      IIcon lineUpIcon = IconFactory.createLineUpIcon(lineUpIcons, BpmnConstants.Sizes.MARKER, 5);
-      icons.add(IconFactory.createPlacedIcon(lineUpIcon, BpmnConstants.Placements.TASK_MARKER, BpmnConstants.Sizes.MARKER));
+      IIcon lineUpIcon = IconFactory.createLineUpIcon(lineUpIcons, BpmnConstants.MARKER_SIZE, 5);
+      icons.add(IconFactory.createPlacedIcon(lineUpIcon, BpmnConstants.TASK_MARKER_PLACEMENT, BpmnConstants.MARKER_SIZE));
     }
 
     setMinimumSize(new SizeD(Math.max(minimumWidth, 40), 40));
@@ -466,26 +617,13 @@ public class ActivityNodeStyle extends BpmnNodeStyle {
     public final InsetsD getInsets( INode node ) {
       InsetsD outerInsets = ActivityNodeStyle.this.getInsets();
       double left = getTaskType() != TaskType.ABSTRACT ?
-          BpmnConstants.Sizes.TASK_TYPE.width + ((InteriorLabelModel)BpmnConstants.Placements.TASK_TYPE.getModel()).getInsets().left
+          BpmnConstants.TASK_TYPE_SIZE.width + ((InteriorLabelModel)BpmnConstants.TASK_TYPE_PLACEMENT.getModel()).getInsets().left
           : 0;
       double bottom = isAdHoc() || isCompensation() || getLoopCharacteristic() != LoopCharacteristic.NONE || getSubState() != SubState.NONE ?
-          BpmnConstants.Sizes.MARKER.height + ((InteriorStretchLabelModel)BpmnConstants.Placements.TASK_MARKER.getModel()).getInsets().bottom
+          BpmnConstants.MARKER_SIZE.height + ((InteriorStretchLabelModel)BpmnConstants.TASK_MARKER_PLACEMENT.getModel()).getInsets().bottom
           : 0;
       return InsetsD.fromLTRB(left + outerInsets.left, outerInsets.top, outerInsets.right, bottom + outerInsets.bottom);
     }
-
-  }
-
-  static {
-    ShapeNodeStyleRenderer shapeNodeStyleRenderer = new ShapeNodeStyleRenderer();
-    shapeNodeStyleRenderer.setRoundRectArcRadius(BpmnConstants.ACTIVITY_CORNER_RADIUS);
-    ShapeNodeStyle shapeNodeStyle = new ShapeNodeStyle(shapeNodeStyleRenderer);
-    shapeNodeStyle.setShape(ShapeNodeShape.ROUND_RECTANGLE);
-    shapeNodeStyle.setPen(Pen.getBlack());
-    shapeNodeStyle.setPaint(null);
-    SNS = shapeNodeStyle;
-    AD_HOC_ICON = IconFactory.createAdHoc();
-    COMPENSATION_ICON = IconFactory.createCompensation(false);
 
   }
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.3.
+     // This demo file is part of yFiles for Java (Swing) 3.4.
      //
-     // Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -70,7 +70,7 @@
     <node id="n0">
       <data key="d3">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="234,120" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[<html>
 <head>
 <style type="text/css"><!--
@@ -109,7 +109,7 @@ The yFiles product family:
     <node id="n1">
       <data key="d3">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="217,134" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[<html>
 <head>
 <style type="text/css"><!--
@@ -151,7 +151,7 @@ Extension packages:
     <node id="n2">
       <data key="d3">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="260,66" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[<html>
 <head>
 <style type="text/css"><!--
@@ -184,7 +184,7 @@ files with yFiles for Java.
     <node id="n3">
       <data key="d3">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="249,66" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[<html>
 <head>
 <style type="text/css"><!--
@@ -217,7 +217,7 @@ with yFiles for Java.
     <node id="n4">
       <data key="d3">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="293,66" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[<html>
 <head>
 <style type="text/css"><!--
@@ -250,7 +250,7 @@ Business Process Model and Notation (BPMN).
     <node id="n5">
       <data key="d3">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="298,134" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[<html>
 <head>
 <style type="text/css"><!--
@@ -292,7 +292,7 @@ Technologies:
     <node id="n6">
       <data key="d3">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="267,66" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[<html>
 <head>
 <style type="text/css"><!--
@@ -323,7 +323,7 @@ An extensive Windows Forms class library <br>for the Microsoft .NET environment.
     <node id="n7">
       <data key="d3">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="347,66" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[<html>
 <head>
 <style type="text/css"><!--
@@ -356,7 +356,7 @@ Windows Presentation Foundation (WPF) applications.
     <node id="n8">
       <data key="d3">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="392,50" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[<html>
 <head>
 <style type="text/css"><!--
@@ -388,7 +388,7 @@ An extensive class library for Microsoft Silverlight applications.
     <node id="n9">
       <data key="d3">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="489,182" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[<html>
 <head>
 <style type="text/css"><!--
@@ -436,7 +436,7 @@ Technologies:
     <node id="n10">
       <data key="d3">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="380,82" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[<html>
 <head>
 <style type="text/css"><!--
@@ -471,7 +471,7 @@ based on Apache Flex or Adobe® AIR®.
     <node id="n11">
       <data key="d3">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="327,50" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[<html>
 <head>
 <style type="text/css"><!--
@@ -501,7 +501,7 @@ based on Apache Flex or Adobe® AIR®.
     <node id="n12">
       <data key="d3">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="363,66" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[<html>
 <head>
 <style type="text/css"><!--
@@ -534,7 +534,7 @@ to your HTML5 applications.
     <node id="n13">
       <data key="d3">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="263,50" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[<html>
 <head>
 <style type="text/css"><!--
@@ -565,7 +565,7 @@ Free yFiles for Java based diagram editor
     <node id="n14">
       <data key="d3">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="284,50" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[<html>
 <head>
 <style type="text/css"><!--
@@ -596,7 +596,7 @@ Diagramming plugin for Atlassian Confluence
     <node id="n15">
       <data key="d3">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="197,50" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[<html>
 <head>
 <style type="text/css"><!--
@@ -627,7 +627,7 @@ Free Java bytecode obfuscator
     <node id="n16">
       <data key="d3">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="299,50" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[<html>
 <head>
 <style type="text/css"><!--
@@ -658,7 +658,7 @@ Automatic UML diagram generation for Javadoc
     <node id="n17">
       <data key="d3">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="318,166">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
             <y:Label.Style>
               <yfj:HtmlLabelStyle Font="{y:GraphMLReference 3}"/>
             </y:Label.Style>
@@ -707,7 +707,7 @@ Extension packages:
     <node id="n18">
       <data key="d3">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="300,66">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
             <y:Label.Style>
               <yfj:HtmlLabelStyle Font="{y:GraphMLReference 3}"/>
             </y:Label.Style>
@@ -743,7 +743,7 @@ for the Java Swing GUI toolkit.
     <node id="n19">
       <data key="d3">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="320,66">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
             <y:Label.Style>
               <yfj:HtmlLabelStyle Font="{y:GraphMLReference 3}"/>
             </y:Label.Style>
@@ -779,7 +779,7 @@ for your cutting-edge JavaFX applications
     <node id="n20">
       <data key="d3">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" PreferredSize="298,134">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
             <y:Label.Style>
               <yfj:HtmlLabelStyle Font="{y:GraphMLReference 3}"/>
             </y:Label.Style>

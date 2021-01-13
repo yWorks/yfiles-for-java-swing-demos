@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -38,6 +38,7 @@ import com.yworks.yfiles.graph.styles.IEdgeStyle;
 import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
 import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.layout.hierarchic.AsIsLayerer;
+import com.yworks.yfiles.layout.hierarchic.BusDescriptor;
 import com.yworks.yfiles.layout.hierarchic.ComponentArrangementPolicy;
 import com.yworks.yfiles.layout.hierarchic.EdgeLayoutDescriptor;
 import com.yworks.yfiles.layout.hierarchic.EdgeRoutingStyle;
@@ -71,6 +72,8 @@ import com.yworks.yfiles.view.IGraphSelection;
 
 import java.util.Iterator;
 import java.util.function.Function;
+import java.util.function.Predicate;
+
 import toolkit.optionhandler.ComponentType;
 import toolkit.optionhandler.ComponentTypes;
 import toolkit.optionhandler.EnumValueAnnotation;
@@ -157,7 +160,7 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
 
     layout.setAutomaticEdgeGroupingEnabled(isAutomaticEdgeGroupingEnabledItem());
 
-    eld.setRoutingStyle(new RoutingStyle(getEdgeRoutingItem()));
+    eld.setRoutingStyle(new RoutingStyle(getEdgeRoutingItem(), false));
     eld.setMinimumFirstSegmentLength(getMinimumFirstSegmentLengthItem());
     eld.setMinimumLastSegmentLength(getMinimumLastSegmentLengthItem());
 
@@ -328,6 +331,15 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
       layoutData.getSubComponents().add(organicLayout).setPredicate(node -> test(node, "OL"));
     }
 
+    if (isBusesItem()) {
+      // Group edges ending at a node with the label "Bus" into a bus
+      layoutData.getBuses().add(new BusDescriptor()).setPredicate(new Predicate<IEdge>(){
+        public boolean test( IEdge edge ) {
+          return edge.getTargetNode().getLabels().size() > 0 && "Bus".equals(edge.getTargetNode().getLabels().getItem(0).getText());
+        }
+      });
+    }
+
     return layoutData;
   }
 
@@ -337,10 +349,14 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   }
 
   /**
-   * Enables different layout styles for possible detected subcomponents.
+   * Enables different layout styles for possible detected sub-components.
    */
-  public final void enableSubstructures() {
+  public final void enableSubComponents() {
     setPlacingSubComponentsSeparatelyItem(true);
+  }
+
+  public final void enableBuses() {
+    setBusesItem(true);
   }
 
   @Label("Description")
@@ -625,6 +641,7 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   @EnumValueAnnotation(label = "Octilinear", value = "OCTILINEAR")
   @EnumValueAnnotation(label = "Orthogonal", value = "ORTHOGONAL")
   @EnumValueAnnotation(label = "Polyline", value = "POLYLINE")
+  @EnumValueAnnotation(label = "Curved", value = "CURVED")
   public final EdgeRoutingStyle getEdgeRoutingItem() {
     return this.edgeRoutingItem;
   }
@@ -635,6 +652,7 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   @EnumValueAnnotation(label = "Octilinear", value = "OCTILINEAR")
   @EnumValueAnnotation(label = "Orthogonal", value = "ORTHOGONAL")
   @EnumValueAnnotation(label = "Polyline", value = "POLYLINE")
+  @EnumValueAnnotation(label = "Curved", value = "CURVED")
   public final void setEdgeRoutingItem( EdgeRoutingStyle value ) {
     this.edgeRoutingItem = value;
   }
@@ -869,6 +887,20 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   @EnumValueAnnotation(label = "Undirected", value = "UNDIRECTED")
   public final void setRecursiveEdgeStyleItem( RecursiveEdgeStyle value ) {
     this.recursiveEdgeStyleItem = value;
+  }
+
+  private boolean busesItem;
+
+  @Label("Bus Routing")
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 150)
+  public final boolean isBusesItem() {
+    return this.busesItem;
+  }
+
+  @Label("Bus Routing")
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 150)
+  public final void setBusesItem( boolean value ) {
+    this.busesItem = value;
   }
 
   private LayeringStrategy rankingPolicyItem = LayeringStrategy.HIERARCHICAL_TOPMOST;

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -33,7 +33,6 @@ import com.yworks.yfiles.geometry.GeneralPath;
 import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.geometry.MutableRectangle;
 import com.yworks.yfiles.geometry.PointD;
-import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.geometry.SizeD;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.INode;
@@ -61,7 +60,9 @@ import javax.swing.JToolBar;
 import javax.swing.filechooser.FileFilter;
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Abstract base class for yFiles for Java (Swing) image export demos. It uses a tabbed pane to support switching between the
@@ -266,6 +267,7 @@ public abstract class AbstractImageExportDemo extends AbstractDemo {
     if (!showDecorations) {
       // if so, create a new GraphComponent with the same graph
       component = new GraphComponent();
+      component.setProjection(graphComponent.getProjection());
       component.setSize(graphComponent.getSize());
       component.setGraph(graphComponent.getGraph());
       component.setViewPoint(graphComponent.getViewPoint());
@@ -279,11 +281,19 @@ public abstract class AbstractImageExportDemo extends AbstractDemo {
    * Returns a ContextConfigurator that considers the export rectangle and margins.
    */
   protected ContextConfigurator createContextConfigurator() {
-    // check if the rectangular region or the whole view port should be printed
-    RectD regionToExport = useRectangle ? exportRect.toRectD() : getExportingGraphComponent().getViewport();
-
     // create a configurator with the settings of the option panel
-    ContextConfigurator configurator = new ContextConfigurator(regionToExport.getEnlarged(-1));
+    ContextConfigurator configurator;
+    if (useRectangle) {
+      configurator = new ContextConfigurator(exportRect.toRectD().getEnlarged(-1));
+    } else {
+      List<PointD> corners = new ArrayList<>(4);
+      corners.add(graphComponent.toWorldCoordinates(new PointD(0,0)));
+      corners.add(graphComponent.toWorldCoordinates(new PointD(graphComponent.getInnerSize().width,0)));
+      corners.add(graphComponent.toWorldCoordinates(new PointD(0,graphComponent.getInnerSize().height)));
+      corners.add(graphComponent.toWorldCoordinates(new PointD(graphComponent.getInnerSize().width,graphComponent.getInnerSize().height)));
+      configurator = new ContextConfigurator(corners);
+    }
+    configurator.setProjection(graphComponent.getProjection());
     setScale(configurator);
     // get the margins
     configurator.setMargins(new InsetsD(topMargin, leftMargin, bottomMargin, rightMargin));

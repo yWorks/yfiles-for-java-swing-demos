@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -33,6 +33,7 @@ import complete.bpmn.di.BpmnDiParser;
 import complete.bpmn.di.BpmnLabelStyle;
 import complete.bpmn.layout.BpmnLayout;
 import complete.bpmn.layout.LayoutOrientation;
+import complete.bpmn.legacy.ActivityNodeStyleExtension;
 import complete.bpmn.view.ActivityNodeStyle;
 import complete.bpmn.view.AnnotationNodeStyle;
 import complete.bpmn.view.BpmnConstants;
@@ -532,6 +533,7 @@ public class BPMNEditorDemo extends AbstractDemo {
 
     // map the classes in the bpmn.view package to a separate bpmn namespace
     ioh.addXamlNamespaceMapping(BpmnConstants.YFILES_BPMN_NS, BpmnNodeStyle.class);
+    ioh.addXamlNamespaceMapping(BpmnConstants.YFILES_BPMN_LEGACY_NS, ActivityNodeStyleExtension.class);
     ioh.addNamespace(BpmnConstants.YFILES_BPMN_NS, BpmnConstants.YFILES_BPMN_PREFIX);
     // after loading a sample diagram, the item property pane should be cleared
     ioh.addParsedListener((source, args) -> clearOptionPane("No items selected"));

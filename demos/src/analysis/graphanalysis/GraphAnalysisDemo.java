@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,12 +29,7 @@
  ***************************************************************************/
 package analysis.graphanalysis;
 
-import analysis.graphanalysis.algorithms.AlgorithmConfiguration;
-import analysis.graphanalysis.algorithms.CentralityConfig;
-import analysis.graphanalysis.algorithms.ConnectivityConfig;
-import analysis.graphanalysis.algorithms.CyclesConfig;
-import analysis.graphanalysis.algorithms.MinimumSpanningTreeConfig;
-import analysis.graphanalysis.algorithms.PathsConfig;
+import analysis.graphanalysis.algorithms.*;
 import com.yworks.yfiles.graph.AdjacencyTypes;
 import com.yworks.yfiles.graph.GraphItemTypes;
 import com.yworks.yfiles.graph.IEdge;
@@ -72,9 +67,13 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPopupMenu;
+import javax.swing.JSpinner;
 import javax.swing.JToolBar;
+import javax.swing.SpinnerNumberModel;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
@@ -93,6 +92,9 @@ public class GraphAnalysisDemo extends AbstractDemo {
   private JComboBox<NamedEntry> algorithmComboBox;
   private JCheckBox edgeWeightsCheckBox;
   private JCheckBox directionCheckBox;
+
+  private JSpinner kcoreSpinner;
+  private JLabel kcoreDescription;
 
   private Action prevSampleAction;
   private Action nextSampleAction;
@@ -128,6 +130,9 @@ public class GraphAnalysisDemo extends AbstractDemo {
     toolBar.addSeparator();
     toolBar.add(edgeWeightsCheckBox = createUniformEdgeWeightsCheckBox());
     toolBar.add(directionCheckBox = createDirectionCheckBox());
+    toolBar.addSeparator();
+    toolBar.add(kcoreDescription = createKCoreLabel());
+    toolBar.add(kcoreSpinner = createKCoreSpinner());
     toolBar.addSeparator();
     toolBar.add(new JButton(layoutAction = createLayoutAction()));
   }
@@ -209,6 +214,7 @@ public class GraphAnalysisDemo extends AbstractDemo {
         new NamedEntry("Sample: Biconnected Components", "connectivity"),
         new NamedEntry("Sample: Strongly Connected Components", "connectivity"),
         new NamedEntry("Sample: Reachability", "connectivity"),
+        new NamedEntry("Sample: k-Cores", "kcore"),
         new NamedEntry("Sample: Shortest Paths", "paths"),
         new NamedEntry("Sample: All Paths", "paths"),
         new NamedEntry("Sample: All Chains", "paths"),
@@ -218,7 +224,14 @@ public class GraphAnalysisDemo extends AbstractDemo {
         new NamedEntry("Sample: Weight Centrality", "centrality"),
         new NamedEntry("Sample: Graph Centrality", "centrality"),
         new NamedEntry("Sample: Node Edge Betweeness Centrality", "centrality"),
-        new NamedEntry("Sample: Closeness Centrality", "centrality")
+        new NamedEntry("Sample: Closeness Centrality", "centrality"),
+        new NamedEntry("Sample: Eigenvector Centrality", "centrality"),
+        new NamedEntry("Sample: Page Rank", "centrality"),
+        new NamedEntry("Sample: Chain Substructures", "substructures"),
+        new NamedEntry("Sample: Cycle Substructures", "substructures"),
+        new NamedEntry("Sample: Star Substructures", "substructures"),
+        new NamedEntry("Sample: Tree Substructures", "substructures"),
+        new NamedEntry("Sample: Clique Substructures", "cliques"),
     };
 
     JComboBox<NamedEntry> comboBox = new JComboBox<>(samples);
@@ -245,6 +258,8 @@ public class GraphAnalysisDemo extends AbstractDemo {
             new ConnectivityConfig(ConnectivityConfig.AlgorithmType.STRONGLY_CONNECTED_COMPONENTS)),
         new NamedEntry("Algorithm: Reachability",
             new ConnectivityConfig(ConnectivityConfig.AlgorithmType.REACHABILITY)),
+        new NamedEntry("Algorithm: k-Core",
+            new ConnectivityConfig(ConnectivityConfig.AlgorithmType.KCORE)),
         new NamedEntry("Algorithm: Shortest Paths",
             new PathsConfig(PathsConfig.AlgorithmType.ALGORITHM_TYPE_SHORTEST_PATHS)),
         new NamedEntry("Algorithm: All Paths",
@@ -265,6 +280,20 @@ public class GraphAnalysisDemo extends AbstractDemo {
             new CentralityConfig(CentralityConfig.AlgorithmType.NODE_EDGE_BETWEENESS_CENTRALITY)),
         new NamedEntry("Algorithm: Closeness Centrality",
             new CentralityConfig(CentralityConfig.AlgorithmType.CLOSENESS_CENTRALITY)),
+        new NamedEntry("Algorithm: Eigenvector Centrality",
+            new CentralityConfig(CentralityConfig.AlgorithmType.EIGENVECTOR_CENTRALITY)),
+        new NamedEntry("Algorithm: Page Rank",
+            new CentralityConfig(CentralityConfig.AlgorithmType.PAGERANK)),
+        new NamedEntry("Algorithm: Chains",
+            new SubstructuresConfig(SubstructuresConfig.AlgorithmType.CHAIN_SUBSTRUCTERS)),
+        new NamedEntry("Algorithm: Cycles",
+            new SubstructuresConfig(SubstructuresConfig.AlgorithmType.CYCLE_SUBSTRUCTERS)),
+        new NamedEntry("Algorithm: Stars",
+            new SubstructuresConfig(SubstructuresConfig.AlgorithmType.STAR_SUBSTRUCTERS)),
+        new NamedEntry("Algorithm: Trees",
+            new SubstructuresConfig(SubstructuresConfig.AlgorithmType.TREE_SUBSTRUCTERS)),
+        new NamedEntry("Algorithm: Cliques",
+            new SubstructuresConfig(SubstructuresConfig.AlgorithmType.CLIQUE_SUBSTRUCTERS))
     };
 
     JComboBox<NamedEntry> comboBox = new JComboBox<>(algorithms);
@@ -284,6 +313,7 @@ public class GraphAnalysisDemo extends AbstractDemo {
     AlgorithmConfiguration config = (AlgorithmConfiguration) entry.value;
     config.setDirected(useDirectedEdges());
     config.setUseUniformWeights(useUniformEdgeWeights());
+    config.setkCore(getKCoreValue());
     return config;
   }
 
@@ -393,6 +423,28 @@ public class GraphAnalysisDemo extends AbstractDemo {
    */
   private boolean useDirectedEdges() {
     return directionCheckBox.isSelected();
+  }
+
+  private JSpinner createKCoreSpinner() {
+    JSpinner spinner = new JSpinner();
+    spinner.setMaximumSize(new Dimension(40, 50));
+    spinner.setModel(new SpinnerNumberModel(3, 1, 5, 1));
+    spinner.setEditor(new JSpinner.DefaultEditor(spinner));
+    spinner.setToolTipText("Choose which k-Core should be calculated");
+    spinner.setEnabled(false);
+    spinner.addChangeListener(e -> runLayout(true, false, true));
+    return spinner;
+  }
+
+  private int getKCoreValue() {
+    return (int) kcoreSpinner.getValue();
+  }
+
+  private JLabel createKCoreLabel() {
+    JLabel label = new JLabel("k-Core:");
+    label.setMaximumSize(new Dimension(45, 50));
+    label.setEnabled(false);
+    return label;
   }
 
   /**
@@ -722,8 +774,16 @@ public class GraphAnalysisDemo extends AbstractDemo {
    * Handles a selection change in the algorithm combo box.
    */
   private void onAlgorithmChanged() {
-    directionCheckBox.setEnabled(getAlgorithmConfig().supportsDirectedEdges());
+    AlgorithmConfiguration algorithmConfig = getAlgorithmConfig();
+    directionCheckBox.setEnabled(algorithmConfig.supportsDirectedEdges());
     edgeWeightsCheckBox.setEnabled(getAlgorithmConfig().supportsEdgeWeights());
+
+
+    boolean kCoreUIEnabled = (algorithmConfig instanceof ConnectivityConfig)
+            && ((ConnectivityConfig) algorithmConfig).algorithmType  == ConnectivityConfig.AlgorithmType.KCORE;
+
+    kcoreSpinner.setEnabled(kCoreUIEnabled);
+    kcoreDescription.setEnabled(kCoreUIEnabled);
 
     resetStyles();
 

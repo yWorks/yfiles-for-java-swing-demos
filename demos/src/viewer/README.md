@@ -13,8 +13,9 @@
 |[EdgeToEdge](../../src/viewer/edgetoedge/)| Shows edge-to-edge connections. |
 |[GraphEvents](../../src/viewer/events/)| Explore the different kinds of events dispatched by yFiles for Java (Swing). |
 |[Filtering](../../src/viewer/filtering/)| Shows how to temporarily remove nodes or edges from the graph. |
-|[FilteringWithFolding](../../src/viewer/filteringandfolding/)| Shows how to combine yFiles [filtering](https://docs.yworks.com/yfilesjava/doc/api/#/dguide/filtering) and [folding](https://docs.yworks.com/yfilesjava/doc/api/#/dguide/folding) features. |
+|[FilteringAndFoldingDemo](../../src/viewer/filteringandfolding/)| Shows how to combine yFiles [filtering](https://docs.yworks.com/yfilesjava/doc/api/#/dguide/filtering) and [folding](https://docs.yworks.com/yfilesjava/doc/api/#/dguide/folding) features. |
 |[Folding](../../src/viewer/folding/)| Shows how to use yFiles [folding](https://docs.yworks.com/yfilesjava/doc/api/#/dguide/folding) feature. |
+|[GanttChartDemo](../../src/viewer/ganttchart/)| Shows how to create a "Gantt chart" with yFiles for Java (Swing). |
 |[GraphCopy](../../src/viewer/graphcopy/)| Shows how to copy a graph or sub graph. |
 |[GraphMLCompatibility](../../src/viewer/graphmlcompatibility/)| Shows how to enable read compatibility for GraphML files from older versions. |
 |[GraphViewer](../../src/viewer/graphviewer/)| Showcase of different kinds of graphs created with yFiles for Java (Swing). |

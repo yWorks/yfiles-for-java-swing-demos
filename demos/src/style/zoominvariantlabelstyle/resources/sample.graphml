@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ////////////////////////////////////////////////////////////////////////
+     //
+     // This demo file is part of yFiles for Java (Swing) 3.4.
+     //
+     // Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // 72070 Tuebingen, Germany. All rights reserved.
+     //
+     // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
+     // of demo resource files, with or without modification, is not permitted.
+     // Owners of a valid software license for a yFiles for Java (Swing) version that this
+     // demo is shipped with are allowed to use the resource file as basis for
+     // their own yFiles for Java (Swing) powered applications. Use of such programs is
+     // governed by the rights and conditions as set out in the yFiles for Java (Swing)
+     // license agreement.
+     //
+     // THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+     // WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+     // NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+     // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+     // TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+     // PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     // LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     // 
+     ////////////////////////////////////////////////////////////////////////-->
+<!--Created by yFiles for Java (Swing) 3.4-->
+<graphml
+ xmlns="http://graphml.graphdrawing.org/xmlns"
+ xmlns:demo="http://www.yworks.com/yfiles-for-java/demos/zoominvariantlabelstyle/1.0"
+ xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/3.0"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:y="http://www.yworks.com/xml/yfiles-common/3.0"
+ xmlns:yfj="http://www.yworks.com/xml/yfiles-for-java/3.1"
+ xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml.java/3.1/ygraphml.xsd ">
+  <key attr.name="NodeLabels" for="node" id="d0" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeLabels"/>
+  <key attr.name="NodeGeometry" for="node" id="d1" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeGeometry"/>
+  <key attr.name="UserTags" for="all" id="d2" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/UserTags"/>
+  <key attr.name="NodeStyle" for="node" id="d3" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeStyle"/>
+  <key attr.name="EdgeLabels" for="edge" id="d4" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeLabels"/>
+  <key attr.name="EdgeGeometry" for="edge" id="d5" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry"/>
+  <key attr.name="EdgeStyle" for="edge" id="d6" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeStyle"/>
+  <key attr.name="PortLabels" for="port" id="d7" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLabels"/>
+  <key attr.name="PortLocationParameter" for="port" id="d8" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLocationParameter">
+    <default>
+      <x:Static Member="y:FreeNodePortLocationModel.NodeCenterAnchored"/>
+    </default>
+  </key>
+  <key attr.name="PortStyle" for="port" id="d9" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortStyle">
+    <default>
+      <x:Static Member="y:VoidPortStyle.Instance"/>
+    </default>
+  </key>
+  <key attr.name="SharedData" id="d10" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData"/>
+  <data key="d10">
+    <y:SharedData>
+      <yfj:ShapeNodeStyle Paint="DarkOrange" x:Key="1"/>
+      <y:FreeEdgeLabelModelParameter Distance="10.0" x:Key="2">
+        <y:FreeEdgeLabelModelParameter.Model>
+          <y:FreeEdgeLabelModel EdgeRelativeAngle="True"/>
+        </y:FreeEdgeLabelModelParameter.Model>
+      </y:FreeEdgeLabelModelParameter>
+      <yfj:PolylineEdgeStyle TargetArrow="DEFAULT" x:Key="3"/>
+    </y:SharedData>
+  </data>
+  <graph id="G">
+    <node id="n0">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[Eric Joplin]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="60.0" Width="120.0" X="110.0" Y="-500.0"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="1"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+    </node>
+    <node id="n1">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[Gray Roberts]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="60.0" Width="40.0" X="-100.0" Y="-300.0"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="1"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+      <port name="p2"/>
+      <port name="p3"/>
+    </node>
+    <node id="n2">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[Linda Newland]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="60.0" Width="40.0" X="150.0" Y="-300.0"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="1"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+    </node>
+    <node id="n3">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[David Kerry]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="60.0" Width="40.0" X="450.0" Y="-300.0"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="1"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+    </node>
+    <node id="n4">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[Dorothy Turner]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="60.0" Width="60.0" X="-470.0" Y="-100.0"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="1"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+    </node>
+    <node id="n5">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[Martin Cornett]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="60.0" Width="60.0" X="-280.0" Y="-100.0"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="1"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+    </node>
+    <node id="n6">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[Howard Meyer]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="60.0" Width="60.0" X="-110.0" Y="-100.0"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="1"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+    </node>
+    <node id="n7">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[Valerie Burnett]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="60.0" Width="60.0" X="140.0" Y="-100.0"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="1"/>
+      </data>
+      <port name="p0"/>
+    </node>
+    <node id="n8">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[Kim Finn]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="60.0" Width="60.0" X="440.0" Y="-100.0"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="1"/>
+      </data>
+      <port name="p0"/>
+    </node>
+    <node id="n9">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[Laurie Aitken Müller]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="60.0" Width="120.0" X="-140.0" Y="100.0"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="1"/>
+      </data>
+      <port name="p0"/>
+    </node>
+    <node id="n10">
+      <data key="d0">
+        <x:List>
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[Rana Oxborough]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d1">
+        <y:RectD Height="60.0" Width="120.0" X="-400.0" Y="100.0"/>
+      </data>
+      <data key="d3">
+        <y:GraphMLReference ResourceKey="1"/>
+      </data>
+      <port name="p0"/>
+      <port name="p1"/>
+    </node>
+    <edge id="e0" source="n0" sourceport="p0" target="n1" targetport="p0">
+      <data key="d4">
+        <x:List>
+          <y:Label LayoutParameter="{y:GraphMLReference 2}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[Friend to]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="3"/>
+      </data>
+    </edge>
+    <edge id="e1" source="n0" sourceport="p1" target="n2" targetport="p0">
+      <data key="d4">
+        <x:List>
+          <y:Label LayoutParameter="{y:GraphMLReference 2}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[Like to work with]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="3"/>
+      </data>
+    </edge>
+    <edge id="e2" source="n0" sourceport="p2" target="n3" targetport="p0">
+      <data key="d4">
+        <x:List>
+          <y:Label LayoutParameter="{y:GraphMLReference 2}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[Have problem with]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="3"/>
+      </data>
+    </edge>
+    <edge id="e3" source="n3" sourceport="p1" target="n8" targetport="p0">
+      <data key="d4">
+        <x:List>
+          <y:Label LayoutParameter="{y:GraphMLReference 2}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[Friend to]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="3"/>
+      </data>
+    </edge>
+    <edge id="e4" source="n2" sourceport="p1" target="n7" targetport="p0">
+      <data key="d4">
+        <x:List>
+          <y:Label LayoutParameter="{y:GraphMLReference 2}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[Have problem with]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="3"/>
+      </data>
+    </edge>
+    <edge id="e5" source="n1" sourceport="p1" target="n6" targetport="p0">
+      <data key="d4">
+        <x:List>
+          <y:Label LayoutParameter="{y:GraphMLReference 2}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[Friend to]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="3"/>
+      </data>
+    </edge>
+    <edge id="e6" source="n1" sourceport="p2" target="n5" targetport="p0">
+      <data key="d4">
+        <x:List>
+          <y:Label LayoutParameter="{y:GraphMLReference 2}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[Like to work with]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="3"/>
+      </data>
+    </edge>
+    <edge id="e7" source="n1" sourceport="p3" target="n4" targetport="p0">
+      <data key="d4">
+        <x:List>
+          <y:Label LayoutParameter="{y:GraphMLReference 2}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[Friend to]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="3"/>
+      </data>
+    </edge>
+    <edge id="e8" source="n4" sourceport="p1" target="n10" targetport="p0">
+      <data key="d4">
+        <x:List>
+          <y:Label LayoutParameter="{y:GraphMLReference 2}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[Friend to]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="3"/>
+      </data>
+    </edge>
+    <edge id="e9" source="n5" sourceport="p1" target="n10" targetport="p1">
+      <data key="d4">
+        <x:List>
+          <y:Label LayoutParameter="{y:GraphMLReference 2}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[Friend to]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="3"/>
+      </data>
+    </edge>
+    <edge id="e10" source="n6" sourceport="p1" target="n9" targetport="p0">
+      <data key="d4">
+        <x:List>
+          <y:Label LayoutParameter="{y:GraphMLReference 2}">
+            <y:Label.Style>
+              <demo:ZoomInvariantBelowThresholdLabelStyle/>
+            </y:Label.Style>
+            <y:Label.Text xml:space="preserve"><![CDATA[Have problem with]]></y:Label.Text>
+          </y:Label>
+        </x:List>
+      </data>
+      <data key="d6">
+        <y:GraphMLReference ResourceKey="3"/>
+      </data>
+    </edge>
+  </graph>
+</graphml>

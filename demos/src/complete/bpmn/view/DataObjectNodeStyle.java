@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -36,6 +36,7 @@ import com.yworks.yfiles.geometry.SizeD;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.utils.Obfuscation;
+import java.awt.Paint;
 import java.util.ArrayList;
 
 /**
@@ -43,12 +44,9 @@ import java.util.ArrayList;
  */
 @Obfuscation(stripAfterObfuscation = false, exclude = true, applyToMembers = false)
 public class DataObjectNodeStyle extends BpmnNodeStyle {
+  private IIcon dataIcon;
 
-  private static final IIcon DATA_ICON;
-
-  private static final IIcon COLLECTION_ICON;
-
-
+  private IIcon collectionIcon;
 
   private boolean collection;
 
@@ -101,13 +99,94 @@ public class DataObjectNodeStyle extends BpmnNodeStyle {
     if (type != value) {
       incrementModCount();
       type = value;
-      typeIcon = IconFactory.createDataObjectType(value);
-      if (typeIcon != null) {
-        typeIcon = IconFactory.createPlacedIcon(typeIcon, BpmnConstants.Placements.DATA_OBJECT_TYPE, BpmnConstants.Sizes.DATA_OBJECT_TYPE);
-      }
+      updateTypeIcon();
     }
   }
 
+  private Paint background = BpmnConstants.DATA_OBJECT_DEFAULT_BACKGROUND;
+
+  /**
+   * Gets the background color of the data object.
+   * @return The Background.
+   * @see #setBackground(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DataObjectDefaultBackground", classValue = BpmnConstants.class)
+  public final Paint getBackground() {
+    return background;
+  }
+
+  /**
+   * Sets the background color of the data object.
+   * @param value The Background to set.
+   * @see #getBackground()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DataObjectDefaultBackground", classValue = BpmnConstants.class)
+  public final void setBackground( Paint value ) {
+    if (background != value) {
+      setModCount(getModCount() + 1);
+      background = value;
+      updateDataIcon();
+    }
+  }
+
+  private Paint outline = BpmnConstants.DATA_OBJECT_DEFAULT_OUTLINE;
+
+  /**
+   * Gets the outline color of the data object.
+   * @return The Outline.
+   * @see #setOutline(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DataObjectDefaultOutline", classValue = BpmnConstants.class)
+  public final Paint getOutline() {
+    return outline;
+  }
+
+  /**
+   * Sets the outline color of the data object.
+   * @param value The Outline to set.
+   * @see #getOutline()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DataObjectDefaultOutline", classValue = BpmnConstants.class)
+  public final void setOutline( Paint value ) {
+    if (outline != value) {
+      setModCount(getModCount() + 1);
+      outline = value;
+      updateDataIcon();
+    }
+  }
+
+  private Paint iconColor = BpmnConstants.DEFAULT_ICON_COLOR;
+
+  /**
+   * Gets the color for the icon.
+   * @return The IconColor.
+   * @see #setIconColor(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultIconColor", classValue = BpmnConstants.class)
+  public final Paint getIconColor() {
+    return iconColor;
+  }
+
+  /**
+   * Sets the color for the icon.
+   * @param value The IconColor to set.
+   * @see #getIconColor()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultIconColor", classValue = BpmnConstants.class)
+  public final void setIconColor( Paint value ) {
+    if (iconColor != value) {
+      setModCount(getModCount() + 1);
+      iconColor = value;
+      updateTypeIcon();
+      updateCollectionIcon();
+    }
+  }
 
   private IIcon typeIcon;
 
@@ -119,12 +198,34 @@ public class DataObjectNodeStyle extends BpmnNodeStyle {
     setType(DataObjectType.NONE);
   }
 
+  private void updateCollectionIcon() {
+    collectionIcon = IconFactory.createPlacedIcon(IconFactory.createLoopCharacteristic(LoopCharacteristic.PARALLEL, getIconColor()), BpmnConstants.DATA_OBJECT_MARKER_PLACEMENT, BpmnConstants.MARKER_SIZE);
+  }
+
+  private void updateTypeIcon() {
+    typeIcon = IconFactory.createDataObjectType(getType(), getIconColor());
+    if (typeIcon != null) {
+      typeIcon = IconFactory.createPlacedIcon(typeIcon, BpmnConstants.DATA_OBJECT_TYPE_PLACEMENT, BpmnConstants.DATA_OBJECT_TYPE_SIZE);
+    }
+  }
+
+  private void updateDataIcon() {
+    dataIcon = IconFactory.createDataObject(getBackground(), getOutline());
+  }
+
   @Override
   void updateIcon( INode node ) {
+    if (dataIcon == null) {
+      updateDataIcon();
+    }
+    if (collectionIcon == null) {
+      updateCollectionIcon();
+    }
+
     ArrayList<IIcon> icons = new ArrayList<IIcon>();
-    icons.add(DATA_ICON);
+    icons.add(dataIcon);
     if (isCollection()) {
-      icons.add(COLLECTION_ICON);
+      icons.add(collectionIcon);
     }
     if (typeIcon != null) {
       icons.add(typeIcon);
@@ -132,7 +233,7 @@ public class DataObjectNodeStyle extends BpmnNodeStyle {
     if (icons.size() > 1) {
       setIcon(IconFactory.createCombinedIcon(icons));
     } else {
-      setIcon(DATA_ICON);
+      setIcon(dataIcon);
     }
   }
 
@@ -154,11 +255,6 @@ public class DataObjectNodeStyle extends BpmnNodeStyle {
     transform.translate(layout.getTopLeft());
     path.transform(transform);
     return path;
-  }
-
-  static {
-    DATA_ICON = IconFactory.createDataObject();
-    COLLECTION_ICON = IconFactory.createPlacedIcon(IconFactory.createLoopCharacteristic(LoopCharacteristic.PARALLEL), BpmnConstants.Placements.DATA_OBJECT_MARKER, BpmnConstants.Sizes.MARKER);
   }
 
 }

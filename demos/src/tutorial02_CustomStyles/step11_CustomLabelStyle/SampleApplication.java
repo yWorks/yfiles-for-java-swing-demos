@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -135,7 +135,7 @@ public class SampleApplication {
     graph.addBend(edge0, new PointD(230, 170));
     graph.createEdge(node1, node0);
     graph.createEdge(node1, node3);
-    ILabel label0 = graph.addLabel(edge0, "Ngde Label");
+    ILabel label0 = graph.addLabel(edge0, "Edge Label");
     ILabel label1 = graph.addLabel(node1, "Node Label");
   }
 

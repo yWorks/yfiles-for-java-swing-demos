@@ -1,0 +1,39 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../resources/help.css"/>
+</head>
+<body class="demo-description">
+
+<h1>Description</h1>
+
+<p>
+  This demo shows how to analyze a graph by <b>aggregating groups of nodes</b>.
+</p>
+
+<p>
+  Via the context menu, groups of nodes of the same color or shape can be aggregated giving different insights about
+  the graph. <br/>For example, aggregating all nodes by <b>color</b> shows that there are no connections between purple
+  and green nodes, while blue nodes are connected to both other colors.<br/>
+  Aggregating by <b>shape and color</b> shows that there are no connections between rectangle shaped nodes of
+  different color and no connections between green nodes of different shape.
+</p>
+
+<p>
+  The demo makes use of the <code>AggregateGraphWrapper</code> class, that allows
+  for aggregating graph items by hiding items and adding new items to a wrapped graph.
+</p>
+
+<h2>Things to try</h2>
+
+<ul>
+  <li>Right click on a node to open a <b>popup menu</b> with the different aggregation
+    and expansion options..</li>
+  <li>Aggregate all nodes with the <b>same shape or color</b> by selecting "Aggregate Nodes with Same ...".</li>
+  <li><b>Separate</b> an aggregation node again by selecting "Separate".</li>
+  <li>Right click on an empty location on the canvas and select "Aggregate All Nodes by ..." to
+    <b>group all nodes</b> by shape or color.</li>
+  <li>Right click on an empty location on the canvas and select "Separate All" to show the whole tree again.</li>
+</ul>
+
+</body>
+</html>

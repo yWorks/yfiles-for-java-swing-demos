@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -247,20 +247,20 @@ public class LabelingConfig extends LayoutConfiguration {
       selectedLabelsAtItem = value;
     }
 
-    public final void setSelectedLabelsAtItem( Function<ILabelOwner, boolean[]> value ) {
-      this.getSelectedLabelsAtItem().setFunction(value);
+    public final void setSelectedLabelsAtItem( Function<ILabelOwner, ? extends boolean[]> value ) {
+      this.getSelectedLabelsAtItem().setFunction((Function)value);
     }
 
-    public final void setSelectedLabelsAtItem( IMapper<ILabelOwner, boolean[]> value ) {
-      this.getSelectedLabelsAtItem().setMapper(value);
+    public final void setSelectedLabelsAtItem( IMapper<ILabelOwner, ? extends boolean[]> value ) {
+      this.getSelectedLabelsAtItem().setMapper((IMapper)value);
     }
 
     public final void setSelectedLabelsAtItem( boolean[] value ) {
       this.getSelectedLabelsAtItem().setConstant(value);
     }
 
-    public final void setSelectedLabelsAtItem( Map<ILabelOwner, boolean[]> value ) {
-      this.getSelectedLabelsAtItem().setMap(value);
+    public final void setSelectedLabelsAtItem( Map<ILabelOwner, ? extends boolean[]> value ) {
+      this.getSelectedLabelsAtItem().setMap((Map)value);
     }
 
     @Override

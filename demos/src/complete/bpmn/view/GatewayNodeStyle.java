@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -37,6 +37,8 @@ import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.utils.Obfuscation;
 import com.yworks.yfiles.view.input.IInputModeContext;
+import java.awt.Paint;
+import java.util.List;
 
 import java.util.Arrays;
 /**
@@ -44,10 +46,7 @@ import java.util.Arrays;
  */
 @Obfuscation(stripAfterObfuscation = false, exclude = true, applyToMembers = false)
 public class GatewayNodeStyle extends BpmnNodeStyle {
-
-  private static final IIcon GATEWAY_ICON;
-
-
+  private IIcon gatewayIcon;
 
   private GatewayType type;
 
@@ -73,13 +72,93 @@ public class GatewayNodeStyle extends BpmnNodeStyle {
     if (type != value) {
       incrementModCount();
       type = value;
-      typeIcon = IconFactory.createGatewayType(type);
-      if (typeIcon != null) {
-        typeIcon = IconFactory.createPlacedIcon(typeIcon, BpmnConstants.Placements.GATEWAY_TYPE, SizeD.EMPTY);
-      }
+      updateTypeIcon();
     }
   }
 
+  private Paint background = BpmnConstants.GATEWAY_DEFAULT_BACKGROUND;
+
+  /**
+   * Gets the background color of the gateway.
+   * @return The Background.
+   * @see #setBackground(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "GatewayDefaultBackground", classValue = BpmnConstants.class)
+  public final Paint getBackground() {
+    return background;
+  }
+
+  /**
+   * Sets the background color of the gateway.
+   * @param value The Background to set.
+   * @see #getBackground()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "GatewayDefaultBackground", classValue = BpmnConstants.class)
+  public final void setBackground( Paint value ) {
+    if (background != value) {
+      setModCount(getModCount() + 1);
+      background = value;
+      updateGatewayIcon();
+    }
+  }
+
+  private Paint outline = BpmnConstants.GATEWAY_DEFAULT_OUTLINE;
+
+  /**
+   * Gets the outline color of the gateway.
+   * @return The Outline.
+   * @see #setOutline(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "GatewayDefaultOutline", classValue = BpmnConstants.class)
+  public final Paint getOutline() {
+    return outline;
+  }
+
+  /**
+   * Sets the outline color of the gateway.
+   * @param value The Outline to set.
+   * @see #getOutline()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "GatewayDefaultOutline", classValue = BpmnConstants.class)
+  public final void setOutline( Paint value ) {
+    if (outline != value) {
+      setModCount(getModCount() + 1);
+      outline = value;
+      updateGatewayIcon();
+    }
+  }
+
+  private Paint iconColor = BpmnConstants.DEFAULT_ICON_COLOR;
+
+  /**
+   * Gets the color for the icon.
+   * @return The IconColor.
+   * @see #setIconColor(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultIconColor", classValue = BpmnConstants.class)
+  public final Paint getIconColor() {
+    return iconColor;
+  }
+
+  /**
+   * Sets the color for the icon.
+   * @param value The IconColor to set.
+   * @see #getIconColor()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultIconColor", classValue = BpmnConstants.class)
+  public final void setIconColor( Paint value ) {
+    if (iconColor != value) {
+      setModCount(getModCount() + 1);
+      iconColor = value;
+      updateTypeIcon();
+    }
+  }
 
   private IIcon typeIcon;
 
@@ -91,10 +170,24 @@ public class GatewayNodeStyle extends BpmnNodeStyle {
     setType(GatewayType.EXCLUSIVE_WITHOUT_MARKER);
   }
 
+  private void updateGatewayIcon() {
+    gatewayIcon = IconFactory.createPlacedIcon(IconFactory.createGateway(getBackground(), getOutline()), BpmnConstants.GATEWAY_PLACEMENT, SizeD.EMPTY);
+  }
+
+  private void updateTypeIcon() {
+    typeIcon = IconFactory.createGatewayType(type, getIconColor());
+    if (typeIcon != null) {
+      typeIcon = IconFactory.createPlacedIcon(typeIcon, BpmnConstants.GATEWAY_TYPE_PLACEMENT, SizeD.EMPTY);
+    }
+  }
+
   @Override
   @Obfuscation(stripAfterObfuscation = false, exclude = true)
   void updateIcon( INode node ) {
-    setIcon(typeIcon != null ? IconFactory.createCombinedIcon(Arrays.asList(GATEWAY_ICON, typeIcon)) : GATEWAY_ICON);
+    if (gatewayIcon == null) {
+      updateGatewayIcon();
+    }
+    setIcon(typeIcon != null ? IconFactory.createCombinedIcon(Arrays.asList(gatewayIcon, typeIcon)) : gatewayIcon);
   }
 
   @Override
@@ -125,10 +218,6 @@ public class GatewayNodeStyle extends BpmnNodeStyle {
     PointD distVector = PointD.subtract(layout.getCenter(), location);
     double dist = Math.abs(distVector.x) + Math.abs(distVector.y);
     return dist < size / 2 + context.getHitTestRadius();
-  }
-
-  static {
-    GATEWAY_ICON = IconFactory.createPlacedIcon(IconFactory.createGateway(), BpmnConstants.Placements.GATEWAY, SizeD.EMPTY);
   }
 
 }

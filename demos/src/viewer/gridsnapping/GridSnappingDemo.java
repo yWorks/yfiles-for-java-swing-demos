@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -32,6 +32,7 @@ package viewer.gridsnapping;
 import com.yworks.yfiles.view.GridInfo;
 import com.yworks.yfiles.view.GridStyle;
 import com.yworks.yfiles.view.GridVisualCreator;
+import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.GraphSnapContext;
 import com.yworks.yfiles.view.input.GridConstraintProvider;
@@ -123,6 +124,7 @@ public class GridSnappingDemo extends AbstractDemo {
     // creates grid visualization and adds it to graphComponent
     grid = new GridVisualCreator(gridInfo);
     grid.setGridStyle(GridStyle.LINES);
+    grid.setPen(Pen.getLightGray());
     graphComponent.getBackgroundGroup().addChild(grid);
 
     // sets constraint provider to make nodes and bends snap to grid
@@ -172,8 +174,8 @@ public class GridSnappingDemo extends AbstractDemo {
   private void initializeSnapControls() {
     // populate the combobox with the possible GridSnapTypes
     gridSnapTypeComboBox.addItem(new NamedEntry("None", GridSnapTypes.NONE, GridStyle.LINES));
-    gridSnapTypeComboBox.addItem(new NamedEntry("Horizontal Lines", GridSnapTypes.HORIZONTAL_LINES, GridStyle.LINES));
-    gridSnapTypeComboBox.addItem(new NamedEntry("Vertical Lines", GridSnapTypes.VERTICAL_LINES, GridStyle.LINES));
+    gridSnapTypeComboBox.addItem(new NamedEntry("Horizontal Lines", GridSnapTypes.HORIZONTAL_LINES, GridStyle.HORIZONTAL_LINES));
+    gridSnapTypeComboBox.addItem(new NamedEntry("Vertical Lines", GridSnapTypes.VERTICAL_LINES, GridStyle.VERTICAL_LINES));
     gridSnapTypeComboBox.addItem(new NamedEntry("Lines", GridSnapTypes.LINES, GridStyle.LINES));
     gridSnapTypeComboBox.addItem(new NamedEntry("Points", GridSnapTypes.GRID_POINTS, GridStyle.DOTS));
     gridSnapTypeComboBox.addItem(new NamedEntry("All", GridSnapTypes.ALL, GridStyle.LINES));

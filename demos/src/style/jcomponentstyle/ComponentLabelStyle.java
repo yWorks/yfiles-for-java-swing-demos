@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,6 +29,8 @@
  ***************************************************************************/
 package style.jcomponentstyle;
 
+import com.yworks.yfiles.graph.IGraph;
+import com.yworks.yfiles.view.CanvasComponent;
 import com.yworks.yfiles.view.GraphComponent;
 import com.yworks.yfiles.graph.styles.AbstractJComponentLabelStyle;
 import com.yworks.yfiles.graph.styles.AbstractJComponentStyle;
@@ -94,8 +96,9 @@ public class ComponentLabelStyle extends AbstractJComponentLabelStyle {
         labelText.setText(relation.toString());
 
         // adjust the label size
-        if (ctx != null && ((GraphComponent) ctx.getCanvasComponent()).getGraph().contains(label)) {
-          ((GraphComponent) ctx.getCanvasComponent()).getGraph().adjustLabelPreferredSize(label);
+        IGraph graph = getGraph(ctx);
+        if (graph != null && graph.contains(label)) {
+          graph.adjustLabelPreferredSize(label);
         }
       }
     };
@@ -103,15 +106,19 @@ public class ComponentLabelStyle extends AbstractJComponentLabelStyle {
     // register the change listener to update the label when the relation's business data changes
     panel.addPropertyChangeListener(AbstractJComponentStyle.USER_TAG_KEY,
         evt -> {
+          Object oldValue = evt.getOldValue();
+          if (oldValue instanceof Relation) {
+            removeListeners((Relation) oldValue, updateLabels);
+          }
+
           // initialize the label texts
           updateLabels.propertyChange(evt);
 
           // listen to changes of the names and ids of the relation's customer and product
-          final Relation relation = (Relation) evt.getNewValue();
-          relation.getCustomer().addPropertyChangeListener(Customer.NAME, updateLabels);
-          relation.getCustomer().addPropertyChangeListener(Customer.ID, updateLabels);
-          relation.getProduct().addPropertyChangeListener(Product.NAME, updateLabels);
-          relation.getProduct().addPropertyChangeListener(Product.ID, updateLabels);
+          final Object newValue = evt.getNewValue();
+          if (newValue instanceof Relation) {
+            addListeners((Relation) newValue, updateLabels);
+          }
         });
 
     // when the label gets selected, a black border is used
@@ -150,8 +157,47 @@ public class ComponentLabelStyle extends AbstractJComponentLabelStyle {
     constraints.insets = new Insets(0, 0, 5, 5);
     panel.add(productName, constraints);
 
+    setDisposeCallback(ctx, panel, ComponentLabelStyle::dispose);
+
     return panel;
   }
+
+  private static IGraph getGraph( IRenderContext ctx ) {
+    if (ctx != null) {
+      CanvasComponent canvasComponent = ctx.getCanvasComponent();
+      if (canvasComponent instanceof GraphComponent) {
+        return ((GraphComponent) canvasComponent).getGraph();
+      }
+    }
+    return null;
+  }
+
+  private static void addListeners(
+    Relation relation, PropertyChangeListener listener
+  ) {
+    relation.getCustomer().addPropertyChangeListener(Customer.NAME, listener);
+    relation.getCustomer().addPropertyChangeListener(Customer.ID, listener);
+    relation.getProduct().addPropertyChangeListener(Product.NAME, listener);
+    relation.getProduct().addPropertyChangeListener(Product.ID, listener);
+  }
+
+  private static void removeListeners(
+    Relation relation, PropertyChangeListener listener
+  ) {
+    relation.getProduct().removePropertyChangeListener(Product.ID, listener);
+    relation.getProduct().removePropertyChangeListener(Product.NAME, listener);
+    relation.getCustomer().removePropertyChangeListener(Customer.ID, listener);
+    relation.getCustomer().removePropertyChangeListener(Customer.NAME, listener);
+  }
+
+  private static void dispose( IRenderContext context, JComponent component ) {
+    // this will trigger the property change listener registered in
+    // createComponent which in turn will remove all listeners registered
+    // with the label's tag (i.e. the associated Relation instance)
+    component.putClientProperty(AbstractJComponentStyle.USER_TAG_KEY, null);
+  }
+
+
 
   /**
    * A customized JPanel that uses a rounded rectangle as shape and a linear gradient as background paint.

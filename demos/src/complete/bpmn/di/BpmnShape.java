@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -354,7 +354,7 @@ class BpmnShape {
     setWidth(30);
 
     // Get and Link the corresponding element
-    setElement(elements.get(BpmnNamespaceManager.getAttributeValue(xShape, BpmnNamespaceManager.NS_BPMN_DI, "bpmnElement")));
+    setElement(elements.get(BpmnNamespaceManager.getAttributeValue(xShape, BpmnNamespaceManager.NS_BPMN_DI, BpmnDiConstants.BPMN_ELEMENT_ATTRIBUTE)));
 
     // If there is no element, skip
     if (getElement() == null) {
@@ -362,17 +362,16 @@ class BpmnShape {
     }
 
     // Get the id
-    setId(BpmnNamespaceManager.getAttributeValue(xShape, BpmnNamespaceManager.NS_BPMN_DI, "id"));
-
+    setId(BpmnNamespaceManager.getAttributeValue(xShape, BpmnNamespaceManager.NS_BPMN_DI, BpmnDiConstants.ID_ATTRIBUTE));
 
     // Get all additional Attributes
-    setHorizontal(Boolean.parseBoolean(BpmnNamespaceManager.getAttributeValue(xShape, BpmnNamespaceManager.NS_BPMN_DI, "isHorizontal")));
-    setIsExpanded(BpmnNamespaceManager.getAttributeValue(xShape, BpmnNamespaceManager.NS_BPMN_DI, "isExpanded"));
-    setMarkerVisible(Boolean.parseBoolean(BpmnNamespaceManager.getAttributeValue(xShape, BpmnNamespaceManager.NS_BPMN_DI, "isMarkerVisible")));
-    setMessageVisible(Boolean.parseBoolean(BpmnNamespaceManager.getAttributeValue(xShape, BpmnNamespaceManager.NS_BPMN_DI, "isMessageVisible")));
-    setChoreographyActivityShape(BpmnNamespaceManager.getAttributeValue(xShape, BpmnNamespaceManager.NS_BPMN_DI, "choreographyActivityShape"));
+    setHorizontal(Boolean.parseBoolean(BpmnNamespaceManager.getAttributeValue(xShape, BpmnNamespaceManager.NS_BPMN_DI, BpmnDiConstants.IS_HORIZONTAL_ATTRIBUTE)));
+    setIsExpanded(BpmnNamespaceManager.getAttributeValue(xShape, BpmnNamespaceManager.NS_BPMN_DI, BpmnDiConstants.IS_EXPANDED_ATTRIBUTE));
+    setMarkerVisible(Boolean.parseBoolean(BpmnNamespaceManager.getAttributeValue(xShape, BpmnNamespaceManager.NS_BPMN_DI, BpmnDiConstants.IS_MARKER_VISIBLE_ATTRIBUTE)));
+    setMessageVisible(Boolean.parseBoolean(BpmnNamespaceManager.getAttributeValue(xShape, BpmnNamespaceManager.NS_BPMN_DI, BpmnDiConstants.IS_MESSAGE_VISIBLE_ATTRIBUTE)));
+    setChoreographyActivityShape(BpmnNamespaceManager.getAttributeValue(xShape, BpmnNamespaceManager.NS_BPMN_DI, BpmnDiConstants.CHOREOGRAPHY_ACTIVITY_SHAPE_ATTRIBUTE));
 
-    String kind = BpmnNamespaceManager.getAttributeValue(xShape, BpmnNamespaceManager.NS_BPMN_DI, "participantBandKind");
+    String kind = BpmnNamespaceManager.getAttributeValue(xShape, BpmnNamespaceManager.NS_BPMN_DI, BpmnDiConstants.PARTICIPANT_BAND_KIND_ATTRIBUTE);
     if (kind == null) {
       kind = "";
     }
@@ -404,22 +403,22 @@ class BpmnShape {
    */
   public final void addBounds( Element xBounds ) {
 
-    String attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, "x");
+    String attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, BpmnDiConstants.X_ATTRIBUTE);
     if (attr != null) {
       setX(Double.parseDouble(attr));
     }
 
-    attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, "y");
+    attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, BpmnDiConstants.Y_ATTRIBUTE);
     if (attr != null) {
       setY(Double.parseDouble(attr));
     }
 
-    attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, "height");
+    attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, BpmnDiConstants.HEIGHT_ATTRIBUTE);
     if (attr != null) {
       setHeight(Double.parseDouble(attr));
     }
 
-    attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, "width");
+    attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, BpmnDiConstants.WIDTH_ATTRIBUTE);
     if (attr != null) {
       setWidth(Double.parseDouble(attr));
     }
@@ -448,22 +447,22 @@ class BpmnShape {
     double labelWidth = 0;
     double labelHeight = 0;
 
-    String attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, "x");
+    String attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, BpmnDiConstants.X_ATTRIBUTE);
     if (attr != null) {
       labelX = Double.parseDouble(attr);
     }
 
-    attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, "y");
+    attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, BpmnDiConstants.Y_ATTRIBUTE);
     if (attr != null) {
       labelY = Double.parseDouble(attr);
     }
 
-    attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, "height");
+    attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, BpmnDiConstants.HEIGHT_ATTRIBUTE);
     if (attr != null) {
       labelHeight = Double.parseDouble(attr);
     }
 
-    attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, "width");
+    attr = BpmnNamespaceManager.getAttributeValue(xBounds, BpmnNamespaceManager.NS_DC, BpmnDiConstants.WIDTH_ATTRIBUTE);
     if (attr != null) {
       labelWidth = Double.parseDouble(attr);
     }

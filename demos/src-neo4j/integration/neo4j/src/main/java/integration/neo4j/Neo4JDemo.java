@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -31,14 +31,15 @@ package integration.neo4j;
 
 import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.geometry.SizeD;
-import com.yworks.yfiles.graph.GraphBuilder;
-import com.yworks.yfiles.graph.GraphBuilderItemEventArgs;
+import com.yworks.yfiles.graph.builder.EdgesSource;
+import com.yworks.yfiles.graph.builder.GraphBuilder;
 import com.yworks.yfiles.graph.GraphDecorator;
 import com.yworks.yfiles.graph.GraphItemTypes;
 import com.yworks.yfiles.graph.IEdge;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.graph.INode;
+import com.yworks.yfiles.graph.builder.NodesSource;
 import com.yworks.yfiles.graph.labelmodels.EdgePathLabelModel;
 import com.yworks.yfiles.graph.labelmodels.EdgeSides;
 import com.yworks.yfiles.graph.labelmodels.ExteriorLabelModel;
@@ -343,12 +344,22 @@ public class Neo4JDemo {
     // now we create the helper class that will help us build the graph declaratively from the data
     GraphBuilder graphBuilder = new GraphBuilder(graphComponent.getGraph());
 
-    // now we pass it the collection of nodes
-    graphBuilder.setNodesSource(nodes);
-    // and tell it how to identify the nodes
-    graphBuilder.setNodeIdProvider(node -> ((Node) node).id());
+    // now we pass it the collection of nodes and tell it how to identify the nodes
+    NodesSource<Node> nodesSource = graphBuilder.createNodesSource(nodes, node -> ((Node) node).id());
+
+    // whenever a node is created...
+    nodesSource.getNodeCreator().setStyleProvider(n4jNode -> {
+      // look for a mapping for any of the nodes labels and use the mapped style
+      for (String labelName : nodeToStyle.keySet()) {
+        if (n4jNode.hasLabel(labelName)) {
+          return nodeToStyle.get(labelName);
+        }
+      }
+      return nodesSource.getNodeCreator().getDefaults().getStyleInstance();
+    });
+
     // as well as what text to use as the first label for each node
-    graphBuilder.setNodeLabelProvider(owner -> {
+    nodesSource.getNodeCreator().createLabelBinding(owner -> {
       Node node = (Node) owner;
       // try to find a suitable node label
       String[] candidates = {"name", "title", "firstName", "lastName", "email", "content"};
@@ -371,28 +382,11 @@ public class Neo4JDemo {
     });
 
     // pass the edges, too
-    graphBuilder.setEdgesSource(edges);
-    // and tell it how to identify the source nodes - this matches the nodeIdBinding above
-    graphBuilder.setSourceNodeProvider(edge -> ((Relationship)edge).startNodeId());
-    // the same for the target side of the relations
-    graphBuilder.setTargetNodeProvider(edge -> ((Relationship)edge).endNodeId());
+    // tell it how to identify the source and target nodes - this matches the nodeIdBinding above
+    EdgesSource<Relationship> edgesSource = graphBuilder.createEdgesSource(edges,
+        edge -> ((Relationship) edge).startNodeId(), edge -> ((Relationship) edge).endNodeId());
     // and we display the label, too, using the type of the relationship
-    graphBuilder.setEdgeLabelProvider(edge -> ((Relationship) edge).type());
-
-    // whenever a node is created...
-    graphBuilder.addNodeCreatedListener((source, rgs) -> {
-      GraphBuilderItemEventArgs args = (GraphBuilderItemEventArgs) rgs;
-      Node n4jNode = (Node) args.getSourceObject();
-      INode yNode = (INode) args.getItem();
-
-      // look for a mapping for any of the nodes labels and use the mapped style
-      for (String labelName : nodeToStyle.keySet()) {
-        if (n4jNode.hasLabel(labelName)) {
-          args.getGraph().setStyle(yNode, nodeToStyle.get(labelName));
-          break;
-        }
-      }
-    });
+    edgesSource.getEdgeCreator().createLabelBinding(edge -> ((Relationship) edge).type());
 
     // this triggers the initial construction of the graph
     graphBuilder.buildGraph();

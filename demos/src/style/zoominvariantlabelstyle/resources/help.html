@@ -1,0 +1,56 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../resources/help.css"/>
+</head>
+<body class="demo-description">
+
+  <h1>Description</h1>
+
+  <p>
+    This demo shows label styles that render the labels independent of the zoom level.
+  </p>
+  <h2>
+    Zoom Modes
+  </h2>
+  <dl>
+    <dt>
+      Fit into label owner
+    </dt>
+    <dd>
+      Node labels are scaled to fit into their owner if they are bigger than their owner.
+    </dd>
+    <dt>
+      Fixed below minimum zoom
+    </dt>
+    <dd>
+      Labels stop getting smaller in view coordinates if the zoom level is less than the minimum zoom value.
+    </dd>
+    <dt>
+      Fixed above maximum zoom
+    </dt>
+    <dd>
+      Labels stop getting larger in view coordinates if the zoom level is greater than the maximum zoom value.
+    </dd>
+    <dt>
+      Zoom-invariant (Fixed when outside specified range)
+    </dt>
+    <dd>
+      Labels don't scale when the zoom level is below the minimum zoom value or above the maximum zoom value.
+    </dd>
+    <dt>
+      Default Label Style
+    </dt>
+    <dd>
+      This is the <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.styles.DefaultLabelStyle">DefaultLabelStyle</a> that comes with the yFiles library.
+      See how its behavior compares to the demo's custom label style implementations.
+    </dd>
+  </dl>
+
+  <h2>Things to Try</h2>
+  <ul>
+    <li>Zoom in and out with the different policies to see how the labels change or keep their sizes.</li>
+    <li>Change the <em>Min. Zoom</em> value to see how it affects the <em>Fixed below minimum zoom</em> option.</li>
+    <li>Select labels and see how their hit-testing and selection changes with the zoom dependent rendering.</li>
+  </ul>
+</body>
+</html>

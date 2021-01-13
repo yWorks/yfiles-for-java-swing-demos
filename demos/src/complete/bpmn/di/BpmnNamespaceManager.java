@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -43,6 +43,7 @@ import org.w3c.dom.Node;
  */
 class BpmnNamespaceManager {
 
+  public static final String XSI = "http://www.w3.org/2001/XMLSchema-instance";
   public static final String NS_BPMN = "http://www.omg.org/spec/BPMN/20100524/MODEL";
   public static final String NS_BPMN_DI = "http://www.omg.org/spec/BPMN/20100524/DI";
   public static final String NS_DI = "http://www.omg.org/spec/DD/20100524/DI";

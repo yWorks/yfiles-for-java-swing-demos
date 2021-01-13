@@ -14,5 +14,6 @@
 |[IsometricDrawing](../../src/complete/isometric/)| Displays graphs in an isometric fashion to create an impression of a 3-dimensional view. |
 |[LogicGate](../../src/complete/logicgate/)| An editor for networks of logic gates with dedicated ports for incoming and outgoing connections. |
 |[CollapsibleTree](../../src/complete/collapse/)| Interactively collapse and expand subgraphs. |
+|[AggregateGraphWrapper](../../src/complete/aggregategraphwrapper/)| Analyzing a graph by aggregating groups of nodes. |
 |[TableEditor](../../src/complete/tableeditor/)| Interactive creation and editing of tables. |
 |[Uml](../../src/complete/uml/)| Interactive creation and editing of UML class diagrams. |

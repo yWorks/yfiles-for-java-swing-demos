@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -238,33 +238,33 @@ public class BpmnLabelStyle {
     setUnderline(false);
     setStrikeThrough(false);
 
-    setId(BpmnNamespaceManager.getAttributeValue(xStyle, BpmnNamespaceManager.NS_DC, "id"));
+    setId(BpmnNamespaceManager.getAttributeValue(xStyle, BpmnNamespaceManager.NS_DC, BpmnDiConstants.ID_ATTRIBUTE));
 
     // Parse Values of the Label Style
-    Element xFont = BpmnNamespaceManager.getElement(xStyle, BpmnNamespaceManager.NS_DC, "Font");
+    Element xFont = BpmnNamespaceManager.getElement(xStyle, BpmnNamespaceManager.NS_DC, BpmnDiConstants.FONT_ELEMENT);
     if (xFont != null) {
-      setFont(BpmnNamespaceManager.getAttributeValue(xFont, BpmnNamespaceManager.NS_DC, "name"));
+      setFont(BpmnNamespaceManager.getAttributeValue(xFont, BpmnNamespaceManager.NS_DC, BpmnDiConstants.NAME_ATTRIBUTE));
 
-      String attr = BpmnNamespaceManager.getAttributeValue(xFont, BpmnNamespaceManager.NS_DC, "size");
+      String attr = BpmnNamespaceManager.getAttributeValue(xFont, BpmnNamespaceManager.NS_DC, BpmnDiConstants.SIZE_ATTRIBUTE);
       if (attr != null) {
         setSize(Float.parseFloat(attr));
       }
 
-      attr = BpmnNamespaceManager.getAttributeValue(xFont, BpmnNamespaceManager.NS_DC, "isBold");
+      attr = BpmnNamespaceManager.getAttributeValue(xFont, BpmnNamespaceManager.NS_DC, BpmnDiConstants.IS_BOLD_ATTRIBUTE);
       if (attr != null) {
         setBold(Boolean.parseBoolean(attr));
       }
-      attr = BpmnNamespaceManager.getAttributeValue(xFont, BpmnNamespaceManager.NS_DC, "isItalic");
+      attr = BpmnNamespaceManager.getAttributeValue(xFont, BpmnNamespaceManager.NS_DC, BpmnDiConstants.IS_ITALIC_ATTRIBUTE);
       if (attr != null) {
         setItalic(Boolean.parseBoolean(attr));
       }
 
-      attr = BpmnNamespaceManager.getAttributeValue(xFont, BpmnNamespaceManager.NS_DC, "isUnderline");
+      attr = BpmnNamespaceManager.getAttributeValue(xFont, BpmnNamespaceManager.NS_DC, BpmnDiConstants.IS_UNDERLINE_ATTRIBUTE);
       if (attr != null) {
         setUnderline(Boolean.parseBoolean(attr));
       }
 
-      attr = BpmnNamespaceManager.getAttributeValue(xFont, BpmnNamespaceManager.NS_DC, "isStrikeThrough");
+      attr = BpmnNamespaceManager.getAttributeValue(xFont, BpmnNamespaceManager.NS_DC, BpmnDiConstants.IS_STRIKE_THROUGH_ATTRIBUTE);
       if (attr != null) {
         setStrikeThrough(Boolean.parseBoolean(attr));
       }

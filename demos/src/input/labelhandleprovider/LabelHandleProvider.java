@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -75,7 +75,7 @@ public class LabelHandleProvider implements IHandleProvider {
       // these models support resizing in one direction
       handles.add(new LabelResizeHandle(label, false));
       // and rotation as well
-      handles.add(new LabelRotateHandle(label));
+      handles.add(new LabelRotateHandle(label, context));
     } else {
       // for all other models, we assume the center needs to stay the same
       // this requires that the label must be resized symmetrically in both directions

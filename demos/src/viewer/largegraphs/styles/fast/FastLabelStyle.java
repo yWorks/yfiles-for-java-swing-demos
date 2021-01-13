@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -251,7 +251,7 @@ public class FastLabelStyle extends AbstractLabelStyle {
           origin.getY() + up.getY() * layout.getHeight());
 
 
-      // Fill – only drawn when a brush was set
+      // Fill -- only drawn when a brush was set
       if (backgroundColor != null) {
         ctx.setBackground(Color.ORANGE);
 

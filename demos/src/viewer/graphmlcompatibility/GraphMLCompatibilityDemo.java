@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,6 +29,7 @@
  ***************************************************************************/
 package viewer.graphmlcompatibility;
 
+import com.yworks.yfiles.graph.FoldingManager;
 import com.yworks.yfiles.view.GraphComponent;
 import com.yworks.yfiles.view.input.KeyboardInputMode;
 import complete.bpmn.view.BpmnNodeStyle;
@@ -77,6 +78,9 @@ public class GraphMLCompatibilityDemo extends AbstractDemo {
    */
   @Override
   public void initialize() {
+    // initialize folding to support expand/collapse for grouped graphs
+    graphComponent.setGraph(new FoldingManager(graphComponent.getGraph()).createFoldingView().getGraph());
+
     // the convenience commands for reading graphs from GrapML and writing
     // graphs to GraphML have to be explicitly enabled
     graphComponent.setFileIOEnabled(true);
@@ -93,6 +97,11 @@ public class GraphMLCompatibilityDemo extends AbstractDemo {
     KeyboardInputMode kim = gvim.getKeyboardInputMode();
     kim.addKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK), OPEN_LEGACY);
     kim.addCommandBinding(OPEN_LEGACY, this::executeOpen, this::canExecuteOpen);
+
+    // add support to collapse and expand group nodes
+    gvim.getNavigationInputMode().setCollapseGroupAllowed(true);
+    gvim.getNavigationInputMode().setExpandGroupAllowed(true);
+    gvim.getNavigationInputMode().setUsingCurrentItemForCommandsEnabled(true);
 
     graphComponent.setInputMode(gvim);
 

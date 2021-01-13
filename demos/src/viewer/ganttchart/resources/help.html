@@ -1,0 +1,53 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../resources/help.css"/>
+</head>
+<body class="demo-description">
+  <h1>Description</h1>
+  <p>The Gantt Chart demo shows how to create a Gantt component.</p>
+  <p>
+    The data consists of tasks which define the horizontal lanes and activities,
+    each of which is assigned to a task.
+  </p>
+  <p>
+    An activity has a start and end date, and optionally a lead time and a
+    follow-up time. An activity can optionally depend on other activities.
+  </p>
+  <p>
+    The activity duration is rendered as a solid area.
+    The lead and follow-up times are rendered with a hatch pattern.
+  </p>
+  <p>Activity dependencies are modeled as edges between the activity nodes.</p>
+  
+  <h2>Things to Try</h2>
+
+  <ul>
+    <li>Scroll the tasks using the mouse wheel.</li>
+    <li>Scroll the timeline horizontally using shift + mouse wheel.</li>
+    <li>Hover over an activity to highlight its dependencies.</li>
+    <li>Hover over a dependency edge to highlight the source and target.</li>
+    <li>Select an activity to display the activity information.</li>
+    <li>
+      Grab and drag an activity to change the start and end time, or to assign
+      an activity to a different task.
+    </li>
+    <li>
+      Grab the left or right side of the solid area of an activity and drag to
+      change the duration.
+    </li>
+    <li>
+      Select an activity and drag one of the handles on the left or right
+      to change the lead or follow-up time.
+    </li>
+    <li>Select an activity and press 'F2' to change its name.</li>
+    <li>
+      Drag an activity so it overlaps with other activities in the same task
+      lane. The activities are placed below each other so they don't overlap.
+    </li>
+    <li>
+      Drag the mouse on an empty part of a task lane to create a new activity.
+    </li>
+    <li>Shift-drag from a node to create a new dependency edge.</li>
+  </ul>
+</body>
+</html>

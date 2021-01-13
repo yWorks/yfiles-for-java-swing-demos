@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -34,7 +34,6 @@ import com.yworks.yfiles.graph.ILookup;
 import com.yworks.yfiles.graph.IPort;
 import com.yworks.yfiles.graph.styles.DefaultEdgePathCropper;
 import com.yworks.yfiles.graph.styles.IEdgePathCropper;
-import com.yworks.yfiles.graph.styles.INodeStyle;
 import com.yworks.yfiles.graph.styles.IPortStyle;
 import com.yworks.yfiles.graph.styles.IPortStyleRenderer;
 import com.yworks.yfiles.graph.styles.IShapeGeometry;
@@ -46,6 +45,7 @@ import com.yworks.yfiles.view.input.IHitTestable;
 import com.yworks.yfiles.view.input.IMarqueeTestable;
 import com.yworks.yfiles.view.IVisibilityTestable;
 import com.yworks.yfiles.view.IVisualCreator;
+import java.awt.Paint;
 
 /**
  * An {@link IPortStyle} implementation representing an Event attached to an Activity boundary according to the BPMN.
@@ -107,7 +107,7 @@ public class EventPortStyle implements IPortStyle, Cloneable {
   @Obfuscation(stripAfterObfuscation = false, exclude = true)
   @DefaultValue(stringValue = "20,20", classValue = SizeD.class)
   public final SizeD getRenderSize() {
-    return getAdapter().getRenderSize();
+    return adapter.getRenderSize();
   }
 
   /**
@@ -118,19 +118,85 @@ public class EventPortStyle implements IPortStyle, Cloneable {
   @Obfuscation(stripAfterObfuscation = false, exclude = true)
   @DefaultValue(stringValue = "20,20", classValue = SizeD.class)
   public final void setRenderSize( SizeD value ) {
-    getAdapter().setRenderSize(value);
+    adapter.setRenderSize(value);
+  }
+
+  /**
+   * Gets the background color of the event.
+   * @return The Background.
+   * @see #setBackground(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultEventBackground", classValue = BpmnConstants.class)
+  public final Paint getBackground() {
+    return getEventNodeStyle().getBackground();
+  }
+
+  /**
+   * Sets the background color of the event.
+   * @param value The Background to set.
+   * @see #getBackground()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultEventBackground", classValue = BpmnConstants.class)
+  public final void setBackground( Paint value ) {
+    getEventNodeStyle().setBackground(value);
+  }
+
+  /**
+   * Gets the outline color of the event.
+   * <p>
+   * If this is set to {@code null}, the outline color is automatic, based on the
+   * {@link #getCharacteristic() Characteristic}.
+   * </p>
+   * @return The Outline.
+   * @see #setOutline(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultEventOutline", classValue = BpmnConstants.class)
+  public final Paint getOutline() {
+    return getEventNodeStyle().getOutline();
+  }
+
+  /**
+   * Sets the outline color of the event.
+   * <p>
+   * If this is set to {@code null}, the outline color is automatic, based on the
+   * {@link #getCharacteristic() Characteristic}.
+   * </p>
+   * @param value The Outline to set.
+   * @see #getOutline()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultEventOutline", classValue = BpmnConstants.class)
+  public final void setOutline( Paint value ) {
+    getEventNodeStyle().setOutline(value);
+  }
+
+  /**
+   * Gets the primary color for icons and markers.
+   * @return The IconColor.
+   * @see #setIconColor(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultIconColor", classValue = BpmnConstants.class)
+  public final Paint getIconColor() {
+    return getEventNodeStyle().getIconColor();
+  }
+
+  /**
+   * Sets the primary color for icons and markers.
+   * @param value The IconColor to set.
+   * @see #getIconColor()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultIconColor", classValue = BpmnConstants.class)
+  public final void setIconColor( Paint value ) {
+    getEventNodeStyle().setIconColor(value);
   }
 
 
-  private NodeStylePortStyleAdapter adapter;
-
-  final NodeStylePortStyleAdapter getAdapter() {
-    return this.adapter;
-  }
-
-  final void setAdapter( NodeStylePortStyleAdapter value ) {
-    this.adapter = value;
-  }
+  private final NodeStylePortStyleAdapter adapter;
 
   /**
    * Creates a new instance.
@@ -140,17 +206,15 @@ public class EventPortStyle implements IPortStyle, Cloneable {
     eventNodeStyle.setCharacteristic(EventCharacteristic.BOUNDARY_INTERRUPTING);
     eventNodeStyle.setType(EventType.COMPENSATION);
     NodeStylePortStyleAdapter nodeStylePortStyleAdapter = new NodeStylePortStyleAdapter(eventNodeStyle);
-    nodeStylePortStyleAdapter.setRenderSize(BpmnConstants.Sizes.EVENT_PORT);
-    setAdapter(nodeStylePortStyleAdapter);
+    nodeStylePortStyleAdapter.setRenderSize(BpmnConstants.EVENT_PORT_SIZE);
+    adapter = nodeStylePortStyleAdapter;
     renderer = EventPortStyleRenderer.INSTANCE;
   }
 
   final EventNodeStyle getEventNodeStyle() {
-    INodeStyle nodeStyle = getAdapter().getNodeStyle();
-    return (nodeStyle instanceof EventNodeStyle) ? (EventNodeStyle)nodeStyle : null;
+    return (EventNodeStyle)adapter.getNodeStyle();
   }
 
-  @Obfuscation(stripAfterObfuscation = false, exclude = true)
   public final EventPortStyle clone() {
     try {
       return (EventPortStyle)super.clone();
@@ -159,7 +223,6 @@ public class EventPortStyle implements IPortStyle, Cloneable {
     }
   }
 
-  @Obfuscation(stripAfterObfuscation = false, exclude = true)
   public final IPortStyleRenderer getRenderer() {
     return renderer;
   }
@@ -173,32 +236,32 @@ public class EventPortStyle implements IPortStyle, Cloneable {
     private ILookup fallbackLookup;
 
     public final IVisualCreator getVisualCreator( IPort item, IPortStyle style ) {
-      NodeStylePortStyleAdapter adapter = ((EventPortStyle)style).getAdapter();
+      NodeStylePortStyleAdapter adapter = ((EventPortStyle)style).adapter;
       return adapter.getRenderer().getVisualCreator(item, adapter);
     }
 
     public final IBoundsProvider getBoundsProvider( IPort item, IPortStyle style ) {
-      NodeStylePortStyleAdapter adapter = ((EventPortStyle)style).getAdapter();
+      NodeStylePortStyleAdapter adapter = ((EventPortStyle)style).adapter;
       return adapter.getRenderer().getBoundsProvider(item, adapter);
     }
 
     public final IVisibilityTestable getVisibilityTestable( IPort item, IPortStyle style ) {
-      NodeStylePortStyleAdapter adapter = ((EventPortStyle)style).getAdapter();
+      NodeStylePortStyleAdapter adapter = ((EventPortStyle)style).adapter;
       return adapter.getRenderer().getVisibilityTestable(item, adapter);
     }
 
     public final IHitTestable getHitTestable( IPort item, IPortStyle style ) {
-      NodeStylePortStyleAdapter adapter = ((EventPortStyle)style).getAdapter();
+      NodeStylePortStyleAdapter adapter = ((EventPortStyle)style).adapter;
       return adapter.getRenderer().getHitTestable(item, adapter);
     }
 
     public final IMarqueeTestable getMarqueeTestable( IPort item, IPortStyle style ) {
-      NodeStylePortStyleAdapter adapter = ((EventPortStyle)style).getAdapter();
+      NodeStylePortStyleAdapter adapter = ((EventPortStyle)style).adapter;
       return adapter.getRenderer().getMarqueeTestable(item, adapter);
     }
 
     public final ILookup getContext( IPort item, IPortStyle style ) {
-      NodeStylePortStyleAdapter adapter = ((EventPortStyle)style).getAdapter();
+      NodeStylePortStyleAdapter adapter = ((EventPortStyle)style).adapter;
       fallbackLookup = adapter.getRenderer().getContext(item, adapter);
       return this;
     }
@@ -215,7 +278,7 @@ public class EventPortStyle implements IPortStyle, Cloneable {
   /**
    * IEdgePathCropper instance that crops the edge at the circular port bounds.
    */
-  private static class EventPortEdgePathCropper extends DefaultEdgePathCropper {
+  private static final class EventPortEdgePathCropper extends DefaultEdgePathCropper {
     public static final EventPortEdgePathCropper CALCULATOR_INSTANCE = new EventPortEdgePathCropper();
 
     private EventPortEdgePathCropper() {

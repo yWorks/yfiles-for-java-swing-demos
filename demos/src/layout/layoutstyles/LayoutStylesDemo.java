@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -113,15 +113,15 @@ import java.util.stream.Collectors;
  * Play around with the various layout algorithms of yFiles, including hierarchic, organic, orthogonal, tree, circular and balloon styles.
  */
 public class LayoutStylesDemo extends AbstractDemo {
-  private static final ICommand GENERATE_NODE_LABELS = ICommand.createCommand("GenerateNodeLabels");
-  private static final ICommand GENERATE_EDGE_LABELS = ICommand.createCommand("GenerateEdgeLabels");
-  private static final ICommand GENERATE_EDGE_DIRECTION = ICommand.createCommand("GenerateEdgeDirection");
-  private static final ICommand GENERATE_EDGE_THICKNESS = ICommand.createCommand("GenerateEdgeThickness");
-  private static final ICommand REMOVE_LABELS = ICommand.createCommand("RemoveLabels");
-  private static final ICommand RESET_EDGE_DIRECTION = ICommand.createCommand("ResetEdgeDirection");
-  private static final ICommand RESET_EDGE_THICKNESS = ICommand.createCommand("ResetEdgeThickness");
-  private static final ICommand PREVIOUS_GRAPH = ICommand.createCommand("PreviousGraph");
-  private static final ICommand NEXT_GRAPH = ICommand.createCommand("NextGraph");
+  private static final ICommand GENERATE_NODE_LABELS = ICommand.createCommand("Generate Node Labels");
+  private static final ICommand GENERATE_EDGE_LABELS = ICommand.createCommand("Generate Edge Labels");
+  private static final ICommand GENERATE_EDGE_DIRECTION = ICommand.createCommand("Generate Edge Direction");
+  private static final ICommand GENERATE_EDGE_THICKNESS = ICommand.createCommand("Generate Edge Thickness");
+  private static final ICommand REMOVE_LABELS = ICommand.createCommand("Remove Labels");
+  private static final ICommand RESET_EDGE_DIRECTION = ICommand.createCommand("Reset Edge Direction");
+  private static final ICommand RESET_EDGE_THICKNESS = ICommand.createCommand("Reset Edge Thickness");
+  private static final ICommand PREVIOUS_GRAPH = ICommand.createCommand("Previous Graph");
+  private static final ICommand NEXT_GRAPH = ICommand.createCommand("Next Graph");
   private static final ICommand APPLY_SETTINGS = ICommand.createCommand("Apply");
   private static final ICommand RESET_SETTINGS = ICommand.createCommand("Reset");
 
@@ -294,12 +294,11 @@ public class LayoutStylesDemo extends AbstractDemo {
   /**
    * Applies the layout algorithm of the given key.
    */
-  private void applyLayoutForKey(String key) {
+  private void applyLayoutForKey(String sampleKey) {
     // center the initial position of the animation
     ICommand.FIT_GRAPH_BOUNDS.execute(null, graphComponent);
 
-    // The sample graphs 'Organic' and 'Organic with Substructures' use the same layout configuration
-    String actualKey = key == "Organic with Substructures" ? "Organic" : key;
+    String actualKey = getLayoutKey(sampleKey);
     // get the layout algorithm and use "Hierarchic" if the key is unknown (shouldn't happen in this demo)
     actualKey = availableLayouts != null && availableLayouts.containsKey(actualKey) ? actualKey : "Hierarchic";
     // run the layout if the layout combo box is already correct
@@ -310,6 +309,17 @@ public class LayoutStylesDemo extends AbstractDemo {
       onLayoutChanged();
     }
     applyLayout(true);
+  }
+  
+  private String getLayoutKey(String sampleKey) {
+    //for some special samples, we need to use the correct layout key, because the layout configurations are shared
+    if ("Organic with Substructures".equals(sampleKey)) {
+      return "Organic";
+    } else if ("Hierarchic with Buses".equals(sampleKey) || "Hierarchic Groups".equals(sampleKey)) {
+      return "Hierarchic";
+    }
+    //... for other samples the layout key corresponds to the sample graph key
+    return sampleKey;
   }
 
   /**
@@ -643,6 +653,7 @@ public class LayoutStylesDemo extends AbstractDemo {
         "Bus Router",
         "Channel Router",
         "Components",
+        "Hierarchic with Buses",
         "Organic with Substructures"
     });
     graphChooserBox.setMaximumSize(graphChooserBox.getPreferredSize());
@@ -672,6 +683,12 @@ public class LayoutStylesDemo extends AbstractDemo {
     fileName = fileName.replace(" ", "") + ".graphml";
 
     try {
+      if ("Hierarchic with Buses".equals(key)) {
+        //for this specific hierarchic layout sample we make sure to enable the bus structure feature
+        final HierarchicLayoutConfig hlc = (HierarchicLayoutConfig) availableLayouts.get("Hierarchic");
+        hlc.enableBuses();
+      }
+      
       // load the sample graph and start the layout algorithm
       graphComponent.importFromGraphML(getClass().getResource(fileName));
       applyLayoutForKey(key);

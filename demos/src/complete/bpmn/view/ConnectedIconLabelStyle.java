@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -229,34 +229,35 @@ class ConnectedIconLabelStyle extends AbstractLabelStyle {
     DUMMY_TEXT_LABEL.setLayoutParameter(getTextPlacement());
     DUMMY_TEXT_LABEL.setText(item.getText());
     DUMMY_TEXT_LABEL.setPreferredSize(DUMMY_TEXT_LABEL.getStyle().getRenderer().getPreferredSize(DUMMY_TEXT_LABEL, DUMMY_TEXT_LABEL.getStyle()));
-    TextBounds = getTextPlacement().getModel().getGeometry(DUMMY_TEXT_LABEL, getTextPlacement());
+    textBounds = getTextPlacement().getModel().getGeometry(DUMMY_TEXT_LABEL, getTextPlacement());
 
-    BoundingBox = RectD.add(bounds, TextBounds.getBounds());
+    boundingBox = RectD.add(bounds, textBounds.getBounds());
 
     // Set source port to the port of the node using a dummy node that is located at the origin.
     ((SimplePort)DUMMY_EDGE.getSourcePort()).setLocationParameter(getLabelConnectorLocation());
     ((SimplePort)DUMMY_EDGE.getTargetPort()).setLocationParameter(getNodeConnectorLocation());
+    DUMMY_EDGE.setStyle(getConnectorStyle());
   }
 
-  private IOrientedRectangle TextBounds;
+  private IOrientedRectangle textBounds;
 
-  private RectD BoundingBox = new RectD();
+  private RectD boundingBox = new RectD();
 
   @Override
   protected boolean isHit( IInputModeContext context, PointD location, ILabel label ) {
     configure(label);
-    return label.getLayout().contains(location, context.getHitTestRadius()) || TextBounds.contains(location, context.getHitTestRadius()) || DUMMY_EDGE.getStyle().getRenderer().getHitTestable(DUMMY_EDGE, DUMMY_EDGE.getStyle()).isHit(context, location);
+    return label.getLayout().contains(location, context.getHitTestRadius()) || textBounds.contains(location, context.getHitTestRadius()) || DUMMY_EDGE.getStyle().getRenderer().getHitTestable(DUMMY_EDGE, DUMMY_EDGE.getStyle()).isHit(context, location);
   }
 
   @Override
   protected boolean isInBox( IInputModeContext context, RectD rectangle, ILabel label ) {
     configure(label);
-    return rectangle.intersects(BoundingBox.getEnlarged(context.getHitTestRadius()));
+    return rectangle.intersects(boundingBox.getEnlarged(context.getHitTestRadius()));
   }
 
   @Override
   protected RectD getBounds( ICanvasContext context, ILabel label ) {
-    return RectD.add(BoundingBox, DUMMY_EDGE.getStyle().getRenderer().getBoundsProvider(DUMMY_EDGE, DUMMY_EDGE.getStyle()).getBounds(context));
+    return RectD.add(boundingBox, DUMMY_EDGE.getStyle().getRenderer().getBoundsProvider(DUMMY_EDGE, DUMMY_EDGE.getStyle()).getBounds(context));
   }
 
   @Override
@@ -266,9 +267,9 @@ class ConnectedIconLabelStyle extends AbstractLabelStyle {
     // The visibility test does not call Configure, which means we don't have the dummy edge set up yet.
     INode ownerNode = (owner instanceof INode) ? (INode)owner : null;
     if (ownerNode != null) {
-      return rectangle.intersects(RectD.add(BoundingBox, ownerNode.getLayout().toRectD()));
+      return rectangle.intersects(RectD.add(boundingBox, ownerNode.getLayout().toRectD()));
     }
-    return rectangle.intersects(BoundingBox);
+    return rectangle.intersects(boundingBox);
   }
 
   static {

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -39,6 +39,7 @@ import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.utils.Obfuscation;
 import com.yworks.yfiles.view.input.IInputModeContext;
+import java.awt.Paint;
 
 import java.util.Arrays;
 
@@ -47,7 +48,6 @@ import java.util.Arrays;
  */
 @Obfuscation(stripAfterObfuscation = false, exclude = true, applyToMembers = false)
 public class EventNodeStyle extends BpmnNodeStyle {
-
   private EventType type;
 
   /**
@@ -104,6 +104,98 @@ public class EventNodeStyle extends BpmnNodeStyle {
     }
   }
 
+  private Paint background = BpmnConstants.DEFAULT_EVENT_BACKGROUND;
+
+  /**
+   * Gets the background color of the event.
+   * @return The Background.
+   * @see #setBackground(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultEventBackground", classValue = BpmnConstants.class)
+  public final Paint getBackground() {
+    return background;
+  }
+
+  /**
+   * Sets the background color of the event.
+   * @param value The Background to set.
+   * @see #getBackground()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultEventBackground", classValue = BpmnConstants.class)
+  public final void setBackground( Paint value ) {
+    if (background != value) {
+      setModCount(getModCount() + 1);
+      background = value;
+      createEventIcon();
+    }
+  }
+
+  // null is the default value which chooses a default color for the outline depending on the characteristic
+  private Paint outline = BpmnConstants.DEFAULT_EVENT_OUTLINE;
+
+  /**
+   * Gets the outline color of the event icon.
+   * <p>
+   * If this is set to {@code null}, the outline color is automatic, based on the
+   * {@link #getCharacteristic() Characteristic}.
+   * </p>
+   * @return The Outline.
+   * @see #setOutline(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultEventOutline", classValue = BpmnConstants.class)
+  public final Paint getOutline() {
+    return outline;
+  }
+
+  /**
+   * Sets the outline color of the event icon.
+   * <p>
+   * If this is set to {@code null}, the outline color is automatic, based on the
+   * {@link #getCharacteristic() Characteristic}.
+   * </p>
+   * @param value The Outline to set.
+   * @see #getOutline()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultEventOutline", classValue = BpmnConstants.class)
+  public final void setOutline( Paint value ) {
+    if (outline != value) {
+      setModCount(getModCount() + 1);
+      outline = value;
+      createEventIcon();
+    }
+  }
+
+  private Paint iconColor = BpmnConstants.DEFAULT_ICON_COLOR;
+
+  /**
+   * Gets the primary color for icons and markers.
+   * @return The IconColor.
+   * @see #setIconColor(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultIconColor", classValue = BpmnConstants.class)
+  public final Paint getIconColor() {
+    return iconColor;
+  }
+
+  /**
+   * Sets the primary color for icons and markers.
+   * @param value The IconColor to set.
+   * @see #getIconColor()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "DefaultIconColor", classValue = BpmnConstants.class)
+  public final void setIconColor( Paint value ) {
+    if (iconColor != value) {
+      setModCount(getModCount() + 1);
+      iconColor = value;
+      createTypeIcon();
+    }
+  }
 
   private IIcon eventIcon;
 
@@ -121,15 +213,15 @@ public class EventNodeStyle extends BpmnNodeStyle {
   }
 
   private void createTypeIcon() {
-    typeIcon = IconFactory.createEventType(type, fillTypeIcon);
+    typeIcon = IconFactory.createEventType(type, fillTypeIcon, getIconColor(), getBackground());
     if (typeIcon != null) {
-      typeIcon = IconFactory.createPlacedIcon(typeIcon, BpmnConstants.Placements.EVENT_TYPE, SizeD.EMPTY);
+      typeIcon = IconFactory.createPlacedIcon(typeIcon, BpmnConstants.EVENT_TYPE_PLACEMENT, SizeD.EMPTY);
     }
   }
 
   private void createEventIcon() {
-    eventIcon = IconFactory.createEvent(getCharacteristic());
-    eventIcon = IconFactory.createPlacedIcon(eventIcon, BpmnConstants.Placements.EVENT, getMinimumSize());
+    eventIcon = IconFactory.createEvent(getCharacteristic(), getBackground(), getOutline());
+    eventIcon = IconFactory.createPlacedIcon(eventIcon, BpmnConstants.EVENT_PLACEMENT, getMinimumSize());
     boolean isFilled = getCharacteristic() == EventCharacteristic.THROWING || getCharacteristic() == EventCharacteristic.END;
     if (isFilled != fillTypeIcon) {
       fillTypeIcon = isFilled;
@@ -139,6 +231,9 @@ public class EventNodeStyle extends BpmnNodeStyle {
 
   @Override
   void updateIcon( INode node ) {
+    if (eventIcon == null) {
+      createEventIcon();
+    }
     if (typeIcon != null) {
       setIcon(IconFactory.createCombinedIcon(Arrays.asList(eventIcon, typeIcon)));
     } else {

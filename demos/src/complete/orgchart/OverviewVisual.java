@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -38,6 +38,7 @@ import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+import java.util.Objects;
 
 /**
  * A visual that is meant to display the employee at far-away zoom levels.
@@ -62,7 +63,7 @@ class OverviewVisual extends OrgChartVisual{
     try {
       // draw the abbreviated first name and the last name in the center.
       String displayName = getEmployee().getFirstName().substring(0, 1) + ". " + getEmployee().getName();
-      if (displayName != cachedName) {
+      if (!Objects.equals(displayName, cachedName)) {
         cachedName = displayName;
         cachedLineBounds = getLineBounds(displayName, font);
       }

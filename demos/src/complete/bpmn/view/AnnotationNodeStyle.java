@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -30,19 +30,20 @@
 package complete.bpmn.view;
 
 import com.yworks.yfiles.geometry.SizeD;
+import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.utils.Obfuscation;
+import java.awt.Paint;
 
 /**
  * An {@link com.yworks.yfiles.graph.styles.INodeStyle} implementation representing an Annotation according to the BPMN.
  */
 @Obfuscation(stripAfterObfuscation = false, exclude = true, applyToMembers = false)
 public class AnnotationNodeStyle extends BpmnNodeStyle {
-
   private boolean left;
 
   /**
-   * Gets if the bracket of the open rectangle shall be on the left side.
+   * Gets a value indicating whether the bracket of the open rectangle is shown on the left side.
    * @return The Left.
    * @see #setLeft(boolean)
    */
@@ -53,7 +54,7 @@ public class AnnotationNodeStyle extends BpmnNodeStyle {
   }
 
   /**
-   * Sets if the bracket of the open rectangle shall be on the left side.
+   * Sets a value indicating whether the bracket of the open rectangle is shown on the left side.
    * @param value The Left to set.
    * @see #isLeft()
    */
@@ -63,10 +64,67 @@ public class AnnotationNodeStyle extends BpmnNodeStyle {
     if (value != left) {
       incrementModCount();
       left = value;
-      setIcon(IconFactory.createAnnotation(value));
     }
   }
 
+  private Paint background = BpmnConstants.ANNOTATION_DEFAULT_BACKGROUND;
+
+  /**
+   * Gets the background color of the annotation.
+   * @return The Background.
+   * @see #setBackground(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "AnnotationDefaultBackground", classValue = BpmnConstants.class)
+  public final Paint getBackground() {
+    return background;
+  }
+
+  /**
+   * Sets the background color of the annotation.
+   * @param value The Background to set.
+   * @see #getBackground()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "AnnotationDefaultBackground", classValue = BpmnConstants.class)
+  public final void setBackground( Paint value ) {
+    if (background != value) {
+      setModCount(getModCount() + 1);
+      background = value;
+    }
+  }
+
+  private Paint outline = BpmnConstants.ANNOTATION_DEFAULT_OUTLINE;
+
+  /**
+   * Gets the outline color of the annotation.
+   * @return The Outline.
+   * @see #setOutline(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "AnnotationDefaultOutline", classValue = BpmnConstants.class)
+  public final Paint getOutline() {
+    return outline;
+  }
+
+  /**
+   * Sets the outline color of the annotation.
+   * @param value The Outline to set.
+   * @see #getOutline()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "AnnotationDefaultOutline", classValue = BpmnConstants.class)
+  public final void setOutline( Paint value ) {
+    if (outline != value) {
+      setModCount(getModCount() + 1);
+      outline = value;
+    }
+  }
+
+  @Override
+  void updateIcon( INode node ) {
+    setIcon(IconFactory.createAnnotation(isLeft(), getBackground(), getOutline()));
+  }
 
   /**
    * Creates a new instance.

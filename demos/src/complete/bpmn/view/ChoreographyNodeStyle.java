@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -47,6 +47,7 @@ import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.graphml.GraphML;
 import com.yworks.yfiles.graphml.GraphMLMemberVisibility;
 import com.yworks.yfiles.utils.Obfuscation;
+import com.yworks.yfiles.view.DashStyle;
 import com.yworks.yfiles.view.GraphComponent;
 import com.yworks.yfiles.view.ICanvasContext;
 import com.yworks.yfiles.view.input.IClickListener;
@@ -62,7 +63,9 @@ import com.yworks.yfiles.view.IVisualCreator;
 import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.VisualGroup;
 
+import java.awt.BasicStroke;
 import java.awt.geom.AffineTransform;
+import java.awt.Paint;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -73,24 +76,37 @@ import java.util.List;
  */
 @Obfuscation(stripAfterObfuscation = false, exclude = true, applyToMembers = false)
 public class ChoreographyNodeStyle extends BpmnNodeStyle {
-
   private static final ShapeNodeStyle SNS;
 
-  private static final IIcon TOP_INITIATING_MESSAGE_ICON;
+  static {
+    final ShapeNodeStyleRenderer renderer = new ShapeNodeStyleRenderer();
+    renderer.setRoundRectArcRadius(BpmnConstants.CHOREOGRAPHY_CORNER_RADIUS);
+    final ShapeNodeStyle shapeNodeStyle = new ShapeNodeStyle(renderer);
+    shapeNodeStyle.setShape(ShapeNodeShape.ROUND_RECTANGLE);
+    shapeNodeStyle.setPen(Pen.getBlack());
+    shapeNodeStyle.setPaint(null);
+    SNS = shapeNodeStyle;
+  }
 
-  private static final IIcon BOTTOM_RESPONSE_MESSAGE_ICON;
+  private IIcon topInitiatingMessageIcon;
 
-  private static final IIcon BOTTOM_INITIATING_MESSAGE_ICON;
+  private IIcon bottomResponseMessageIcon;
 
-  private static final IIcon TOP_RESPONSE_MESSAGE_ICON;
+  private IIcon bottomInitiatingMessageIcon;
 
-  private static final IIcon TASK_BAND_BACKGROUND_ICON;
+  private IIcon topResponseMessageIcon;
 
-  private static final IIcon MULTI_INSTANCE_ICON;
+  private IIcon taskBandBackgroundIcon;
+
+  private IIcon multiInstanceIcon;
+
+  private IIcon messageLineIcon;
+
+  private IIcon initiatingMessageIcon;
+
+  private IIcon responseMessageIcon;
 
   private static final int MESSAGE_DISTANCE = 15;
-
-
 
   private ChoreographyType type;
 
@@ -116,7 +132,7 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
     if (type != value || outlineIcon == null) {
       incrementModCount();
       type = value;
-      outlineIcon = IconFactory.createChoreography(type);
+      updateOutlineIcon();
     }
   }
 
@@ -144,7 +160,7 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
     if (loopCharacteristic != value) {
       incrementModCount();
       loopCharacteristic = value;
-      loopIcon = IconFactory.createLoopCharacteristic(value);
+      updateLoopIcon();
     }
   }
 
@@ -172,6 +188,7 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
     if (subState != value) {
       incrementModCount();
       subState = value;
+      updateTaskBandIcon();
     }
   }
 
@@ -296,6 +313,191 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
     return bottomParticipants;
   }
 
+  private Paint background = BpmnConstants.CHOREOGRAPHY_DEFAULT_BACKGROUND;
+
+  /**
+   * Gets the background color of the choreography.
+   * @return The Background.
+   * @see #setBackground(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "ChoreographyDefaultBackground", classValue = BpmnConstants.class)
+  public final Paint getBackground() {
+    return background;
+  }
+
+  /**
+   * Sets the background color of the choreography.
+   * @param value The Background to set.
+   * @see #getBackground()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "ChoreographyDefaultBackground", classValue = BpmnConstants.class)
+  public final void setBackground( Paint value ) {
+    if (background != value) {
+      setModCount(getModCount() + 1);
+      background = value;
+      updateTaskBandIcon();
+    }
+  }
+
+  private Paint outline = BpmnConstants.CHOREOGRAPHY_DEFAULT_OUTLINE;
+
+  /**
+   * Gets the outline color of the choreography.
+   * @return The Outline.
+   * @see #setOutline(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "ChoreographyDefaultOutline", classValue = BpmnConstants.class)
+  public final Paint getOutline() {
+    return outline;
+  }
+
+  /**
+   * Sets the outline color of the choreography.
+   * @param value The Outline to set.
+   * @see #getOutline()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "ChoreographyDefaultOutline", classValue = BpmnConstants.class)
+  public final void setOutline( Paint value ) {
+    if (outline != value) {
+      setModCount(getModCount() + 1);
+      outline = value;
+      updateOutlineIcon();
+    }
+  }
+
+  private Paint iconColor = BpmnConstants.CHOREOGRAPHY_DEFAULT_ICON_COLOR;
+
+  /**
+   * Gets the primary color for icons and markers.
+   * @return The IconColor.
+   * @see #setIconColor(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "ChoreographyDefaultIconColor", classValue = BpmnConstants.class)
+  public final Paint getIconColor() {
+    return iconColor;
+  }
+
+  /**
+   * Sets the primary color for icons and markers.
+   * @param value The IconColor to set.
+   * @see #getIconColor()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "ChoreographyDefaultIconColor", classValue = BpmnConstants.class)
+  public final void setIconColor( Paint value ) {
+    if (iconColor != value) {
+      setModCount(getModCount() + 1);
+      iconColor = value;
+      updateMultiInstanceIcon();
+      updateLoopIcon();
+      updateTaskBandIcon();
+    }
+  }
+
+  private Paint initiatingColor = BpmnConstants.CHOREOGRAPHY_DEFAULT_INITIATING_COLOR;
+
+  /**
+   * Gets the color for initiating participants and messages.
+   * @return The InitiatingColor.
+   * @see #setInitiatingColor(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "ChoreographyDefaultInitiatingColor", classValue = BpmnConstants.class)
+  public final Paint getInitiatingColor() {
+    return initiatingColor;
+  }
+
+  /**
+   * Sets the color for initiating participants and messages.
+   * @param value The InitiatingColor to set.
+   * @see #getInitiatingColor()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "ChoreographyDefaultInitiatingColor", classValue = BpmnConstants.class)
+  public final void setInitiatingColor( Paint value ) {
+    if (initiatingColor != value) {
+      setModCount(getModCount() + 1);
+      initiatingColor = value;
+    }
+  }
+
+  private Paint responseColor = BpmnConstants.CHOREOGRAPHY_DEFAULT_RESPONSE_COLOR;
+
+  /**
+   * Gets the primary color for responding participants and messages.
+   * @return The ResponseColor.
+   * @see #setResponseColor(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "ChoreographyDefaultResponseColor", classValue = BpmnConstants.class)
+  public final Paint getResponseColor() {
+    return responseColor;
+  }
+
+  /**
+   * Sets the primary color for responding participants and messages.
+   * @param value The ResponseColor to set.
+   * @see #getResponseColor()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "ChoreographyDefaultResponseColor", classValue = BpmnConstants.class)
+  public final void setResponseColor( Paint value ) {
+    if (responseColor != value) {
+      setModCount(getModCount() + 1);
+      responseColor = value;
+    }
+  }
+
+  private Paint messageOutline;
+
+  Pen messagePen;
+
+  private Pen messageLinePen;
+
+  /**
+   * Gets the outline color for messages.
+   * <p>
+   * This also influences the color of the line to the message.
+   * </p>
+   * @return The MessageOutline.
+   * @see #setMessageOutline(Paint)
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "ChoreographyDefaultMessageOutline", classValue = BpmnConstants.class)
+  public final Paint getMessageOutline() {
+    return messageOutline;
+  }
+
+  /**
+   * Sets the outline color for messages.
+   * <p>
+   * This also influences the color of the line to the message.
+   * </p>
+   * @param value The MessageOutline to set.
+   * @see #getMessageOutline()
+   */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
+  @DefaultValue(stringValue = "ChoreographyDefaultMessageOutline", classValue = BpmnConstants.class)
+  public final void setMessageOutline( Paint value ) {
+    if (messageOutline != value) {
+      setModCount(getModCount() + 1);
+      messageOutline = value;
+      messagePen = (Pen)new Pen(messageOutline, 1);
+      Pen pen = new Pen(messageOutline, 1);
+      pen.setDashStyle(DashStyle.getDot());
+      pen.setEndCap(BasicStroke.CAP_ROUND);
+      messageLinePen = (Pen)pen;
+      updateMessageLineIcon();
+      updateInitiatingMessageIcon();
+      updateResponseMessageIcon();
+    }
+  }
+
   /**
    * Gets the insets for the task name band of the given item.
    * <p>
@@ -338,7 +540,6 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
     return (isInitiatingMessage() && !isInitiatingAtTop()) || (isResponseMessage() && isInitiatingAtTop());
   }
 
-
   private IIcon outlineIcon;
 
   private IIcon loopIcon;
@@ -350,9 +551,63 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
    */
   public ChoreographyNodeStyle() {
     setType(ChoreographyType.TASK);
+    setMessageOutline(BpmnConstants.CHOREOGRAPHY_DEFAULT_MESSAGE_OUTLINE);
     setMinimumSize(new SizeD(30, 30));
     setLoopCharacteristic(LoopCharacteristic.NONE);
     setSubState(SubState.NONE);
+  }
+
+  private void updateOutlineIcon() {
+    outlineIcon = IconFactory.createChoreography(type, getOutline());
+    if (type == ChoreographyType.CALL) {
+      outlineIcon = new PlacedIcon(outlineIcon, BpmnConstants.THICK_LINE_PLACEMENT, SizeD.EMPTY);
+    }
+  }
+
+  private void updateTaskBandIcon() {
+    taskBandBackgroundIcon = IconFactory.createChoreographyTaskBand(getBackground());
+  }
+
+  private void updateMessageLineIcon() {
+    messageLineIcon = IconFactory.createLine(messageLinePen, 0.5, 0, 0.5, 1);
+  }
+
+  private void updateInitiatingMessageIcon() {
+    initiatingMessageIcon = IconFactory.createMessage(messagePen, getInitiatingColor(), false);
+    updateMessageLineIcon();
+    updateTopInitiatingMessageIcon();
+    updateBottomInitiatingMessageIcon();
+  }
+
+  private void updateTopInitiatingMessageIcon() {
+    topInitiatingMessageIcon = IconFactory.createCombinedIcon(Arrays.asList(new IIcon[]{IconFactory.createPlacedIcon(messageLineIcon, ExteriorLabelModel.NORTH, new SizeD(MESSAGE_DISTANCE, MESSAGE_DISTANCE)), IconFactory.createPlacedIcon(initiatingMessageIcon, BpmnConstants.CHOREOGRAPHY_TOP_MESSAGE_PLACEMENT, BpmnConstants.MESSAGE_SIZE)}));
+  }
+
+  private void updateBottomInitiatingMessageIcon() {
+    bottomInitiatingMessageIcon = IconFactory.createCombinedIcon(Arrays.asList(new IIcon[]{IconFactory.createPlacedIcon(messageLineIcon, ExteriorLabelModel.SOUTH, new SizeD(MESSAGE_DISTANCE, MESSAGE_DISTANCE)), IconFactory.createPlacedIcon(initiatingMessageIcon, BpmnConstants.CHOREOGRAPHY_BOTTOM_MESSAGE_PLACEMENT, BpmnConstants.MESSAGE_SIZE)}));
+  }
+
+  private void updateResponseMessageIcon() {
+    responseMessageIcon = IconFactory.createMessage(messagePen, getResponseColor(), false);
+    updateMessageLineIcon();
+    updateTopResponseMessageIcon();
+    updateBottomResponseMessageIcon();
+  }
+
+  private void updateTopResponseMessageIcon() {
+    topResponseMessageIcon = IconFactory.createCombinedIcon(Arrays.asList(new IIcon[]{IconFactory.createPlacedIcon(messageLineIcon, ExteriorLabelModel.NORTH, new SizeD(MESSAGE_DISTANCE, MESSAGE_DISTANCE)), IconFactory.createPlacedIcon(responseMessageIcon, BpmnConstants.CHOREOGRAPHY_TOP_MESSAGE_PLACEMENT, BpmnConstants.MESSAGE_SIZE)}));
+  }
+
+  private void updateBottomResponseMessageIcon() {
+    bottomResponseMessageIcon = IconFactory.createCombinedIcon(Arrays.asList(new IIcon[]{IconFactory.createPlacedIcon(messageLineIcon, ExteriorLabelModel.SOUTH, new SizeD(MESSAGE_DISTANCE, MESSAGE_DISTANCE)), IconFactory.createPlacedIcon(responseMessageIcon, BpmnConstants.CHOREOGRAPHY_BOTTOM_MESSAGE_PLACEMENT, BpmnConstants.MESSAGE_SIZE)}));
+  }
+
+  private void updateMultiInstanceIcon() {
+    multiInstanceIcon = IconFactory.createPlacedIcon(IconFactory.createLoopCharacteristic(LoopCharacteristic.PARALLEL, getIconColor()), BpmnConstants.CHOREOGRAPHY_MARKER_PLACEMENT, BpmnConstants.MARKER_SIZE);
+  }
+
+  private void updateLoopIcon() {
+    loopIcon = IconFactory.createLoopCharacteristic(getLoopCharacteristic(), getIconColor());
   }
 
 
@@ -404,12 +659,14 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
 
     // messages
     if (isInitiatingMessage()) {
-      IIcon initiatingMessageIcon = isInitiatingAtTop() ? TOP_INITIATING_MESSAGE_ICON : BOTTOM_INITIATING_MESSAGE_ICON;
+      updateInitiatingMessageIcon();
+      IIcon initiatingMessageIcon = isInitiatingAtTop() ? topInitiatingMessageIcon : bottomInitiatingMessageIcon;
       initiatingMessageIcon.setBounds(new RectD(0, 0, bounds.width, bounds.height));
       container.add(initiatingMessageIcon.createVisual(context));
     }
     if (isResponseMessage()) {
-      IIcon responseMessageIcon = isInitiatingAtTop() ? BOTTOM_RESPONSE_MESSAGE_ICON : TOP_RESPONSE_MESSAGE_ICON;
+      updateResponseMessageIcon();
+      IIcon responseMessageIcon = isInitiatingAtTop() ? bottomResponseMessageIcon : topResponseMessageIcon;
       responseMessageIcon.setBounds(new RectD(0, 0, bounds.width, bounds.height));
       container.add(responseMessageIcon.createVisual(context));
     }
@@ -481,12 +738,12 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
 
       // messages
       if (isInitiatingMessage()) {
-        IIcon initiatingMessageIcon = isInitiatingAtTop() ? TOP_INITIATING_MESSAGE_ICON : BOTTOM_INITIATING_MESSAGE_ICON;
+        IIcon initiatingMessageIcon = isInitiatingAtTop() ? topInitiatingMessageIcon : bottomInitiatingMessageIcon;
         initiatingMessageIcon.setBounds(new RectD(0, 0, newBounds.width, newBounds.height));
         updateChildVisual(context, container, childIndex++, initiatingMessageIcon);
       }
       if (isResponseMessage()) {
-        IIcon responseMessageIcon = isInitiatingAtTop() ? BOTTOM_RESPONSE_MESSAGE_ICON : TOP_RESPONSE_MESSAGE_ICON;
+        IIcon responseMessageIcon = isInitiatingAtTop() ? bottomResponseMessageIcon : topResponseMessageIcon;
         responseMessageIcon.setBounds(new RectD(0, 0, newBounds.width, newBounds.height));
         updateChildVisual(context, container, childIndex++, responseMessageIcon);
       }
@@ -499,33 +756,40 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
   }
 
   private IIcon createTaskBandIcon( INode node ) {
-    IIcon collapseIcon = null;
+    if (taskBandBackgroundIcon == null) {
+      updateTaskBandIcon();
+    }
+    IIcon subStateIcon = null;
     if (getSubState() != SubState.NONE) {
-      collapseIcon = getSubState() == SubState.DYNAMIC ? IconFactory.createDynamicSubState(node) : IconFactory.createStaticSubState(getSubState());
+      subStateIcon = getSubState() == SubState.DYNAMIC ? IconFactory.createDynamicSubState(node, getIconColor()) : IconFactory.createStaticSubState(getSubState(), getIconColor());
     }
 
     IIcon markerIcon = null;
-    if (loopIcon != null && collapseIcon != null) {
-      markerIcon = IconFactory.createLineUpIcon(Arrays.asList(loopIcon, collapseIcon), BpmnConstants.Sizes.MARKER, 5);
+    if (loopIcon != null && subStateIcon != null) {
+      markerIcon = IconFactory.createLineUpIcon(Arrays.asList(loopIcon, subStateIcon), BpmnConstants.MARKER_SIZE, 5);
     } else if (loopIcon != null) {
       markerIcon = loopIcon;
-    } else if (collapseIcon != null) {
-      markerIcon = collapseIcon;
+    } else if (subStateIcon != null) {
+      markerIcon = subStateIcon;
     }
     if (markerIcon != null) {
-      IIcon placedMarkers = IconFactory.createPlacedIcon(markerIcon, BpmnConstants.Placements.CHOREOGRAPHY_MARKER, BpmnConstants.Sizes.MARKER);
-      return IconFactory.createCombinedIcon(Arrays.asList(TASK_BAND_BACKGROUND_ICON, placedMarkers));
+      IIcon placedMarkers = IconFactory.createPlacedIcon(markerIcon, BpmnConstants.CHOREOGRAPHY_MARKER_PLACEMENT, BpmnConstants.MARKER_SIZE);
+      return IconFactory.createCombinedIcon(Arrays.asList(taskBandBackgroundIcon, placedMarkers));
     } else {
-      return TASK_BAND_BACKGROUND_ICON;
+      return taskBandBackgroundIcon;
     }
   }
 
   private IIcon createParticipantIcon( Participant participant, boolean top, boolean isFirst ) {
     boolean isInitializing = isFirst && (top ^ !isInitiatingAtTop());
 
-    IIcon icon = IconFactory.createChoreographyParticipant(isInitializing, top && isFirst ? BpmnConstants.CHOREOGRAPHY_CORNER_RADIUS : 0, !top && isFirst ? BpmnConstants.CHOREOGRAPHY_CORNER_RADIUS : 0);
+    double radius = BpmnConstants.CHOREOGRAPHY_CORNER_RADIUS;
+    IIcon icon = IconFactory.createChoreographyParticipant(getOutline(), isInitializing ? getInitiatingColor() : getResponseColor(), top && isFirst ? radius : 0, !top && isFirst ? radius : 0);
     if (participant.isMultiInstance()) {
-      icon = IconFactory.createCombinedIcon(Arrays.asList(icon, MULTI_INSTANCE_ICON));
+      if (multiInstanceIcon == null) {
+        updateMultiInstanceIcon();
+      }
+      icon = IconFactory.createCombinedIcon(Arrays.asList(icon, multiInstanceIcon));
     }
     return icon;
   }
@@ -649,7 +913,7 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
     RectD layout = node.getLayout().toRectD();
 
     if (isShowTopMessage()) {
-      SizeD topBoxSize = BpmnConstants.Sizes.MESSAGE;
+      SizeD topBoxSize = BpmnConstants.MESSAGE_SIZE;
       double cx = layout.getCenter().x;
       double topBoxMaxY = layout.getY() - MESSAGE_DISTANCE;
       path.moveTo(cx - topBoxSize.width / 2, layout.getY());
@@ -662,7 +926,7 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
     }
 
     if (isShowBottomMessage()) {
-      SizeD bottomBoxSize = BpmnConstants.Sizes.MESSAGE;
+      SizeD bottomBoxSize = BpmnConstants.MESSAGE_SIZE;
       double cx = layout.getCenter().x;
       double bottomBoxY = layout.getMaxY() + MESSAGE_DISTANCE;
       path.moveTo(cx - bottomBoxSize.width / 2, layout.getMaxY());
@@ -686,7 +950,7 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
     RectD layout = node.getLayout().toRectD();
     if (isShowTopMessage()) {
       double cx = layout.getCenter().x;
-      SizeD topBoxSize = BpmnConstants.Sizes.MESSAGE;
+      SizeD topBoxSize = BpmnConstants.MESSAGE_SIZE;
       RectD messageRect = new RectD(new PointD(cx - topBoxSize.width / 2, layout.getY() - MESSAGE_DISTANCE - topBoxSize.height), topBoxSize);
       if (messageRect.contains(location, context.getHitTestRadius())) {
         return true;
@@ -697,7 +961,7 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
     }
 
     if (isShowBottomMessage()) {
-      SizeD bottomBoxSize = BpmnConstants.Sizes.MESSAGE;
+      SizeD bottomBoxSize = BpmnConstants.MESSAGE_SIZE;
       double cx = layout.getCenter().x;
       RectD messageRect = new RectD(new PointD(cx - bottomBoxSize.width / 2, layout.getMaxY() + MESSAGE_DISTANCE), bottomBoxSize);
       if (messageRect.contains(location, context.getHitTestRadius())) {
@@ -715,10 +979,10 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
   protected RectD getBounds( ICanvasContext context, INode node ) {
     RectD bounds = node.getLayout().toRectD();
     if (isShowTopMessage()) {
-      bounds = bounds.getEnlarged(InsetsD.fromLTRB(0, MESSAGE_DISTANCE + BpmnConstants.Sizes.MESSAGE.height, 0, 0));
+      bounds = bounds.getEnlarged(InsetsD.fromLTRB(0, MESSAGE_DISTANCE + BpmnConstants.MESSAGE_SIZE.height, 0, 0));
     }
     if (isShowBottomMessage()) {
-      bounds = bounds.getEnlarged(InsetsD.fromLTRB(0, 0, 0, MESSAGE_DISTANCE + BpmnConstants.Sizes.MESSAGE.height));
+      bounds = bounds.getEnlarged(InsetsD.fromLTRB(0, 0, 0, MESSAGE_DISTANCE + BpmnConstants.MESSAGE_SIZE.height));
     }
 
     return bounds;
@@ -746,7 +1010,6 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
   }
 
   @Override
-  @Obfuscation(stripAfterObfuscation = false, exclude = true)
   public ChoreographyNodeStyle clone() {
     ChoreographyNodeStyle newInstance = (ChoreographyNodeStyle)super.clone();
 
@@ -761,7 +1024,7 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
     return newInstance;
   }
 
-  static class ParticipantList extends ArrayList<Participant> {
+  public static class ParticipantList extends ArrayList<Participant> {
     public final int getModCount() {
       return modCount + getParticipantModCount();
     }
@@ -786,7 +1049,7 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
   /**
    * Uses the style insets extended by the size of the participant bands.
    */
-  private static class ChoreographyInsetsProvider implements INodeInsetsProvider {
+  private static final class ChoreographyInsetsProvider implements INodeInsetsProvider {
     private final ChoreographyNodeStyle style;
 
     ChoreographyInsetsProvider( ChoreographyNodeStyle style ) {
@@ -798,14 +1061,14 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
       double bottomInsets = ((ChoreographyNodeStyle.ParticipantList)style.getBottomParticipants()).getHeight();
 
       bottomInsets += (style.getLoopCharacteristic() != LoopCharacteristic.NONE || style.getSubState() != SubState.NONE)
-          ? BpmnConstants.Sizes.MARKER.height + ((InteriorLabelModel)BpmnConstants.Placements.CHOREOGRAPHY_MARKER.getModel()).getInsets().bottom : 0;
+          ? BpmnConstants.MARKER_SIZE.height + ((InteriorLabelModel)BpmnConstants.CHOREOGRAPHY_MARKER_PLACEMENT.getModel()).getInsets().bottom : 0;
 
       return InsetsD.fromLTRB(style.getInsets().left, style.getInsets().top + topInsets, style.getInsets().right, style.getInsets().bottom + bottomInsets);
     }
 
   }
 
-  private static class ChoreographyEditLabelHelper implements IEditLabelHelper {
+  private static final class ChoreographyEditLabelHelper implements IEditLabelHelper {
     private final INode node;
 
     public ChoreographyEditLabelHelper( INode node ) {
@@ -893,43 +1156,6 @@ public class ChoreographyNodeStyle extends BpmnNodeStyle {
     public void setIcon(IIcon icon) {
       this.icon = icon;
     }
-  }
-
-  static {
-    ShapeNodeStyleRenderer shapeNodeStyleRenderer = new ShapeNodeStyleRenderer();
-    shapeNodeStyleRenderer.setRoundRectArcRadius(BpmnConstants.CHOREOGRAPHY_CORNER_RADIUS);
-    ShapeNodeStyle shapeNodeStyle = new ShapeNodeStyle(shapeNodeStyleRenderer);
-    shapeNodeStyle.setShape(ShapeNodeShape.ROUND_RECTANGLE);
-    shapeNodeStyle.setPen(Pen.getBlack());
-    shapeNodeStyle.setPaint(null);
-    SNS = shapeNodeStyle;
-
-    IIcon lineIcon = IconFactory.createLine(BpmnConstants.Pens.CHOREOGRAPHY_MESSAGE_LINK, 0.5, 0, 0.5, 1);
-    IIcon initiatingMessageIcon = IconFactory.createMessage(BpmnConstants.Pens.MESSAGE, BpmnConstants.Paints.CHOREOGRAPHY_INITIALIZING_PARTICIPANT);
-    IIcon responseMessageIcon = IconFactory.createMessage(BpmnConstants.Pens.MESSAGE, BpmnConstants.Paints.CHOREOGRAPHY_RECEIVING_PARTICIPANT);
-
-    ArrayList<IIcon> icons = new ArrayList<>();
-    icons.add(IconFactory.createPlacedIcon(lineIcon, ExteriorLabelModel.NORTH, new SizeD(MESSAGE_DISTANCE, MESSAGE_DISTANCE)));
-    icons.add(IconFactory.createPlacedIcon(initiatingMessageIcon, BpmnConstants.Placements.CHOREOGRAPHY_TOP_MESSAGE, BpmnConstants.Sizes.MESSAGE));
-    TOP_INITIATING_MESSAGE_ICON = IconFactory.createCombinedIcon(icons);
-
-    icons = new ArrayList<>();
-    icons.add(IconFactory.createPlacedIcon(lineIcon, ExteriorLabelModel.SOUTH, new SizeD(MESSAGE_DISTANCE, MESSAGE_DISTANCE)));
-    icons.add(IconFactory.createPlacedIcon(responseMessageIcon, BpmnConstants.Placements.CHOREOGRAPHY_BOTTOM_MESSAGE, BpmnConstants.Sizes.MESSAGE));
-    BOTTOM_RESPONSE_MESSAGE_ICON = IconFactory.createCombinedIcon(icons);
-
-    icons = new ArrayList<>();
-    icons.add(IconFactory.createPlacedIcon(lineIcon, ExteriorLabelModel.SOUTH, new SizeD(MESSAGE_DISTANCE, MESSAGE_DISTANCE)));
-    icons.add(IconFactory.createPlacedIcon(initiatingMessageIcon, BpmnConstants.Placements.CHOREOGRAPHY_BOTTOM_MESSAGE, BpmnConstants.Sizes.MESSAGE));
-    BOTTOM_INITIATING_MESSAGE_ICON = IconFactory.createCombinedIcon(icons);
-
-    icons = new ArrayList<>();
-    icons.add(IconFactory.createPlacedIcon(lineIcon, ExteriorLabelModel.NORTH, new SizeD(MESSAGE_DISTANCE, MESSAGE_DISTANCE)));
-    icons.add(IconFactory.createPlacedIcon(responseMessageIcon, BpmnConstants.Placements.CHOREOGRAPHY_TOP_MESSAGE, BpmnConstants.Sizes.MESSAGE));
-    TOP_RESPONSE_MESSAGE_ICON = IconFactory.createCombinedIcon(icons);
-
-    TASK_BAND_BACKGROUND_ICON = IconFactory.createChoreographyTaskBand();
-    MULTI_INSTANCE_ICON = IconFactory.createPlacedIcon(IconFactory.createLoopCharacteristic(LoopCharacteristic.PARALLEL), BpmnConstants.Placements.CHOREOGRAPHY_MARKER, BpmnConstants.Sizes.MARKER);
   }
 
 }

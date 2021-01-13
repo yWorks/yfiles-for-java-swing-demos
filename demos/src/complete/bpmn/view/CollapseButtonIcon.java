@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.3.
+ ** This demo file is part of yFiles for Java (Swing) 3.4.
  **
- ** Copyright (c) 2000-2020 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -42,22 +42,28 @@ import com.yworks.yfiles.view.input.IHitTestable;
 import com.yworks.yfiles.view.input.IInputModeContext;
 import com.yworks.yfiles.view.IRenderContext;
 import com.yworks.yfiles.view.IVisual;
+import java.awt.Paint;
 
 class CollapseButtonIcon extends AbstractIcon implements IClickListener {
-  private static final IIcon COLLAPSED_ICON;
+  private final IIcon collapsedIcon;
 
-  private static final IIcon EXPANDED_ICON;
+  private final IIcon expandedIcon;
 
-  private INode node;
+  private final INode node;
 
-  public CollapseButtonIcon( INode node ) {
+  private final Paint iconBrush;
+
+  public CollapseButtonIcon( INode node, Paint iconBrush ) {
     this.node = node;
+    this.iconBrush = iconBrush;
+    collapsedIcon = IconFactory.createStaticSubState(SubState.COLLAPSED, iconBrush);
+    expandedIcon = IconFactory.createStaticSubState(SubState.EXPANDED, iconBrush);
   }
 
   @Override
   public IVisual createVisual( IRenderContext context ) {
-    COLLAPSED_ICON.setBounds(getBounds().toRectD());
-    EXPANDED_ICON.setBounds(getBounds().toRectD());
+    collapsedIcon.setBounds(getBounds().toRectD());
+    expandedIcon.setBounds(getBounds().toRectD());
     boolean expanded = true;
     CanvasComponent canvas = context != null ? context.getCanvasComponent() : null;
 
@@ -71,17 +77,17 @@ class CollapseButtonIcon extends AbstractIcon implements IClickListener {
       }
     }
     if(expanded) {
-      return EXPANDED_ICON.createVisual(context);
+      return expandedIcon.createVisual(context);
     }
     else {
-      return COLLAPSED_ICON.createVisual(context);
+      return collapsedIcon.createVisual(context);
     }
   }
 
   @Override
   public IVisual updateVisual( IRenderContext context, IVisual oldVisual ) {
-    COLLAPSED_ICON.setBounds(getBounds().toRectD());
-    EXPANDED_ICON.setBounds(getBounds().toRectD());
+    collapsedIcon.setBounds(getBounds().toRectD());
+    expandedIcon.setBounds(getBounds().toRectD());
     boolean expanded = true;
     CanvasComponent canvas = context != null ? context.getCanvasComponent() : null;
 
@@ -95,10 +101,10 @@ class CollapseButtonIcon extends AbstractIcon implements IClickListener {
       }
     }
     if(expanded) {
-      return EXPANDED_ICON.updateVisual(context, oldVisual);
+      return expandedIcon.updateVisual(context, oldVisual);
     }
     else {
-      return COLLAPSED_ICON.updateVisual(context, oldVisual);
+      return collapsedIcon.updateVisual(context, oldVisual);
     }
   }
 
@@ -123,11 +129,6 @@ class CollapseButtonIcon extends AbstractIcon implements IClickListener {
       return rect.toRectD().contains(location, context.getHitTestRadius());
     }
 
-  }
-
-  static {
-    COLLAPSED_ICON = IconFactory.createStaticSubState(SubState.COLLAPSED);
-    EXPANDED_ICON = IconFactory.createStaticSubState(SubState.EXPANDED);
   }
 
   @Override
