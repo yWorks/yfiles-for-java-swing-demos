@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -55,6 +55,7 @@ import com.yworks.yfiles.layout.orthogonal.OrthogonalLayout;
 import com.yworks.yfiles.layout.radial.RadialLayout;
 import com.yworks.yfiles.layout.router.OrganicEdgeRouter;
 import com.yworks.yfiles.layout.router.polyline.EdgeRouter;
+import com.yworks.yfiles.layout.router.polyline.EdgeRoutingStyle;
 import com.yworks.yfiles.layout.tree.BalloonLayout;
 import com.yworks.yfiles.layout.tree.TreeLayout;
 import com.yworks.yfiles.layout.tree.TreeReductionStage;
@@ -439,7 +440,7 @@ public class SimpleEditorDemo extends AbstractDemo {
     layoutMenu.addSeparator();
     layoutMenu.add(createCommandMenuItemAction("Organic Router", RUN_LAYOUT, new OrganicEdgeRouter(), graphComponent));
     EdgeRouter edgeRouter = new EdgeRouter();
-    edgeRouter.setPolylineRoutingEnabled(true);
+    edgeRouter.getDefaultEdgeLayoutDescriptor().setRoutingStyle(EdgeRoutingStyle.OCTILINEAR);
     layoutMenu.add(createCommandMenuItemAction("Polyline Router", RUN_LAYOUT, edgeRouter, graphComponent));
     menuBar.add(layoutMenu);
   }
@@ -467,7 +468,7 @@ public class SimpleEditorDemo extends AbstractDemo {
 
     // Set margins for the Fit Content command to make sure that the graph is placed besides the overview. Note that
     // these margins are also respected by the layout calculation.
-    graphComponent.setFitContentViewMargins(new InsetsD(10, OVERVIEW_SIZE.getWidth() + 20, 10, 10));
+    graphComponent.setContentMargins(new InsetsD(10, OVERVIEW_SIZE.getWidth() + 20, 10, 10));
 
     // initialize the grid for grid snapping
     initializeGrid();

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -49,7 +49,7 @@ import com.yworks.yfiles.layout.orthogonal.OrthogonalLayout;
 import com.yworks.yfiles.layout.orthogonal.OrthogonalLayoutData;
 import com.yworks.yfiles.layout.router.Scope;
 import com.yworks.yfiles.layout.router.polyline.EdgeRouter;
-import com.yworks.yfiles.layout.router.polyline.PolylineEdgeRouterData;
+import com.yworks.yfiles.layout.router.polyline.EdgeRouterData;
 import com.yworks.yfiles.view.GraphComponent;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 
@@ -272,7 +272,7 @@ public class UmlDemo extends AbstractDemo {
     EdgeRouter edgeRouter = new EdgeRouter();
     edgeRouter.setScope(Scope.ROUTE_EDGES_AT_AFFECTED_NODES);
 
-    PolylineEdgeRouterData routerData = new PolylineEdgeRouterData();
+    EdgeRouterData routerData = new EdgeRouterData();
     routerData.setAffectedNodes(node -> graphComponent.getSelection().isSelected(node));
 
     LayoutExecutor layoutExecutor = new LayoutExecutor(graphComponent, edgeRouter);
@@ -292,7 +292,7 @@ public class UmlDemo extends AbstractDemo {
     EdgeRouter edgeRouter = new EdgeRouter();
     edgeRouter.setScope(Scope.ROUTE_AFFECTED_EDGES);
 
-    PolylineEdgeRouterData routerData = new PolylineEdgeRouterData();
+    EdgeRouterData routerData = new EdgeRouterData();
     routerData.setAffectedEdges(edge -> edge.equals(affectedEdge));
 
     LayoutExecutor layoutExecutor = new LayoutExecutor(graphComponent, edgeRouter);

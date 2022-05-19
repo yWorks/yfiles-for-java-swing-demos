@@ -17,7 +17,6 @@
 |[Folding](../../src/viewer/folding/)| Shows how to use yFiles [folding](https://docs.yworks.com/yfilesjava/doc/api/#/dguide/folding) feature. |
 |[GanttChartDemo](../../src/viewer/ganttchart/)| Shows how to create a "Gantt chart" with yFiles for Java (Swing). |
 |[GraphCopy](../../src/viewer/graphcopy/)| Shows how to copy a graph or sub graph. |
-|[GraphMLCompatibility](../../src/viewer/graphmlcompatibility/)| Shows how to enable read compatibility for GraphML files from older versions. |
 |[GraphViewer](../../src/viewer/graphviewer/)| Showcase of different kinds of graphs created with yFiles for Java (Swing). |
 |[GridSnapping](../../src/viewer/gridsnapping/)| Demonstrates how to enable grid snapping functionality for graph elements. |
 |[ImageExport](../../src/viewer/imageexport/)| Export a graph as a bitmap image. |

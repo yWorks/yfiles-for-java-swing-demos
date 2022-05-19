@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -33,6 +33,7 @@ import com.yworks.yfiles.layout.ColumnDescriptor;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
 import com.yworks.yfiles.layout.LayoutData;
 import com.yworks.yfiles.layout.PartitionGrid;
+import com.yworks.yfiles.layout.PartitionGridData;
 import com.yworks.yfiles.layout.RowDescriptor;
 import com.yworks.yfiles.layout.tabular.LayoutPolicy;
 import com.yworks.yfiles.layout.tabular.NodeLayoutDescriptor;
@@ -104,13 +105,13 @@ public class TabularLayoutConfig extends LayoutConfiguration {
     }
     switch (getVerticalAlignmentItem()) {
       case CENTER:
-        nodeLayoutDescriptor.setHorizontalAlignment(0.5);
+        nodeLayoutDescriptor.setVerticalAlignment(0.5);
         break;
       case TOP:
-        nodeLayoutDescriptor.setHorizontalAlignment(0);
+        nodeLayoutDescriptor.setVerticalAlignment(0);
         break;
       case BOTTOM:
-        nodeLayoutDescriptor.setHorizontalAlignment(1);
+        nodeLayoutDescriptor.setVerticalAlignment(1);
         break;
     }
 
@@ -153,7 +154,9 @@ public class TabularLayoutConfig extends LayoutConfiguration {
     }
 
     layoutData.setNodeLayoutDescriptors(nodeLayoutDescriptor);
-    layoutData.getPartitionGridData().setGrid(partitionGrid);
+    PartitionGridData partitionGridData = new PartitionGridData();
+    partitionGridData.setGrid(partitionGrid);
+    layoutData.setPartitionGridData(partitionGridData);
 
     return layoutData;
   }
@@ -164,7 +167,7 @@ public class TabularLayoutConfig extends LayoutConfiguration {
   public Object DescriptionGroup;
 
   @Label("General")
-  @OptionGroupAnnotation(name = "GeneralGroup", position = 10)
+  @OptionGroupAnnotation(name = "RootGroup", position = 10)
   @ComponentType(ComponentTypes.OPTION_GROUP)
   public Object GeneralGroup;
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.4.
+     // This demo file is part of yFiles for Java (Swing) 3.5.
      //
-     // Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -235,7 +235,7 @@ Seat Belt]]></y:Label.Text>
 			</port>
 			<port name="p1">
 				<data key="d10">
-					<y:FreeNodePortLocationModelParameter Ratio="0.8,1.0" />
+					<y:FreeNodePortLocationModelParameter Ratio="0.9,1.0" />
 				</data>
 			</port>
 			<port name="p2">
@@ -255,7 +255,7 @@ Seat Belt]]></y:Label.Text>
 			</port>
 			<port name="p5">
 				<data key="d10">
-					<y:FreeNodePortLocationModelParameter Ratio="0.8,0.0" />
+					<y:FreeNodePortLocationModelParameter Ratio="0.9,0.0" />
 				</data>
 			</port>
 		</node>
@@ -351,7 +351,7 @@ Other Pants]]></y:Label.Text>
 			</data>
 			<port name="p0">
 				<data key="d10">
-					<x:Static Member="y:FreeNodePortLocationModel.NodeTopAnchored"/>
+					<x:Static Member="y:FreeNodePortLocationModel.NodeBottomAnchored"/>
 				</data>
 			</port>
 			<port name="p1">
@@ -605,7 +605,7 @@ Driving]]></y:Label.Text>
 		<edge id="e6" source="n0" target="n6" sourceport="p1" targetport="p4">
 			<data key="d6">
 				<x:List>
-					<y:Label Style="{y:GraphMLReference 8}" LayoutParameter="{x:Static y:NinePositionsEdgeLabelModel.SourceBelow}">
+					<y:Label Style="{y:GraphMLReference 8}" LayoutParameter="{x:Static y:NinePositionsEdgeLabelModel.SourceAbove}">
 						<y:Label.Text><![CDATA[Found Keys]]></y:Label.Text>
 					</y:Label>
 				</x:List>
@@ -631,9 +631,7 @@ Driving]]></y:Label.Text>
 			<data key="d7">
 				<x:List>
 					<y:Bend Location="263.2,79.7731481481481"/>
-					<y:Bend Location="184,79.7731481481481"/>
-					<y:Bend Location="184,100"/>
-					<y:Bend Location="174.8,100"/>
+					<y:Bend Location="184.4,79.7731481481481"/>
 				</x:List>
 			</data>
 			<data key="d8">
@@ -706,8 +704,7 @@ Lock Keys ]]></y:Label.Text>
 		<edge id="e14" source="n6" target="n14" sourceport="p1" targetport="p0">
 			<data key="d7">
 				<x:List>
-					<y:Bend Location="184,100"/>
-					<y:Bend Location="184,124.60802469135808"/>
+					<y:Bend Location="184.4,124.60802469135808"/>
 					<y:Bend Location="263.2,124.60802469135808"/>
 				</x:List>
 			</data>

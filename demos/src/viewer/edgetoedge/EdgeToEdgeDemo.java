@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -33,6 +33,7 @@ import com.yworks.yfiles.geometry.SizeD;
 import com.yworks.yfiles.graph.IEdge;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.portlocationmodels.BendAnchoredPortLocationModel;
+import com.yworks.yfiles.graph.portlocationmodels.EdgePathPortLocationModel;
 import com.yworks.yfiles.graph.portlocationmodels.IPortLocationModel;
 import com.yworks.yfiles.graph.portlocationmodels.SegmentRatioPortLocationModel;
 import com.yworks.yfiles.graph.styles.NodeStylePortStyleAdapter;
@@ -61,6 +62,8 @@ import com.yworks.yfiles.view.input.IPortCandidate;
 import com.yworks.yfiles.view.input.IPortCandidateProvider;
 import com.yworks.yfiles.view.input.LabelSnapContext;
 import com.yworks.yfiles.view.input.OrthogonalEdgeEditingContext;
+import com.yworks.yfiles.view.input.PortRelocationHandleProvider;
+import com.yworks.yfiles.view.input.Visualization;
 import toolkit.AbstractDemo;
 
 import javax.swing.JToggleButton;
@@ -211,6 +214,11 @@ public class EdgeToEdgeDemo extends AbstractDemo {
     // set IEdgeReconnectionPortCandidateProvider to allow re-connecting edges to other edges
     graph.getDecorator().getEdgeDecorator().getEdgeReconnectionPortCandidateProviderDecorator().setImplementation(
         IEdgeReconnectionPortCandidateProvider.ALL_NODE_AND_EDGE_CANDIDATES);
+    graph.getDecorator().getEdgeDecorator().getHandleProviderDecorator().setFactory(edge -> {
+      PortRelocationHandleProvider handleProvider = new PortRelocationHandleProvider(null, edge);
+      handleProvider.setVisualization(Visualization.LIVE);
+      return handleProvider;
+    });
 
     // load a sample graph
     try {
@@ -239,7 +247,7 @@ public class EdgeToEdgeDemo extends AbstractDemo {
    * A port candidate provider that aggregates different {@link IPortLocationModel} to provide a number of port
    * candidates along each segment of the edge.
    */
-  class EdgeSegmentPortCandidateProvider extends AbstractPortCandidateProvider {
+  static class EdgeSegmentPortCandidateProvider extends AbstractPortCandidateProvider {
     private final IEdge edge;
 
     EdgeSegmentPortCandidateProvider(IEdge edge) {
@@ -248,18 +256,12 @@ public class EdgeToEdgeDemo extends AbstractDemo {
 
     protected IEnumerable<IPortCandidate> getPortCandidates(IInputModeContext context) {
       List<IPortCandidate> candidates = new ArrayList<>();
-      // add a port candidate at each bend
-      for (int i = edge.getBends().size() - 1; i >= 0; i--) {
-        candidates.add(new DefaultPortCandidate(edge, BendAnchoredPortLocationModel.INSTANCE.createFromSource(i)));
+      // add equally distributed port candidates along the edge
+      for (int i = 1; i < 10; ++i) {
+        candidates.add(new DefaultPortCandidate(edge, EdgePathPortLocationModel.INSTANCE.createRatioParameter(0.1 * i)));
       }
-      // add port candidates along the path of each segment
-      for (int i = edge.getBends().size(); i >= 0; i--) {
-        candidates.add(new DefaultPortCandidate(edge, SegmentRatioPortLocationModel.INSTANCE.createFromSource(0.25, i)));
-        candidates.add(new DefaultPortCandidate(edge, SegmentRatioPortLocationModel.INSTANCE.createFromSource(0.5, i)));
-        candidates.add(new DefaultPortCandidate(edge, SegmentRatioPortLocationModel.INSTANCE.createFromSource(0.75, i)));
-        // add a dynamic candidate that can be used if shift is pressed to assign the exact location.
-        candidates.add(new DefaultPortCandidate(edge, SegmentRatioPortLocationModel.INSTANCE));
-      }
+      // add a dynamic candidate that can be used if shift is pressed to assign the exact location.
+      candidates.add(new DefaultPortCandidate(edge, EdgePathPortLocationModel.INSTANCE));
       return IEnumerable.create(candidates);
     }
   }

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,35 +29,21 @@
  ***************************************************************************/
 package layout.layoutstyles.configurations;
 
-import com.yworks.yfiles.algorithms.DataProviderAdapter;
-import com.yworks.yfiles.algorithms.Edge;
-import com.yworks.yfiles.algorithms.IDataProvider;
-import com.yworks.yfiles.algorithms.Node;
+import com.yworks.yfiles.algorithms.ILabelLayoutDpKey;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.ILabel;
-import com.yworks.yfiles.graph.ILabelOwner;
-import com.yworks.yfiles.graph.IMapper;
 import com.yworks.yfiles.graph.labelmodels.FreeEdgeLabelModel;
 import com.yworks.yfiles.graph.labelmodels.ILabelModelParameterFinder;
 import com.yworks.yfiles.graphml.DefaultValue;
-import com.yworks.yfiles.layout.AbstractLayoutStage;
-import com.yworks.yfiles.layout.CopiedLayoutGraph;
-import com.yworks.yfiles.layout.IEdgeLabelLayout;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
-import com.yworks.yfiles.layout.INodeLabelLayout;
-import com.yworks.yfiles.layout.ItemMapping;
 import com.yworks.yfiles.layout.labeling.GenericLabeling;
 import com.yworks.yfiles.layout.labeling.LabelingData;
 import com.yworks.yfiles.layout.labeling.OptimizationStrategy;
 import com.yworks.yfiles.layout.LayoutData;
-import com.yworks.yfiles.layout.LayoutGraph;
-import com.yworks.yfiles.layout.LayoutGraphAdapter;
 import com.yworks.yfiles.layout.SimpleProfitModel;
 import com.yworks.yfiles.utils.Obfuscation;
 import com.yworks.yfiles.view.GraphComponent;
 import com.yworks.yfiles.view.IGraphSelection;
-import java.util.function.Function;
-import java.util.Map;
 import toolkit.optionhandler.ComponentType;
 import toolkit.optionhandler.ComponentTypes;
 import toolkit.optionhandler.EnumValueAnnotation;
@@ -71,6 +57,8 @@ import toolkit.optionhandler.OptionGroupAnnotation;
 @Obfuscation(stripAfterObfuscation = false, exclude = true, applyToMembers = true)
 @Label("Labeling")
 public class LabelingConfig extends LayoutConfiguration {
+  private static final ILabelLayoutDpKey<Boolean> SELECTED_LABELS_KEY = new ILabelLayoutDpKey<Boolean>(Boolean.class, null, "SelectedLabels");
+
   /**
    * Setup default values for various configuration parameters.
    */
@@ -109,17 +97,12 @@ public class LabelingConfig extends LayoutConfiguration {
 
     boolean selectionOnly = isConsideringSelectedFeaturesOnlyItem();
     labeling.setAffectedLabelsDpKey(null);
-    ILayoutAlgorithm layout = labeling;
 
     if (graphComponent.getSelection() != null && selectionOnly) {
-      labeling.setAffectedLabelsDpKey(SelectedLabelsStage.PROVIDER_KEY);
-      layout = new SelectedLabelsStage(labeling);
+      labeling.setAffectedLabelsDpKey(SELECTED_LABELS_KEY);
     }
 
-    addPreferredPlacementDescriptor(graphComponent.getGraph(), getLabelPlacementAlongEdgeItem(), getLabelPlacementSideOfEdgeItem(), getLabelPlacementOrientationItem(), getLabelPlacementDistanceItem());
-    setupEdgeLabelModels(graphComponent);
-
-    return layout;
+    return labeling;
   }
 
   @Override
@@ -128,17 +111,15 @@ public class LabelingConfig extends LayoutConfiguration {
 
     final IGraphSelection selection = graphComponent.getSelection();
     if (selection != null) {
-      layoutData.setAffectedLabels(selection.getSelectedLabels());
+      layoutData.getAffectedLabels().setDpKey(SELECTED_LABELS_KEY);
+      layoutData.setAffectedLabels(label -> 
+         selection.isSelected(label) || selection.isSelected(label.getOwner())
+      );
+    }
 
-      SelectedLabelsLayoutData data = new SelectedLabelsLayoutData();
-      data.getSelectedLabelsAtItem().setFunction(item -> {
-        boolean[] bools = new boolean[item.getLabels().size()];
-        for (int i = 0; i < item.getLabels().size(); i++) {
-          bools[i] = (selection.isSelected(item.getLabels().getItem(i)) || selection.isSelected(item));
-        }
-        return bools;
-      });
-      return layoutData.combineWith(data);
+    if (isPlacingEdgeLabelsItem()) {
+      setupEdgeLabelModels(graphComponent);
+      return layoutData.combineWith(createLabelingLayoutData(graphComponent.getGraph(), getLabelPlacementAlongEdgeItem(), getLabelPlacementSideOfEdgeItem(), getLabelPlacementOrientationItem(), getLabelPlacementDistanceItem()));
     }
 
     return layoutData;
@@ -165,109 +146,6 @@ public class LabelingConfig extends LayoutConfiguration {
         graph.setLabelLayoutParameter(label, parameterFinder.findBestParameter(label, model, label.getLayout()));
       }
     }
-  }
-
-  /**
-   * A layout stage that takes care to convert the selected labels mapper into the respective data provider. Unfortunately,
-   * mappers for labels are not converted into working data providers for labels automatically.
-   */
-  public static final class SelectedLabelsStage extends AbstractLayoutStage {
-    public static final String PROVIDER_KEY = "YetAnotherKey";
-
-    public static final String SELECTED_LABELS_AT_ITEM_KEY = "SelectedLabelsAtItem";
-
-    public SelectedLabelsStage( ILayoutAlgorithm layout ) {
-      super(layout);
-    }
-
-    @Override
-    public void applyLayout( LayoutGraph graph ) {
-      IDataProvider dataProvider = graph.getDataProvider(SELECTED_LABELS_AT_ITEM_KEY);
-      graph.addDataProvider(PROVIDER_KEY, new LabelingConfig.MyDataProviderAdapter(dataProvider, graph));
-      applyLayoutCore(graph);
-      graph.removeDataProvider(PROVIDER_KEY);
-    }
-
-  }
-
-  public static class MyDataProviderAdapter extends DataProviderAdapter {
-    private final IDataProvider selectedLabelsAtItemProvider;
-
-    private final LayoutGraph layoutGraph;
-
-    public MyDataProviderAdapter( IDataProvider selectedLabelsAtItemProvider, LayoutGraph layoutGraph ) {
-      this.selectedLabelsAtItemProvider = selectedLabelsAtItemProvider;
-      this.layoutGraph = layoutGraph;
-    }
-
-    @Override
-    public boolean getBool( Object dataHolder ) {
-      if (dataHolder instanceof INodeLabelLayout) {
-        Node node = layoutGraph.getOwner((INodeLabelLayout)dataHolder);
-        if (layoutGraph instanceof CopiedLayoutGraph) {
-          boolean[] selectedLabels = (boolean[])selectedLabelsAtItemProvider.get(node);
-          if (selectedLabels != null) {
-            INodeLabelLayout[] nodeLabelLayouts = layoutGraph.getLabelLayout(node);
-            for (int i = 0; i < nodeLabelLayouts.length; i++) {
-              INodeLabelLayout nodeLabelLayout = nodeLabelLayouts[i];
-              if (nodeLabelLayout == dataHolder && selectedLabels.length > i) {
-                return selectedLabels[i];
-              }
-            }
-          }
-        }
-      } else if (dataHolder instanceof IEdgeLabelLayout) {
-        Edge edge = layoutGraph.getOwner((IEdgeLabelLayout)dataHolder);
-        if (layoutGraph instanceof CopiedLayoutGraph) {
-          boolean[] selectedLabels = (boolean[])selectedLabelsAtItemProvider.get(edge);
-          if (selectedLabels != null) {
-            IEdgeLabelLayout[] edgeLabelLayouts = layoutGraph.getLabelLayout(edge);
-            for (int i = 0; i < edgeLabelLayouts.length; i++) {
-              IEdgeLabelLayout edgeLabelLayout = edgeLabelLayouts[i];
-              if (edgeLabelLayout == dataHolder && selectedLabels.length > i) {
-                return selectedLabels[i];
-              }
-            }
-          }
-        }
-      }
-      return false;
-    }
-
-  }
-
-  public static class SelectedLabelsLayoutData extends LayoutData {
-    private ItemMapping<ILabelOwner, boolean[]> selectedLabelsAtItem;
-
-    public final ItemMapping<ILabelOwner, boolean[]> getSelectedLabelsAtItem() {
-      return selectedLabelsAtItem != null ? selectedLabelsAtItem : (selectedLabelsAtItem = new ItemMapping<ILabelOwner, boolean[]>(boolean[].class));
-    }
-
-    public final void setSelectedLabelsAtItem( ItemMapping<ILabelOwner, boolean[]> value ) {
-      selectedLabelsAtItem = value;
-    }
-
-    public final void setSelectedLabelsAtItem( Function<ILabelOwner, ? extends boolean[]> value ) {
-      this.getSelectedLabelsAtItem().setFunction((Function)value);
-    }
-
-    public final void setSelectedLabelsAtItem( IMapper<ILabelOwner, ? extends boolean[]> value ) {
-      this.getSelectedLabelsAtItem().setMapper((IMapper)value);
-    }
-
-    public final void setSelectedLabelsAtItem( boolean[] value ) {
-      this.getSelectedLabelsAtItem().setConstant(value);
-    }
-
-    public final void setSelectedLabelsAtItem( Map<ILabelOwner, ? extends boolean[]> value ) {
-      this.getSelectedLabelsAtItem().setMap((Map)value);
-    }
-
-    @Override
-    protected void apply( LayoutGraphAdapter layoutGraphAdapter, ILayoutAlgorithm layout, CopiedLayoutGraph layoutGraph ) {
-      layoutGraphAdapter.addDataProvider(LabelingConfig.SelectedLabelsStage.SELECTED_LABELS_AT_ITEM_KEY, getSelectedLabelsAtItem().provideMapper(layoutGraphAdapter, layout));
-    }
-
   }
 
   @Label("Description")
@@ -451,7 +329,9 @@ public class LabelingConfig extends LayoutConfiguration {
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = LayoutConfiguration.EnumLabelPlacementAlongEdge.class, stringValue = "CENTERED")
   @EnumValueAnnotation(label = "Anywhere", value = "ANYWHERE")
   @EnumValueAnnotation(label = "At Source", value = "AT_SOURCE")
+  @EnumValueAnnotation(label = "At Source Port", value = "AT_SOURCE_PORT")
   @EnumValueAnnotation(label = "At Target", value = "AT_TARGET")
+  @EnumValueAnnotation(label = "At Target Port", value = "AT_TARGET_PORT")
   @EnumValueAnnotation(label = "Centered", value = "CENTERED")
   public final LayoutConfiguration.EnumLabelPlacementAlongEdge getLabelPlacementAlongEdgeItem() {
     return this.labelPlacementAlongEdgeItem;
@@ -462,7 +342,9 @@ public class LabelingConfig extends LayoutConfiguration {
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = LayoutConfiguration.EnumLabelPlacementAlongEdge.class, stringValue = "CENTERED")
   @EnumValueAnnotation(label = "Anywhere", value = "ANYWHERE")
   @EnumValueAnnotation(label = "At Source", value = "AT_SOURCE")
+  @EnumValueAnnotation(label = "At Source Port", value = "AT_SOURCE_PORT")
   @EnumValueAnnotation(label = "At Target", value = "AT_TARGET")
+  @EnumValueAnnotation(label = "At Target Port", value = "AT_TARGET_PORT")
   @EnumValueAnnotation(label = "Centered", value = "CENTERED")
   public final void setLabelPlacementAlongEdgeItem( LayoutConfiguration.EnumLabelPlacementAlongEdge value ) {
     this.labelPlacementAlongEdgeItem = value;

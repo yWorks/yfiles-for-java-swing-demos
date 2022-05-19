@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,7 +29,6 @@
  ***************************************************************************/
 package layout.treelayout;
 
-import com.yworks.yfiles.analysis.TreeAnalyzer;
 import com.yworks.yfiles.graph.GraphItemTypes;
 import com.yworks.yfiles.graph.IEdge;
 import com.yworks.yfiles.graph.IGraph;
@@ -48,6 +47,7 @@ import com.yworks.yfiles.layout.tree.RoutingStyle;
 import com.yworks.yfiles.layout.tree.SimpleNodePlacer;
 import com.yworks.yfiles.layout.tree.TreeLayout;
 import com.yworks.yfiles.layout.tree.TreeLayoutData;
+import com.yworks.yfiles.utils.IListEnumerable;
 import com.yworks.yfiles.view.ISelectionModel;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import toolkit.AbstractDemo;
@@ -100,8 +100,6 @@ public class TreeLayoutDemo extends AbstractDemo {
    * </dl>
    */
   private final static Policy NODE_PLACEMENT = Policy.Mixed;
-
-  private TreeAnalyzer treeAnalyzer;
 
 
   /**
@@ -245,7 +243,7 @@ public class TreeLayoutDemo extends AbstractDemo {
 
       case Mixed:
         layoutData.setNodePlacers(node -> {
-          int depth = getTreeAnalyzer(graphComponent.getGraph()).getDepth(node);
+          int depth = getDepth(graphComponent.getGraph(), node);
           if (depth == 3) {
             return new LeftRightNodePlacer();
           } else {
@@ -268,11 +266,25 @@ public class TreeLayoutDemo extends AbstractDemo {
     }
   }
 
-  private TreeAnalyzer getTreeAnalyzer(IGraph graph) {
-    if (treeAnalyzer == null) {
-      treeAnalyzer = new TreeAnalyzer(graph);
+  private int getDepth(IGraph graph, INode node) {
+    int depth = 0;
+    INode walker = node;
+    while (walker != null) {
+      IListEnumerable<IEdge> inEdges = graph.inEdgesAt(walker);
+      int size = inEdges.size();
+      if (size == 0) {
+        return depth;
+      } else if (size > 1) {
+        throw new IllegalStateException("Graph is not a tree.");
+      } else {
+        walker = inEdges.first().getSourceNode();
+        depth++;
+      }
+      if (depth > graph.getNodes().size()) {
+        throw new IllegalStateException("Graph is not a tree.");
+      }
     }
-    return treeAnalyzer;
+    return depth;
   }
 
   public static void main( final String[] args ) {

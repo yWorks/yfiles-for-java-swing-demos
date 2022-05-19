@@ -1,0 +1,72 @@
+plugins {
+   id 'application'
+   // The shadow plugin is used to generate an "uber"-jar containing the yFiles for Java (Swing) dependencies.
+   id "com.github.johnrengelman.shadow" version "7.1.2"
+}
+
+repositories {
+  mavenCentral()
+}
+
+application {
+  mainClass.set('gradledemo.GradleDemo')
+}
+
+jar {
+  manifest {
+    attributes(
+      'Main-Class': application.getMainClass()
+    )
+  }
+}
+
+// use separate configurations for the yguard and yFiles for Java (Swing) dependencies
+configurations {
+  yfiles
+  yguard
+  // include yFiles for Java (Swing) jar in the compileClasspath
+  compileClasspath.extendsFrom(yfiles)
+}
+
+dependencies {
+  yfiles files('../../../../lib/yfiles-for-java-swing.jar')
+  yguard 'com.yworks:yguard:3.1.0'
+}
+
+run {
+  // add the yfiles dependency to the classpath - for the 'uber' jar this is not necessary as yfiles is included in it
+  classpath += configurations.yfiles
+}
+
+// configure the 'uber' jar to only include the application and the yFiles for Java (Swing) jar
+shadowJar {
+  configurations = [project.configurations.yfiles]
+}
+
+task obfuscate {
+  dependsOn shadowJar
+  group 'yGuard'
+  description 'Obfuscates the java archive.'
+
+  doLast {
+    ant.taskdef(name: 'yguard',
+                classname: 'com.yworks.yguard.YGuardTask',
+                classpath: configurations.yguard.asPath
+    )
+
+    // In this demo we obfuscate the "uber"-jar.
+    def archivePath = shadowJar.archiveFile.get().asFile.path
+    ant.yguard {
+      inoutpair(in: archivePath, out: archivePath.replace(".jar", "_obf.jar"))
+
+      rename(mainclass: application.getMainClass(), 
+             logfile: "${buildDir}/obfuscation.log.xml", 
+             annotationclass: 'com.yworks.yfiles.utils.Obfuscation', 
+             replaceClassNameStrings: 'true') {
+        keep {
+          method(name: "void main(java.lang.String[])", "class": application.getMainClass().get())
+        }
+      }
+    }
+  }
+}

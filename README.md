@@ -55,6 +55,8 @@ library to execute the code.
 |[EdgeBundling](demos/src/layout/edgebundling/)| Shows how edge bundling can be applied for reducing visual cluttering in dense graphs. |
 |[EdgeGrouping](demos/src/layout/edgegrouping/)| Shows the effects of edge and port grouping when arranging graphs with HierarchicLayout. |
 |[FillAreaAfterDeletion](demos/src/layout/fillarea/)| Shows howto fill free space in the graph after deleting nodes. |
+|[NodeTypes](demos/src/layout/nodetypes/)| A demo that shows how different layout algorithms handle nodes with types. |
+|[OrganicSubstructures](demos/src/layout/organicsubstructures/)| Shows how [OrganicLayout](http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.organic.OrganicLayout) handles substructures and node types. |
 |[PartialLayout](demos/src/layout/partiallayout/)| Shows how to arrange some elements in a graph while keeping other elements fixed. |
 |[PartitionGrid](demos/src/layout/partitiongrid/)| Demonstrates the usage of a *PartitionGrid* for hierarchic and organic layout calculations. |
 |[Sankey](demos/src/layout/sankey/)| Showcase of how a Sankey diagram can be produced by means of the HierarchicLayout. |
@@ -77,12 +79,14 @@ library to execute the code.
 |[EdgeReconnection](demos/src/input/edgereconnection/)| Enable and customize the reconnection behavior of edges. |
 |[Hyperlink](demos/src/input/hyperlink/)| Add hyperlink support to HTML formatted labels. |
 |[LabelHandleProvider](demos/src/input/labelhandleprovider/)| Enable interactive rotating and resizing labels. |
+|[LensInputMode](demos/src/input/lensinputmode/)| This demo shows how to use a specialized LensInputMode to display the part of the graph the pointer is hovering over in a kind of magnifying glass. |
 |[OrthogonalEdges](demos/src/input/orthogonaledges/)| Enable and customize orthogonal edge editing. |
 |[PopupMenu](demos/src/input/popupmenu/)| Enable and customize context menus for nodes and for the canvas background. |
 |[PortCandidateProvider](demos/src/input/portcandidateprovider/)| Customize the ports at which edges connect to nodes. |
 |[PositionHandler](demos/src/input/positionhandler/)| Customize the movement behavior of nodes. |
 |[ReparentHandler](demos/src/input/reparenthandler/)| Customize the re-parenting behavior of nodes. |
-|[ReshapeHandleProvider](demos/src/input/reshapehandleprovider/)| Customize the reshape behavior of nodes. |
+|[ReshapeHandleProvider](demos/src/input/reshapehandleprovider/)| Implements a custom `IReshapeHandleProvider` . |
+|[ReshapeHandleProviderConfiguration](demos/src/input/reshapehandleproviderconfiguration/)| Customize the reshape behavior of nodes. |
 |[SingleSelection](demos/src/input/singleselection/)| Configure the `GraphEditorInputMode` for single selection mode. |
 |[SizeConstraintProvider](demos/src/input/sizeconstraintprovider/)| Customize the resizing behavior of nodes. |
   
@@ -116,7 +120,6 @@ library to execute the code.
 |[Folding](demos/src/viewer/folding/)| Shows how to use yFiles [folding](https://docs.yworks.com/yfilesjava/doc/api/#/dguide/folding) feature. |
 |[GanttChartDemo](demos/src/viewer/ganttchart/)| Shows how to create a "Gantt chart" with yFiles for Java (Swing). |
 |[GraphCopy](demos/src/viewer/graphcopy/)| Shows how to copy a graph or sub graph. |
-|[GraphMLCompatibility](demos/src/viewer/graphmlcompatibility/)| Shows how to enable read compatibility for GraphML files from older versions. |
 |[GraphViewer](demos/src/viewer/graphviewer/)| Showcase of different kinds of graphs created with yFiles for Java (Swing). |
 |[GridSnapping](demos/src/viewer/gridsnapping/)| Demonstrates how to enable grid snapping functionality for graph elements. |
 |[ImageExport](demos/src/viewer/imageexport/)| Export a graph as a bitmap image. |
@@ -136,6 +139,7 @@ library to execute the code.
 
 | Demo | Description |
 |------|-------------|
+|[CompositeNodeStyle](demos/src/style/compositenodestyle/)| This demo shows how to combine several node styles into one. |
 |[SimpleCustomStyle](demos/src/style/simplecustomstyle/)| Implement sophisticated styles for graph objects in yFiles for Java (Swing). |
 |[SVGNodeStyle](demos/src-svg/style/svgnodestyle/)| Demonstrates SVG node visualizations. |
 |[JComponentStyle](demos/src/style/jcomponentstyle/)| Arbitrary Swing components incorporated as graph elements. |
@@ -162,6 +166,7 @@ library to execute the code.
 |------|-------------|
 |[GraphAnalysis](demos/src/analysis/graphanalysis/)| Algorithms to analyse the structure of a graph in yFiles for Java (Swing). |
 |[ShortestPath](demos/src/analysis/shortestpath/)| Usage and visualization of shortest path algorithms in yFiles for Java (Swing). |
+|[NetworkFlows](demos/src/analysis/networkflows/)| Usage and visualization of network flow algorithms in yFiles for Java (Swing). |
   
 ## [Deployment Demos](demos/src/deploy/)
 
@@ -171,6 +176,8 @@ library to execute the code.
 
 | Demo | Description |
 |------|-------------|
+|[GradleDemo](demos/src-gradle/deploy/gradledemo/)| Demonstrates how to setup a basic yFiles for Java (Swing) project using Gradle. |
+|[MavenDemo](demos/src-maven/deploy/mavendemo/)| Demonstrates howto setup a basic yFiles for Java (Swing) project using Apache Maven. |
 |[ObfuscationDemo](demos/src/deploy/obfuscation/)| Obfuscate an yFiles for Java (Swing) application via yGuard. |
   
 # Tutorials

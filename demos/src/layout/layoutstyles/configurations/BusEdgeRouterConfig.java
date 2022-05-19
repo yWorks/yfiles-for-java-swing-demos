@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,7 +29,6 @@
  ***************************************************************************/
 package layout.layoutstyles.configurations;
 
-import com.yworks.yfiles.algorithms.AbstractDpKey;
 import com.yworks.yfiles.algorithms.Edge;
 import com.yworks.yfiles.algorithms.IDataProvider;
 import com.yworks.yfiles.algorithms.LayoutGraphHider;
@@ -41,15 +40,15 @@ import com.yworks.yfiles.graph.IMapper;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.layout.AbstractLayoutStage;
-import com.yworks.yfiles.layout.CopiedLayoutGraph;
-import com.yworks.yfiles.layout.DpKeyItemCollection;
+import com.yworks.yfiles.layout.GenericLayoutData;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
+import com.yworks.yfiles.layout.ItemCollection;
 import com.yworks.yfiles.layout.LayoutData;
 import com.yworks.yfiles.layout.LayoutGraph;
-import com.yworks.yfiles.layout.LayoutGraphAdapter;
 import com.yworks.yfiles.layout.router.BusDescriptor;
 import com.yworks.yfiles.layout.router.BusRouter;
 import com.yworks.yfiles.layout.router.BusRouterData;
+import com.yworks.yfiles.layout.router.RoutingPolicy;
 import com.yworks.yfiles.layout.router.Scope;
 import com.yworks.yfiles.utils.Obfuscation;
 import com.yworks.yfiles.view.GraphComponent;
@@ -136,7 +135,9 @@ public class BusEdgeRouterConfig extends LayoutConfiguration {
     for (IEdge edge : graph.getEdges()) {
       boolean isFixed = scopePartial && !graphSelection.isSelected(edge.getSourceNode()) && !graphSelection.isSelected(edge.getTargetNode());
       Object id = getBusId(edge, getBusesItem());
-      busIds.setValue(edge, new BusDescriptor(id, isFixed));
+      BusDescriptor descriptor = new BusDescriptor(id, isFixed);
+      descriptor.setRoutingPolicy(getRoutingPolicyItem());
+      busIds.setValue(edge, descriptor);
     }
 
     final HashSet<Object> selectedIds = new HashSet<Object>();
@@ -165,8 +166,8 @@ public class BusEdgeRouterConfig extends LayoutConfiguration {
         layoutData.setAffectedEdges(edge ->
             selectedIds.contains(busIds.getValue(edge).getBusId())
         );
-        HideNonOrthogonalEdgesLayoutData hideNonOrthogonalEdgesLayoutData = new HideNonOrthogonalEdgesLayoutData();
-        hideNonOrthogonalEdgesLayoutData.getSelectedNodes().setSource(graphSelection.getSelectedNodes());
+        GenericLayoutData hideNonOrthogonalEdgesLayoutData = new GenericLayoutData();
+        hideNonOrthogonalEdgesLayoutData.addItemCollection(HideNonOrthogonalEdgesStage.SELECTED_NODES_DP_KEY, (ItemCollection<INode>)null).setSource(graphSelection.getSelectedNodes());
         return layoutData.combineWith(hideNonOrthogonalEdgesLayoutData);
     }
 
@@ -436,6 +437,26 @@ public class BusEdgeRouterConfig extends LayoutConfiguration {
     this.minimumBackboneSegmentLengthItem = value;
   }
 
+  private RoutingPolicy routingPolicyItem = RoutingPolicy.ALWAYS;
+
+  @Label("Routing Policy")
+  @OptionGroupAnnotation(name = "RoutingGroup", position = 5)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = RoutingPolicy.class, stringValue = "ALWAYS")
+  @EnumValueAnnotation(label = "Always", value = "ALWAYS")
+  @EnumValueAnnotation(label = "Path As Needed", value = "PATH_AS_NEEDED")
+  public final RoutingPolicy getRoutingPolicyItem() {
+    return this.routingPolicyItem;
+  }
+
+  @Label("Routing Policy")
+  @OptionGroupAnnotation(name = "RoutingGroup", position = 5)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = RoutingPolicy.class, stringValue = "ALWAYS")
+  @EnumValueAnnotation(label = "Always", value = "ALWAYS")
+  @EnumValueAnnotation(label = "Path As Needed", value = "PATH_AS_NEEDED")
+  public final void setRoutingPolicyItem( RoutingPolicy value ) {
+    this.routingPolicyItem = value;
+  }
+
   private double crossingCostItem;
 
   @Label("Crossing Cost")
@@ -524,45 +545,6 @@ public class BusEdgeRouterConfig extends LayoutConfiguration {
       applyLayoutCore(graph);
 
       hider.unhideEdges();
-    }
-
-  }
-
-  private static class HideNonOrthogonalEdgesLayoutData extends LayoutData {
-    private DpKeyItemCollection<INode> selectedNodes;
-
-    private static DpKeyItemCollection<INode> initializer( final DpKeyItemCollection<INode> instance, AbstractDpKey<Boolean> p1 ) {
-      instance.setDpKey(p1);
-      return instance;
-    }
-
-    public final DpKeyItemCollection<INode> getSelectedNodes() {
-      return selectedNodes != null ? selectedNodes : (selectedNodes = HideNonOrthogonalEdgesLayoutData.initializer(new DpKeyItemCollection<INode>(), BusEdgeRouterConfig.HideNonOrthogonalEdgesStage.SELECTED_NODES_DP_KEY));
-    }
-
-    public final void setSelectedNodes( DpKeyItemCollection<INode> value ) {
-      selectedNodes = value;
-    }
-
-    public final void setSelectedNodes( IMapper<INode, Boolean> value ) {
-      this.getSelectedNodes().setMapper(value);
-    }
-
-    public final void setSelectedNodes( Predicate<INode> value ) {
-      this.getSelectedNodes().setPredicate(value);
-    }
-
-    public final void setSelectedNodes( Iterable<INode> value ) {
-      this.getSelectedNodes().setSource(value);
-    }
-
-    public final void setSelectedNodes( INode value ) {
-      this.getSelectedNodes().setItem(value);
-    }
-
-    @Override
-    protected void apply( LayoutGraphAdapter layoutGraphAdapter, ILayoutAlgorithm layout, CopiedLayoutGraph layoutGraph ) {
-      layoutGraphAdapter.addDataProvider(getSelectedNodes().getDpKey(), getSelectedNodes().provideMapper(layoutGraphAdapter, layout));
     }
 
   }

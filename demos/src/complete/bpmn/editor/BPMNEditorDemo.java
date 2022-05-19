@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -667,7 +667,7 @@ public class BPMNEditorDemo extends AbstractDemo {
     layoutExecutor.getTableLayoutConfigurator().setHorizontalLayoutEnabled(true);
     layoutExecutor.getTableLayoutConfigurator().setFromSketchEnabled(true);
     // The BpmnLayoutData provides information about the BPMN node and edge types to the layout algorithm.
-    layoutExecutor.setLayoutData(new BpmnLayoutData());
+    layoutExecutor.setLayoutData(new BpmnLayoutData().create(graphComponent.getGraph(), graphComponent.getSelection(), bpmnLayout.getScope()));
     layoutExecutor.addLayoutFinishedListener((src, args) -> setUIEnabled(true));
 
     layoutExecutor.start();

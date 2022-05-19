@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -32,7 +32,6 @@ package layout.layoutstyles.configurations;
 import com.yworks.yfiles.algorithms.YDimension;
 import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.graph.IEdge;
-import com.yworks.yfiles.graph.IMapperRegistry;
 import com.yworks.yfiles.graph.styles.IArrow;
 import com.yworks.yfiles.graph.styles.IArrowOwner;
 import com.yworks.yfiles.graph.styles.IEdgeStyle;
@@ -44,6 +43,7 @@ import com.yworks.yfiles.layout.ILayoutAlgorithm;
 import com.yworks.yfiles.layout.labeling.GenericLabeling;
 import com.yworks.yfiles.layout.LayoutData;
 import com.yworks.yfiles.layout.organic.ChainSubstructureStyle;
+import com.yworks.yfiles.layout.organic.ClusteringPolicy;
 import com.yworks.yfiles.layout.organic.CycleSubstructureStyle;
 import com.yworks.yfiles.layout.organic.GroupNodeMode;
 import com.yworks.yfiles.layout.organic.OrganicLayout;
@@ -52,7 +52,6 @@ import com.yworks.yfiles.layout.organic.OutputRestriction;
 import com.yworks.yfiles.layout.organic.ParallelSubstructureStyle;
 import com.yworks.yfiles.layout.organic.Scope;
 import com.yworks.yfiles.layout.organic.StarSubstructureStyle;
-import com.yworks.yfiles.layout.PortConstraintKeys;
 import com.yworks.yfiles.utils.Obfuscation;
 import com.yworks.yfiles.view.GraphComponent;
 import toolkit.optionhandler.ComponentType;
@@ -79,8 +78,8 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
     setMinimumNodeDistanceItem(10);
     setAvoidingNodeEdgeOverlapsItem(layout.isAvoidingNodeEdgeOverlapsEnabled());
     setCompactnessItem(layout.getCompactnessFactor());
-    setUsingAutoClusteringItem(layout.isNodeClusteringEnabled());
-    setAutoClusteringQualityItem(layout.getClusteringQuality());
+    setClusteringPolicyItem(layout.getClusteringPolicy());
+    setClusteringQualityItem(layout.getClusteringQuality());
 
     setRestrictOutputItem(EnumOutputRestrictions.NONE);
     setRectCageUsingViewItem(true);
@@ -98,9 +97,13 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
     setDeterministicModeEnabledItem(layout.isDeterministicModeEnabled());
 
     setCycleSubstructureStyleItem(CycleSubstructureStyle.NONE);
+    setCycleSubstructureSizeItem(layout.getCycleSubstructureSize());
     setChainSubstructureStyleItem(ChainSubstructureStyle.NONE);
+    setChainSubstructureSizeItem(layout.getChainSubstructureSize());
     setStarSubstructureStyleItem(StarSubstructureStyle.NONE);
+    setStarSubstructureSizeItem(layout.getStarSubstructureSize());
     setParallelSubstructureStyleItem(ParallelSubstructureStyle.NONE);
+    setParallelSubstructureSizeItem(layout.getParallelSubstructureSize());
 
     setConsideringNodeLabelsItem(layout.isNodeLabelConsiderationEnabled());
     setEdgeLabelingEnabledItem(false);
@@ -120,8 +123,8 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
     layout.setScope(getScopeItem());
     layout.setCompactnessFactor(getCompactnessItem());
     layout.setNodeSizeConsiderationEnabled(true);
-    layout.setNodeClusteringEnabled(isUsingAutoClusteringItem());
-    layout.setClusteringQuality(getAutoClusteringQualityItem());
+    layout.setClusteringPolicy(getClusteringPolicyItem());
+    layout.setClusteringQuality(getClusteringQualityItem());
     layout.setAvoidingNodeEdgeOverlapsEnabled(isAvoidingNodeEdgeOverlapsItem());
     layout.setDeterministicModeEnabled(isDeterministicModeEnabledItem());
     layout.setMaximumDuration(1000 * getMaximumDurationItem());
@@ -140,16 +143,13 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
     configureOutputRestrictions(graphComponent, layout);
 
     layout.setChainSubstructureStyle(getChainSubstructureStyleItem());
+    layout.setCycleSubstructureSize(getCycleSubstructureSizeItem());
     layout.setCycleSubstructureStyle(getCycleSubstructureStyleItem());
+    layout.setChainSubstructureSize(getChainSubstructureSizeItem());
     layout.setStarSubstructureStyle(getStarSubstructureStyleItem());
+    layout.setStarSubstructureSize(getStarSubstructureSizeItem());
     layout.setParallelSubstructureStyle(getParallelSubstructureStyleItem());
-
-    if (isUsingEdgeGroupingItem()) {
-      graphComponent.getGraph().getMapperRegistry().createConstantMapper(IEdge.class, Object.class, PortConstraintKeys.SOURCE_GROUP_ID_DPKEY, "Group");
-      graphComponent.getGraph().getMapperRegistry().createConstantMapper(IEdge.class, Object.class, PortConstraintKeys.TARGET_GROUP_ID_DPKEY, "Group");
-    }
-
-    addPreferredPlacementDescriptor(graphComponent.getGraph(), getLabelPlacementAlongEdgeItem(), getLabelPlacementSideOfEdgeItem(), getLabelPlacementOrientationItem(), getLabelPlacementDistanceItem());
+    layout.setParallelSubstructureSize(getParallelSubstructureSizeItem());
 
     if (getGroupLayoutPolicyItem() == EnumGroupLayoutPolicy.IGNORE_GROUPS) {
       layout.prependStage(new HideGroupsStage());
@@ -180,19 +180,12 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
       });
     }
 
-    return layoutData;
-  }
-
-  /**
-   * Called after the layout animation is done.
-   */
-  @Override
-  protected void postProcess( GraphComponent graphComponent ) {
     if (isUsingEdgeGroupingItem()) {
-      IMapperRegistry mapperRegistry = graphComponent.getGraph().getMapperRegistry();
-      mapperRegistry.removeMapper(PortConstraintKeys.SOURCE_GROUP_ID_DPKEY);
-      mapperRegistry.removeMapper(PortConstraintKeys.TARGET_GROUP_ID_DPKEY);
+      layoutData.setSourceGroupIds("Group");
+      layoutData.setTargetGroupIds("Group");
     }
+
+    return layoutData.combineWith(createLabelingLayoutData(graphComponent.getGraph(), getLabelPlacementAlongEdgeItem(), getLabelPlacementSideOfEdgeItem(), getLabelPlacementOrientationItem(), getLabelPlacementDistanceItem()));
   }
 
   public final void enableSubstructures() {
@@ -407,7 +400,8 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
   @OptionGroupAnnotation(name = "VisualGroup", position = 10)
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = Scope.class, stringValue = "ALL")
   @EnumValueAnnotation(label = "All", value = "ALL")
-  @EnumValueAnnotation(label = "Mainly Selection", value = "MAINLY_SUBSET")
+  @EnumValueAnnotation(label = "Selection and Connected Nodes", value = "MAINLY_SUBSET")
+  @EnumValueAnnotation(label = "Selection and Nearby Nodes", value = "MAINLY_SUBSET_GEOMETRIC")
   @EnumValueAnnotation(label = "Selection", value = "SUBSET")
   public final Scope getScopeItem() {
     return this.scopeItem;
@@ -417,7 +411,8 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
   @OptionGroupAnnotation(name = "VisualGroup", position = 10)
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = Scope.class, stringValue = "ALL")
   @EnumValueAnnotation(label = "All", value = "ALL")
-  @EnumValueAnnotation(label = "Mainly Selection", value = "MAINLY_SUBSET")
+  @EnumValueAnnotation(label = "Selection and Connected Nodes", value = "MAINLY_SUBSET")
+  @EnumValueAnnotation(label = "Selection and Nearby Nodes", value = "MAINLY_SUBSET_GEOMETRIC")
   @EnumValueAnnotation(label = "Selection", value = "SUBSET")
   public final void setScopeItem( Scope value ) {
     this.scopeItem = value;
@@ -523,44 +518,52 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
     this.compactnessItem = value;
   }
 
-  private boolean usingAutoClusteringItem;
+  private ClusteringPolicy clusteringPolicyItem = ClusteringPolicy.NONE;
 
-  @Label("Use Natural Clustering")
+  @Label("Clustering")
   @OptionGroupAnnotation(name = "VisualGroup", position = 80)
-  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
-  public final boolean isUsingAutoClusteringItem() {
-    return this.usingAutoClusteringItem;
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = ClusteringPolicy.class, stringValue = "NONE")
+  @EnumValueAnnotation(label = "None", value = "NONE")
+  @EnumValueAnnotation(label = "Edge Betweenness", value = "EDGE_BETWEENNESS")
+  @EnumValueAnnotation(label = "Label Propagation", value = "LABEL_PROPAGATION")
+  @EnumValueAnnotation(label = "Louvain Modularity", value = "LOUVAIN_MODULARITY")
+  public final ClusteringPolicy getClusteringPolicyItem() {
+    return this.clusteringPolicyItem;
   }
 
-  @Label("Use Natural Clustering")
+  @Label("Clustering")
   @OptionGroupAnnotation(name = "VisualGroup", position = 80)
-  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
-  public final void setUsingAutoClusteringItem( boolean value ) {
-    this.usingAutoClusteringItem = value;
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = ClusteringPolicy.class, stringValue = "NONE")
+  @EnumValueAnnotation(label = "None", value = "NONE")
+  @EnumValueAnnotation(label = "Edge Betweenness", value = "EDGE_BETWEENNESS")
+  @EnumValueAnnotation(label = "Label Propagation", value = "LABEL_PROPAGATION")
+  @EnumValueAnnotation(label = "Louvain Modularity", value = "LOUVAIN_MODULARITY")
+  public final void setClusteringPolicyItem( ClusteringPolicy value ) {
+    this.clusteringPolicyItem = value;
   }
 
-  private double autoClusteringQualityItem;
+  private double clusteringQualityItem;
 
-  @Label("Natural Clustering Quality")
+  @Label("Edge Betweenness Clustering Quality")
   @OptionGroupAnnotation(name = "VisualGroup", position = 90)
   @DefaultValue(doubleValue = 1.0d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   @MinMax(min = 0.0d, max = 1.0d, step = 0.01d)
   @ComponentType(ComponentTypes.SLIDER)
-  public final double getAutoClusteringQualityItem() {
-    return this.autoClusteringQualityItem;
+  public final double getClusteringQualityItem() {
+    return this.clusteringQualityItem;
   }
 
-  @Label("Natural Clustering Quality")
+  @Label("Edge Betweenness Clustering Quality")
   @OptionGroupAnnotation(name = "VisualGroup", position = 90)
   @DefaultValue(doubleValue = 1.0d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   @MinMax(min = 0.0d, max = 1.0d, step = 0.01d)
   @ComponentType(ComponentTypes.SLIDER)
-  public final void setAutoClusteringQualityItem( double value ) {
-    this.autoClusteringQualityItem = value;
+  public final void setClusteringQualityItem( double value ) {
+    this.clusteringQualityItem = value;
   }
 
-  public final boolean isAutoClusteringQualityItemDisabled() {
-    return isUsingAutoClusteringItem() == false;
+  public final boolean isClusteringQualityItemDisabled() {
+    return getClusteringPolicyItem() != ClusteringPolicy.EDGE_BETWEENNESS;
   }
 
   private EnumOutputRestrictions restrictOutputItem = EnumOutputRestrictions.NONE;
@@ -656,7 +659,7 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
   @Label("Width")
   @OptionGroupAnnotation(name = "CageGroup", position = 40)
   @DefaultValue(doubleValue = 1000.0d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
-  @MinMax(min = 1)
+  @MinMax(min = 1, max = 100000)
   @ComponentType(ComponentTypes.SPINNER)
   public final double getCageWidthItem() {
     return this.cageWidthItem;
@@ -665,7 +668,7 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
   @Label("Width")
   @OptionGroupAnnotation(name = "CageGroup", position = 40)
   @DefaultValue(doubleValue = 1000.0d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
-  @MinMax(min = 1)
+  @MinMax(min = 1, max = 100000)
   @ComponentType(ComponentTypes.SPINNER)
   public final void setCageWidthItem( double value ) {
     this.cageWidthItem = value;
@@ -680,7 +683,7 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
   @Label("Height")
   @OptionGroupAnnotation(name = "CageGroup", position = 50)
   @DefaultValue(doubleValue = 1000.0d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
-  @MinMax(min = 1)
+  @MinMax(min = 1, max = 100000)
   @ComponentType(ComponentTypes.SPINNER)
   public final double getCageHeightItem() {
     return this.cageHeightItem;
@@ -689,7 +692,7 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
   @Label("Height")
   @OptionGroupAnnotation(name = "CageGroup", position = 50)
   @DefaultValue(doubleValue = 1000.0d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
-  @MinMax(min = 1)
+  @MinMax(min = 1, max = 100000)
   @ComponentType(ComponentTypes.SPINNER)
   public final void setCageHeightItem( double value ) {
     this.cageHeightItem = value;
@@ -842,6 +845,7 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = CycleSubstructureStyle.class, stringValue = "NONE")
   @EnumValueAnnotation(label = "Ignore", value = "NONE")
   @EnumValueAnnotation(label = "Circular", value = "CIRCULAR")
+  @EnumValueAnnotation(label = "Circular, also within other structures", value = "CIRCULAR_NESTED")
   public final CycleSubstructureStyle getCycleSubstructureStyleItem() {
     return this.cycleSubstructureStyleItem;
   }
@@ -851,8 +855,33 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = CycleSubstructureStyle.class, stringValue = "NONE")
   @EnumValueAnnotation(label = "Ignore", value = "NONE")
   @EnumValueAnnotation(label = "Circular", value = "CIRCULAR")
+  @EnumValueAnnotation(label = "Circular, also within other structures", value = "CIRCULAR_NESTED")
   public final void setCycleSubstructureStyleItem( CycleSubstructureStyle value ) {
     this.cycleSubstructureStyleItem = value;
+  }
+
+  private int cycleSubstructureSizeItem;
+
+  @Label("Minimum Cycle Size")
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 15)
+  @DefaultValue(intValue = 4, valueType = DefaultValue.ValueType.INT_TYPE)
+  @MinMax(min = 4, max = 20)
+  @ComponentType(ComponentTypes.SPINNER)
+  public final int getCycleSubstructureSizeItem() {
+    return this.cycleSubstructureSizeItem;
+  }
+
+  @Label("Minimum Cycle Size")
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 15)
+  @DefaultValue(intValue = 4, valueType = DefaultValue.ValueType.INT_TYPE)
+  @MinMax(min = 4, max = 20)
+  @ComponentType(ComponentTypes.SPINNER)
+  public final void setCycleSubstructureSizeItem( int value ) {
+    this.cycleSubstructureSizeItem = value;
+  }
+
+  public final boolean isCycleSubstructureSizeItemDisabled() {
+    return getCycleSubstructureStyleItem() == CycleSubstructureStyle.NONE;
   }
 
   private ChainSubstructureStyle chainSubstructureStyleItem = ChainSubstructureStyle.NONE;
@@ -861,8 +890,10 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
   @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 20)
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = ChainSubstructureStyle.class, stringValue = "NONE")
   @EnumValueAnnotation(label = "Ignore", value = "NONE")
-  @EnumValueAnnotation(label = "Straight-Line", value = "STRAIGHT_LINE")
   @EnumValueAnnotation(label = "Rectangular", value = "RECTANGULAR")
+  @EnumValueAnnotation(label = "Rectangular, also within other structures", value = "RECTANGULAR_NESTED")
+  @EnumValueAnnotation(label = "Straight-Line", value = "STRAIGHT_LINE")
+  @EnumValueAnnotation(label = "Straight-Line, also within other structures", value = "STRAIGHT_LINE_NESTED")
   public final ChainSubstructureStyle getChainSubstructureStyleItem() {
     return this.chainSubstructureStyleItem;
   }
@@ -871,10 +902,36 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
   @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 20)
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = ChainSubstructureStyle.class, stringValue = "NONE")
   @EnumValueAnnotation(label = "Ignore", value = "NONE")
-  @EnumValueAnnotation(label = "Straight-Line", value = "STRAIGHT_LINE")
   @EnumValueAnnotation(label = "Rectangular", value = "RECTANGULAR")
+  @EnumValueAnnotation(label = "Rectangular, also within other structures", value = "RECTANGULAR_NESTED")
+  @EnumValueAnnotation(label = "Straight-Line", value = "STRAIGHT_LINE")
+  @EnumValueAnnotation(label = "Straight-Line, also within other structures", value = "STRAIGHT_LINE_NESTED")
   public final void setChainSubstructureStyleItem( ChainSubstructureStyle value ) {
     this.chainSubstructureStyleItem = value;
+  }
+
+  private int chainSubstructureSizeItem;
+
+  @Label("Minimum Chain Size")
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 25)
+  @DefaultValue(intValue = 4, valueType = DefaultValue.ValueType.INT_TYPE)
+  @MinMax(min = 4, max = 20)
+  @ComponentType(ComponentTypes.SPINNER)
+  public final int getChainSubstructureSizeItem() {
+    return this.chainSubstructureSizeItem;
+  }
+
+  @Label("Minimum Chain Size")
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 25)
+  @DefaultValue(intValue = 4, valueType = DefaultValue.ValueType.INT_TYPE)
+  @MinMax(min = 4, max = 20)
+  @ComponentType(ComponentTypes.SPINNER)
+  public final void setChainSubstructureSizeItem( int value ) {
+    this.chainSubstructureSizeItem = value;
+  }
+
+  public final boolean isChainSubstructureSizeItemDisabled() {
+    return getChainSubstructureStyleItem() == ChainSubstructureStyle.NONE;
   }
 
   private StarSubstructureStyle starSubstructureStyleItem = StarSubstructureStyle.NONE;
@@ -884,7 +941,9 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = StarSubstructureStyle.class, stringValue = "NONE")
   @EnumValueAnnotation(label = "Ignore", value = "NONE")
   @EnumValueAnnotation(label = "Circular", value = "CIRCULAR")
+  @EnumValueAnnotation(label = "Circular, also within other structures", value = "CIRCULAR_NESTED")
   @EnumValueAnnotation(label = "Radial", value = "RADIAL")
+  @EnumValueAnnotation(label = "Radial, also within other structures", value = "RADIAL_NESTED")
   @EnumValueAnnotation(label = "Separated Radial", value = "SEPARATED_RADIAL")
   public final StarSubstructureStyle getStarSubstructureStyleItem() {
     return this.starSubstructureStyleItem;
@@ -895,10 +954,36 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = StarSubstructureStyle.class, stringValue = "NONE")
   @EnumValueAnnotation(label = "Ignore", value = "NONE")
   @EnumValueAnnotation(label = "Circular", value = "CIRCULAR")
+  @EnumValueAnnotation(label = "Circular, also within other structures", value = "CIRCULAR_NESTED")
   @EnumValueAnnotation(label = "Radial", value = "RADIAL")
+  @EnumValueAnnotation(label = "Radial, also within other structures", value = "RADIAL_NESTED")
   @EnumValueAnnotation(label = "Separated Radial", value = "SEPARATED_RADIAL")
   public final void setStarSubstructureStyleItem( StarSubstructureStyle value ) {
     this.starSubstructureStyleItem = value;
+  }
+
+  private int starSubstructureSizeItem;
+
+  @Label("Minimum Star Size")
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 35)
+  @DefaultValue(intValue = 4, valueType = DefaultValue.ValueType.INT_TYPE)
+  @MinMax(min = 4, max = 20)
+  @ComponentType(ComponentTypes.SPINNER)
+  public final int getStarSubstructureSizeItem() {
+    return this.starSubstructureSizeItem;
+  }
+
+  @Label("Minimum Star Size")
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 35)
+  @DefaultValue(intValue = 4, valueType = DefaultValue.ValueType.INT_TYPE)
+  @MinMax(min = 4, max = 20)
+  @ComponentType(ComponentTypes.SPINNER)
+  public final void setStarSubstructureSizeItem( int value ) {
+    this.starSubstructureSizeItem = value;
+  }
+
+  public final boolean isStarSubstructureSizeItemDisabled() {
+    return getStarSubstructureStyleItem() == StarSubstructureStyle.NONE;
   }
 
   private ParallelSubstructureStyle parallelSubstructureStyleItem = ParallelSubstructureStyle.NONE;
@@ -923,6 +1008,30 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
   @EnumValueAnnotation(label = "Straight-Line", value = "STRAIGHT_LINE")
   public final void setParallelSubstructureStyleItem( ParallelSubstructureStyle value ) {
     this.parallelSubstructureStyleItem = value;
+  }
+
+  private int parallelSubstructureSizeItem;
+
+  @Label("Minimum size for parallel structures")
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 45)
+  @DefaultValue(intValue = 3, valueType = DefaultValue.ValueType.INT_TYPE)
+  @MinMax(min = 3, max = 20)
+  @ComponentType(ComponentTypes.SPINNER)
+  public final int getParallelSubstructureSizeItem() {
+    return this.parallelSubstructureSizeItem;
+  }
+
+  @Label("Minimum size for parallel structures")
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 45)
+  @DefaultValue(intValue = 3, valueType = DefaultValue.ValueType.INT_TYPE)
+  @MinMax(min = 3, max = 20)
+  @ComponentType(ComponentTypes.SPINNER)
+  public final void setParallelSubstructureSizeItem( int value ) {
+    this.parallelSubstructureSizeItem = value;
+  }
+
+  public final boolean isParallelSubstructureSizeItemDisabled() {
+    return getParallelSubstructureStyleItem() == ParallelSubstructureStyle.NONE;
   }
 
   private boolean edgeDirectednessEnabledItem;

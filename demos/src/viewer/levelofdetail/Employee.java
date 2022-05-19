@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -31,13 +31,12 @@ package viewer.levelofdetail;
 
 /**
  * Representation for the business model of an employee.
- * A employee consists of
+ * An employee consists of
  * <ul>
  *   <li>A first and last name.</li>
- *   <li>The position he or she is in.</li>
+ *   <li>The position the employee is in.</li>
  *   <li>Contact data like phone, email and fax.</li>
  * </ul>
- * The Employee is constructed upon parsing the graphml and is defined via XML.
  */
 public class Employee {
 

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -33,6 +33,7 @@ import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.view.CanvasComponent;
 import com.yworks.yfiles.view.GraphComponent;
 import com.yworks.yfiles.view.ViewportLimiter;
+import com.yworks.yfiles.view.ViewportLimitingPolicy;
 
 /**
  * Prevents scrolling above or below the vertical bounds of the task lanes.
@@ -51,9 +52,12 @@ public class RestrictedViewportLimiter extends ViewportLimiter {
    * Limits the viewport to the area which contains task nodes.
    * @param canvas The canvas control on which the viewport should be applied.
    * @param suggestedViewport The suggested viewport.
+   * @param forceStrictLimits Whether to force {@link ViewportLimitingPolicy#STRICT} limiting. Passing {@code true} overrides the
+   * {@link #getLimitingPolicy() LimitingPolicy}. This is used for example by {@link CanvasComponent#fitContent(boolean)}
+   * or ZoomToCurrentItemCommand where larger viewport changes are expected.
    */
   @Override
-  public RectD limitViewport( CanvasComponent canvas, RectD suggestedViewport ) {
+  public RectD limitViewport( CanvasComponent canvas, RectD suggestedViewport, boolean forceStrictLimits ) {
     double topY = taskComponent.getContentRect().getY();
     double bottomY = taskComponent.getContentRect().getMaxY();
 

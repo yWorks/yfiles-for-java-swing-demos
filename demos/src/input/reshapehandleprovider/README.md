@@ -1,2 +1,2 @@
 # Reshape Handle Provider
- Customize the reshape behavior of nodes by using customized `IReshapeHandleProvider` . 
+ A custom `IReshapeHandleProvider` for ports is used to customize their reshape behavior. As port usually don't have a size, the reshape handle provider instead only changes the render size of the port style. 

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -37,25 +37,18 @@ import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import toolkit.AbstractDemo;
 
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.io.IOException;
 import java.net.URL;
-import javax.swing.JComponent;
-import javax.swing.JEditorPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 
 /**
- * Sample application used for demonstrating how to obfuscate a yFiles for Java (Swing) application.
+ * Sample application that demonstrates how to obfuscate a yFiles for Java (Swing) application.
  * <p>
  * For an explanation of the annotation mechanism demonstrated here, have a look at the yGuard manual at
  * </p><p>
- * <a href="http://www.yworks.com/products/yguard/yguard_ant_howto.html#annotation">
- * http://www.yworks.com/products/yguard/yguard_ant_howto.html#annotation
+ * <a href="https://yworks.github.io/yGuard/task_documentation/#controlling-obfuscation-exclusion-with-annotations">
+ * https://yworks.github.io/yGuard/task_documentation/#controlling-obfuscation-exclusion-with-annotations
  * </a>
- * </p><p>
- * You can also read this anytime in the demo in the help panel on the right.
  * </p><p>
  * Information regarding the build and obfuscation process itself, yGuard and the used mechanisms in this demo
  * can be found in the description in the build.xml file.
@@ -133,31 +126,6 @@ public class ObfuscationDemo extends AbstractDemo {
         e.printStackTrace();
       }
     }
-  }
-
-  /**
-   * Creates a help pane with several tabs. One displaying additional
-   * information for the demo, one displaying the yGuard documentation.
-   */
-  @Override
-  protected JComponent createHelpPane() {
-    Dimension size = new Dimension(680, 250);
-
-    JEditorPane jep = new JEditorPane("text/html", "");
-    try {
-      jep.setPage(new URL("http://www.yworks.com/products/yguard/yguard_ant_howto.html"));
-    } catch (Exception ex) {
-      ex.printStackTrace();
-    }
-    JScrollPane jsp = new JScrollPane(jep);
-    jsp.setPreferredSize(size);
-
-
-    JTabbedPane jtp = new JTabbedPane();
-    jtp.add(super.createHelpPane(), "Demo");
-    jtp.getComponent(0).setPreferredSize(size);
-    jtp.add(jsp, "yGuard");
-    return jtp;
   }
 
   /**

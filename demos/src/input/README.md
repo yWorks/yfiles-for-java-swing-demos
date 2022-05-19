@@ -13,11 +13,13 @@
 |[EdgeReconnection](../../src/input/edgereconnection/)| Enable and customize the reconnection behavior of edges. |
 |[Hyperlink](../../src/input/hyperlink/)| Add hyperlink support to HTML formatted labels. |
 |[LabelHandleProvider](../../src/input/labelhandleprovider/)| Enable interactive rotating and resizing labels. |
+|[LensInputMode](../../src/input/lensinputmode/)| This demo shows how to use a specialized LensInputMode to display the part of the graph the pointer is hovering over in a kind of magnifying glass. |
 |[OrthogonalEdges](../../src/input/orthogonaledges/)| Enable and customize orthogonal edge editing. |
 |[PopupMenu](../../src/input/popupmenu/)| Enable and customize context menus for nodes and for the canvas background. |
 |[PortCandidateProvider](../../src/input/portcandidateprovider/)| Customize the ports at which edges connect to nodes. |
 |[PositionHandler](../../src/input/positionhandler/)| Customize the movement behavior of nodes. |
 |[ReparentHandler](../../src/input/reparenthandler/)| Customize the re-parenting behavior of nodes. |
-|[ReshapeHandleProvider](../../src/input/reshapehandleprovider/)| Customize the reshape behavior of nodes. |
+|[ReshapeHandleProvider](../../src/input/reshapehandleprovider/)| Implements a custom `IReshapeHandleProvider` . |
+|[ReshapeHandleProviderConfiguration](../../src/input/reshapehandleproviderconfiguration/)| Customize the reshape behavior of nodes. |
 |[SingleSelection](../../src/input/singleselection/)| Configure the `GraphEditorInputMode` for single selection mode. |
 |[SizeConstraintProvider](../../src/input/sizeconstraintprovider/)| Customize the resizing behavior of nodes. |

@@ -41,6 +41,10 @@
     Shows the effects of edge and port grouping when arranging graphs with HierarchicLayout.</echo>
 <echo>run-FillAreaAfterDeletion
     Shows howto fill free space in the graph after deleting nodes.</echo>
+<echo>run-NodeTypes
+    A demo that shows how different layout algorithms handle nodes with types.</echo>
+<echo>run-OrganicSubstructures
+    Shows how OrganicLayout handles substructures and node types.</echo>
 <echo>run-PartialLayout
     Shows how to arrange some elements in a graph while keeping other elements fixed.</echo>
 <echo>run-PartitionGrid
@@ -67,6 +71,8 @@
     Add hyperlink support to HTML formatted labels.</echo>
 <echo>run-LabelHandleProvider
     Enable interactive rotating and resizing labels.</echo>
+<echo>run-LensInputMode
+    This demo shows how to use a specialized LensInputMode to display the part of the graph the pointer is hovering over in a kind of magnifying glass.</echo>
 <echo>run-OrthogonalEdges
     Enable and customize orthogonal edge editing.</echo>
 <echo>run-PopupMenu
@@ -78,6 +84,8 @@
 <echo>run-ReparentHandler
     Customize the re-parenting behavior of nodes.</echo>
 <echo>run-ReshapeHandleProvider
+    Implements a custom IReshapeHandleProvider.</echo>
+<echo>run-ReshapeHandleProviderConfiguration
     Customize the reshape behavior of nodes.</echo>
 <echo>run-SingleSelection
     Configure the GraphEditorInputMode for single selection mode.</echo>
@@ -101,8 +109,6 @@
     Shows how to create a "Gantt chart" with yFiles for Java (Swing).</echo>
 <echo>run-GraphCopy
     Shows how to copy a graph or sub graph.</echo>
-<echo>run-GraphMLCompatibility
-    Shows how to enable read compatibility for GraphML files from older versions.</echo>
 <echo>run-GraphViewer
     Showcase of different kinds of graphs created with yFiles for Java (Swing).</echo>
 <echo>run-GridSnapping
@@ -123,6 +129,8 @@
     Demonstrates how to enable snapping functionality for graph elements.</echo>
 <echo>run-Tooltips
     Demonstrates how to add tooltips to graph items.</echo>
+<echo>run-CompositeNodeStyle
+    This demo shows how to combine several node styles into one.</echo>
 <echo>run-SimpleCustomStyle
     Implement sophisticated styles for graph objects in yFiles for Java (Swing).</echo>
 <echo>run-JComponentStyle
@@ -137,6 +145,8 @@
     Algorithms to analyse the structure of a graph in yFiles for Java (Swing).</echo>
 <echo>run-ShortestPath
     Usage and visualization of shortest path algorithms in yFiles for Java (Swing).</echo>
+<echo>run-NetworkFlows
+    Usage and visualization of network flow algorithms in yFiles for Java (Swing).</echo>
 <echo>run-ObfuscationDemo
     Obfuscate an yFiles for Java (Swing) application via yGuard.</echo>
 <echo>run-SVGImageExport
@@ -287,6 +297,16 @@
 <classpath refid="democlasspath"/>
 </java>
 </target>
+<target name="run-NodeTypes" depends="compile" description="A demo that shows how different layout algorithms handle nodes with types.">
+<java classname="layout.nodetypes.NodeTypesDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-OrganicSubstructures" depends="compile" description="Shows how OrganicLayout handles substructures and node types.">
+<java classname="layout.organicsubstructures.OrganicSubstructuresDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
 <target name="run-PartialLayout" depends="compile" description="Shows how to arrange some elements in a graph while keeping other elements fixed.">
 <java classname="layout.partiallayout.PartialLayoutDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
@@ -352,6 +372,11 @@
 <classpath refid="democlasspath"/>
 </java>
 </target>
+<target name="run-LensInputMode" depends="compile" description="This demo shows how to use a specialized LensInputMode to display the part of the graph the pointer is hovering over in a kind of magnifying glass.">
+<java classname="input.lensinputmode.LensInputModeDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
 <target name="run-OrthogonalEdges" depends="compile" description="Enable and customize orthogonal edge editing.">
 <java classname="input.orthogonaledges.OrthogonalEdgesDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
@@ -377,8 +402,13 @@
 <classpath refid="democlasspath"/>
 </java>
 </target>
-<target name="run-ReshapeHandleProvider" depends="compile" description="Customize the reshape behavior of nodes.">
+<target name="run-ReshapeHandleProvider" depends="compile" description="Implements a custom IReshapeHandleProvider.">
 <java classname="input.reshapehandleprovider.ReshapeHandleProviderDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-ReshapeHandleProviderConfiguration" depends="compile" description="Customize the reshape behavior of nodes.">
+<java classname="input.reshapehandleproviderconfiguration.ReshapeHandleProviderConfigurationDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 </java>
 </target>
@@ -437,11 +467,6 @@
 <classpath refid="democlasspath"/>
 </java>
 </target>
-<target name="run-GraphMLCompatibility" depends="compile" description="Shows how to enable read compatibility for GraphML files from older versions.">
-<java classname="viewer.graphmlcompatibility.GraphMLCompatibilityDemo" fork="true" failonerror="true">
-<classpath refid="democlasspath"/>
-</java>
-</target>
 <target name="run-GraphViewer" depends="compile" description="Showcase of different kinds of graphs created with yFiles for Java (Swing).">
 <java classname="viewer.graphviewer.GraphViewerDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
@@ -492,6 +517,11 @@
 <classpath refid="democlasspath"/>
 </java>
 </target>
+<target name="run-CompositeNodeStyle" depends="compile" description="This demo shows how to combine several node styles into one.">
+<java classname="style.compositenodestyle.CompositeNodeStyleDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
 <target name="run-SimpleCustomStyle" depends="compile" description="Implement sophisticated styles for graph objects in yFiles for Java (Swing).">
 <java classname="style.simplecustomstyle.SimpleCustomStyleDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
@@ -524,6 +554,11 @@
 </target>
 <target name="run-ShortestPath" depends="compile" description="Usage and visualization of shortest path algorithms in yFiles for Java (Swing).">
 <java classname="analysis.shortestpath.ShortestPathDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-NetworkFlows" depends="compile" description="Usage and visualization of network flow algorithms in yFiles for Java (Swing).">
+<java classname="analysis.networkflows.NetworkFlowsDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 </java>
 </target>

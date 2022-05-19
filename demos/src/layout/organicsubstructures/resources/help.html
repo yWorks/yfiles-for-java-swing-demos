@@ -1,0 +1,45 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../resources/help.css"/>
+</head>
+<body class="demo-description">
+<h1>Description</h1>
+<p>
+  This demo showcases how the
+  <a href="https://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.layout.organic.OrganicLayout">OrganicLayout</a>
+  algorithm handles substructures and node types,
+  see
+  <a href="https://docs.yworks.com/yfilesjava/doc/api/#/dguide/organic_layout%23organic_layout-substructures">Layout of Regular Substructures</a>
+  for more information.
+</p>
+<p>
+  The organic layout algorithm is able to identify regular substructures in a graph, like, e.g., chains, stars,
+  cycles, and parallel structures and arrange them in an optimized manner depending on the kind of substructure
+  and user preference. This makes them easily recognizable in the resulting layout. Furthermore, specified node
+  types may influence both substructure detection and placement of elements within the structure.
+</p>
+<h2>Things to Try</h2>
+<ul>
+  <li>
+    Load an example graph with the combobox 'Sample'.
+  </li>
+  <li>
+    In the 'Layout Settings' panel on the left, use the combobox of the specific substructures to try out
+    the different styles supported by each of them. Selecting value 'Ignore' means that the respective
+    structure is ignored and not handle differently.
+  </li>
+  <li>
+    Use the checkbox 'Use Edge Grouping' to see how edge grouping changes the flavor of parallel and separated radial
+    star substructures.
+  </li>
+  <li>
+    Use the checkbox 'Consider Node Types' to see how considering node types changes substructure detection and layout.
+  </li>
+  <li>
+    The simple example graphs also offer to change the node types (i.e. color) via context menu.
+    In addition, the structure of these graphs can be modified (use the "Layout" button to calculate
+    a new layout after modifying the graph structure).
+  </li>
+</ul>
+</body>
+</html>

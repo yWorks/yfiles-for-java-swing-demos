@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -30,9 +30,13 @@
 package layout.layoutstyles.configurations;
 
 import com.yworks.yfiles.algorithms.YPoint;
+import com.yworks.yfiles.analysis.FeedbackEdgeSet;
+import com.yworks.yfiles.analysis.LongestPath;
 import com.yworks.yfiles.graph.IEdge;
+import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.ILabel;
 import com.yworks.yfiles.graph.INode;
+import com.yworks.yfiles.graph.SimpleNode;
 import com.yworks.yfiles.graph.styles.IArrow;
 import com.yworks.yfiles.graph.styles.IEdgeStyle;
 import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
@@ -70,10 +74,14 @@ import com.yworks.yfiles.utils.Obfuscation;
 import com.yworks.yfiles.view.GraphComponent;
 import com.yworks.yfiles.view.IGraphSelection;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.function.Function;
 import java.util.function.Predicate;
-
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Stack;
 import toolkit.optionhandler.ComponentType;
 import toolkit.optionhandler.ComponentTypes;
 import toolkit.optionhandler.EnumValueAnnotation;
@@ -125,6 +133,8 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
     setGridSpacingItem(5);
     setGridPortAssignmentItem(PortAssignmentMode.DEFAULT);
     OrientationItem = LayoutOrientation.TOP_TO_BOTTOM;
+    setPlacingSubComponentsSeparatelyItem(false);
+    setHighlightCriticalPath(false);
   }
 
   @Override
@@ -161,6 +171,8 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
     layout.setAutomaticEdgeGroupingEnabled(isAutomaticEdgeGroupingEnabledItem());
 
     eld.setRoutingStyle(new RoutingStyle(getEdgeRoutingItem(), false));
+    eld.getRoutingStyle().setCurveShortcutsAllowed(isCurveShortcutsItem());
+    eld.getRoutingStyle().setCurveUTurnSymmetry(getCurveUTurnSymmetryItem());
     eld.setMinimumFirstSegmentLength(getMinimumFirstSegmentLengthItem());
     eld.setMinimumLastSegmentLength(getMinimumLastSegmentLengthItem());
 
@@ -191,6 +203,8 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
 
     if (getEdgeLabelingItem() != EnumEdgeLabeling.NONE) {
       if (getEdgeLabelingItem() == EnumEdgeLabeling.GENERIC) {
+        layout.setIntegratedEdgeLabelingEnabled(false);
+
         GenericLabeling labeling = new GenericLabeling();
         labeling.setNodeLabelPlacementEnabled(false);
         labeling.setEdgeLabelPlacementEnabled(true);
@@ -243,9 +257,6 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
     layout.setBackLoopRoutingEnabled(isBackloopRoutingEnabledItem());
     layout.setBackLoopRoutingForSelfLoopsEnabled(isBackloopRoutingForSelfLoopsEnabledItem());
     layout.setMaximumDuration(getMaximumDurationItem() * 1000);
-
-    addPreferredPlacementDescriptor(graphComponent.getGraph(), getLabelPlacementAlongEdgeItem(), getLabelPlacementSideOfEdgeItem(), getLabelPlacementOrientationItem(), getLabelPlacementDistanceItem());
-
 
     if (isGridEnabledItem()) {
       layout.setGridSpacing(getGridSpacingItem());
@@ -317,36 +328,156 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
     }
 
     if (isPlacingSubComponentsSeparatelyItem()) {
+      // layout all siblings with label 'TL' separately with tree layout
       TreeLayout treeLayout = new TreeLayout();
       treeLayout.setDefaultNodePlacer(new LeftRightNodePlacer());
-      layoutData.getSubComponents().add(treeLayout).setPredicate(node -> test(node, "TL"));
-
+      for (Collection<INode> listOfNodes : findSubComponents(graphComponent.getGraph(), "TL")) {
+        layoutData.getSubComponents().add(treeLayout).setItems(listOfNodes);
+      }
+      // layout all siblings with label 'HL' separately with hierarchical layout
       HierarchicLayout hierarchicLayout = new HierarchicLayout();
       hierarchicLayout.setLayoutOrientation(LayoutOrientation.LEFT_TO_RIGHT);
-      layoutData.getSubComponents().add(hierarchicLayout).setPredicate(node -> test(node, "HL"));
-
+      for (Collection<INode> listOfNodes : findSubComponents(graphComponent.getGraph(), "HL")) {
+        layoutData.getSubComponents().add(hierarchicLayout).setItems(listOfNodes);
+      }
+      // layout all siblings with label 'OL' separately with organic layout
       OrganicLayout organicLayout = new OrganicLayout();
       organicLayout.setPreferredEdgeLength(100);
       organicLayout.setDeterministicModeEnabled(true);
-      layoutData.getSubComponents().add(organicLayout).setPredicate(node -> test(node, "OL"));
+      for (Collection<INode> listOfNodes : findSubComponents(graphComponent.getGraph(), "OL")) {
+        layoutData.getSubComponents().add(organicLayout).setItems(listOfNodes);
+      }
     }
 
-    if (isBusesItem()) {
-      // Group edges ending at a node with the label "Bus" into a bus
-      layoutData.getBuses().add(new BusDescriptor()).setPredicate(new Predicate<IEdge>(){
+    if (isHighlightCriticalPath()) {
+      // highlight the longest path in the graph as critical path
+      // since the longest path algorithm only works for acyclic graphs,
+      // feedback edges and self loops have to be excluded here
+      final FeedbackEdgeSet.Result feedbackEdgeSetResult = new FeedbackEdgeSet().run(graphComponent.getGraph());
+      LongestPath longestPath2 = new LongestPath();
+      longestPath2.getSubgraphEdges().getExcludes().setPredicate(new Predicate<IEdge>(){
         public boolean test( IEdge edge ) {
-          return edge.getTargetNode().getLabels().size() > 0 && "Bus".equals(edge.getTargetNode().getLabels().getItem(0).getText());
+          return feedbackEdgeSetResult.getFeedbackEdgeSet().contains(edge) || edge.isSelfloop();
         }
       });
+      final LongestPath.Result longestPath = longestPath2.run(graphComponent.getGraph());
+      if (longestPath.getEdges().size() > 0) {
+        layoutData.getCriticalEdgePriorities().setFunction(new Function<IEdge, Integer>(){
+          public Integer apply( IEdge edge ) {
+            if (longestPath.getEdges().contains(edge)) {
+              return 10;
+            }
+            return 1;
+          }
+        });
+      }
     }
 
-    return layoutData;
+    if (isAutomaticBusRouting()) {
+      HashSet<INode> allBusNodes = new HashSet<INode>();
+      for (INode node : graphComponent.getGraph().getNodes()) {
+        if (!graphComponent.getGraph().isGroupNode(node) && !allBusNodes.contains(node)) {
+          // search for good opportunities for bus structures rooted at this node
+          if (graphComponent.getGraph().inDegree(node) >= 4) {
+            BusDescriptor busDescriptor = new BusDescriptor();
+            Collection<IEdge> busEdges = getBusEdges(graphComponent.getGraph(), node, allBusNodes, graphComponent.getGraph().inEdgesAt(node));
+            if (!busEdges.isEmpty()) {
+              layoutData.getBuses().add(busDescriptor).setItems(busEdges);
+            }
+          }
+          if (graphComponent.getGraph().outDegree(node) >= 4) {
+            BusDescriptor busDescriptor = new BusDescriptor();
+            Collection<IEdge> busEdges = getBusEdges(graphComponent.getGraph(), node, allBusNodes, graphComponent.getGraph().outEdgesAt(node));
+            if (!busEdges.isEmpty()) {
+              layoutData.getBuses().add(busDescriptor).setItems(busEdges);
+            }
+          }
+        }
+      }
+    }
+
+    return layoutData.combineWith(createLabelingLayoutData(graphComponent.getGraph(), getLabelPlacementAlongEdgeItem(), getLabelPlacementSideOfEdgeItem(), getLabelPlacementOrientationItem(), getLabelPlacementDistanceItem()));
   }
 
   private static boolean test( INode node, String text ) {
     Iterator<ILabel> it = node.getLabels().iterator();
     return it.hasNext() && text.equals(it.next().getText());
   }
+
+  private Collection<IEdge> getBusEdges( IGraph graph, INode node, HashSet<INode> allBusNodes, Iterable<IEdge> edges ) {
+    if (graph.isGroupNode(node)) {
+      // exclude groups for bus structures
+      return new ArrayList<IEdge>();
+    }
+
+    HashSet<INode> busNodes = new HashSet<INode>();
+    // count the edges that are not bus edges but connect to the bus nodes
+    // -> if there are many, then the bus structure may not look that great
+    int interEdgeCount = 0;
+    ArrayList<IEdge> busEdges = new ArrayList<IEdge>();
+    Stack<INode> busNodesWithOtherEdges = new Stack<INode>();
+    HashMap<INode, IEdge> node2BusEdge = new HashMap<INode, IEdge>();
+    for (IEdge edge : edges) {
+      INode other = (INode)edge.opposite(node);
+      if (!busNodes.contains(other)) {
+        busNodes.add(other);
+        busEdges.add(edge);
+        node2BusEdge.put(other, edge);
+        int otherEdgesCount = graph.degree(other) - 1;
+        if (otherEdgesCount > 0) {
+          busNodesWithOtherEdges.push(other);
+          interEdgeCount += otherEdgesCount;
+        }
+      }
+    }
+
+    ArrayList<IEdge> finalBusEdges = new ArrayList<IEdge>();
+    HashSet<IEdge> removedBusEdges = new HashSet<IEdge>();
+    int busSize = busNodes.size();
+    while (busSize >= 4) {
+      if (interEdgeCount <= busSize * 0.25) {
+        // okay accept this as a bus
+        for (IEdge edge : busEdges) {
+          if (!removedBusEdges.contains(edge)) {
+            finalBusEdges.add(edge);
+            allBusNodes.add((INode)edge.opposite(node));
+          }
+        }
+        break;
+      } else {
+        // this bus has too many other edges remove some if possible
+        if (!busNodesWithOtherEdges.isEmpty()) {
+          INode nodeToRemove = busNodesWithOtherEdges.pop();
+          removedBusEdges.add(node2BusEdge.get(nodeToRemove));
+          busSize--;
+          interEdgeCount -= graph.degree(nodeToRemove) - 1;
+        }
+      }
+    }
+
+    return finalBusEdges;
+  }
+
+  /**
+   * Determines sub-components by label text and group membership. This is necessary because {@link HierarchicLayout} does
+   * not support sub-components with nodes that belong to different parent groups.
+   */
+  private Collection<Collection<INode>> findSubComponents( IGraph graph, String labelText ) {
+    HashMap<INode, Collection<INode>> nodeToComponent = new HashMap<INode, Collection<INode>>();
+    for (INode node : graph.getNodes()) {
+      if (node.getLabels().size() > 0 && node.getLabels().getItem(0).getText().compareTo(labelText) == 0) {
+        INode tmp;
+        INode parent = (tmp = graph.getParent(node)) != null ? tmp : root;
+        if (!nodeToComponent.containsKey(parent)) {
+          nodeToComponent.put(parent, new ArrayList<INode>());
+        }
+        nodeToComponent.get(parent).add(node);
+      }
+    }
+    return nodeToComponent.values();
+  }
+
+  private final INode root = new SimpleNode();
 
   /**
    * Enables different layout styles for possible detected sub-components.
@@ -355,8 +486,12 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
     setPlacingSubComponentsSeparatelyItem(true);
   }
 
-  public final void enableBuses() {
-    setBusesItem(true);
+  public final void enableAutomaticBusRouting() {
+    setAutomaticBusRouting(true);
+  }
+
+  public final void enableCurvedRouting() {
+    setEdgeRoutingItem(EdgeRoutingStyle.CURVED);
   }
 
   @Label("Description")
@@ -369,10 +504,10 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   @ComponentType(ComponentTypes.OPTION_GROUP)
   public Object GeneralGroup;
 
-  @Label("Interactive Settings")
-  @OptionGroupAnnotation(name = "GeneralGroup", position = 10)
+  @Label("Incremental Layout")
+  @OptionGroupAnnotation(name = "GeneralGroup", position = 70)
   @ComponentType(ComponentTypes.OPTION_GROUP)
-  public Object InteractionGroup;
+  public Object IncrementalGroup;
 
   @OptionGroupAnnotation(name = "GeneralGroup", position = 60)
   @Label("Minimum Distances")
@@ -449,14 +584,14 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   private boolean placingSelectedElementsIncrementallyItem;
 
   @Label("Selected Elements Incrementally")
-  @OptionGroupAnnotation(name = "InteractionGroup", position = 10)
+  @OptionGroupAnnotation(name = "IncrementalGroup", position = 10)
   @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
   public final boolean isPlacingSelectedElementsIncrementallyItem() {
     return this.placingSelectedElementsIncrementallyItem;
   }
 
   @Label("Selected Elements Incrementally")
-  @OptionGroupAnnotation(name = "InteractionGroup", position = 10)
+  @OptionGroupAnnotation(name = "IncrementalGroup", position = 10)
   @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
   public final void setPlacingSelectedElementsIncrementallyItem( boolean value ) {
     this.placingSelectedElementsIncrementallyItem = value;
@@ -465,14 +600,14 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   private boolean usingDrawingAsSketchItem;
 
   @Label("Use Drawing as Sketch")
-  @OptionGroupAnnotation(name = "InteractionGroup", position = 20)
+  @OptionGroupAnnotation(name = "IncrementalGroup", position = 20)
   @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
   public final boolean isUsingDrawingAsSketchItem() {
     return this.usingDrawingAsSketchItem;
   }
 
   @Label("Use Drawing as Sketch")
-  @OptionGroupAnnotation(name = "InteractionGroup", position = 20)
+  @OptionGroupAnnotation(name = "IncrementalGroup", position = 20)
   @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
   public final void setUsingDrawingAsSketchItem( boolean value ) {
     this.usingDrawingAsSketchItem = value;
@@ -689,6 +824,10 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
     this.backloopRoutingForSelfLoopsEnabledItem = value;
   }
 
+  public final boolean isBackloopRoutingForSelfLoopsItemDisabled() {
+    return !isBackloopRoutingEnabledItem();
+  }
+
   private boolean automaticEdgeGroupingEnabledItem;
 
   @Label("Automatic Edge Grouping")
@@ -705,10 +844,40 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
     this.automaticEdgeGroupingEnabledItem = value;
   }
 
+  private boolean automaticBusRouting;
+
+  @Label("Automatic Bus Routing")
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 45)
+  public final boolean isAutomaticBusRouting() {
+    return this.automaticBusRouting;
+  }
+
+  @Label("Automatic Bus Routing")
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 45)
+  public final void setAutomaticBusRouting( boolean value ) {
+    this.automaticBusRouting = value;
+  }
+
+  private boolean highlightCriticalPath;
+
+  @Label("Highlight Critical Path")
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 50)
+  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
+  public final boolean isHighlightCriticalPath() {
+    return this.highlightCriticalPath;
+  }
+
+  @Label("Highlight Critical Path")
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 50)
+  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
+  public final void setHighlightCriticalPath( boolean value ) {
+    this.highlightCriticalPath = value;
+  }
+
   private double minimumFirstSegmentLengthItem;
 
   @Label("Minimum First Segment Length")
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 50)
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 60)
   @DefaultValue(doubleValue = 10.0d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   @MinMax(min = 0, max = 100)
   @ComponentType(ComponentTypes.SLIDER)
@@ -717,7 +886,7 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   }
 
   @Label("Minimum First Segment Length")
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 50)
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 60)
   @DefaultValue(doubleValue = 10.0d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   @MinMax(min = 0, max = 100)
   @ComponentType(ComponentTypes.SLIDER)
@@ -728,7 +897,7 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   private double minimumLastSegmentLengthItem;
 
   @Label("Minimum Last Segment Length")
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 60)
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 70)
   @DefaultValue(doubleValue = 15.0d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   @MinMax(min = 0, max = 100)
   @ComponentType(ComponentTypes.SLIDER)
@@ -737,7 +906,7 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   }
 
   @Label("Minimum Last Segment Length")
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 60)
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 70)
   @DefaultValue(doubleValue = 15.0d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   @MinMax(min = 0, max = 100)
   @ComponentType(ComponentTypes.SLIDER)
@@ -748,7 +917,7 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   private double minimumEdgeLengthItem;
 
   @Label("Minimum Edge Length")
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 70)
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 80)
   @DefaultValue(doubleValue = 20.0d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   @MinMax(min = 0, max = 100)
   @ComponentType(ComponentTypes.SLIDER)
@@ -757,7 +926,7 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   }
 
   @Label("Minimum Edge Length")
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 70)
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 80)
   @DefaultValue(doubleValue = 20.0d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   @MinMax(min = 0, max = 100)
   @ComponentType(ComponentTypes.SLIDER)
@@ -768,7 +937,7 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   private double minimumEdgeDistanceItem;
 
   @Label("Minimum Edge Distance")
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 80)
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 90)
   @DefaultValue(doubleValue = 15.0d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   @MinMax(min = 0, max = 100)
   @ComponentType(ComponentTypes.SLIDER)
@@ -777,7 +946,7 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   }
 
   @Label("Minimum Edge Distance")
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 80)
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 90)
   @DefaultValue(doubleValue = 15.0d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   @MinMax(min = 0, max = 100)
   @ComponentType(ComponentTypes.SLIDER)
@@ -790,7 +959,7 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   @MinMax(min = 0.0d, max = 5.0d, step = 0.01d)
   @Label("Minimum Slope")
   @DefaultValue(doubleValue = 0.25d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 90)
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 100)
   @ComponentType(ComponentTypes.SLIDER)
   public final double getMinimumSlopeItem() {
     return this.minimumSlopeItem;
@@ -799,26 +968,26 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   @MinMax(min = 0.0d, max = 5.0d, step = 0.01d)
   @Label("Minimum Slope")
   @DefaultValue(doubleValue = 0.25d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 90)
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 100)
   @ComponentType(ComponentTypes.SLIDER)
   public final void setMinimumSlopeItem( double value ) {
     this.minimumSlopeItem = value;
   }
 
   public final boolean isMinimumSlopeItemDisabled() {
-    return getEdgeRoutingItem() != EdgeRoutingStyle.POLYLINE;
+    return getEdgeRoutingItem() != EdgeRoutingStyle.POLYLINE && getEdgeRoutingItem() != EdgeRoutingStyle.CURVED;
   }
 
   private boolean consideringEdgeDirectednessItem;
 
   @Label("Arrows Define Edge Direction")
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 100)
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 110)
   public final boolean isConsideringEdgeDirectednessItem() {
     return this.consideringEdgeDirectednessItem;
   }
 
   @Label("Arrows Define Edge Direction")
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 100)
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 110)
   public final void setConsideringEdgeDirectednessItem( boolean value ) {
     this.consideringEdgeDirectednessItem = value;
   }
@@ -826,13 +995,13 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   private boolean consideringEdgeThicknessItem;
 
   @Label("Consider Edge Thickness")
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 110)
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 120)
   public final boolean isConsideringEdgeThicknessItem() {
     return this.consideringEdgeThicknessItem;
   }
 
   @Label("Consider Edge Thickness")
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 110)
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 120)
   public final void setConsideringEdgeThicknessItem( boolean value ) {
     this.consideringEdgeThicknessItem = value;
   }
@@ -840,13 +1009,13 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   private boolean pcOptimizationEnabledItem;
 
   @Label("Port Constraint Optimization")
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 120)
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 130)
   public final boolean isPcOptimizationEnabledItem() {
     return this.pcOptimizationEnabledItem;
   }
 
   @Label("Port Constraint Optimization")
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 120)
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 130)
   public final void setPcOptimizationEnabledItem( boolean value ) {
     this.pcOptimizationEnabledItem = value;
   }
@@ -854,13 +1023,13 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   private boolean straighteningEdgesItem;
 
   @Label("Straighten Edges")
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 130)
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 140)
   public final boolean isStraighteningEdgesItem() {
     return this.straighteningEdgesItem;
   }
 
   @Label("Straighten Edges")
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 130)
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 140)
   public final void setStraighteningEdgesItem( boolean value ) {
     this.straighteningEdgesItem = value;
   }
@@ -872,7 +1041,7 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   private RecursiveEdgeStyle recursiveEdgeStyleItem = RecursiveEdgeStyle.OFF;
 
   @Label("Recursive Edge Routing Style")
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 140)
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 150)
   @EnumValueAnnotation(label = "Off", value = "OFF")
   @EnumValueAnnotation(label = "Directed", value = "DIRECTED")
   @EnumValueAnnotation(label = "Undirected", value = "UNDIRECTED")
@@ -881,7 +1050,7 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   }
 
   @Label("Recursive Edge Routing Style")
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 140)
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 150)
   @EnumValueAnnotation(label = "Off", value = "OFF")
   @EnumValueAnnotation(label = "Directed", value = "DIRECTED")
   @EnumValueAnnotation(label = "Undirected", value = "UNDIRECTED")
@@ -889,18 +1058,48 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
     this.recursiveEdgeStyleItem = value;
   }
 
-  private boolean busesItem;
+  private double curveUTurnSymmetryItem;
 
-  @Label("Bus Routing")
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 150)
-  public final boolean isBusesItem() {
-    return this.busesItem;
+  @Label("U-turn Symmetry")
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 160)
+  @DefaultValue(intValue = 0, valueType = DefaultValue.ValueType.INT_TYPE)
+  @MinMax(min = 0.0d, max = 1.0d, step = 0.1d)
+  @ComponentType(ComponentTypes.SLIDER)
+  public final double getCurveUTurnSymmetryItem() {
+    return this.curveUTurnSymmetryItem;
   }
 
-  @Label("Bus Routing")
-  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 150)
-  public final void setBusesItem( boolean value ) {
-    this.busesItem = value;
+  @Label("U-turn Symmetry")
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 160)
+  @DefaultValue(intValue = 0, valueType = DefaultValue.ValueType.INT_TYPE)
+  @MinMax(min = 0.0d, max = 1.0d, step = 0.1d)
+  @ComponentType(ComponentTypes.SLIDER)
+  public final void setCurveUTurnSymmetryItem( double value ) {
+    this.curveUTurnSymmetryItem = value;
+  }
+
+  public final boolean isCurveUTurnSymmetryItemDisabled() {
+    return getEdgeRoutingItem() != EdgeRoutingStyle.CURVED;
+  }
+
+  private boolean curveShortcutsItem;
+
+  @Label("Allow Shortcuts")
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 170)
+  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
+  public final boolean isCurveShortcutsItem() {
+    return this.curveShortcutsItem;
+  }
+
+  @Label("Allow Shortcuts")
+  @OptionGroupAnnotation(name = "EdgeSettingsGroup", position = 170)
+  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
+  public final void setCurveShortcutsItem( boolean value ) {
+    this.curveShortcutsItem = value;
+  }
+
+  public final boolean isCurveShortcutsItemDisabled() {
+    return getEdgeRoutingItem() != EdgeRoutingStyle.CURVED;
   }
 
   private LayeringStrategy rankingPolicyItem = LayeringStrategy.HIERARCHICAL_TOPMOST;
@@ -1224,10 +1423,10 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   @OptionGroupAnnotation(name = "PreferredPlacementGroup", position = 20)
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = LayoutConfiguration.EnumLabelPlacementAlongEdge.class, stringValue = "CENTERED")
   @EnumValueAnnotation(label = "Anywhere", value = "ANYWHERE")
-  @EnumValueAnnotation(label = "At Source Port", value = "AT_SOURCE_PORT")
-  @EnumValueAnnotation(label = "At Target Port", value = "AT_TARGET_PORT")
   @EnumValueAnnotation(label = "At Source", value = "AT_SOURCE")
+  @EnumValueAnnotation(label = "At Source Port", value = "AT_SOURCE_PORT")
   @EnumValueAnnotation(label = "At Target", value = "AT_TARGET")
+  @EnumValueAnnotation(label = "At Target Port", value = "AT_TARGET_PORT")
   @EnumValueAnnotation(label = "Centered", value = "CENTERED")
   public final LayoutConfiguration.EnumLabelPlacementAlongEdge getLabelPlacementAlongEdgeItem() {
     return this.labelPlacementAlongEdgeItem;
@@ -1478,10 +1677,6 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
     return !isTreatingRootGroupAsSwimlanesItem();
   }
 
-  public final boolean isSwimlineSpacingItemHidden() {
-    return !isTreatingRootGroupAsSwimlanesItem();
-  }
-
   private boolean gridEnabledItem;
 
   @OptionGroupAnnotation(name = "GridGroup", position = 10)
@@ -1518,6 +1713,10 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
     this.gridSpacingItem = value;
   }
 
+  public final boolean isGridSpacingItemDisabled() {
+    return !isGridEnabledItem();
+  }
+
   private PortAssignmentMode gridPortAssignmentItem = PortAssignmentMode.DEFAULT;
 
   @OptionGroupAnnotation(name = "GridGroup", position = 30)
@@ -1538,6 +1737,10 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
   @EnumValueAnnotation(label = "On Subgrid", value = "ON_SUBGRID")
   public final void setGridPortAssignmentItem( PortAssignmentMode value ) {
     this.gridPortAssignmentItem = value;
+  }
+
+  public final boolean isGridPortAssignmentItemDisabled() {
+    return !isGridEnabledItem();
   }
 
 }

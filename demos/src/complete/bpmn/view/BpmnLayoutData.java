@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -33,26 +33,16 @@ import com.yworks.yfiles.geometry.IPoint;
 import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.geometry.SizeD;
-import com.yworks.yfiles.graph.IEdge;
-import com.yworks.yfiles.graph.IGraph;
-import com.yworks.yfiles.graph.ILabel;
-import com.yworks.yfiles.graph.ILabelOwner;
-import com.yworks.yfiles.graph.IMapper;
-import com.yworks.yfiles.graph.INode;
-import com.yworks.yfiles.graph.IPort;
-import com.yworks.yfiles.graph.IPortOwner;
-import com.yworks.yfiles.graph.Mapper;
+import com.yworks.yfiles.graph.*;
 import com.yworks.yfiles.graph.styles.IEdgeStyle;
 import com.yworks.yfiles.graph.styles.INodeStyle;
 import com.yworks.yfiles.graph.styles.IPortStyle;
-import com.yworks.yfiles.layout.CopiedLayoutGraph;
-import com.yworks.yfiles.layout.hierarchic.EdgeLayoutDescriptor;
-import com.yworks.yfiles.layout.hierarchic.EdgeRoutingStyle;
-import com.yworks.yfiles.layout.hierarchic.HierarchicLayoutData;
-import com.yworks.yfiles.layout.hierarchic.LayerConstraintData;
-import com.yworks.yfiles.layout.hierarchic.RoutingStyle;
-import com.yworks.yfiles.layout.ILayoutAlgorithm;
+import com.yworks.yfiles.layout.GenericLayoutData;
+import com.yworks.yfiles.layout.hierarchic.*;
+import com.yworks.yfiles.layout.ItemCollection;
+import com.yworks.yfiles.layout.ItemMapping;
 import com.yworks.yfiles.layout.LabelPlacements;
+import com.yworks.yfiles.layout.LayoutData;
 import com.yworks.yfiles.layout.LayoutGraphAdapter;
 import com.yworks.yfiles.layout.LayoutKeys;
 import com.yworks.yfiles.layout.NodeHalo;
@@ -61,12 +51,15 @@ import com.yworks.yfiles.layout.PortConstraintKeys;
 import com.yworks.yfiles.layout.PortSide;
 import com.yworks.yfiles.layout.PreferredPlacementDescriptor;
 import com.yworks.yfiles.utils.IListEnumerable;
+import com.yworks.yfiles.view.ISelectionModel;
 import complete.bpmn.layout.BpmnLayout;
 import complete.bpmn.layout.PortLocationAdjuster;
 import complete.bpmn.layout.Scope;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * Specifies custom data for the {@link BpmnLayout}.
@@ -75,7 +68,7 @@ import java.util.function.Function;
  * {@link BpmnLayout}.
  * </p>
  */
-public class BpmnLayoutData extends HierarchicLayoutData {
+public class BpmnLayoutData {
   private static final double MIN_LABEL_TO_LABEL_DISTANCE = 5;
 
   private boolean startNodesFirst;
@@ -166,49 +159,51 @@ public class BpmnLayoutData extends HierarchicLayoutData {
     setMinimumEdgeLength(20);
   }
 
-  @Override
-  protected void apply( LayoutGraphAdapter adapter, ILayoutAlgorithm layout, CopiedLayoutGraph layoutGraph ) {
-    IGraph graph = adapter.getAdaptedGraph();
+  public final LayoutData create(IGraph graph, ISelectionModel<IModelItem> selection, Scope layoutScope ) {
+    GenericLayoutData data = new GenericLayoutData();
+    HierarchicLayoutData hierarchicLayoutData = new HierarchicLayoutData();
 
     // check if only selected elements should be laid out
-    boolean layoutOnlySelection = layout instanceof BpmnLayout && ((BpmnLayout)layout).getScope() == Scope.SELECTED_ELEMENTS;
+    boolean layoutOnlySelection = layoutScope == Scope.SELECTED_ELEMENTS;
 
     // mark 'flow' edges, i.e. sequence flows, default flows and conditional flows
-    adapter.addDataProvider(BpmnLayout.SEQUENCE_FLOW_EDGES_DPKEY, IMapper.fromFunction(BpmnLayoutData::isSequenceFlow));
+    data.addItemCollection(BpmnLayout.SEQUENCE_FLOW_EDGES_DPKEY).setPredicate(BpmnLayoutData::isSequenceFlow);
 
     // mark boundary interrupting edges for the BalancingPortOptimizer
-    adapter.addDataProvider(BpmnLayout.BOUNDARY_INTERRUPTING_EDGES_DPKEY, IMapper.fromFunction((Function<IEdge, Boolean>)
-            edge -> edge.getSourcePort().getStyle() instanceof EventPortStyle));
+    data.addItemCollection(BpmnLayout.BOUNDARY_INTERRUPTING_EDGES_DPKEY).setPredicate(edge -> edge.getSourcePort().getStyle() instanceof EventPortStyle);
+
+
 
     // mark conversations, events and gateways so their port locations are adjusted
-    adapter.addDataProvider(PortLocationAdjuster.AFFECTED_NODES_DPKEY, IMapper.fromFunction((Function<INode, Boolean>)
-            node -> (node.getStyle() instanceof ConversationNodeStyle || node.getStyle() instanceof EventNodeStyle || node.getStyle() instanceof GatewayNodeStyle)));
+    data.addItemCollection(PortLocationAdjuster.AFFECTED_NODES_DPKEY).setPredicate(node ->
+        node.getStyle() instanceof ConversationNodeStyle || node.getStyle() instanceof EventNodeStyle || node.getStyle() instanceof GatewayNodeStyle);
 
     // add NodeHalos around nodes with event ports or specific exterior labels so the layout keeps space for the event ports and labels as well
-    addNodeHalos(adapter, graph, layoutOnlySelection);
+    addNodeHalos(data, graph, selection, layoutOnlySelection);
 
     // add PreferredPlacementDescriptors for labels on sequence, default or conditional flows to place them at source side
-    addEdgeLabelPlacementDescriptors(adapter);
+    addEdgeLabelPlacementDescriptors(data);
 
     // mark nodes, edges and labels as either fixed or affected by the layout and configure port constraints and incremental hints
-    markFixedAndAffectedItems(adapter, layoutOnlySelection);
+    markFixedAndAffectedItems(data, hierarchicLayoutData, selection, layoutOnlySelection);
 
     // mark associations and message flows as undirected so they have less impact on layering
-    setEdgeDirectedness(edge -> (isMessageFlow(edge) || isAssociation(edge)) ? 0D : 1);
+    hierarchicLayoutData.getEdgeDirectedness().setFunction(edge -> ((isMessageFlow(edge) || isAssociation(edge)) ? 0.0 : 1));
 
     // add layer constraints for start events, sub processes and message flows
-    addLayerConstraints(graph);
+    addLayerConstraints(graph, hierarchicLayoutData);
 
     // add EdgeLayoutDescriptor to specify minimum edge length for edges
-    addMinimumEdgeLength(getMinimumEdgeLength());
+    addMinimumEdgeLength(getMinimumEdgeLength(), hierarchicLayoutData);
 
-    super.apply(adapter, layout, layoutGraph);
+
+    return data.combineWith(hierarchicLayoutData);
   }
 
 
-  private void addLayerConstraints( IGraph graph ) {
+  private void addLayerConstraints( IGraph graph, HierarchicLayoutData hierarchicLayoutData ) {
     // use layer constraints via HierarchicLayoutData
-    LayerConstraintData layerConstraintData = getLayerConstraints();
+    LayerConstraintData layerConstraintData = hierarchicLayoutData.getLayerConstraints();
 
     for (IEdge edge : graph.getEdges()) {
       if (isMessageFlow(edge) && !isCompactMessageFlowLayering()) {
@@ -263,10 +258,10 @@ public class BpmnLayoutData extends HierarchicLayoutData {
 
 
 
-  private void addMinimumEdgeLength( final double minimumEdgeLength ) {
+  private void addMinimumEdgeLength( final double minimumEdgeLength, HierarchicLayoutData hierarchicLayoutData ) {
     // each edge should have a minimum length so that all its labels can be placed on it one
     // after another with a minimum label-to-label distance
-    setEdgeLayoutDescriptors(edge -> {
+     hierarchicLayoutData.setEdgeLayoutDescriptors(edge -> {
       EdgeLayoutDescriptor descriptor = new EdgeLayoutDescriptor();
       descriptor.setRoutingStyle(new RoutingStyle(EdgeRoutingStyle.ORTHOGONAL, false));
       double minLength = 0;
@@ -318,7 +313,7 @@ public class BpmnLayoutData extends HierarchicLayoutData {
 
 
 
-  private static void addNodeHalos( LayoutGraphAdapter adapter, IGraph graph, boolean layoutOnlySelection ) {
+  private static void addNodeHalos( GenericLayoutData data, IGraph graph, ISelectionModel<IModelItem> selection, boolean layoutOnlySelection ) {
     Mapper<INode, NodeHalo> nodeHalos = new Mapper<INode, NodeHalo>();
     for (INode node : graph.getNodes()) {
       double top = 0.0;
@@ -343,7 +338,7 @@ public class BpmnLayoutData extends HierarchicLayoutData {
       // for each node without incoming or outgoing edges reserve space for laid out exterior labels
       if (graph.inDegree(node) == 0 || graph.outDegree(node) == 0) {
         for (ILabel label : node.getLabels()) {
-          if (isNodeLabelAffected(label, adapter, layoutOnlySelection)) {
+          if (isNodeLabelAffected(graph, selection, label, layoutOnlySelection)) {
             RectD labelBounds = label.getLayout().getBounds();
             if (graph.inDegree(node) == 0) {
               left = Math.max(left, labelBounds.width);
@@ -359,94 +354,94 @@ public class BpmnLayoutData extends HierarchicLayoutData {
 
       nodeHalos.setValue(node, NodeHalo.create(top, left, bottom, right));
     }
-    adapter.addDataProvider(NodeHalo.NODE_HALO_DPKEY, nodeHalos);
+    data.addItemMapping(NodeHalo.class, NodeHalo.NODE_HALO_DPKEY).setMapper(nodeHalos);
   }
 
-  private static boolean isNodeLabelAffected( ILabel label, LayoutGraphAdapter adapter, boolean layoutOnlySelection ) {
+  private static boolean isNodeLabelAffected( IGraph graph, ISelectionModel<IModelItem> selection, ILabel label, boolean layoutOnlySelection ) {
     ILabelOwner owner = label.getOwner();
     if (owner instanceof INode) {
-      INode node = (INode)owner;
+      INode node = (INode) owner;
       boolean isInnerLabel = node.getLayout().contains(label.getLayout().getCenter());
       boolean isPool = node.getStyle() instanceof PoolNodeStyle;
       boolean isChoreography = node.getStyle() instanceof ChoreographyNodeStyle;
-      boolean isGroupNode = adapter.getAdaptedGraph().isGroupNode(node);
-      return !isInnerLabel && !isPool && !isChoreography && !isGroupNode && (!layoutOnlySelection || adapter.getSelectionModel().isSelected(node));
+      boolean isGroupNode = graph.isGroupNode(node);
+      return !isInnerLabel && !isPool && !isChoreography && !isGroupNode && (!layoutOnlySelection || selection.isSelected(node));
     }
     return false;
   }
 
 
 
-  private static void addEdgeLabelPlacementDescriptors( LayoutGraphAdapter adapter ) {
+  private static void addEdgeLabelPlacementDescriptors( GenericLayoutData data ) {
     final PreferredPlacementDescriptor atSourceDescriptor = new PreferredPlacementDescriptor();
     atSourceDescriptor.setPlaceAlongEdge(LabelPlacements.AT_SOURCE_PORT);
     atSourceDescriptor.setSideOfEdge(LabelPlacements.LEFT_OF_EDGE.or(LabelPlacements.RIGHT_OF_EDGE));
-    adapter.addDataProvider(LayoutGraphAdapter.EDGE_LABEL_LAYOUT_PREFERRED_PLACEMENT_DESCRIPTOR_DPKEY, IMapper.fromFunction((Function<ILabel, PreferredPlacementDescriptor>) label -> {
+    data.addItemMapping(PreferredPlacementDescriptor.class, LayoutGraphAdapter.EDGE_LABEL_LAYOUT_PREFERRED_PLACEMENT_DESCRIPTOR_DPKEY).setFunction(label -> {
       EdgeType edgeType = ((BpmnEdgeStyle)((IEdge)label.getOwner()).getStyle()).getType();
       if (isFlow(edgeType)) {
         // labels on sequence, default and conditional flow edges should be placed at the source side.
         return atSourceDescriptor;
       }
       return null;
-    }));
+    });
   }
 
 
 
-  private void markFixedAndAffectedItems( final LayoutGraphAdapter adapter, boolean layoutOnlySelection ) {
+  private static void markFixedAndAffectedItems( GenericLayoutData data, HierarchicLayoutData hierarchicLayoutData, final ISelectionModel<IModelItem> graphSelection, boolean layoutOnlySelection ) {
     if (layoutOnlySelection) {
       final IMapper<IEdge, Boolean> affectedEdges = IMapper.fromFunction(
-              edge -> adapter.getSelectionModel().isSelected(edge) || adapter.getSelectionModel().isSelected(edge.getSourceNode()) || adapter.getSelectionModel().isSelected(edge.getTargetNode()));
-      adapter.addDataProvider(LayoutKeys.AFFECTED_EDGES_DPKEY, affectedEdges);
+              edge -> graphSelection.isSelected(edge) || graphSelection.isSelected(edge.getSourceNode()) || graphSelection.isSelected(edge.getTargetNode()));
+      data.addItemCollection(LayoutKeys.AFFECTED_EDGES_DPKEY).setMapper(affectedEdges);
 
       // fix ports of unselected edges and edges at event ports
-      adapter.addDataProvider(PortConstraintKeys.SOURCE_PORT_CONSTRAINT_DPKEY, IMapper.fromFunction((Function<IEdge, PortConstraint>)
-              edge -> (!affectedEdges.getValue(edge) || edge.getSourcePort().getStyle() instanceof EventPortStyle) ? PortConstraint.create(getSide(edge, true), false) : null));
-      adapter.addDataProvider(PortConstraintKeys.TARGET_PORT_CONSTRAINT_DPKEY, IMapper.fromFunction((Function<IEdge, PortConstraint>)
-              edge -> !affectedEdges.getValue(edge) ? PortConstraint.create(getSide(edge, false), false) : null));
+      data.addItemMapping(PortConstraint.class, PortConstraintKeys.SOURCE_PORT_CONSTRAINT_DPKEY).setFunction(
+              edge -> (!affectedEdges.getValue(edge) || edge.getSourcePort().getStyle() instanceof EventPortStyle) ? PortConstraint.create(getSide(edge, true), false) : null);
+      data.addItemMapping(PortConstraint.class, PortConstraintKeys.TARGET_PORT_CONSTRAINT_DPKEY).setFunction(
+              edge -> !affectedEdges.getValue(edge) ? PortConstraint.create(getSide(edge, false), false) : null);
 
       // give core layout hints that selected nodes and edges should be incremental
-      setIncrementalHints(( item, factory ) -> {
-        if (item instanceof INode && adapter.getSelectionModel().isSelected(item)) {
+      hierarchicLayoutData.getIncrementalHints().setContextBiFunction((item, factory) -> {
+        if (item instanceof INode && graphSelection.isSelected(item)) {
           return factory.createLayerIncrementallyHint(item);
         } else if (item instanceof IEdge && affectedEdges.getValue((IEdge)item)) {
           return factory.createSequenceIncrementallyHint(item);
         }
         return null;
       });
-      adapter.addDataProvider(BpmnLayout.AFFECTED_LABELS_DPKEY, IMapper.fromFunction((Function<ILabel, Boolean>) label -> {
+      data.addItemCollection(BpmnLayout.AFFECTED_LABELS_DPKEY).setPredicate(label -> {
         ILabelOwner owner = label.getOwner();
         if (owner instanceof IEdge) {
-          return affectedEdges.getValue((IEdge)owner);
+          return affectedEdges.getValue((IEdge) owner);
         }
         if (owner instanceof INode) {
           INode node = (INode) owner;
           boolean isInnerLabel = node.getLayout().contains(label.getLayout().getCenter());
           boolean isPool = node.getStyle() instanceof PoolNodeStyle;
           boolean isChoreography = node.getStyle() instanceof ChoreographyNodeStyle;
-          return !isInnerLabel && !isPool && !isChoreography && adapter.getSelectionModel().isSelected(node);
+          return !isInnerLabel && !isPool && !isChoreography && graphSelection.isSelected(node);
         }
         return false;
-      }));
+      });
     } else {
       // fix source port of edges at event ports
-      adapter.addDataProvider(PortConstraintKeys.SOURCE_PORT_CONSTRAINT_DPKEY, IMapper.fromFunction((Function<IEdge, PortConstraint>)
-              edge -> edge.getSourcePort().getStyle() instanceof EventPortStyle ? PortConstraint.create(getSide(edge, true), false) : null));
+      data.addItemMapping(PortConstraint.class, PortConstraintKeys.SOURCE_PORT_CONSTRAINT_DPKEY).setFunction(
+              edge -> edge.getSourcePort().getStyle() instanceof EventPortStyle ? PortConstraint.create(getSide(edge, true), false) : null);
 
-      adapter.addDataProvider(BpmnLayout.AFFECTED_LABELS_DPKEY, IMapper.fromFunction((Function<ILabel, Boolean>) label -> {
+      data.addItemCollection(BpmnLayout.AFFECTED_LABELS_DPKEY).setPredicate(label -> {
         ILabelOwner owner = label.getOwner();
         if (owner instanceof IEdge) {
           return true;
         }
         if (owner instanceof INode) {
-          INode node = (INode)owner;
+          INode node = (INode) owner;
           boolean isInnerLabel = node.getLayout().contains(label.getLayout().getCenter());
           boolean isPool = node.getStyle() instanceof PoolNodeStyle;
           boolean isChoreography = node.getStyle() instanceof ChoreographyNodeStyle;
           return !isInnerLabel && !isPool && !isChoreography;
         }
         return false;
-      }));
+      });
     }
   }
 

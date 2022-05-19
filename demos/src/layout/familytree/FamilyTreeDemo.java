@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -125,11 +125,13 @@ public class FamilyTreeDemo extends AbstractDemo {
     namesStyle.setTextPaint(Colors.BLACK);
     namesStyle.setTextAlignment(TextAlignment.CENTER);
     namesStyle.setInsets(new InsetsD(-10, 0, 0, 0));
+    namesStyle.setUsingFractionalFontMetricsEnabled(true);
 
     dateStyle = new DefaultLabelStyle();
     dateStyle.setFont(new Font("Dialog", Font.PLAIN, 11));
     dateStyle.setTextPaint(new Color(119,136,153));
     dateStyle.setInsets(new InsetsD(5, 5, 5, 5));
+    dateStyle.setUsingFractionalFontMetricsEnabled(true);
   }
 
   /**

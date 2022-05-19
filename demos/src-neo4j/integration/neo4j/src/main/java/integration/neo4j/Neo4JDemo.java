@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -59,7 +59,6 @@ import com.yworks.yfiles.layout.organic.StarSubstructureStyle;
 import com.yworks.yfiles.layout.radial.CenterNodesPolicy;
 import com.yworks.yfiles.layout.radial.RadialLayout;
 import com.yworks.yfiles.layout.radial.RadialLayoutData;
-import com.yworks.yfiles.utils.IEventListener;
 import com.yworks.yfiles.view.Colors;
 import com.yworks.yfiles.view.EdgeStyleDecorationInstaller;
 import com.yworks.yfiles.view.GraphComponent;
@@ -69,29 +68,27 @@ import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.StyleDecorationZoomPolicy;
 import com.yworks.yfiles.view.TextWrapping;
 import com.yworks.yfiles.view.input.GraphViewerInputMode;
+import org.neo4j.driver.AccessMode;
+import org.neo4j.driver.AuthToken;
+import org.neo4j.driver.AuthTokens;
+import org.neo4j.driver.Driver;
+import org.neo4j.driver.GraphDatabase;
+import org.neo4j.driver.Result;
+import org.neo4j.driver.Session;
+import org.neo4j.driver.SessionConfig;
+import org.neo4j.driver.Value;
+import org.neo4j.driver.Values;
 import org.neo4j.driver.internal.value.StringValue;
-import org.neo4j.driver.v1.AccessMode;
-import org.neo4j.driver.v1.AuthTokens;
-import org.neo4j.driver.v1.Driver;
-import org.neo4j.driver.v1.GraphDatabase;
-import org.neo4j.driver.v1.Session;
-import org.neo4j.driver.v1.StatementResult;
-import org.neo4j.driver.v1.Value;
-import org.neo4j.driver.v1.Values;
-import org.neo4j.driver.v1.types.Entity;
-import org.neo4j.driver.v1.types.Node;
-import org.neo4j.driver.v1.types.Relationship;
+import org.neo4j.driver.types.Entity;
+import org.neo4j.driver.types.Node;
+import org.neo4j.driver.types.Relationship;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.event.HyperlinkEvent;
 import java.awt.BorderLayout;
@@ -99,10 +96,8 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.time.Duration;
@@ -118,30 +113,46 @@ import java.util.stream.Collectors;
  * Loads data from a Neo4j database and displays it in a {@link GraphComponent}.
  */
 public class Neo4JDemo {
+  private final GraphComponent graphComponent;
 
-  private GraphComponent graphComponent;
-
-  private Driver driver;
+  private Session session;
 
   /**
    * Initializes the application after its user interface has been built up.
    */
   public void initialize() {
-    initializeGraph();
-
+    initializeGraphDefaults();
     initializeHighlighting();
-
     initializeInputMode();
+    loadDataBaseGraph();
+    doLayout();
+  }
 
-    initializeDataBase();
-
-    loadGraph();
+  /**
+   * Initializes the database and loads a graph from it.
+   *
+   * The initialization is inside a loop to try a different configuration in case any error happens.
+   */
+  private void loadDataBaseGraph() {
+    while(true) {
+      try {
+        String initializationError = initializeDataBase();
+        if (initializationError != null) {
+          JOptionPane.showMessageDialog(graphComponent, initializationError, "Could not load initial graph", JOptionPane.ERROR_MESSAGE);
+          continue;
+        }
+        loadGraph();
+        break;
+      } catch (Exception e) {
+        JOptionPane.showMessageDialog(graphComponent, e.getMessage(), "Could not load initial graph", JOptionPane.ERROR_MESSAGE);
+      }
+    }
   }
 
   /**
    * Initializes the graph defaults.
    */
-  private void initializeGraph() {
+  private void initializeGraphDefaults() {
     IGraph graph = graphComponent.getGraph();
 
     // set the default style for nodes
@@ -232,9 +243,7 @@ public class Neo4JDemo {
         manager.addHighlight(args.getItem());
         // and if it is a node, we highlight all connected edges, too
         if (args.getItem() instanceof INode) {
-          graphComponent.getGraph().edgesAt((INode) args.getItem()).forEach(edge -> {
-            manager.addHighlight(edge);
-          });
+          graphComponent.getGraph().edgesAt((INode) args.getItem()).forEach(manager::addHighlight);
         } else if (args.getItem() instanceof IEdge) {
           // if it is an edge - we highlight the connected nodes
           manager.addHighlight(((IEdge) args.getItem()).getSourceNode());
@@ -248,15 +257,15 @@ public class Neo4JDemo {
       // the neo4j data is stored in the "tag" property of the item
       // if it contains "properties", show them in a simple list
       IModelItem item = args.getItem();
-
-      Map<String, Object> properties = item != null && item.getTag() instanceof Entity ? ((Entity) item.getTag()).asMap() : null;
+      Entity entity = item != null && item.getTag() instanceof Entity ? ((Entity) item.getTag()) : null;
+      Map<String, Object> properties = entity != null  ? entity.asMap() : null;
       if (properties != null && !properties.isEmpty()) {
-        String tooltipText = "<html><ul>";
-        for (String key : properties.keySet()) {
-          tooltipText += "<li>" + key + " : " + properties.get(key) + "</li>";
-        }
-        tooltipText += "</ul></html>";
-        args.setToolTip(tooltipText);
+        StringBuilder tooltipText = new StringBuilder("<html><ul>");
+        properties.forEach((key, value) ->
+          tooltipText.append("<li>").append(key).append(" : ").append(properties.get(key)).append("</li>")
+        );
+        tooltipText.append("</ul></html>");
+        args.setToolTip(tooltipText.toString());
       }
     });
 
@@ -281,7 +290,12 @@ public class Neo4JDemo {
     graphComponent.setInputMode(inputMode);
   }
 
-  private void initializeDataBase() {
+  /**
+   * Initializes a connection to a Neo4J database.
+   *
+   * @return Returns <code>null</code> if the initialization succeeds and the message of the error otherwise.
+   */
+  private String initializeDataBase() {
     String message = "Neo4j data base configuration";
 
     Neo4jConfigurationPanel configPanel = new Neo4jConfigurationPanel();
@@ -289,63 +303,70 @@ public class Neo4JDemo {
         JOptionPane.PLAIN_MESSAGE);
 
     if (response == JOptionPane.OK_OPTION) {
-      String url = configPanel.getURL();
-      String userName = configPanel.getUserName();
-      String password = configPanel.getPassword();
-      if (url != null && url.length() > 0
-          && userName != null && userName.length() > 0
-          && password != null && password.length() > 0) {
+      DBInformation db = configPanel.getDBInformation();
+      if (db.url != null && db.url.length() > 0
+          && db.username != null && db.username.length() > 0
+          && db.password != null && db.password.length() > 0) {
         try {
-          driver = GraphDatabase.driver(url, AuthTokens.basic(userName, password) );
+          AuthToken authToken = AuthTokens.basic(db.username, db.password);
+          Driver driver = GraphDatabase.driver(db.url, authToken);
+          SessionConfig.Builder builder = db.name.isEmpty()
+              ? SessionConfig.builder().withDefaultAccessMode(AccessMode.READ)
+              : SessionConfig.builder().withDefaultAccessMode(AccessMode.READ).withDatabase(db.name);
+          session = driver.session(builder.build());
         } catch (Exception e) {
-          message = "No valid Neo4j data base connection could be established: " + e.getMessage();
-          JOptionPane.showMessageDialog(graphComponent, message, "Error when connecting to Neo4j", JOptionPane.ERROR_MESSAGE);
+          return "No valid Neo4j data base connection could be established: " + e.getMessage();
         }
       } else {
-        message = "No valid data base configuration was specified.";
-        JOptionPane.showMessageDialog(graphComponent, message, "Invalid Neo4j configuration", JOptionPane.ERROR_MESSAGE);
+        return "No valid data base configuration was specified.";
       }
     } else {
-      message = "No Neo4j data base specified.";
-      JOptionPane.showMessageDialog(graphComponent, message, "Neo4j configuration aborted", JOptionPane.ERROR_MESSAGE);
+      return "No Neo4j data base specified.";
     }
+    return null;
   }
 
   /**
-   * Performs the main graph setup. Will be executed at startup.
+   * Loads the graph from the database.
    */
   private void loadGraph() {
-    if (driver == null) {
-      // no data base connection could be established
-      return;
-    }
-
     // first we query a limited number of arbitrary nodes
     // modify the query to suit your requirement!
-    StatementResult nodeResult = runCypherQuery("MATCH (node) RETURN node LIMIT 25", null);
-
-    // we put the resulting records in a separate array
-    List<Node> nodes = nodeResult.stream().map(record -> record.get("node").asNode()).collect(Collectors.toList());
-    Long[] nodeIds = nodes.stream().map(node -> node.id()).collect(Collectors.toList()).toArray(new Long[nodes.size()]);
+    Result nodeResult = session.run("MATCH (node) RETURN node LIMIT 25");
+    // we put the resulting records in a separate list
+    List<Node> nodes = nodeResult.stream()
+        .map(record -> record.get("node").asNode())
+        .collect(Collectors.toList());
 
     // with the node ids we can query the edges between the nodes
-    StatementResult edgeResult = runCypherQuery(
-      "MATCH (n)-[edge]-(m) " +
-          "WHERE id(n) IN {nodes} " +
-          "AND id(m) IN {nodes} " +
-          "RETURN DISTINCT edge LIMIT 100",
+    Long[] nodeIds = nodes.stream().map(Entity::id).toArray(Long[]::new);
+    Result edgeResult = session.run(
+        "MATCH (n)-[edge]-(m) " +
+            "WHERE id(n) IN $nodes " +
+            "AND id(m) IN $nodes " +
+            "RETURN DISTINCT edge LIMIT 100",
         Values.parameters("nodes", nodeIds)
     );
-    // and store the edges in an array
-    List<Relationship> edges = edgeResult.stream().map(record -> record.get("edge").asRelationship()).collect(Collectors.toList());
+    // and store the edges in a list
+    List<Relationship> edges = edgeResult.stream()
+        .map(record -> record.get("edge").asRelationship())
+        .collect(Collectors.toList());
 
-    final Map<String, ShapeNodeStyle> nodeToStyle = createNodeStyleMapping(nodes);
+    // this triggers the initial construction of the graph
+    GraphBuilder graphBuilder = createGraphBuilder(graphComponent.getGraph(), nodes, edges);
+    graphBuilder.buildGraph();
+  }
 
-    // now we create the helper class that will help us build the graph declaratively from the data
-    GraphBuilder graphBuilder = new GraphBuilder(graphComponent.getGraph());
+  /**
+   * Returns a GraphBuilder that is configured to work well with Neo4J query results.
+   */
+  private GraphBuilder createGraphBuilder(IGraph graph, List<Node> nodes, List<Relationship> edges) {
+    // now we create the helper class that will help us build the graph from the data
+    GraphBuilder graphBuilder = new GraphBuilder(graph);
 
     // now we pass it the collection of nodes and tell it how to identify the nodes
-    NodesSource<Node> nodesSource = graphBuilder.createNodesSource(nodes, node -> ((Node) node).id());
+    NodesSource<Node> nodesSource = graphBuilder.createNodesSource(nodes, Entity::id);
+    Map<String, ShapeNodeStyle> nodeToStyle = createNodeStyleMapping(nodes);
 
     // whenever a node is created...
     nodesSource.getNodeCreator().setStyleProvider(n4jNode -> {
@@ -359,47 +380,34 @@ public class Neo4JDemo {
     });
 
     // as well as what text to use as the first label for each node
-    nodesSource.getNodeCreator().createLabelBinding(owner -> {
-      Node node = (Node) owner;
+    nodesSource.getNodeCreator().createLabelBinding(node -> {
       // try to find a suitable node label
       String[] candidates = {"name", "title", "firstName", "lastName", "email", "content"};
       for (String candidate : candidates) {
         if (node.containsKey(candidate)) {
           // trim the label
           Value labelValue = node.get(candidate);
-          String label = labelValue instanceof StringValue ? ((StringValue) labelValue).asString() : labelValue.toString();
+          String label = labelValue instanceof StringValue ? labelValue.asString() : labelValue.toString();
           return label.length() > 30 ? label.substring(0, 30) : label;
         }
       }
-      String labels = "";
-      for (String label : node.labels()) {
-        if (!labels.isEmpty()) {
-          labels += " - ";
-        }
-        labels += label;
-      }
-      return labels.isEmpty() ? null : labels;
+      return String.join(" - ", node.labels());
     });
 
-    // pass the edges, too
-    // tell it how to identify the source and target nodes - this matches the nodeIdBinding above
-    EdgesSource<Relationship> edgesSource = graphBuilder.createEdgesSource(edges,
-        edge -> ((Relationship) edge).startNodeId(), edge -> ((Relationship) edge).endNodeId());
+    // specify how to identify the source and target nodes - this matches the nodeIdBinding above
+    EdgesSource<Relationship> edgesSource = graphBuilder.createEdgesSource(edges, Relationship::startNodeId,
+        Relationship::endNodeId);
     // and we display the label, too, using the type of the relationship
-    edgesSource.getEdgeCreator().createLabelBinding(edge -> ((Relationship) edge).type());
+    edgesSource.getEdgeCreator().createLabelBinding(Relationship::type);
 
-    // this triggers the initial construction of the graph
-    graphBuilder.buildGraph();
-
-    // the graph does not have a layout at this point, so we run a simple radial layout
-    doLayout();
+    return graphBuilder;
   }
 
   /**
    * Creates a mapping between node labels and node styles.
    */
   private Map<String, ShapeNodeStyle> createNodeStyleMapping(List<Node> nodes) {
-    Map<String, Integer> labelCount = new HashMap();
+    Map<String, Integer> labelCount = new HashMap<>();
     List<String> labels = new ArrayList<>();
 
     for (Node n4jNode : nodes) {
@@ -415,17 +423,17 @@ public class Neo4JDemo {
     // sort unique labels by their frequency
     labels.sort(Comparator.comparingInt(labelCount::get));
     // define some distinct looking styles
-    ArrayList<ShapeNodeStyle> styles = new ArrayList(5);
-    styles.add(newShapeNodeStyle(ShapeNodeShape.TRIANGLE, Colors.DARK_ORANGE));
-    styles.add(newShapeNodeStyle(ShapeNodeShape.DIAMOND, Colors.LIME_GREEN));
-    styles.add(newShapeNodeStyle(ShapeNodeShape.RECTANGLE, Colors.BLUE));
-    styles.add(newShapeNodeStyle(ShapeNodeShape.HEXAGON, Colors.DARK_VIOLET));
-    styles.add(newShapeNodeStyle(ShapeNodeShape.ELLIPSE, Colors.AZURE));
-
+    ShapeNodeStyle[] styles = {
+        newShapeNodeStyle(ShapeNodeShape.TRIANGLE, Colors.DARK_ORANGE),
+        newShapeNodeStyle(ShapeNodeShape.DIAMOND, Colors.LIGHT_GREEN),
+        newShapeNodeStyle(ShapeNodeShape.RECTANGLE, Colors.BLUE),
+        newShapeNodeStyle(ShapeNodeShape.HEXAGON, Colors.DARK_VIOLET),
+        newShapeNodeStyle(ShapeNodeShape.ELLIPSE, Colors.AZURE),
+    };
     // map label names to styles
-    HashMap<String, ShapeNodeStyle> labelToStyle = new HashMap<>();
+    Map<String, ShapeNodeStyle> labelToStyle = new HashMap<>();
     for (int i = 0; i < labels.size(); i++) {
-      labelToStyle.put(labels.get(i), styles.get(i % styles.size()));
+      labelToStyle.put(labels.get(i), styles[i % styles.length]);
     }
     return labelToStyle;
   }
@@ -458,25 +466,13 @@ public class Neo4JDemo {
     executor.start();
   }
 
-  /**
-   * Executes a query with parameters *and* closes the session afterwards.
-   */
-  private StatementResult runCypherQuery(String query, Value params) {
-    Session session = driver.session(AccessMode.READ);
-    try {
-      return session.run(query, params);
-    } finally {
-      session.close();
-    }
-  }
-
-  private void closeDriver() {
-    if (driver == null) {
+  private void closeSession() {
+    if (session == null) {
       return;
     }
 
     try {
-      driver.close();
+      session.close();
     } catch (Exception ex) {
       ex.printStackTrace();
     }
@@ -525,7 +521,7 @@ public class Neo4JDemo {
 
       private void cleanup(WindowEvent e) {
         e.getWindow().removeWindowListener(this);
-        closeDriver();
+        closeSession();
       }
     });
     return frame;
@@ -575,40 +571,6 @@ public class Neo4JDemo {
    */
   public static void main(String[] args) {
     EventQueue.invokeLater(() -> new Neo4JDemo("Neo4J Demo - yFiles for Java (Swing)").initialize());
-  }
-
-  /**
-   * Panel to enter the Neo4j configuration.
-   */
-  private class Neo4jConfigurationPanel extends JPanel {
-    private final JTextField urlField;
-    private final JTextField userNameField;
-    private final JTextField passwordField;
-
-    public Neo4jConfigurationPanel() {
-      super(new GridLayout(3, 2));
-      add(new JLabel("Data base URL"));
-      urlField = new JTextField("bolt://localhost:7687");
-      add(urlField);
-
-      add(new JLabel("User name"));
-      userNameField = new JTextField("neo4j");
-      add(userNameField);
-
-      add(new JLabel("Password"));
-      passwordField = new JPasswordField("password");
-      add(passwordField);
-    }
-
-    public String getURL() {
-      return urlField.getText();
-    }
-    public String getUserName() {
-      return userNameField.getText();
-    }
-    public String getPassword() {
-      return passwordField.getText();
-    }
   }
 }
 

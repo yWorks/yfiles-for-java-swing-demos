@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -191,7 +191,8 @@ public class SizeConstraintProviderDemo extends AbstractDemo {
      * Returns three times the current node size.
      */
     public SizeD getMaximumSize(INode item) {
-      return SizeD.times(3, item.getLayout().toSizeD());
+      SizeD size = item.getLayout().toSizeD();
+      return new SizeD(size.width * (double) 3, size.height * (double) 3);
     }
 
     /**
@@ -216,7 +217,7 @@ public class SizeConstraintProviderDemo extends AbstractDemo {
       // get the minimum sizes for all labels
       return item.getLabels().stream().map(label -> getLabelSize(item, label))
           // and take the maximum width and height
-          .reduce(SizeD::max)
+          .reduce((size1, size2) -> new SizeD(Math.max(size1.getWidth(), size2.getWidth()), Math.max(size1.getHeight(), size2.getHeight())))
           // or if there is no label, take a minimum size
           .orElse(new SizeD(1, 1));
     }

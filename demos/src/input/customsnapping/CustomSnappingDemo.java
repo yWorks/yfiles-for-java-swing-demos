@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -184,7 +184,9 @@ public class CustomSnappingDemo extends AbstractDemo {
    */
   private void collectFreeSnapLines(Consumer<OrthogonalSnapLine> snapLineConsumer) {
     for (LineVisual line : getFreeSnapLineVisuals()) {
-      PointD center = PointD.div(PointD.add(line.getFrom(), line.getTo()), 2);
+      PointD center = new PointD(
+          (line.getFrom().getX() + line.getTo().getX()) / 2.0,
+          (line.getFrom().getY() + line.getTo().getY()) / 2.0);
 
       if (line.getFrom().getX() == line.getTo().getX()) { // it's vertical
         snapLineConsumer.accept(new OrthogonalSnapLine(SnapLineOrientation.VERTICAL, SnapLineSnapTypes.LEFT,
@@ -348,7 +350,7 @@ public class CustomSnappingDemo extends AbstractDemo {
 
     @Override
     public void collectGridSnapResults(GraphSnapContext context, CollectSnapResultsEventArgs args,
-                                   RectD suggestedLayout, INode node) {
+                                       RectD suggestedLayout, INode node) {
       // The node layout isn't updated, yet, so we have to calculate the delta
       // between the the new suggested layout and the current node.Layout
       PointD delta = PointD.subtract(suggestedLayout.getTopLeft(), node.getLayout().getTopLeft());

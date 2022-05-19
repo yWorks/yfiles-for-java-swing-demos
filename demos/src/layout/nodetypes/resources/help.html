@@ -1,0 +1,36 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../resources/help.css"/>
+</head>
+<body class="demo-description">
+<h1>Description</h1>
+
+<p>
+  This demo shows how different layout algorithms handle nodes that are associated with specific 
+  types. In this example application, nodes with the same color are considered to be of the same 
+  type.
+</p>
+<p>
+  The type is generally treated as a secondary, subordinate optimization criterion. Thus, nodes of 
+  the same type are usually not simply clustered together. The type is only considered when some 
+  free choice is available after considering other constraints relevant to the specific layout 
+  algorithm (like minimizing the number of crossings or considering the hierarchical grouping 
+  structure).
+</p>
+  <h2>Things to Try</h2>
+<ul>
+  <li>
+    Use the combo box to choose a specific layout algorithm. This automatically loads a suitable 
+    example graph.</li>
+  <li>
+    Compare the results with and without considering node types. Use the <em>Consider Types</em> 
+    checkbox to change the setting.
+  </li>
+  <li>
+    Modify the graph by adding new elements or changing the type of existing nodes via the context 
+    menu and observe the effect on the layout. The context menu can be accessed by right clicking on 
+    a node.
+  </li>
+</ul>
+</body>
+</html>

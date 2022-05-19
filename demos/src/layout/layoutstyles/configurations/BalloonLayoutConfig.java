@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -174,8 +174,6 @@ public class BalloonLayoutConfig extends LayoutConfiguration {
       }
     }
 
-    addPreferredPlacementDescriptor(graphComponent.getGraph(), getLabelPlacementAlongEdgeItem(), getLabelPlacementSideOfEdgeItem(), getLabelPlacementOrientationItem(), getLabelPlacementDistanceItem());
-
     return layout;
   }
 
@@ -192,7 +190,7 @@ public class BalloonLayoutConfig extends LayoutConfiguration {
       }
     }
 
-    return layoutData;
+    return layoutData.combineWith(createLabelingLayoutData(graphComponent.getGraph(), getLabelPlacementAlongEdgeItem(), getLabelPlacementSideOfEdgeItem(), getLabelPlacementOrientationItem(), getLabelPlacementDistanceItem()));
   }
 
   public enum EnumRoute {
@@ -382,6 +380,7 @@ public class BalloonLayoutConfig extends LayoutConfiguration {
 
   @Label("Bundling Strength")
   @OptionGroupAnnotation(name = "GeneralGroup", position = 40)
+  @DefaultValue(doubleValue = 1.0, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   @MinMax(min = 0, max = 1.0, step = 0.01)
   @ComponentType(ComponentTypes.SLIDER)
   public final double getEdgeBundlingStrengthItem() {
@@ -390,6 +389,7 @@ public class BalloonLayoutConfig extends LayoutConfiguration {
 
   @Label("Bundling Strength")
   @OptionGroupAnnotation(name = "GeneralGroup", position = 40)
+  @DefaultValue(doubleValue = 1.0, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   @MinMax(min = 0, max = 1.0, step = 0.01)
   @ComponentType(ComponentTypes.SLIDER)
   public final void setEdgeBundlingStrengthItem( double value ) {

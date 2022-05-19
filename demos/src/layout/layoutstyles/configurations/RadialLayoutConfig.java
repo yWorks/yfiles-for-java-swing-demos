@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -110,11 +110,10 @@ public class RadialLayoutConfig extends LayoutConfiguration {
       GenericLabeling labeling = new GenericLabeling();
       labeling.setEdgeLabelPlacementEnabled(true);
       labeling.setNodeLabelPlacementEnabled(false);
+      labeling.setAmbiguityReductionEnabled(isReduceAmbiguityItem());
       layout.setLabelingEnabled(true);
       layout.setLabeling(labeling);
     }
-
-    addPreferredPlacementDescriptor(graphComponent.getGraph(), getLabelPlacementAlongEdgeItem(), getLabelPlacementSideOfEdgeItem(), getLabelPlacementOrientationItem(), getLabelPlacementDistanceItem());
 
     return layout;
   }
@@ -127,7 +126,7 @@ public class RadialLayoutConfig extends LayoutConfiguration {
       layoutData.setCenterNodes(graphComponent.getSelection().getSelectedNodes());
     }
 
-    return layoutData;
+    return layoutData.combineWith(createLabelingLayoutData(graphComponent.getGraph(), getLabelPlacementAlongEdgeItem(), getLabelPlacementSideOfEdgeItem(), getLabelPlacementOrientationItem(), getLabelPlacementDistanceItem()));
   }
 
   @Label("Description")
@@ -374,6 +373,26 @@ public class RadialLayoutConfig extends LayoutConfiguration {
     this.edgeLabelingEnabledItem = value;
   }
 
+  private boolean reduceAmbiguityItem;
+
+  @Label("Reduce Ambiguity")
+  @OptionGroupAnnotation(name = "EdgePropertiesGroup", position = 20)
+  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
+  public final boolean isReduceAmbiguityItem() {
+    return this.reduceAmbiguityItem;
+  }
+
+  @Label("Reduce Ambiguity")
+  @OptionGroupAnnotation(name = "EdgePropertiesGroup", position = 20)
+  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
+  public final void setReduceAmbiguityItem( boolean value ) {
+    this.reduceAmbiguityItem = value;
+  }
+
+  public final boolean isReduceAmbiguityItemDisabled() {
+    return !isEdgeLabelingEnabledItem();
+  }
+
   private LayoutConfiguration.EnumLabelPlacementOrientation labelPlacementOrientationItem = LayoutConfiguration.EnumLabelPlacementOrientation.PARALLEL;
 
   @Label("Orientation")
@@ -409,7 +428,9 @@ public class RadialLayoutConfig extends LayoutConfiguration {
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = LayoutConfiguration.EnumLabelPlacementAlongEdge.class, stringValue = "CENTERED")
   @EnumValueAnnotation(label = "Anywhere", value = "ANYWHERE")
   @EnumValueAnnotation(label = "At Source", value = "AT_SOURCE")
+  @EnumValueAnnotation(label = "At Source Port", value = "AT_SOURCE_PORT")
   @EnumValueAnnotation(label = "At Target", value = "AT_TARGET")
+  @EnumValueAnnotation(label = "At Target Port", value = "AT_TARGET_PORT")
   @EnumValueAnnotation(label = "Centered", value = "CENTERED")
   public final LayoutConfiguration.EnumLabelPlacementAlongEdge getLabelPlacementAlongEdgeItem() {
     return this.labelPlacementAlongEdgeItem;
@@ -420,7 +441,9 @@ public class RadialLayoutConfig extends LayoutConfiguration {
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = LayoutConfiguration.EnumLabelPlacementAlongEdge.class, stringValue = "CENTERED")
   @EnumValueAnnotation(label = "Anywhere", value = "ANYWHERE")
   @EnumValueAnnotation(label = "At Source", value = "AT_SOURCE")
+  @EnumValueAnnotation(label = "At Source Port", value = "AT_SOURCE_PORT")
   @EnumValueAnnotation(label = "At Target", value = "AT_TARGET")
+  @EnumValueAnnotation(label = "At Target Port", value = "AT_TARGET_PORT")
   @EnumValueAnnotation(label = "Centered", value = "CENTERED")
   public final void setLabelPlacementAlongEdgeItem( LayoutConfiguration.EnumLabelPlacementAlongEdge value ) {
     this.labelPlacementAlongEdgeItem = value;

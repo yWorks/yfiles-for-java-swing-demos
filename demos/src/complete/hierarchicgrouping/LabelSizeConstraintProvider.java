@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -56,7 +56,8 @@ public class LabelSizeConstraintProvider implements INodeSizeConstraintProvider 
     for (ILabel label : item.getLabels()) {
       INodeSizeConstraintProvider provider = label.getLayoutParameter().getModel().lookup(INodeSizeConstraintProvider.class);
       if (provider != null) {
-        result = SizeD.max(result, provider.getMinimumSize(item));
+        SizeD size2 = provider.getMinimumSize(item);
+        result = new SizeD(Math.max(result.width, size2.width), Math.max(result.height, size2.height));
       }
     }
     // Respect the width of the collapse/expand button so that the label doesn't overlap it

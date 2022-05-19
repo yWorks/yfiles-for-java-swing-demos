@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -80,6 +80,7 @@ public class PartialLayoutConfig extends LayoutConfiguration {
     layout.setComponentAssignmentStrategy(getComponentAssignmentStrategyItem());
     layout.setLayoutOrientation(getOrientationItem());
     layout.setEdgeRoutingStrategy(getRoutingToSubgraphItem());
+    layout.setMovingFixedElementsAllowed(isMoveFixedElementsItem());
 
     ILayoutAlgorithm subgraphLayout = null;
     if (getComponentAssignmentStrategyItem() != ComponentAssignmentStrategy.SINGLE) {
@@ -327,6 +328,22 @@ public class PartialLayoutConfig extends LayoutConfiguration {
   @DefaultValue(booleanValue = true, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
   public final void setAligningNodesItem( boolean value ) {
     this.aligningNodesItem = value;
+  }
+
+  private boolean moveFixedElementsItem;
+
+  @Label("Allow Moving Fixed Elements")
+  @OptionGroupAnnotation(name = "LayoutGroup", position = 80)
+  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
+  public final boolean isMoveFixedElementsItem() {
+    return this.moveFixedElementsItem;
+  }
+
+  @Label("Allow Moving Fixed Elements")
+  @OptionGroupAnnotation(name = "LayoutGroup", position = 80)
+  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
+  public final void setMoveFixedElementsItem( boolean value ) {
+    this.moveFixedElementsItem = value;
   }
 
 }

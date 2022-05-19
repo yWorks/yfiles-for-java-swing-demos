@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -467,7 +467,7 @@ public class BpmnDiParser {
       // there is no ChoreographyActivityShape, so no further checks needed
       return true;
     }
-    if ("choreographyTask".equals(element.getParent().getName()) || "subChoreography".equals(element.getParent().getName())) {
+    if (element.getParent() != null && ("choreographyTask".equals(element.getParent().getName()) || "subChoreography".equals(element.getParent().getName()))) {
       // if a ChoreographyActivityShape is defined, we need to be inside the defined choreographyTask or subChoreography
       BpmnShape choreoShape = getShape(element.getParent(), plane);
       if (choreoShape != null) {
@@ -1603,18 +1603,22 @@ public class BpmnDiParser {
       return null;
     }
 
-    // Get bends & ports from waypoints
-    int count = waypoints.size();
-    // First waypoint is source Port
-    PointD source = waypoints.get(0);
-    // Last is target port
-    PointD target = waypoints.get(count - 1);
-    waypoints.remove(source);
-    waypoints.remove(target);
-
     // Get source & target node
     INode sourceNode = sourceVar.getNode();
     INode targetNode = targetVar.getNode();
+
+    // Get bends & ports from waypoints
+    int count = waypoints.size();
+    PointD source = sourceNode.getLayout().getCenter();
+    PointD target = targetNode.getLayout().getCenter();
+    if (count > 0) {
+      // First waypoint is source Port
+      source = waypoints.get(0);
+      // Last is target port
+      target = waypoints.get(count - 1);
+      waypoints.remove(source);
+      waypoints.remove(target);
+    }
 
     IPort sourcePort = null;
     IPort targetPort = null;
@@ -1705,12 +1709,16 @@ public class BpmnDiParser {
 
     // Get bends & ports from waypoints
     int count = waypoints.size();
-    // First waypoint is source Port
-    PointD source = waypoints.get(0);
-    // Last is target port
-    PointD target = waypoints.get(count - 1);
-    waypoints.remove(source);
-    waypoints.remove(target);
+    PointD source = sourceNode.getLayout().getCenter();
+    PointD target = targetNode.getLayout().getCenter();
+    if (count > 0) {
+      // First waypoint is source Port
+      source = waypoints.get(0);
+      // Last is target port
+      target = waypoints.get(count - 1);
+      waypoints.remove(source);
+      waypoints.remove(target);
+    }
 
     // Get source & target port
     IPort sourcePort = BpmnDiConstants.BOUNDARY_EVENT_ELEMENT.equals(sourceVar.getName()) ? sourceVar.getPort() : getMasterGraph().addPort(sourceNode, source);

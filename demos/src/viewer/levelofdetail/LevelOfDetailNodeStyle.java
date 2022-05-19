@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -40,8 +40,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 
 /**
  * Visualizes different pieces of information about employees depending on
@@ -112,6 +114,10 @@ public class LevelOfDetailNodeStyle extends AbstractNodeStyle {
   private abstract static class AbstractVisual implements IVisual {
     final Font nameFont;
     final Font dataFont;
+    final int nameAsc;
+    final int nameFontHeight;
+    final int dataAsc;
+    final int dataFontHeight;
 
     double x;
     double y;
@@ -121,6 +127,17 @@ public class LevelOfDetailNodeStyle extends AbstractNodeStyle {
     AbstractVisual( int nameFontSize, int dataFontSize ) {
       this.nameFont = newFont(nameFontSize);
       this.dataFont = newFont(dataFontSize);
+
+      // calculate ascent and maximum font height
+      Graphics2D tmp = new BufferedImage(1, 1, BufferedImage.TYPE_BYTE_GRAY).createGraphics();
+      tmp.setFont(nameFont);
+      FontMetrics fontMetrics = tmp.getFontMetrics();
+      this.nameAsc = fontMetrics.getMaxAscent();
+      this.nameFontHeight = this.nameAsc + fontMetrics.getMaxDescent() + fontMetrics.getLeading();
+      tmp.setFont(dataFont);
+      fontMetrics = tmp.getFontMetrics();
+      this.dataAsc = fontMetrics.getMaxAscent();
+      this.dataFontHeight = this.dataAsc + fontMetrics.getMaxDescent() + fontMetrics.getLeading();
     }
 
     /**
@@ -148,6 +165,8 @@ public class LevelOfDetailNodeStyle extends AbstractNodeStyle {
     @Override
     public void paint( IRenderContext context, Graphics2D graphics ) {
       Graphics2D newGraphics = (Graphics2D) graphics.create();
+      newGraphics.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+
       paintBorder(newGraphics);
       paintContent(newGraphics);
       newGraphics.dispose();
@@ -181,14 +200,13 @@ public class LevelOfDetailNodeStyle extends AbstractNodeStyle {
       graphics.setFont(headline ? nameFont : dataFont);
       graphics.setColor(headline ? Color.BLUE : Color.BLACK);
 
-      FontMetrics fontMetrics = graphics.getFontMetrics();
-      int asc = fontMetrics.getMaxAscent();
+      int asc = headline ? nameAsc : dataAsc;
       graphics.drawString(text, 0, asc);
 
       graphics.setTransform(oldTransform);
 
       int textOffset = 3;
-      return textOffset + asc + fontMetrics.getMaxDescent() + fontMetrics.getLeading();
+      return textOffset + (headline ? nameFontHeight : dataFontHeight);
     }
 
     /**

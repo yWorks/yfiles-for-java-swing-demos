@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -42,7 +42,6 @@ import com.yworks.yfiles.graph.builder.EdgeCreator;
 import com.yworks.yfiles.graph.builder.NodeCreator;
 import com.yworks.yfiles.graph.labelmodels.ILabelModelParameter;
 import com.yworks.yfiles.graph.styles.ILabelStyle;
-import com.yworks.yfiles.utils.AbstractDelegate;
 import com.yworks.yfiles.utils.IEventListener;
 import com.yworks.yfiles.utils.IListEnumerable;
 
@@ -405,84 +404,72 @@ final class GraphBuilderHelper<TNode, TGroup, TEdge> {
 
 
 
-  private IEventListener.Delegate<GraphBuilderItemEventArgs<INode, TGroup>> groupNodeCreatedEvent;
+  private IEventListener<GraphBuilderItemEventArgs<INode, TGroup>> groupNodeCreatedEvent;
 
   public final void addGroupNodeCreatedListener(
       IEventListener<GraphBuilderItemEventArgs<INode, TGroup>> groupNodeCreatedEvent) {
-    this.groupNodeCreatedEvent = AbstractDelegate.combine(this.groupNodeCreatedEvent,
-        IEventListener.Delegate.create(groupNodeCreatedEvent));
+    this.groupNodeCreatedEvent = groupNodeCreatedEvent;
   }
 
   public final void removeGroupNodeCreatedListener(
       IEventListener<GraphBuilderItemEventArgs<INode, TGroup>> groupNodeCreatedEvent) {
-    this.groupNodeCreatedEvent = AbstractDelegate.remove(this.groupNodeCreatedEvent,
-        IEventListener.Delegate.create(groupNodeCreatedEvent));
+    this.groupNodeCreatedEvent =null;
   }
 
-  private IEventListener.Delegate<GraphBuilderItemEventArgs<INode, TNode>> nodeCreatedEvent;
+  private IEventListener<GraphBuilderItemEventArgs<INode, TNode>> nodeCreatedEvent;
 
   public final void addNodeCreatedListener(IEventListener<GraphBuilderItemEventArgs<INode, TNode>> nodeCreatedEvent) {
-    this.nodeCreatedEvent = AbstractDelegate.combine(this.nodeCreatedEvent,
-        IEventListener.Delegate.create(nodeCreatedEvent));
+    this.nodeCreatedEvent = nodeCreatedEvent;
   }
 
   public final void removeNodeCreatedListener(
       IEventListener<GraphBuilderItemEventArgs<INode, TNode>> nodeCreatedEvent) {
-    this.nodeCreatedEvent = AbstractDelegate.remove(this.nodeCreatedEvent,
-        IEventListener.Delegate.create(nodeCreatedEvent));
+    this.nodeCreatedEvent = null;
   }
 
-  private IEventListener.Delegate<GraphBuilderItemEventArgs<INode, TGroup>> groupNodeUpdatedEvent;
+  private IEventListener<GraphBuilderItemEventArgs<INode, TGroup>> groupNodeUpdatedEvent;
 
   public final void addGroupNodeUpdatedListener(
       IEventListener<GraphBuilderItemEventArgs<INode, TGroup>> groupNodeUpdatedEvent) {
-    this.groupNodeUpdatedEvent = AbstractDelegate.combine(this.groupNodeUpdatedEvent,
-        IEventListener.Delegate.create(groupNodeUpdatedEvent));
+    this.groupNodeUpdatedEvent = groupNodeUpdatedEvent;
   }
 
   public final void removeGroupNodeUpdatedListener(
       IEventListener<GraphBuilderItemEventArgs<INode, TGroup>> groupNodeUpdatedEvent) {
-    this.groupNodeUpdatedEvent = AbstractDelegate.remove(this.groupNodeUpdatedEvent,
-        IEventListener.Delegate.create(groupNodeUpdatedEvent));
+    this.groupNodeUpdatedEvent = null;
   }
 
-  private IEventListener.Delegate<GraphBuilderItemEventArgs<INode, TNode>> nodeUpdatedEvent;
+  private IEventListener<GraphBuilderItemEventArgs<INode, TNode>> nodeUpdatedEvent;
 
   public final void addNodeUpdatedListener(IEventListener<GraphBuilderItemEventArgs<INode, TNode>> nodeUpdatedEvent) {
-    this.nodeUpdatedEvent = AbstractDelegate.combine(this.nodeUpdatedEvent,
-        IEventListener.Delegate.create(nodeUpdatedEvent));
+    this.nodeUpdatedEvent = nodeUpdatedEvent;
   }
 
   public final void removeNodeUpdatedListener(
       IEventListener<GraphBuilderItemEventArgs<INode, TNode>> nodeUpdatedEvent) {
-    this.nodeUpdatedEvent = AbstractDelegate.remove(this.nodeUpdatedEvent,
-        IEventListener.Delegate.create(nodeUpdatedEvent));
+    this.nodeUpdatedEvent = null;
   }
 
-  private IEventListener.Delegate<GraphBuilderItemEventArgs<IEdge, TEdge>> edgeCreatedEvent;
+  private IEventListener<GraphBuilderItemEventArgs<IEdge, TEdge>> edgeCreatedEvent;
 
   public final void addEdgeCreatedListener(IEventListener<GraphBuilderItemEventArgs<IEdge, TEdge>> edgeCreatedEvent) {
-    this.edgeCreatedEvent = AbstractDelegate.combine(this.edgeCreatedEvent,
-        IEventListener.Delegate.create(edgeCreatedEvent));
+    this.edgeCreatedEvent = edgeCreatedEvent;
   }
 
   public final void removeEdgeCreatedListener(
       IEventListener<GraphBuilderItemEventArgs<IEdge, TEdge>> edgeCreatedEvent) {
-    this.edgeCreatedEvent = AbstractDelegate.remove(this.edgeCreatedEvent,
-        IEventListener.Delegate.create(edgeCreatedEvent));
+    this.edgeCreatedEvent = null;
   }
 
-  private IEventListener.Delegate<GraphBuilderItemEventArgs<IEdge, TEdge>> edgeUpdatedEvent;
+  private IEventListener<GraphBuilderItemEventArgs<IEdge, TEdge>> edgeUpdatedEvent;
 
   public final void addEdgeUpdatedListener(IEventListener<GraphBuilderItemEventArgs<IEdge, TEdge>> edgeUpdatedEvent) {
-    this.edgeUpdatedEvent = AbstractDelegate.combine(this.edgeUpdatedEvent,
-        IEventListener.Delegate.create(edgeUpdatedEvent));
+    this.edgeUpdatedEvent = edgeUpdatedEvent;
   }
 
   public final void removeEdgeUpdatedListener(
       IEventListener<GraphBuilderItemEventArgs<IEdge, TEdge>> edgeUpdatedEvent) {
-    this.edgeUpdatedEvent = AbstractDelegate.remove(this.edgeUpdatedEvent,
-        IEventListener.Delegate.create(edgeUpdatedEvent));
+    this.edgeUpdatedEvent = null;
   }
 
   private void onNodeCreated(INode node, TNode dataItem) {

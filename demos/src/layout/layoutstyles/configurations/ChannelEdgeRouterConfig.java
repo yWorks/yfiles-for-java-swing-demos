@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -36,6 +36,7 @@ import com.yworks.yfiles.layout.router.ChannelEdgeRouter;
 import com.yworks.yfiles.layout.router.ChannelEdgeRouterData;
 import com.yworks.yfiles.layout.router.OrthogonalPatternEdgeRouter;
 import com.yworks.yfiles.layout.router.OrthogonalSegmentDistributionStage;
+import com.yworks.yfiles.layout.router.RoutingPolicy;
 import com.yworks.yfiles.layout.router.Scope;
 import com.yworks.yfiles.utils.Obfuscation;
 import com.yworks.yfiles.view.GraphComponent;
@@ -61,6 +62,7 @@ public class ChannelEdgeRouterConfig extends LayoutConfiguration {
     setMinimumDistanceItem(10);
     setActivatingGridRoutingItem(true);
     setGridSpacingItem(20);
+    setRoutingPolicyItem(RoutingPolicy.ALWAYS);
 
     setBendCostItem(1);
     setEdgeCrossingCostItem(5);
@@ -94,6 +96,7 @@ public class ChannelEdgeRouterConfig extends LayoutConfiguration {
     segmentDistributionStage.setGridSpacing(getGridSpacingItem());
 
     router.setEdgeDistributionStrategy(segmentDistributionStage);
+    router.setRoutingPolicy(getRoutingPolicyItem());
 
     return router;
   }
@@ -217,6 +220,26 @@ public class ChannelEdgeRouterConfig extends LayoutConfiguration {
 
   public final boolean isGridSpacingItemDisabled() {
     return !isActivatingGridRoutingItem();
+  }
+
+  private RoutingPolicy routingPolicyItem = RoutingPolicy.ALWAYS;
+
+  @Label("Routing Policy")
+  @OptionGroupAnnotation(name = "LayoutGroup", position = 60)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = RoutingPolicy.class, stringValue = "ALWAYS")
+  @EnumValueAnnotation(label = "Always", value = "ALWAYS")
+  @EnumValueAnnotation(label = "Path As Needed", value = "PATH_AS_NEEDED")
+  public final RoutingPolicy getRoutingPolicyItem() {
+    return this.routingPolicyItem;
+  }
+
+  @Label("Routing Policy")
+  @OptionGroupAnnotation(name = "LayoutGroup", position = 60)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = RoutingPolicy.class, stringValue = "ALWAYS")
+  @EnumValueAnnotation(label = "Always", value = "ALWAYS")
+  @EnumValueAnnotation(label = "Path As Needed", value = "PATH_AS_NEEDED")
+  public final void setRoutingPolicyItem( RoutingPolicy value ) {
+    this.routingPolicyItem = value;
   }
 
   private double bendCostItem;

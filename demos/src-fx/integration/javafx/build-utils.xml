@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+ name="yFiles-Demos-helper"
+ default="check-fx-sdk"
+ basedir=".">
+  <target name="check-fx-sdk">
+    <available
+     classname="javafx.scene.paint.Color"
+     property="javafx.classes.available"/>
+
+    <condition
+     property="javafx.state.msg"
+     value="FX classes found"
+     else="FX classes not found">
+      <isset property="javafx.classes.available"/>
+    </condition>
+
+    <condition property="javafx.found">
+      <or>
+        <isset property="javafx.classes.available"/>
+        <isset property="path.to.fx"/>
+      </or>
+    </condition>
+
+    <fail unless="javafx.found">
+      FX modules could not be found. Please specify the 'path.to.fx' property. See https://openjfx.io/openjfx-docs/#install-javafx for more information.
+    </fail>
+
+    <condition
+     property="java.fx.args"
+     value="--module-path ${path.to.fx} --add-modules=javafx.fxml,javafx.web,javafx.swing"
+     else="">
+      <and>
+        <not>
+          <isset property="javafx.classes.available"/>
+        </not>
+        <isset property="path.to.fx"/>
+      </and>
+    </condition>
+
+    <condition
+     property="javafx.path.msg"
+     value="${path.to.fx}" else="">
+      <isset property="path.to.fx"/>
+    </condition>
+
+    <echo>path.to.fx = ${javafx.path.msg}</echo>
+    <echo>java.fx.args = ${java.fx.args}</echo>
+  </target>
+</project>

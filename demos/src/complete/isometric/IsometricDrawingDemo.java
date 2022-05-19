@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -137,7 +137,7 @@ public class IsometricDrawingDemo extends AbstractDemo {
     toolBar.addSeparator();
     toolBar.add(zoomInAction = createCommandButtonAction("Zoom in", "plus2-16.png", ICommand.INCREASE_ZOOM, null, graphComponent));
     toolBar.add(zoomoutAction = createCommandButtonAction("Zoom out", "minus2-16.png", ICommand.DECREASE_ZOOM, null, graphComponent));
-    toolBar.add(fitGraphContentAction = createCommandButtonAction("Fit the graph content", "fit2-16.png", ICommand.FIT_CONTENT, null, graphComponent));
+    toolBar.add(fitGraphContentAction = createCommandButtonAction("Fit the graph content", "fit2-16.png", ICommand.FIT_GRAPH_BOUNDS, null, graphComponent));
     toolBar.addSeparator();
 
     toolBar.add(hierarchicLayoutButton = new JButton("Hierarchic Layout", createIcon("layout-hierarchic.png")));

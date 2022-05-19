@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -67,7 +67,7 @@ public class SubstructuresConfig extends AlgorithmConfiguration {
   @Override
   protected void runAlgorithm(IGraph graph) {
     switch (algorithmType) {
-      case CHAIN_SUBSTRUCTERS: {
+      case CHAIN_SUBSTRUCTURES: {
         ChainSubstructures chainSubstructures = new ChainSubstructures();
         chainSubstructures.setMinimumSize(2);
         chainSubstructures.setEdgeDirectedness(isDirected() ? 1 : 0);
@@ -76,7 +76,7 @@ public class SubstructuresConfig extends AlgorithmConfiguration {
         markSubstructures(graph, substructures.getChains());
         break;
       }
-      case CLIQUE_SUBSTRUCTERS: {
+      case CLIQUE_SUBSTRUCTURES: {
         CliqueSubstructures cliqueSubstructures = new CliqueSubstructures();
         cliqueSubstructures.setMinimumSize(2);
 
@@ -84,7 +84,7 @@ public class SubstructuresConfig extends AlgorithmConfiguration {
         markSubstructures(graph, substructures.getCliques());
         break;
       }
-      case CYCLE_SUBSTRUCTERS: {
+      case CYCLE_SUBSTRUCTURES: {
         CycleSubstructures cycleSubstructures = new CycleSubstructures();
         cycleSubstructures.setMinimumSize(2);
         cycleSubstructures.setEdgeDirectedness(isDirected() ? 1 : 0);
@@ -93,7 +93,7 @@ public class SubstructuresConfig extends AlgorithmConfiguration {
         markSubstructures(graph, substructures.getCycles());
         break;
       }
-      case STAR_SUBSTRUCTERS: {
+      case STAR_SUBSTRUCTURES: {
         StarSubstructures starSubstructures = new StarSubstructures();
         starSubstructures.setMinimumSize(3);
         starSubstructures.setEdgeDirectedness(isDirected() ? 1 : 0);
@@ -102,7 +102,7 @@ public class SubstructuresConfig extends AlgorithmConfiguration {
         markSubstructures(graph, substructures.getStars());
         break;
       }
-      case TREE_SUBSTRUCTERS: {
+      case TREE_SUBSTRUCTURES: {
         TreeSubstructures treeSubstructures = new TreeSubstructures();
         treeSubstructures.setMinimumSize(2);
         treeSubstructures.setEdgeDirectedness(isDirected() ? 1 : 0);
@@ -143,7 +143,7 @@ public class SubstructuresConfig extends AlgorithmConfiguration {
 
   @Override
   public boolean supportsDirectedEdges() {
-    return true;
+    return AlgorithmType.CLIQUE_SUBSTRUCTURES != algorithmType;
   }
 
   @Override
@@ -157,10 +157,10 @@ public class SubstructuresConfig extends AlgorithmConfiguration {
   }
 
   public enum AlgorithmType {
-    CHAIN_SUBSTRUCTERS,
-    CLIQUE_SUBSTRUCTERS,
-    CYCLE_SUBSTRUCTERS,
-    STAR_SUBSTRUCTERS,
-    TREE_SUBSTRUCTERS
+    CHAIN_SUBSTRUCTURES,
+    CLIQUE_SUBSTRUCTURES,
+    CYCLE_SUBSTRUCTURES,
+    STAR_SUBSTRUCTURES,
+    TREE_SUBSTRUCTURES
   }
 }

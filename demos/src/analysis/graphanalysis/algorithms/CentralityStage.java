@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -30,6 +30,7 @@
 package analysis.graphanalysis.algorithms;
 
 import com.yworks.yfiles.algorithms.Centrality;
+import com.yworks.yfiles.algorithms.EdgeDpKey;
 import com.yworks.yfiles.algorithms.IDataProvider;
 import com.yworks.yfiles.algorithms.IEdgeMap;
 import com.yworks.yfiles.algorithms.ILineSegmentCursor;
@@ -46,7 +47,7 @@ import com.yworks.yfiles.layout.LayoutGraph;
  * Changes the sizes of nodes according to their centrality values.
  */
 public class CentralityStage extends AbstractLayoutStage {
-  public static final Object EDGE_WEIGHTS_DPKEY = "CentralityStage.EDGE_WEIGHTS_DPKEY";
+  public static final EdgeDpKey<Double> EDGE_WEIGHTS_DPKEY = new EdgeDpKey<>(Double.class, CentralityStage.class, "CentralityStage.EDGE_WEIGHTS_DPKEY");
 
   private CentralityConfig.AlgorithmType centrality;
   private boolean directed;

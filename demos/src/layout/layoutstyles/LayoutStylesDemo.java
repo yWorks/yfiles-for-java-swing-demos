@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -36,8 +36,6 @@ import com.yworks.yfiles.graph.ILabel;
 import com.yworks.yfiles.graph.ILabelOwner;
 import com.yworks.yfiles.graph.INodeDefaults;
 import com.yworks.yfiles.graph.labelmodels.InteriorLabelModel;
-import com.yworks.yfiles.graph.styles.Arrow;
-import com.yworks.yfiles.graph.styles.ArrowType;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.graph.styles.IArrow;
 import com.yworks.yfiles.graph.styles.IEdgeStyle;
@@ -59,7 +57,9 @@ import layout.layoutstyles.configurations.BalloonLayoutConfig;
 import layout.layoutstyles.configurations.BusEdgeRouterConfig;
 import layout.layoutstyles.configurations.ChannelEdgeRouterConfig;
 import layout.layoutstyles.configurations.CircularLayoutConfig;
+import layout.layoutstyles.configurations.ClassicTreeLayoutConfig;
 import layout.layoutstyles.configurations.ComponentLayoutConfig;
+import layout.layoutstyles.configurations.GraphTransformerConfig;
 import layout.layoutstyles.configurations.HierarchicLayoutConfig;
 import layout.layoutstyles.configurations.LabelingConfig;
 import layout.layoutstyles.configurations.LayoutConfiguration;
@@ -71,6 +71,7 @@ import layout.layoutstyles.configurations.PartialLayoutConfig;
 import layout.layoutstyles.configurations.PolylineEdgeRouterConfig;
 import layout.layoutstyles.configurations.RadialLayoutConfig;
 import layout.layoutstyles.configurations.SeriesParallelLayoutConfig;
+import layout.layoutstyles.configurations.TabularLayoutConfig;
 import layout.layoutstyles.configurations.TreeLayoutConfig;
 import toolkit.AbstractDemo;
 import toolkit.DemoGroupNodeStyle;
@@ -94,7 +95,6 @@ import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -113,6 +113,8 @@ import java.util.stream.Collectors;
  * Play around with the various layout algorithms of yFiles, including hierarchic, organic, orthogonal, tree, circular and balloon styles.
  */
 public class LayoutStylesDemo extends AbstractDemo {
+  private static final String HIERARCHIC_LAYOUT_STYLE = "Hierarchic";
+
   private static final ICommand GENERATE_NODE_LABELS = ICommand.createCommand("Generate Node Labels");
   private static final ICommand GENERATE_EDGE_LABELS = ICommand.createCommand("Generate Edge Labels");
   private static final ICommand GENERATE_EDGE_DIRECTION = ICommand.createCommand("Generate Edge Direction");
@@ -188,9 +190,6 @@ public class LayoutStylesDemo extends AbstractDemo {
 
     // set the default style for edges
     PolylineEdgeStyle edgeStyle = new PolylineEdgeStyle();
-    Color edgeColor = new Color(51, 102, 153);
-    edgeStyle.setPen(new Pen(edgeColor));
-    edgeStyle.setTargetArrow(new Arrow(ArrowType.DEFAULT, edgeColor));
     graphComponent.getGraph().getEdgeDefaults().setStyle(edgeStyle);
   }
 
@@ -247,34 +246,43 @@ public class LayoutStylesDemo extends AbstractDemo {
             "Orthogonal",
             "Circular",
             "Tree",
+            "Classic Tree",
             "Balloon",
             "Radial",
             "Series-Parallel",
-            "Polyline Router",
+            "Tabular",
+            "Edge Router",
             "Channel Router",
             "Bus Router",
             "Organic Router",
             "Parallel Router",
             "Labeling",
             "Components",
-            "Partial"
+            "Partial",
+            "Graph Transform"
     };
     DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>(layoutNames);
     layoutComboBox.setModel(comboBoxModel);
     layoutComboBox.setMaximumSize(layoutComboBox.getPreferredSize());
     layoutComboBox.addActionListener(e -> onLayoutChanged());
 
-    availableLayouts.put("Hierarchic", new HierarchicLayoutConfig());
+    HierarchicLayoutConfig hierarchicLayoutConfig = new HierarchicLayoutConfig();
+    hierarchicLayoutConfig.enableSubComponents();
+    availableLayouts.put(HIERARCHIC_LAYOUT_STYLE, hierarchicLayoutConfig);
     OrganicLayoutConfig organicLayoutConfig = new OrganicLayoutConfig();
     organicLayoutConfig.enableSubstructures();
     availableLayouts.put("Organic", organicLayoutConfig);
-    availableLayouts.put("Orthogonal", new OrthogonalLayoutConfig());
+    OrthogonalLayoutConfig orthogonalLayoutConfig = new OrthogonalLayoutConfig();
+    orthogonalLayoutConfig.enableSubstructures();
+    availableLayouts.put("Orthogonal", orthogonalLayoutConfig);
     availableLayouts.put("Circular", new CircularLayoutConfig());
     availableLayouts.put("Tree", new TreeLayoutConfig());
+    availableLayouts.put("Classic Tree", new ClassicTreeLayoutConfig());
     availableLayouts.put("Balloon", new BalloonLayoutConfig());
     availableLayouts.put("Radial", new RadialLayoutConfig());
     availableLayouts.put("Series-Parallel", new SeriesParallelLayoutConfig());
-    availableLayouts.put("Polyline Router", new PolylineEdgeRouterConfig());
+    availableLayouts.put("Tabular", new TabularLayoutConfig());
+    availableLayouts.put("Edge Router", new PolylineEdgeRouterConfig());
     availableLayouts.put("Channel Router", new ChannelEdgeRouterConfig());
     availableLayouts.put("Bus Router", new BusEdgeRouterConfig());
     availableLayouts.put("Organic Router", new OrganicEdgeRouterConfig());
@@ -282,6 +290,7 @@ public class LayoutStylesDemo extends AbstractDemo {
     availableLayouts.put("Labeling", new LabelingConfig());
     availableLayouts.put("Components", new ComponentLayoutConfig());
     availableLayouts.put("Partial", new PartialLayoutConfig());
+    availableLayouts.put("Graph Transform", new GraphTransformerConfig());
 
     // load hierarchic sample graph and apply the hierarchic layout
     if (!"Hierarchic".equals(graphChooserBox.getSelectedItem())) {
@@ -292,38 +301,46 @@ public class LayoutStylesDemo extends AbstractDemo {
   }
 
   /**
-   * Applies the layout algorithm of the given key.
+   * Arranges the displayed graph using the layout algorithm corresponding to
+   * the given key.
    */
   private void applyLayoutForKey(String sampleKey) {
     // center the initial position of the animation
     ICommand.FIT_GRAPH_BOUNDS.execute(null, graphComponent);
 
+    // get the actual key, as there are samples sharing the layout config (e.g. Organic with Substructures and Organic)
     String actualKey = getLayoutKey(sampleKey);
+
     // get the layout algorithm and use "Hierarchic" if the key is unknown (shouldn't happen in this demo)
     actualKey = availableLayouts != null && availableLayouts.containsKey(actualKey) ? actualKey : "Hierarchic";
-    // run the layout if the layout combo box is already correct
-    if (!actualKey.equals(layoutComboBox.getSelectedItem())) {
+
+    if (actualKey.equals(layoutComboBox.getSelectedItem())) {
+      // run the layout if the layout combo box is already correct
+      onLayoutChanged();
+    } else {
       // otherwise, change the selection and indirectly trigger the layout
       layoutComboBox.setSelectedItem(actualKey);
-    } else {
-      onLayoutChanged();
     }
     applyLayout(true);
   }
-  
+
   private String getLayoutKey(String sampleKey) {
     //for some special samples, we need to use the correct layout key, because the layout configurations are shared
-    if ("Organic with Substructures".equals(sampleKey)) {
+    if (sampleKey.startsWith("Organic")) {
       return "Organic";
-    } else if ("Hierarchic with Buses".equals(sampleKey) || "Hierarchic Groups".equals(sampleKey)) {
-      return "Hierarchic";
+    } else if (sampleKey.startsWith("Hierarchic")) {
+      return HIERARCHIC_LAYOUT_STYLE;
+    } else if (sampleKey.startsWith("Orthogonal")) {
+      return "Orthogonal";
+    } else if (sampleKey.startsWith("Edge Router")) {
+      return "Edge Router";
     }
     //... for other samples the layout key corresponds to the sample graph key
     return sampleKey;
   }
 
   /**
-   * Actually applies the layout.
+   * Arranges the displayed graph using the currently selected layout algorithm.
    *
    * @param clearUndo Specifies whether the undo queue should be cleared after the layout calculation.
    *                  This is set to <code>true</code> if this method is called directly after loading a new sample graph.
@@ -447,7 +464,7 @@ public class LayoutStylesDemo extends AbstractDemo {
 
     JPanel optionPane = new JPanel(new BorderLayout());
     optionPane.setBorder(BorderFactory.createEmptyBorder(margin, margin, margin, margin));
-    
+
     builder = new OptionEditor();
 
     JPanel layoutComboPanel = new JPanel(new BorderLayout(0, 5));
@@ -646,15 +663,20 @@ public class LayoutStylesDemo extends AbstractDemo {
         "Orthogonal",
         "Circular",
         "Tree",
+        "Classic Tree",
         "Balloon",
         "Radial",
         "Series-Parallel",
-        "Polyline Router",
+        "Edge Router",
         "Bus Router",
-        "Channel Router",
+        "Labeling",
         "Components",
+        "Tabular",
+        "Organic with Substructures",
+        "Hierarchic with Substructures",
+        "Orthogonal with Substructures",
         "Hierarchic with Buses",
-        "Organic with Substructures"
+        "Edge Router with Buses"
     });
     graphChooserBox.setMaximumSize(graphChooserBox.getPreferredSize());
     return graphChooserBox;
@@ -686,9 +708,15 @@ public class LayoutStylesDemo extends AbstractDemo {
       if ("Hierarchic with Buses".equals(key)) {
         //for this specific hierarchic layout sample we make sure to enable the bus structure feature
         final HierarchicLayoutConfig hlc = (HierarchicLayoutConfig) availableLayouts.get("Hierarchic");
-        hlc.enableBuses();
+        hlc.enableAutomaticBusRouting();
+      } else if ("Edge Router with Buses".equals(key)) {
+        final PolylineEdgeRouterConfig edgeRouterConfig = (PolylineEdgeRouterConfig) availableLayouts.get("Edge Router");
+        edgeRouterConfig.setBusRoutingItem(PolylineEdgeRouterConfig.EnumBusRouting.BY_COLOR);
+      } else if ("Edge Router".equals(key)) {
+        final PolylineEdgeRouterConfig edgeRouterConfig = (PolylineEdgeRouterConfig) availableLayouts.get("Edge Router");
+        edgeRouterConfig.setBusRoutingItem(PolylineEdgeRouterConfig.EnumBusRouting.NONE);
       }
-      
+
       // load the sample graph and start the layout algorithm
       graphComponent.importFromGraphML(getClass().getResource(fileName));
       applyLayoutForKey(key);
@@ -702,10 +730,12 @@ public class LayoutStylesDemo extends AbstractDemo {
     inLayout = false;
   }
 
+  // region Label generation
+
   /**
-   * Generate and add random labels for a collection of ModelItems.
+   * Generates and adds labels for a random subset of the given graph elements.
    * <p>
-   * Existing items will be deleted before adding the new items.
+   * Existing labels will be deleted before adding the new labels.
    * </p>
    * @param items The collection of items the labels are generated for.
    */
@@ -724,12 +754,12 @@ public class LayoutStylesDemo extends AbstractDemo {
 
     //remove all existing item labels
     items.stream()
-        // gather all labels of the given items
-        .flatMap(item -> item.getLabels().stream())
-        // copy them into a list to avoid concurrent modification
-        .collect(Collectors.toList())
-        // remove them from the graph
-        .forEach(graph::remove);
+         // gather all labels of the given items
+         .flatMap(item -> item.getLabels().stream())
+         // copy them into a list to avoid concurrent modification
+         .collect(Collectors.toList())
+         // remove them from the graph
+         .forEach(graph::remove);
 
     //add random item labels
     String[] loremList = getLoremIpsum();
@@ -773,7 +803,7 @@ public class LayoutStylesDemo extends AbstractDemo {
     for (IEdge edge : graph.getEdges()) {
       IEdgeStyle oldStyle = edge.getStyle();
 
-      Pen pen = defaultPen.clone();
+      Pen pen = new Pen(defaultPen.getPaint());
       pen.setThickness(rnd.nextDouble() * 4 + 1);
 
       PolylineEdgeStyle newStyle = defaultStyle.clone();
@@ -815,7 +845,7 @@ public class LayoutStylesDemo extends AbstractDemo {
 
       PolylineEdgeStyle newStyle = defaultStyle.clone();
       if (rnd.nextDouble() >= 0.5) {
-        newStyle.setTargetArrow(defaultStyle.getTargetArrow());
+        newStyle.setTargetArrow(IArrow.DEFAULT);
       } else {
         newStyle.setTargetArrow(IArrow.NONE);
       }
@@ -911,4 +941,6 @@ public class LayoutStylesDemo extends AbstractDemo {
             "auctor", "consectetur", "tempus", "maecenas", "luctus", "turpis", "a"
     };
   }
+
+  // endregion
 }

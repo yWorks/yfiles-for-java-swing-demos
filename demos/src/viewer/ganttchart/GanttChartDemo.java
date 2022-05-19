@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -63,6 +63,7 @@ import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.TextAlignment;
 import com.yworks.yfiles.view.TextWrapping;
 import com.yworks.yfiles.view.VerticalAlignment;
+import com.yworks.yfiles.view.ViewportChanges;
 import com.yworks.yfiles.view.input.CreateEdgeInputMode;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.GraphSnapContext;
@@ -358,9 +359,9 @@ public class GanttChartDemo extends AbstractDemo {
 
     if (animate && !animations.isEmpty()){
       // create a composite animation that executes all node transitions at the same time
-      IAnimation compositAnimation = IAnimation.createParallelAnimation(animations);
+      IAnimation compositeAnimation = IAnimation.createParallelAnimation(animations);
       // start the animation
-      new Animator(graphComponent).animate(compositAnimation, ( sender, args ) -> onDone.run());
+      new Animator(graphComponent).animate(compositeAnimation).thenRun(onDone);
     } else {
       onDone.run();
     }
@@ -872,7 +873,7 @@ public class GanttChartDemo extends AbstractDemo {
     component.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
     component.setMouseWheelBehavior(MouseWheelBehaviors.SCROLL);
     component.setMouseWheelScrollFactor(20.0);
-    component.setScrollCommandAnimationEnabled(false);
+    component.setAnimatedViewportChanges(component.getAnimatedViewportChanges().and((ViewportChanges.SCROLL_COMMAND.inverse())));
 
     // install a viewport limiter so it's impossible to scroll out of the graph area
     component.setViewportLimiter(new RestrictedViewportLimiter(taskComponent));

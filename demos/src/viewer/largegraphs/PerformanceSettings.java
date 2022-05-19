@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -69,7 +69,7 @@ public class PerformanceSettings implements Cloneable{
   private double complexNodeStyleThreshold;
   private boolean selectionHandlesDisabled;
   private boolean customSelectionDecoratorEnabled;
-  private boolean labelModelBakingEnabled;
+  private boolean fixedLabelPositionsEnabled;
   private boolean visualCachingEnabled;
 
   // endregion
@@ -467,35 +467,35 @@ public class PerformanceSettings implements Cloneable{
 
   // endregion
 
-  // region Label Model Baking
+  // region Fixed Label Positions
 
   /**
-   * Gets a value indicating whether label model baking should be enabled.
+   * Gets a value indicating whether label positions should be fixed.
    * <p>
    * Positioning labels can be expensive, since they are usually anchored to their owner. Thus, to determine a label's
    * position (which is needed for hit-testing and visibility checks) the owner's position needs to be known, too. If the
    * graph is known to be static (or changes to the graph are tightly controlled) we can simply replace all label's models
    * with instances of {@link FreeLabelModel} which records an absolute position and thus is much cheaper to calculate.
    * </p>
-   * @see LargeGraphsDemo#updateLabelModelBakingSetting
+   * @see LargeGraphsDemo#updateFixedLabelPositionsSetting
    */
-  public boolean isLabelModelBakingEnabled() {
-    return labelModelBakingEnabled;
+  public boolean isFixedLabelPositionsEnabled() {
+    return fixedLabelPositionsEnabled;
   }
 
   /**
-   * Sets a value indicating whether label model baking should be enabled.
+   * Sets a value indicating whether label positions should be fixed.
    * <p>
    * Positioning labels can be expensive, since they are usually anchored to their owner. Thus, to determine a label's
    * position (which is needed for hit-testing and visibility checks) the owner's position needs to be known, too. If the
    * graph is known to be static (or changes to the graph are tightly controlled) we can simply replace all label's models
    * with instances of {@link FreeLabelModel} which records an absolute position and thus is much cheaper to calculate.
    * </p>
-   * @see LargeGraphsDemo#updateLabelModelBakingSetting
+   * @see LargeGraphsDemo#updateFixedLabelPositionsSetting
    */
-  public void setLabelModelBakingEnabled(boolean labelModelBakingEnabled) {
-    this.labelModelBakingEnabled = labelModelBakingEnabled;
-    settingChanged("LabelModelBakingEnabled");
+  public void setFixedLabelPositionsEnabled( boolean fixedLabelPositionsEnabled) {
+    this.fixedLabelPositionsEnabled = fixedLabelPositionsEnabled;
+    settingChanged("FixedLabelPositionsEnabled");
   }
 
   // endregion

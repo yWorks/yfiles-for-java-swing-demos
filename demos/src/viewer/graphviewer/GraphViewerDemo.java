@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,6 +29,8 @@
  ***************************************************************************/
 package viewer.graphviewer;
 
+import com.yworks.yfiles.graph.styles.ArcEdgeStyle;
+import com.yworks.yfiles.graph.styles.IEdgeStyle;
 import com.yworks.yfiles.utils.IEventArgs;
 import com.yworks.yfiles.view.GraphOverviewComponent;
 import com.yworks.yfiles.graph.styles.ArrowType;
@@ -313,16 +315,27 @@ public class GraphViewerDemo extends AbstractDemo {
     decorator.getNodeDecorator().getHighlightDecorator().setImplementation(nodeStyleHighlight);
 
     // a similar style for the edges...
-    EdgeStyleDecorationInstaller edgeStyleHighlight = new EdgeStyleDecorationInstaller();
-    PolylineEdgeStyle edgeStyle = new PolylineEdgeStyle();
-    edgeStyle.setPen(orangePen);
-    // we cheat a little with transparent source / target arrows to make the highlight edge a little shorter than necessary.
-    IArrow transparentArrow = new Arrow(ArrowType.NONE, null, 5, 1);
-    edgeStyle.setSourceArrow(transparentArrow);
-    edgeStyle.setTargetArrow(transparentArrow);
-    edgeStyleHighlight.setEdgeStyle(edgeStyle);
-    edgeStyleHighlight.setZoomPolicy(StyleDecorationZoomPolicy.VIEW_COORDINATES);
-    decorator.getEdgeDecorator().getHighlightDecorator().setImplementation(edgeStyleHighlight);
+    decorator.getEdgeDecorator().getHighlightDecorator().setFactory(edge -> {
+      // we cheat a little with transparent source / target arrows to make the highlight edge a little shorter than necessary.
+      IArrow transparentArrow = new Arrow(ArrowType.NONE, null, 5, 1);
+      // clone the edge's style so the highlight uses the same kind of style
+      IEdgeStyle clonedStyle = (IEdgeStyle) edge.getStyle().clone();
+      if (clonedStyle instanceof PolylineEdgeStyle) {
+        PolylineEdgeStyle edgeStyle = (PolylineEdgeStyle) clonedStyle;
+        edgeStyle.setPen(orangePen);
+        edgeStyle.setSourceArrow(transparentArrow);
+        edgeStyle.setTargetArrow(transparentArrow);
+      } else if (clonedStyle instanceof ArcEdgeStyle) {
+        ArcEdgeStyle edgeStyle = (ArcEdgeStyle) clonedStyle;
+        edgeStyle.setPen(orangePen);
+        edgeStyle.setSourceArrow(transparentArrow);
+        edgeStyle.setTargetArrow(transparentArrow);
+      }
+      EdgeStyleDecorationInstaller edgeStyleHighlight = new EdgeStyleDecorationInstaller();
+      edgeStyleHighlight.setEdgeStyle(clonedStyle);
+      edgeStyleHighlight.setZoomPolicy(StyleDecorationZoomPolicy.VIEW_COORDINATES);
+      return edgeStyleHighlight;
+    });
 
     // connect the overview to the main component
     this.overviewComponent.setGraphComponent(this.graphComponent);

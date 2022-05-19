@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -80,6 +80,7 @@ public class CircularLayoutConfig extends LayoutConfiguration {
     setPreferredCurveLengthItem(20);
     setPreferredAngleItem(10);
     setSmoothnessItem(0.7);
+
     setEdgeBundlingEnabledItem(false);
     setEdgeBundlingStrengthItem(0.95);
 
@@ -143,8 +144,6 @@ public class CircularLayoutConfig extends LayoutConfiguration {
     ebc.setBundlingStrength(getEdgeBundlingStrengthItem());
     ebc.setDefaultBundleDescriptor(bundlingDescriptor);
 
-    addPreferredPlacementDescriptor(graphComponent.getGraph(), getLabelPlacementAlongEdgeItem(), getLabelPlacementSideOfEdgeItem(), getLabelPlacementOrientationItem(), getLabelPlacementDistanceItem());
-
     return layout;
   }
 
@@ -161,7 +160,7 @@ public class CircularLayoutConfig extends LayoutConfiguration {
       layoutData.getExteriorEdges().setSource(graphComponent.getSelection().getSelectedEdges());
     }
 
-    return layoutData;
+    return layoutData.combineWith(createLabelingLayoutData(graphComponent.getGraph(), getLabelPlacementAlongEdgeItem(), getLabelPlacementSideOfEdgeItem(), getLabelPlacementOrientationItem(), getLabelPlacementDistanceItem()));
   }
 
   @Label("Description")
@@ -781,7 +780,9 @@ public class CircularLayoutConfig extends LayoutConfiguration {
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = LayoutConfiguration.EnumLabelPlacementAlongEdge.class, stringValue = "CENTERED")
   @EnumValueAnnotation(label = "Anywhere", value = "ANYWHERE")
   @EnumValueAnnotation(label = "At Source", value = "AT_SOURCE")
+  @EnumValueAnnotation(label = "At Source Port", value = "AT_SOURCE_PORT")
   @EnumValueAnnotation(label = "At Target", value = "AT_TARGET")
+  @EnumValueAnnotation(label = "At Target Port", value = "AT_TARGET_PORT")
   @EnumValueAnnotation(label = "Centered", value = "CENTERED")
   public final LayoutConfiguration.EnumLabelPlacementAlongEdge getLabelPlacementAlongEdgeItem() {
     return this.labelPlacementAlongEdgeItem;
@@ -792,7 +793,9 @@ public class CircularLayoutConfig extends LayoutConfiguration {
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = LayoutConfiguration.EnumLabelPlacementAlongEdge.class, stringValue = "CENTERED")
   @EnumValueAnnotation(label = "Anywhere", value = "ANYWHERE")
   @EnumValueAnnotation(label = "At Source", value = "AT_SOURCE")
+  @EnumValueAnnotation(label = "At Source Port", value = "AT_SOURCE_PORT")
   @EnumValueAnnotation(label = "At Target", value = "AT_TARGET")
+  @EnumValueAnnotation(label = "At Target Port", value = "AT_TARGET_PORT")
   @EnumValueAnnotation(label = "Centered", value = "CENTERED")
   public final void setLabelPlacementAlongEdgeItem( LayoutConfiguration.EnumLabelPlacementAlongEdge value ) {
     this.labelPlacementAlongEdgeItem = value;

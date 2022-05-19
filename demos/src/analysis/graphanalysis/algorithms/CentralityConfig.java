@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -45,19 +45,17 @@ import com.yworks.yfiles.graph.FilteredGraphWrapper;
 import com.yworks.yfiles.graph.IEdge;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.ILabel;
-import com.yworks.yfiles.graph.IMapper;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
-import com.yworks.yfiles.layout.CopiedLayoutGraph;
+import com.yworks.yfiles.layout.GenericLayoutData;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
+import com.yworks.yfiles.layout.ILayoutStage;
 import com.yworks.yfiles.layout.LayoutData;
-import com.yworks.yfiles.layout.LayoutGraphAdapter;
 import com.yworks.yfiles.layout.organic.OrganicRemoveOverlapsStage;
 import com.yworks.yfiles.view.Colors;
 import com.yworks.yfiles.view.Pen;
 
 import java.awt.Color;
-import java.util.function.Function;
 
 /**
  * Configuration options for centrality algorithms.
@@ -158,7 +156,7 @@ public class CentralityConfig extends AlgorithmConfiguration {
       case PAGERANK: {
         PageRank pageRank = new PageRank();
         pageRank.setEdgeWeights(this::getEdgeWeight);
-        
+
         PageRank.Result result = pageRank.run(graph);
         applyNodeCentralityColor(graph, result.getPageRank());
         break;
@@ -266,9 +264,9 @@ public class CentralityConfig extends AlgorithmConfiguration {
    * @see #configure(ILayoutAlgorithm)
    */
   public LayoutData configure(LayoutData layoutData) {
-    CentralityLayoutData cld = new CentralityLayoutData();
-    cld.setEdgeWeight(this::getEdgeWeight);
-    return layoutData.combineWith(cld);
+    GenericLayoutData gld = new GenericLayoutData();
+    gld.addItemMapping(Double.class, CentralityStage.EDGE_WEIGHTS_DPKEY).setFunction(this::getEdgeWeight);
+    return layoutData.combineWith(gld);
   }
 
   /**
@@ -292,12 +290,15 @@ public class CentralityConfig extends AlgorithmConfiguration {
 
   @Override
   public boolean supportsDirectedEdges() {
-    return false;
+    return AlgorithmType.CLOSENESS_CENTRALITY == algorithmType ||
+           AlgorithmType.GRAPH_CENTRALITY == algorithmType ||
+           AlgorithmType.NODE_EDGE_BETWEENESS_CENTRALITY == algorithmType;
   }
 
   @Override
   public boolean supportsEdgeWeights() {
-    return algorithmType != AlgorithmType.DEGREE_CENTRALITY;
+    return AlgorithmType.DEGREE_CENTRALITY != algorithmType &&
+           AlgorithmType.EIGENVECTOR_CENTRALITY != algorithmType;
   }
 
 
@@ -310,26 +311,5 @@ public class CentralityConfig extends AlgorithmConfiguration {
     CLOSENESS_CENTRALITY,
     EIGENVECTOR_CENTRALITY,
     PAGERANK
-  }
-
-  private static class CentralityLayoutData extends LayoutData {
-    private Function<IEdge, Double> edgeWeight;
-
-    Function<IEdge, Double> getEdgeWeight() {
-      return edgeWeight;
-    }
-
-    void setEdgeWeight(Function<IEdge, Double> edgeWeight) {
-      this.edgeWeight = edgeWeight;
-    }
-
-    @Override
-    protected void apply(
-            LayoutGraphAdapter adapter,
-            ILayoutAlgorithm layout,
-            CopiedLayoutGraph layoutGraph
-    ) {
-      adapter.addDataProvider(CentralityStage.EDGE_WEIGHTS_DPKEY, IMapper.fromFunction(getEdgeWeight()));
-    }
   }
 }

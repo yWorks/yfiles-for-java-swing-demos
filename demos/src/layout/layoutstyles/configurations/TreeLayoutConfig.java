@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -51,8 +51,6 @@ import com.yworks.yfiles.layout.labeling.GenericLabeling;
 import com.yworks.yfiles.layout.LayoutData;
 import com.yworks.yfiles.layout.LayoutGraph;
 import com.yworks.yfiles.layout.LayoutOrientation;
-import com.yworks.yfiles.layout.MultiStageLayout;
-import com.yworks.yfiles.layout.OrientationLayout;
 import com.yworks.yfiles.layout.router.OrganicEdgeRouter;
 import com.yworks.yfiles.layout.router.polyline.EdgeRouter;
 import com.yworks.yfiles.layout.router.Scope;
@@ -61,19 +59,18 @@ import com.yworks.yfiles.layout.tree.AbstractRotatableNodePlacer;
 import com.yworks.yfiles.layout.tree.AspectRatioNodePlacer;
 import com.yworks.yfiles.layout.tree.BusNodePlacer;
 import com.yworks.yfiles.layout.tree.ChildPlacement;
-import com.yworks.yfiles.layout.tree.ClassicTreeLayout;
 import com.yworks.yfiles.layout.tree.CompactNodePlacer;
 import com.yworks.yfiles.layout.tree.DefaultNodePlacer;
 import com.yworks.yfiles.layout.tree.DefaultPortAssignment;
+import com.yworks.yfiles.layout.tree.DelegatingNodePlacer;
 import com.yworks.yfiles.layout.tree.DendrogramNodePlacer;
 import com.yworks.yfiles.layout.tree.DoubleLineNodePlacer;
-import com.yworks.yfiles.layout.tree.EdgeRoutingStyle;
 import com.yworks.yfiles.layout.tree.GridNodePlacer;
+import com.yworks.yfiles.layout.tree.INodePlacer;
 import com.yworks.yfiles.layout.tree.LayeredNodePlacer;
-import com.yworks.yfiles.layout.tree.LeafPlacement;
+import com.yworks.yfiles.layout.tree.LayeredRoutingStyle;
 import com.yworks.yfiles.layout.tree.LeftRightNodePlacer;
 import com.yworks.yfiles.layout.tree.PortAssignmentMode;
-import com.yworks.yfiles.layout.tree.PortStyle;
 import com.yworks.yfiles.layout.tree.RootAlignment;
 import com.yworks.yfiles.layout.tree.SimpleNodePlacer;
 import com.yworks.yfiles.layout.tree.TreeLayout;
@@ -81,6 +78,9 @@ import com.yworks.yfiles.layout.tree.TreeLayoutData;
 import com.yworks.yfiles.layout.tree.TreeReductionStage;
 import com.yworks.yfiles.utils.Obfuscation;
 import com.yworks.yfiles.view.GraphComponent;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -101,29 +101,15 @@ public class TreeLayoutConfig extends LayoutConfiguration {
    * Setup default values for various configuration parameters.
    */
   public TreeLayoutConfig() {
-    ClassicTreeLayout layout = new ClassicTreeLayout();
     AspectRatioNodePlacer aspectRatioNodePlacer = new AspectRatioNodePlacer();
-    DefaultNodePlacer defaultNodePlacer = new DefaultNodePlacer();
 
-    setLayoutStyleItem(EnumStyle.DEFAULT);
     setRoutingStyleForNonTreeEdgesItem(EnumRoute.ORTHOGONAL);
     setEdgeBundlingStrengthItem(0.95);
     setActingOnSelectionOnlyItem(false);
 
     setDefaultLayoutOrientationItem(LayoutOrientation.TOP_TO_BOTTOM);
-    setClassicLayoutOrientationItem(LayoutOrientation.TOP_TO_BOTTOM);
-
-    setMinimumNodeDistanceItem((int)layout.getMinimumNodeDistance());
-    setMinimumLayerDistanceItem((int)layout.getMinimumLayerDistance());
-    setPortStyleItem(PortStyle.NODE_CENTER);
 
     setConsideringNodeLabelsItem(false);
-
-    setOrthogonalEdgeRoutingItem(false);
-
-    setVerticalAlignmentItem(0.5);
-    setChildPlacementPolicyItem(LeafPlacement.SIBLINGS_ON_SAME_LAYER);
-    setEnforcingGlobalLayeringItem(false);
 
     setNodePlacerItem(EnumNodePlacer.DEFAULT);
 
@@ -132,17 +118,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
     setAllowingMultiParentsItem(false);
     setPortAssignmentItem(PortAssignmentMode.NONE);
 
-    setHvHorizontalSpaceItem((int)defaultNodePlacer.getHorizontalDistance());
-    setHvVerticalSpaceItem((int)defaultNodePlacer.getVerticalDistance());
-
-    setBusAlignmentItem(0.5);
-
-    setArHorizontalSpaceItem((int)aspectRatioNodePlacer.getHorizontalDistance());
-    setArVerticalSpaceItem((int)aspectRatioNodePlacer.getVerticalDistance());
     setNodePlacerAspectRatioItem(aspectRatioNodePlacer.getAspectRatio());
-
-    setArUsingViewAspectRatioItem(true);
-    setCompactPreferredAspectRatioItem(aspectRatioNodePlacer.getAspectRatio());
 
     setEdgeLabelingItem(EnumEdgeLabeling.NONE);
     setLabelPlacementAlongEdgeItem(LayoutConfiguration.EnumLabelPlacementAlongEdge.CENTERED);
@@ -153,23 +129,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
 
   @Override
   protected ILayoutAlgorithm createConfiguredLayout( GraphComponent graphComponent ) {
-    MultiStageLayout layout;
-
-    switch (getLayoutStyleItem()) {
-      default:
-      case DEFAULT:
-        layout = configureDefaultLayout();
-        break;
-      case CLASSIC:
-        layout = configureClassicLayout();
-        break;
-      case HORIZONTAL_VERTICAL:
-        layout = new TreeLayout();
-        break;
-      case COMPACT:
-        layout = configureCompactLayout(graphComponent);
-        break;
-    }
+    TreeLayout layout = getNodePlacerItem() != EnumNodePlacer.HV ? configureDefaultLayout() : new TreeLayout();
 
     layout.setParallelEdgeRouterEnabled(false);
     ((ComponentLayout)layout.getComponentLayout()).setStyle(ComponentArrangementStyles.MULTI_ROWS);
@@ -182,36 +142,32 @@ public class TreeLayoutConfig extends LayoutConfiguration {
     // required to prevent WrongGraphStructure exception which may be thrown by TreeLayout if there are edges
     // between group nodes
     layout.prependStage(new HandleEdgesBetweenGroupsStage(placeLabels));
-
     if (getEdgeLabelingItem() == EnumEdgeLabeling.GENERIC) {
-      layout.setLabelingEnabled(true);
-      GenericLabeling genericLabeling = new GenericLabeling();
-      genericLabeling.setEdgeLabelPlacementEnabled(true);
-      genericLabeling.setNodeLabelPlacementEnabled(false);
-      genericLabeling.setAmbiguityReductionEnabled(isReducingAmbiguityItem());
-      layout.setLabeling(genericLabeling);
-    }
+      layout.setIntegratedEdgeLabelingEnabled(false);
 
-    addPreferredPlacementDescriptor(graphComponent.getGraph(), getLabelPlacementAlongEdgeItem(), getLabelPlacementSideOfEdgeItem(), getLabelPlacementOrientationItem(), getLabelPlacementDistanceItem());
+      GenericLabeling labeling = new GenericLabeling();
+      labeling.setEdgeLabelPlacementEnabled(true);
+      labeling.setNodeLabelPlacementEnabled(false);
+      labeling.setAmbiguityReductionEnabled(isReducingAmbiguityItem());
+      layout.setLabelingEnabled(true);
+      layout.setLabeling(labeling);
+    } else if (getEdgeLabelingItem() == EnumEdgeLabeling.INTEGRATED) {
+      layout.setIntegratedEdgeLabelingEnabled(true);
+    }
 
     return layout;
   }
 
   @Override
   protected LayoutData createConfiguredLayoutData( final GraphComponent graphComponent, ILayoutAlgorithm layout ) {
-    if (getLayoutStyleItem() == EnumStyle.DEFAULT) {
+    LayoutData layoutData;
+    if (getNodePlacerItem() == EnumNodePlacer.HV) {
+      layoutData = createLayoutDataHorizontalVertical(graphComponent);
+    } else if (getNodePlacerItem() == EnumNodePlacer.DELEGATING_LAYERED) {
+      layoutData = createLayoutDataDelegatingPlacer(graphComponent);
+    } else {
       final IGraph graph = graphComponent.getGraph();
       TreeLayoutData treeLayoutData = new TreeLayoutData();
-      treeLayoutData.setCompactNodePlacerStrategyMementos(new Mapper<INode, Object>());
-      treeLayoutData.setLeftRightNodePlacerLeftNodes(node -> {
-        Iterator<INode> predecessors = graph.predecessors(INode.class, node).iterator();
-        if (predecessors.hasNext()) {
-          INode parent = predecessors.next();
-          List<INode> siblings = graph.successors(INode.class, parent).toList();
-          return siblings.indexOf(node) % 2 != 0;
-        }
-        return false;
-      });
       treeLayoutData.setGridNodePlacerRowIndices(node -> {
         Iterator<INode> predecessors = graph.predecessors(INode.class, node).iterator();
         if (predecessors.hasNext()) {
@@ -221,19 +177,69 @@ public class TreeLayoutConfig extends LayoutConfiguration {
         }
         return 0;
       });
-      return treeLayoutData;
-    } else if (getLayoutStyleItem() == EnumStyle.HORIZONTAL_VERTICAL) {
-      TreeLayoutData data = new TreeLayoutData();
-      data.setNodePlacers(node -> {
+      treeLayoutData.setLeftRightNodePlacerLeftNodes(node -> {
+        Iterator<INode> predecessors = graph.predecessors(INode.class, node).iterator();
+        if (predecessors.hasNext()) {
+          INode parent = predecessors.next();
+          List<INode> siblings = graph.successors(INode.class, parent).toList();
+          return siblings.indexOf(node) % 2 != 0;
+        }
+        return false;
+      });
+      treeLayoutData.setCompactNodePlacerStrategyMementos(new Mapper<INode, Object>());
+      layoutData = treeLayoutData;
+    }
+
+    return layoutData.combineWith(createLabelingLayoutData(graphComponent.getGraph(), getLabelPlacementAlongEdgeItem(), getLabelPlacementSideOfEdgeItem(), getLabelPlacementOrientationItem(), getLabelPlacementDistanceItem()));
+  }
+
+  private LayoutData createLayoutDataHorizontalVertical( final GraphComponent graphComponent ) {
+    TreeLayoutData data = new TreeLayoutData();
+    data.setNodePlacers(node -> {
         // children of selected nodes should be placed vertical and to the right of their child nodes, while
         // the children of non-selected horizontal downwards
         ChildPlacement childPlacement = graphComponent.getSelection().isSelected(node) ? ChildPlacement.VERTICAL_TO_RIGHT : ChildPlacement.HORIZONTAL_DOWNWARD;
 
-        return new DefaultNodePlacer(childPlacement, RootAlignment.LEADING_ON_BUS, getHvVerticalSpaceItem(), getHvHorizontalSpaceItem());
-      });
-      return data;
+        return new DefaultNodePlacer(childPlacement, RootAlignment.LEADING_ON_BUS, getSpacingItem(), getSpacingItem());
+    });
+    return data;
+  }
+
+  private TreeLayoutData createLayoutDataDelegatingPlacer( GraphComponent graphComponent ) {
+    final IGraph graph = graphComponent.getGraph();
+    //half the subtrees are delegated to the left placer and half to the right placer
+    final HashSet<INode> leftNodes = new HashSet<INode>();
+    final INode root = graph.getNodes().stream().filter(node -> graph.inDegree(node) == 0).findFirst().get();
+    boolean left = true;
+    for (INode successor : graph.successors(INode.class, root)) {
+      ArrayList<INode> stack = new ArrayList<INode>();
+      stack.add(successor);
+      while (stack.size() > 0) {
+        INode child = stack.get(stack.size() - 1);
+        stack.remove(stack.size() - 1);
+        if (left) {
+          leftNodes.add(child);
+        } // else: right node
+        //push successors on stack -> whole subtree is either left or right
+        graph.successors(INode.class, child).forEach(stack::add);
+      }
+      left = !left;
     }
-    return null;
+
+    TreeLayoutData layoutData = new TreeLayoutData();
+    layoutData.setDelegatingNodePlacerPrimaryNodes(leftNodes::contains
+    );
+    layoutData.setNodePlacers(node -> {
+        if (node == root) {
+          return delegatingRootPlacer;
+        }
+        if (leftNodes.contains(node)) {
+          return delegatingLeftPlacer;
+        }
+        return delegatingRightPlacer;
+    });
+    layoutData.getTreeRoot().setItem(root);
+    return layoutData;
   }
 
   /**
@@ -244,7 +250,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
     if (getEdgeLabelingItem() == EnumEdgeLabeling.INTEGRATED) {
       reductionStage.setNonTreeEdgeLabelingAlgorithm(new GenericLabeling());
     }
-    reductionStage.setMultiParentAllowed((getLayoutStyleItem() == EnumStyle.CLASSIC && !isEnforcingGlobalLayeringItem() && getChildPlacementPolicyItem() != LeafPlacement.ALL_LEAVES_ON_SAME_LAYER) || (getLayoutStyleItem() == EnumStyle.DEFAULT && (getNodePlacerItem() == EnumNodePlacer.DEFAULT || getNodePlacerItem() == EnumNodePlacer.BUS || getNodePlacerItem() == EnumNodePlacer.LEFT_RIGHT || getNodePlacerItem() == EnumNodePlacer.DENDROGRAM) && isAllowingMultiParentsItem()));
+    reductionStage.setMultiParentAllowed((getNodePlacerItem() == EnumNodePlacer.DEFAULT || getNodePlacerItem() == EnumNodePlacer.BUS || getNodePlacerItem() == EnumNodePlacer.LEFT_RIGHT || getNodePlacerItem() == EnumNodePlacer.DENDROGRAM) && isAllowingMultiParentsItem());
 
     if (getRoutingStyleForNonTreeEdgesItem() == EnumRoute.ORGANIC) {
       reductionStage.setNonTreeEdgeRouter(new OrganicEdgeRouter());
@@ -267,10 +273,9 @@ public class TreeLayoutConfig extends LayoutConfiguration {
     return reductionStage;
   }
 
-  private MultiStageLayout configureDefaultLayout() {
+  private TreeLayout configureDefaultLayout() {
     TreeLayout layout = new TreeLayout();
     layout.setLayoutOrientation(getNodePlacerItem() == EnumNodePlacer.ASPECT_RATIO ? LayoutOrientation.TOP_TO_BOTTOM : getDefaultLayoutOrientationItem());
-
     RootAlignment rootAlignment1 = RootAlignment.CENTER;
     AbstractRotatableNodePlacer.RootAlignment rootAlignment2 = AbstractRotatableNodePlacer.RootAlignment.CENTER;
     switch (getRootAlignmentItem()) {
@@ -369,6 +374,24 @@ public class TreeLayoutConfig extends LayoutConfiguration {
         compactNodePlacer.setPreferredAspectRatio(getNodePlacerAspectRatioItem());
         layout.setDefaultNodePlacer(compactNodePlacer);
         break;
+      case DELEGATING_LAYERED:
+        LayeredNodePlacer layeredNodePlacer2 = new LayeredNodePlacer(AbstractRotatableNodePlacer.Matrix.ROT270, AbstractRotatableNodePlacer.Matrix.ROT270);
+        layeredNodePlacer2.setVerticalAlignment(0);
+        layeredNodePlacer2.setRoutingStyle(LayeredRoutingStyle.ORTHOGONAL);
+        layeredNodePlacer2.setSpacing(getSpacingItem());
+        layeredNodePlacer2.setLayerSpacing(getSpacingItem());
+        layeredNodePlacer2.setRootAlignment(rootAlignment2);
+        this.delegatingLeftPlacer = layeredNodePlacer2;
+        LayeredNodePlacer layeredNodePlacer3 = new LayeredNodePlacer(AbstractRotatableNodePlacer.Matrix.ROT90, AbstractRotatableNodePlacer.Matrix.ROT90);
+        layeredNodePlacer3.setVerticalAlignment(0);
+        layeredNodePlacer3.setRoutingStyle(LayeredRoutingStyle.ORTHOGONAL);
+        layeredNodePlacer3.setLayerSpacing(getSpacingItem());
+        layeredNodePlacer3.setRootAlignment(rootAlignment2);
+
+        this.delegatingRightPlacer = layeredNodePlacer3;
+
+        this.delegatingRootPlacer = new DelegatingNodePlacer(AbstractRotatableNodePlacer.Matrix.DEFAULT, this.delegatingLeftPlacer, this.delegatingRightPlacer);
+        break;
     }
 
     layout.setDefaultPortAssignment(new DefaultPortAssignment(getPortAssignmentItem(), 0.5));
@@ -377,45 +400,11 @@ public class TreeLayoutConfig extends LayoutConfiguration {
     return layout;
   }
 
-  private MultiStageLayout configureClassicLayout() {
-    ClassicTreeLayout layout = new ClassicTreeLayout();
-    layout.setMinimumNodeDistance(getMinimumNodeDistanceItem());
-    layout.setMinimumLayerDistance(getMinimumLayerDistanceItem());
+  private INodePlacer delegatingRootPlacer;
 
-    ((OrientationLayout)layout.getOrientationLayout()).setOrientation(getClassicLayoutOrientationItem());
+  private INodePlacer delegatingLeftPlacer;
 
-    if (isOrthogonalEdgeRoutingItem()) {
-      layout.setEdgeRoutingStyle(EdgeRoutingStyle.ORTHOGONAL);
-    } else {
-      layout.setEdgeRoutingStyle(EdgeRoutingStyle.PLAIN);
-    }
-
-    layout.setLeafPlacement(getChildPlacementPolicyItem());
-    layout.setGlobalLayeringEnforced(isEnforcingGlobalLayeringItem());
-    layout.setPortStyle(getPortStyleItem());
-
-    layout.setVerticalAlignment(getVerticalAlignmentItem());
-    layout.setBusAlignment(getBusAlignmentItem());
-
-    return layout;
-  }
-
-  private MultiStageLayout configureCompactLayout( GraphComponent graphComponent ) {
-    TreeLayout layout = new TreeLayout();
-    AspectRatioNodePlacer aspectRatioNodePlacer = new AspectRatioNodePlacer();
-
-    if (graphComponent != null && isArUsingViewAspectRatioItem()) {
-      aspectRatioNodePlacer.setAspectRatio(((double) graphComponent.getWidth()) / graphComponent.getHeight());
-    } else {
-      aspectRatioNodePlacer.setAspectRatio(getCompactPreferredAspectRatioItem());
-    }
-
-    aspectRatioNodePlacer.setHorizontalDistance(getArHorizontalSpaceItem());
-    aspectRatioNodePlacer.setVerticalDistance(getArVerticalSpaceItem());
-
-    layout.setDefaultNodePlacer(aspectRatioNodePlacer);
-    return layout;
-  }
+  private INodePlacer delegatingRightPlacer;
 
   @Label("Description")
   @OptionGroupAnnotation(name = "RootGroup", position = 5)
@@ -427,28 +416,23 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   @ComponentType(ComponentTypes.OPTION_GROUP)
   public Object GeneralGroup;
 
-  @Label("Default")
-  @OptionGroupAnnotation(name = "RootGroup", position = 15)
-  @ComponentType(ComponentTypes.OPTION_GROUP)
-  public Object DefaultGroup;
-
-  @Label("Horizontal-Vertical")
+  @Label("Node Placer")
   @OptionGroupAnnotation(name = "RootGroup", position = 20)
   @ComponentType(ComponentTypes.OPTION_GROUP)
-  public Object HVGroup;
+  public Object NodePlacerGroup;
 
-  @Label("Compact")
+  @Label("Edges")
   @OptionGroupAnnotation(name = "RootGroup", position = 30)
   @ComponentType(ComponentTypes.OPTION_GROUP)
-  public Object CompactGroup;
+  public Object EdgesGroup;
 
-  @Label("Classic")
-  @OptionGroupAnnotation(name = "RootGroup", position = 40)
+  @Label("Non-Tree Edges")
+  @OptionGroupAnnotation(name = "EdgesGroup", position = 20)
   @ComponentType(ComponentTypes.OPTION_GROUP)
-  public Object ClassicGroup;
+  public Object NonTreeEdgesGroup;
 
   @Label("Labeling")
-  @OptionGroupAnnotation(name = "RootGroup", position = 50)
+  @OptionGroupAnnotation(name = "RootGroup", position = 40)
   @ComponentType(ComponentTypes.OPTION_GROUP)
   public Object LabelingGroup;
 
@@ -521,34 +505,6 @@ public class TreeLayoutConfig extends LayoutConfiguration {
 
   }
 
-  public enum EnumStyle {
-    DEFAULT(0),
-
-    HORIZONTAL_VERTICAL(1),
-
-    COMPACT(2),
-
-    CLASSIC(3);
-
-    private final int value;
-
-    private EnumStyle( final int value ) {
-      this.value = value;
-    }
-
-    public int value() {
-      return this.value;
-    }
-
-    public static final EnumStyle fromOrdinal( int ordinal ) {
-      for (EnumStyle current : values()) {
-        if (ordinal == current.value) return current;
-      }
-      throw new IllegalArgumentException("Enum has no value " + ordinal);
-    }
-
-  }
-
   public enum EnumNodePlacer {
     DEFAULT(0),
 
@@ -568,7 +524,11 @@ public class TreeLayoutConfig extends LayoutConfiguration {
 
     GRID(8),
 
-    COMPACT(9);
+    COMPACT(9),
+
+    HV(10),
+
+    DELEGATING_LAYERED(11);
 
     private final int value;
 
@@ -638,35 +598,10 @@ public class TreeLayoutConfig extends LayoutConfiguration {
            "<li><p>Bioinformatics</p></li>" +
            "</ul>";
   }
-
-  private EnumStyle layoutStyleItem = EnumStyle.DEFAULT;
-
-  @Label("Layout Style")
-  @OptionGroupAnnotation(name = "GeneralGroup", position = 10)
-  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = EnumStyle.class, stringValue = "DEFAULT")
-  @EnumValueAnnotation(label = "Default", value = "DEFAULT")
-  @EnumValueAnnotation(label = "Horizontal-Vertical", value = "HORIZONTAL_VERTICAL")
-  @EnumValueAnnotation(label = "Compact", value = "COMPACT")
-  @EnumValueAnnotation(label = "Classic", value = "CLASSIC")
-  public final EnumStyle getLayoutStyleItem() {
-    return this.layoutStyleItem;
-  }
-
-  @Label("Layout Style")
-  @OptionGroupAnnotation(name = "GeneralGroup", position = 10)
-  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = EnumStyle.class, stringValue = "DEFAULT")
-  @EnumValueAnnotation(label = "Default", value = "DEFAULT")
-  @EnumValueAnnotation(label = "Horizontal-Vertical", value = "HORIZONTAL_VERTICAL")
-  @EnumValueAnnotation(label = "Compact", value = "COMPACT")
-  @EnumValueAnnotation(label = "Classic", value = "CLASSIC")
-  public final void setLayoutStyleItem( EnumStyle value ) {
-    this.layoutStyleItem = value;
-  }
-
   private EnumRoute routingStyleForNonTreeEdgesItem = EnumRoute.ORTHOGONAL;
 
   @Label("Routing Style for Non-Tree Edges")
-  @OptionGroupAnnotation(name = "GeneralGroup", position = 20)
+  @OptionGroupAnnotation(name = "NonTreeEdgesGroup", position = 10)
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = EnumRoute.class, stringValue = "BUNDLED")
   @EnumValueAnnotation(label = "Orthogonal", value = "ORTHOGONAL")
   @EnumValueAnnotation(label = "Organic", value = "ORGANIC")
@@ -677,7 +612,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   }
 
   @Label("Routing Style for Non-Tree Edges")
-  @OptionGroupAnnotation(name = "GeneralGroup", position = 20)
+  @OptionGroupAnnotation(name = "NonTreeEdgesGroup", position = 10)
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = EnumRoute.class, stringValue = "BUNDLED")
   @EnumValueAnnotation(label = "Orthogonal", value = "ORTHOGONAL")
   @EnumValueAnnotation(label = "Organic", value = "ORGANIC")
@@ -690,7 +625,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   private double edgeBundlingStrengthItem;
 
   @Label("Bundling Strength")
-  @OptionGroupAnnotation(name = "GeneralGroup", position = 30)
+  @OptionGroupAnnotation(name = "NonTreeEdgesGroup", position = 20)
   @DefaultValue(doubleValue = 0.95d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   @MinMax(min = 0.0d, max = 1.0d, step = 0.01d)
   @ComponentType(ComponentTypes.SLIDER)
@@ -699,7 +634,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   }
 
   @Label("Bundling Strength")
-  @OptionGroupAnnotation(name = "GeneralGroup", position = 30)
+  @OptionGroupAnnotation(name = "NonTreeEdgesGroup", position = 20)
   @DefaultValue(doubleValue = 0.95d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   @MinMax(min = 0.0d, max = 1.0d, step = 0.01d)
   @ComponentType(ComponentTypes.SLIDER)
@@ -714,14 +649,14 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   private boolean actingOnSelectionOnlyItem;
 
   @Label("Act on Selection Only")
-  @OptionGroupAnnotation(name = "GeneralGroup", position = 40)
+  @OptionGroupAnnotation(name = "GeneralGroup", position = 10)
   @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
   public final boolean isActingOnSelectionOnlyItem() {
     return this.actingOnSelectionOnlyItem;
   }
 
   @Label("Act on Selection Only")
-  @OptionGroupAnnotation(name = "GeneralGroup", position = 40)
+  @OptionGroupAnnotation(name = "GeneralGroup", position = 10)
   @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
   public final void setActingOnSelectionOnlyItem( boolean value ) {
     this.actingOnSelectionOnlyItem = value;
@@ -730,14 +665,14 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   private boolean consideringNodeLabelsItem;
 
   @Label("Consider Node Labels")
-  @OptionGroupAnnotation(name = "GeneralGroup", position = 50)
+  @OptionGroupAnnotation(name = "NodePropertiesGroup", position = 10)
   @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
   public final boolean isConsideringNodeLabelsItem() {
     return this.consideringNodeLabelsItem;
   }
 
   @Label("Consider Node Labels")
-  @OptionGroupAnnotation(name = "GeneralGroup", position = 50)
+  @OptionGroupAnnotation(name = "NodePropertiesGroup", position = 10)
   @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
   public final void setConsideringNodeLabelsItem( boolean value ) {
     this.consideringNodeLabelsItem = value;
@@ -746,7 +681,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   private EnumNodePlacer nodePlacerItem = EnumNodePlacer.DEFAULT;
 
   @Label("Node Placer")
-  @OptionGroupAnnotation(name = "DefaultGroup", position = 10)
+  @OptionGroupAnnotation(name = "NodePlacerGroup", position = 10)
   @EnumValueAnnotation(label = "Default", value = "DEFAULT")
   @EnumValueAnnotation(label = "Simple", value = "SIMPLE")
   @EnumValueAnnotation(label = "Bus", value = "BUS")
@@ -757,12 +692,14 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   @EnumValueAnnotation(label = "Dendrogram", value = "DENDROGRAM")
   @EnumValueAnnotation(label = "Grid", value = "GRID")
   @EnumValueAnnotation(label = "Compact", value = "COMPACT")
+  @EnumValueAnnotation(label = "Horizontal-Vertical", value = "HV")
+  @EnumValueAnnotation(label = "Delegating & Layered", value = "DELEGATING_LAYERED")
   public final EnumNodePlacer getNodePlacerItem() {
     return this.nodePlacerItem;
   }
 
   @Label("Node Placer")
-  @OptionGroupAnnotation(name = "DefaultGroup", position = 10)
+  @OptionGroupAnnotation(name = "NodePlacerGroup", position = 10)
   @EnumValueAnnotation(label = "Default", value = "DEFAULT")
   @EnumValueAnnotation(label = "Simple", value = "SIMPLE")
   @EnumValueAnnotation(label = "Bus", value = "BUS")
@@ -773,6 +710,8 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   @EnumValueAnnotation(label = "Dendrogram", value = "DENDROGRAM")
   @EnumValueAnnotation(label = "Grid", value = "GRID")
   @EnumValueAnnotation(label = "Compact", value = "COMPACT")
+  @EnumValueAnnotation(label = "Horizontal-Vertical", value = "HV")
+  @EnumValueAnnotation(label = "Delegating & Layered", value = "DELEGATING_LAYERED")
   public final void setNodePlacerItem( EnumNodePlacer value ) {
     this.nodePlacerItem = value;
   }
@@ -780,7 +719,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   private double spacingItem;
 
   @Label("Spacing")
-  @OptionGroupAnnotation(name = "DefaultGroup", position = 20)
+  @OptionGroupAnnotation(name = "NodePlacerGroup", position = 20)
   @MinMax(min = 0, max = 500)
   @ComponentType(ComponentTypes.SLIDER)
   public final double getSpacingItem() {
@@ -788,7 +727,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   }
 
   @Label("Spacing")
-  @OptionGroupAnnotation(name = "DefaultGroup", position = 20)
+  @OptionGroupAnnotation(name = "NodePlacerGroup", position = 20)
   @MinMax(min = 0, max = 500)
   @ComponentType(ComponentTypes.SLIDER)
   public final void setSpacingItem( double value ) {
@@ -798,7 +737,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   private EnumRootAlignment rootAlignmentItem = EnumRootAlignment.CENTER;
 
   @Label("Root Alignment")
-  @OptionGroupAnnotation(name = "DefaultGroup", position = 30)
+  @OptionGroupAnnotation(name = "NodePlacerGroup", position = 30)
   @EnumValueAnnotation(label = "Center", value = "CENTER")
   @EnumValueAnnotation(label = "Median", value = "MEDIAN")
   @EnumValueAnnotation(label = "Left", value = "LEFT")
@@ -810,7 +749,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   }
 
   @Label("Root Alignment")
-  @OptionGroupAnnotation(name = "DefaultGroup", position = 30)
+  @OptionGroupAnnotation(name = "NodePlacerGroup", position = 30)
   @EnumValueAnnotation(label = "Center", value = "CENTER")
   @EnumValueAnnotation(label = "Median", value = "MEDIAN")
   @EnumValueAnnotation(label = "Left", value = "LEFT")
@@ -828,7 +767,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   private LayoutOrientation defaultLayoutOrientationItem = LayoutOrientation.TOP_TO_BOTTOM;
 
   @Label("Orientation")
-  @OptionGroupAnnotation(name = "DefaultGroup", position = 40)
+  @OptionGroupAnnotation(name = "GeneralGroup", position = 5)
   @EnumValueAnnotation(label = "Top to Bottom", value = "TOP_TO_BOTTOM")
   @EnumValueAnnotation(label = "Left to Right", value = "LEFT_TO_RIGHT")
   @EnumValueAnnotation(label = "Bottom to Top", value = "BOTTOM_TO_TOP")
@@ -838,7 +777,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   }
 
   @Label("Orientation")
-  @OptionGroupAnnotation(name = "DefaultGroup", position = 40)
+  @OptionGroupAnnotation(name = "GeneralGroup", position = 5)
   @EnumValueAnnotation(label = "Top to Bottom", value = "TOP_TO_BOTTOM")
   @EnumValueAnnotation(label = "Left to Right", value = "LEFT_TO_RIGHT")
   @EnumValueAnnotation(label = "Bottom to Top", value = "BOTTOM_TO_TOP")
@@ -854,7 +793,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   private double nodePlacerAspectRatioItem;
 
   @Label("Aspect Ratio")
-  @OptionGroupAnnotation(name = "DefaultGroup", position = 50)
+  @OptionGroupAnnotation(name = "NodePlacerGroup", position = 50)
   @MinMax(min = 0.1, max = 4, step = 0.01)
   @ComponentType(ComponentTypes.SLIDER)
   public final double getNodePlacerAspectRatioItem() {
@@ -862,7 +801,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   }
 
   @Label("Aspect Ratio")
-  @OptionGroupAnnotation(name = "DefaultGroup", position = 50)
+  @OptionGroupAnnotation(name = "NodePlacerGroup", position = 50)
   @MinMax(min = 0.1, max = 4, step = 0.01)
   @ComponentType(ComponentTypes.SLIDER)
   public final void setNodePlacerAspectRatioItem( double value ) {
@@ -876,13 +815,13 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   private boolean allowingMultiParentsItem;
 
   @Label("Allow Multi-Parents")
-  @OptionGroupAnnotation(name = "DefaultGroup", position = 60)
+  @OptionGroupAnnotation(name = "NodePlacerGroup", position = 60)
   public final boolean isAllowingMultiParentsItem() {
     return this.allowingMultiParentsItem;
   }
 
   @Label("Allow Multi-Parents")
-  @OptionGroupAnnotation(name = "DefaultGroup", position = 60)
+  @OptionGroupAnnotation(name = "NodePlacerGroup", position = 60)
   public final void setAllowingMultiParentsItem( boolean value ) {
     this.allowingMultiParentsItem = value;
   }
@@ -894,7 +833,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   private PortAssignmentMode portAssignmentItem = PortAssignmentMode.NONE;
 
   @Label("Port Assignment")
-  @OptionGroupAnnotation(name = "DefaultGroup", position = 70)
+  @OptionGroupAnnotation(name = "EdgesGroup", position = 10)
   @EnumValueAnnotation(label = "None", value = "NONE")
   @EnumValueAnnotation(label = "Distributed North", value = "DISTRIBUTED_NORTH")
   @EnumValueAnnotation(label = "Distributed South", value = "DISTRIBUTED_SOUTH")
@@ -905,7 +844,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   }
 
   @Label("Port Assignment")
-  @OptionGroupAnnotation(name = "DefaultGroup", position = 70)
+  @OptionGroupAnnotation(name = "EdgesGroup", position = 10)
   @EnumValueAnnotation(label = "None", value = "NONE")
   @EnumValueAnnotation(label = "Distributed North", value = "DISTRIBUTED_NORTH")
   @EnumValueAnnotation(label = "Distributed South", value = "DISTRIBUTED_SOUTH")
@@ -915,324 +854,10 @@ public class TreeLayoutConfig extends LayoutConfiguration {
     this.portAssignmentItem = value;
   }
 
-  private int hvHorizontalSpaceItem;
-
-  @Label("Horizontal Spacing")
-  @OptionGroupAnnotation(name = "HVGroup", position = 10)
-  @DefaultValue(intValue = 10, valueType = DefaultValue.ValueType.INT_TYPE)
-  @MinMax(min = 0, max = 100)
-  @ComponentType(ComponentTypes.SLIDER)
-  public final int getHvHorizontalSpaceItem() {
-    return this.hvHorizontalSpaceItem;
-  }
-
-  @Label("Horizontal Spacing")
-  @OptionGroupAnnotation(name = "HVGroup", position = 10)
-  @DefaultValue(intValue = 10, valueType = DefaultValue.ValueType.INT_TYPE)
-  @MinMax(min = 0, max = 100)
-  @ComponentType(ComponentTypes.SLIDER)
-  public final void setHvHorizontalSpaceItem( int value ) {
-    this.hvHorizontalSpaceItem = value;
-  }
-
-  private int hvVerticalSpaceItem;
-
-  @Label("Vertical Spacing")
-  @OptionGroupAnnotation(name = "HVGroup", position = 20)
-  @DefaultValue(intValue = 10, valueType = DefaultValue.ValueType.INT_TYPE)
-  @MinMax(min = 0, max = 100)
-  @ComponentType(ComponentTypes.SLIDER)
-  public final int getHvVerticalSpaceItem() {
-    return this.hvVerticalSpaceItem;
-  }
-
-  @Label("Vertical Spacing")
-  @OptionGroupAnnotation(name = "HVGroup", position = 20)
-  @DefaultValue(intValue = 10, valueType = DefaultValue.ValueType.INT_TYPE)
-  @MinMax(min = 0, max = 100)
-  @ComponentType(ComponentTypes.SLIDER)
-  public final void setHvVerticalSpaceItem( int value ) {
-    this.hvVerticalSpaceItem = value;
-  }
-
-  private int arHorizontalSpaceItem;
-
-  @Label("Horizontal Spacing")
-  @OptionGroupAnnotation(name = "CompactGroup", position = 10)
-  @DefaultValue(intValue = 10, valueType = DefaultValue.ValueType.INT_TYPE)
-  @MinMax(min = 0, max = 100)
-  @ComponentType(ComponentTypes.SLIDER)
-  public final int getArHorizontalSpaceItem() {
-    return this.arHorizontalSpaceItem;
-  }
-
-  @Label("Horizontal Spacing")
-  @OptionGroupAnnotation(name = "CompactGroup", position = 10)
-  @DefaultValue(intValue = 10, valueType = DefaultValue.ValueType.INT_TYPE)
-  @MinMax(min = 0, max = 100)
-  @ComponentType(ComponentTypes.SLIDER)
-  public final void setArHorizontalSpaceItem( int value ) {
-    this.arHorizontalSpaceItem = value;
-  }
-
-  private int arVerticalSpaceItem;
-
-  @Label("Vertical Spacing")
-  @OptionGroupAnnotation(name = "CompactGroup", position = 20)
-  @DefaultValue(intValue = 10, valueType = DefaultValue.ValueType.INT_TYPE)
-  @MinMax(min = 0, max = 100)
-  @ComponentType(ComponentTypes.SLIDER)
-  public final int getArVerticalSpaceItem() {
-    return this.arVerticalSpaceItem;
-  }
-
-  @Label("Vertical Spacing")
-  @OptionGroupAnnotation(name = "CompactGroup", position = 20)
-  @DefaultValue(intValue = 10, valueType = DefaultValue.ValueType.INT_TYPE)
-  @MinMax(min = 0, max = 100)
-  @ComponentType(ComponentTypes.SLIDER)
-  public final void setArVerticalSpaceItem( int value ) {
-    this.arVerticalSpaceItem = value;
-  }
-
-  private boolean arUsingViewAspectRatioItem;
-
-  @Label("Use Aspect Ratio of View")
-  @OptionGroupAnnotation(name = "CompactGroup", position = 40)
-  @DefaultValue(booleanValue = true, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
-  public final boolean isArUsingViewAspectRatioItem() {
-    return this.arUsingViewAspectRatioItem;
-  }
-
-  @Label("Use Aspect Ratio of View")
-  @OptionGroupAnnotation(name = "CompactGroup", position = 40)
-  @DefaultValue(booleanValue = true, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
-  public final void setArUsingViewAspectRatioItem( boolean value ) {
-    this.arUsingViewAspectRatioItem = value;
-  }
-
-  private double compactPreferredAspectRatioItem;
-
-  @Label("Preferred Aspect Ratio")
-  @OptionGroupAnnotation(name = "CompactGroup", position = 50)
-  @DefaultValue(doubleValue = 1.41d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
-  @MinMax(min = 0.2d, max = 5.0d, step = 0.01d)
-  @ComponentType(ComponentTypes.SLIDER)
-  public final double getCompactPreferredAspectRatioItem() {
-    return this.compactPreferredAspectRatioItem;
-  }
-
-  @Label("Preferred Aspect Ratio")
-  @OptionGroupAnnotation(name = "CompactGroup", position = 50)
-  @DefaultValue(doubleValue = 1.41d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
-  @MinMax(min = 0.2d, max = 5.0d, step = 0.01d)
-  @ComponentType(ComponentTypes.SLIDER)
-  public final void setCompactPreferredAspectRatioItem( double value ) {
-    this.compactPreferredAspectRatioItem = value;
-  }
-
-  public final boolean isCompactPreferredAspectRatioItemDisabled() {
-    return isArUsingViewAspectRatioItem();
-  }
-
-  private LayoutOrientation classicLayoutOrientationItem = LayoutOrientation.TOP_TO_BOTTOM;
-
-  @Label("Orientation")
-  @OptionGroupAnnotation(name = "ClassicGroup", position = 10)
-  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = LayoutOrientation.class, stringValue = "BOTTOM_TO_TOP")
-  @EnumValueAnnotation(label = "Top to Bottom", value = "TOP_TO_BOTTOM")
-  @EnumValueAnnotation(label = "Left to Right", value = "LEFT_TO_RIGHT")
-  @EnumValueAnnotation(label = "Bottom to Top", value = "BOTTOM_TO_TOP")
-  @EnumValueAnnotation(label = "Right to Left", value = "RIGHT_TO_LEFT")
-  public final LayoutOrientation getClassicLayoutOrientationItem() {
-    return this.classicLayoutOrientationItem;
-  }
-
-  @Label("Orientation")
-  @OptionGroupAnnotation(name = "ClassicGroup", position = 10)
-  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = LayoutOrientation.class, stringValue = "BOTTOM_TO_TOP")
-  @EnumValueAnnotation(label = "Top to Bottom", value = "TOP_TO_BOTTOM")
-  @EnumValueAnnotation(label = "Left to Right", value = "LEFT_TO_RIGHT")
-  @EnumValueAnnotation(label = "Bottom to Top", value = "BOTTOM_TO_TOP")
-  @EnumValueAnnotation(label = "Right to Left", value = "RIGHT_TO_LEFT")
-  public final void setClassicLayoutOrientationItem( LayoutOrientation value ) {
-    this.classicLayoutOrientationItem = value;
-  }
-
-  private int minimumNodeDistanceItem;
-
-  @Label("Minimum Node Distance")
-  @MinMax(min = 1, max = 100)
-  @DefaultValue(intValue = 20, valueType = DefaultValue.ValueType.INT_TYPE)
-  @OptionGroupAnnotation(name = "ClassicGroup", position = 20)
-  @ComponentType(ComponentTypes.SLIDER)
-  public final int getMinimumNodeDistanceItem() {
-    return this.minimumNodeDistanceItem;
-  }
-
-  @Label("Minimum Node Distance")
-  @MinMax(min = 1, max = 100)
-  @DefaultValue(intValue = 20, valueType = DefaultValue.ValueType.INT_TYPE)
-  @OptionGroupAnnotation(name = "ClassicGroup", position = 20)
-  @ComponentType(ComponentTypes.SLIDER)
-  public final void setMinimumNodeDistanceItem( int value ) {
-    this.minimumNodeDistanceItem = value;
-  }
-
-  private int minimumLayerDistanceItem;
-
-  @Label("Minimum Layer Distance")
-  @MinMax(min = 10, max = 300)
-  @DefaultValue(intValue = 40, valueType = DefaultValue.ValueType.INT_TYPE)
-  @OptionGroupAnnotation(name = "ClassicGroup", position = 30)
-  @ComponentType(ComponentTypes.SLIDER)
-  public final int getMinimumLayerDistanceItem() {
-    return this.minimumLayerDistanceItem;
-  }
-
-  @Label("Minimum Layer Distance")
-  @MinMax(min = 10, max = 300)
-  @DefaultValue(intValue = 40, valueType = DefaultValue.ValueType.INT_TYPE)
-  @OptionGroupAnnotation(name = "ClassicGroup", position = 30)
-  @ComponentType(ComponentTypes.SLIDER)
-  public final void setMinimumLayerDistanceItem( int value ) {
-    this.minimumLayerDistanceItem = value;
-  }
-
-  private PortStyle portStyleItem = PortStyle.NODE_CENTER;
-
-  @Label("Port Style")
-  @OptionGroupAnnotation(name = "ClassicGroup", position = 40)
-  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = PortStyle.class, stringValue = "NODE_CENTER")
-  @EnumValueAnnotation(label = "Node Centered", value = "NODE_CENTER")
-  @EnumValueAnnotation(label = "Border Centered", value = "BORDER_CENTER")
-  @EnumValueAnnotation(label = "Border Distributed", value = "BORDER_DISTRIBUTED")
-  public final PortStyle getPortStyleItem() {
-    return this.portStyleItem;
-  }
-
-  @Label("Port Style")
-  @OptionGroupAnnotation(name = "ClassicGroup", position = 40)
-  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = PortStyle.class, stringValue = "NODE_CENTER")
-  @EnumValueAnnotation(label = "Node Centered", value = "NODE_CENTER")
-  @EnumValueAnnotation(label = "Border Centered", value = "BORDER_CENTER")
-  @EnumValueAnnotation(label = "Border Distributed", value = "BORDER_DISTRIBUTED")
-  public final void setPortStyleItem( PortStyle value ) {
-    this.portStyleItem = value;
-  }
-
-  private boolean enforcingGlobalLayeringItem;
-
-  @Label("Global Layering")
-  @OptionGroupAnnotation(name = "ClassicGroup", position = 50)
-  @DefaultValue(booleanValue = true, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
-  public final boolean isEnforcingGlobalLayeringItem() {
-    return this.enforcingGlobalLayeringItem;
-  }
-
-  @Label("Global Layering")
-  @OptionGroupAnnotation(name = "ClassicGroup", position = 50)
-  @DefaultValue(booleanValue = true, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
-  public final void setEnforcingGlobalLayeringItem( boolean value ) {
-    this.enforcingGlobalLayeringItem = value;
-  }
-
-  private boolean orthogonalEdgeRoutingItem;
-
-  @Label("Orthogonal Edge Routing")
-  @OptionGroupAnnotation(name = "ClassicGroup", position = 60)
-  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
-  public final boolean isOrthogonalEdgeRoutingItem() {
-    return this.orthogonalEdgeRoutingItem;
-  }
-
-  @Label("Orthogonal Edge Routing")
-  @OptionGroupAnnotation(name = "ClassicGroup", position = 60)
-  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
-  public final void setOrthogonalEdgeRoutingItem( boolean value ) {
-    this.orthogonalEdgeRoutingItem = value;
-  }
-
-  private double busAlignmentItem;
-
-  @Label("Edge Bus Alignment")
-  @OptionGroupAnnotation(name = "ClassicGroup", position = 70)
-  @DefaultValue(doubleValue = 0.5d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
-  @MinMax(min = 0.0d, max = 1.0d, step = 0.01d)
-  @ComponentType(ComponentTypes.SLIDER)
-  public final double getBusAlignmentItem() {
-    return this.busAlignmentItem;
-  }
-
-  @Label("Edge Bus Alignment")
-  @OptionGroupAnnotation(name = "ClassicGroup", position = 70)
-  @DefaultValue(doubleValue = 0.5d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
-  @MinMax(min = 0.0d, max = 1.0d, step = 0.01d)
-  @ComponentType(ComponentTypes.SLIDER)
-  public final void setBusAlignmentItem( double value ) {
-    this.busAlignmentItem = value;
-  }
-
-  public final boolean isBusAlignmentItemDisabled() {
-    return isOrthogonalEdgeRoutingItem() == false || (isEnforcingGlobalLayeringItem() == false && getChildPlacementPolicyItem() != LeafPlacement.ALL_LEAVES_ON_SAME_LAYER);
-  }
-
-  private double verticalAlignmentItem;
-
-  @Label("Vertical Child Alignment")
-  @OptionGroupAnnotation(name = "ClassicGroup", position = 80)
-  @DefaultValue(doubleValue = 0.5d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
-  @MinMax(min = 0.0d, max = 1.0d, step = 0.01d)
-  @ComponentType(ComponentTypes.SLIDER)
-  public final double getVerticalAlignmentItem() {
-    return this.verticalAlignmentItem;
-  }
-
-  @Label("Vertical Child Alignment")
-  @OptionGroupAnnotation(name = "ClassicGroup", position = 80)
-  @DefaultValue(doubleValue = 0.5d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
-  @MinMax(min = 0.0d, max = 1.0d, step = 0.01d)
-  @ComponentType(ComponentTypes.SLIDER)
-  public final void setVerticalAlignmentItem( double value ) {
-    this.verticalAlignmentItem = value;
-  }
-
-  public final boolean isVerticalAlignmentItemDisabled() {
-    return !isEnforcingGlobalLayeringItem();
-  }
-
-  private LeafPlacement childPlacementPolicyItem = LeafPlacement.LEAVES_STACKED;
-
-  @Label("Child Placement Policy")
-  @OptionGroupAnnotation(name = "ClassicGroup", position = 90)
-  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = LeafPlacement.class, stringValue = "SIBLINGS_ON_SAME_LAYER")
-  @EnumValueAnnotation(label = "Siblings in same Layer", value = "SIBLINGS_ON_SAME_LAYER")
-  @EnumValueAnnotation(label = "All Leaves in same Layer", value = "ALL_LEAVES_ON_SAME_LAYER")
-  @EnumValueAnnotation(label = "Leaves stacked", value = "LEAVES_STACKED")
-  @EnumValueAnnotation(label = "Leaves stacked left", value = "LEAVES_STACKED_LEFT")
-  @EnumValueAnnotation(label = "Leaves stacked right", value = "LEAVES_STACKED_RIGHT")
-  @EnumValueAnnotation(label = "Leaves stacked left and right", value = "LEAVES_STACKED_LEFT_AND_RIGHT")
-  public final LeafPlacement getChildPlacementPolicyItem() {
-    return this.childPlacementPolicyItem;
-  }
-
-  @Label("Child Placement Policy")
-  @OptionGroupAnnotation(name = "ClassicGroup", position = 90)
-  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = LeafPlacement.class, stringValue = "SIBLINGS_ON_SAME_LAYER")
-  @EnumValueAnnotation(label = "Siblings in same Layer", value = "SIBLINGS_ON_SAME_LAYER")
-  @EnumValueAnnotation(label = "All Leaves in same Layer", value = "ALL_LEAVES_ON_SAME_LAYER")
-  @EnumValueAnnotation(label = "Leaves stacked", value = "LEAVES_STACKED")
-  @EnumValueAnnotation(label = "Leaves stacked left", value = "LEAVES_STACKED_LEFT")
-  @EnumValueAnnotation(label = "Leaves stacked right", value = "LEAVES_STACKED_RIGHT")
-  @EnumValueAnnotation(label = "Leaves stacked left and right", value = "LEAVES_STACKED_LEFT_AND_RIGHT")
-  public final void setChildPlacementPolicyItem( LeafPlacement value ) {
-    this.childPlacementPolicyItem = value;
-  }
-
   private EnumEdgeLabeling edgeLabelingItem = EnumEdgeLabeling.NONE;
 
   @Label("Edge Labeling")
-  @OptionGroupAnnotation(name = "EdgePropertiesGroup", position = 20)
+  @OptionGroupAnnotation(name = "EdgePropertiesGroup", position = 10)
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = EnumEdgeLabeling.class, stringValue = "NONE")
   @EnumValueAnnotation(label = "None", value = "NONE")
   @EnumValueAnnotation(label = "Integrated", value = "INTEGRATED")
@@ -1242,7 +867,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   }
 
   @Label("Edge Labeling")
-  @OptionGroupAnnotation(name = "EdgePropertiesGroup", position = 20)
+  @OptionGroupAnnotation(name = "EdgePropertiesGroup", position = 10)
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = EnumEdgeLabeling.class, stringValue = "NONE")
   @EnumValueAnnotation(label = "None", value = "NONE")
   @EnumValueAnnotation(label = "Integrated", value = "INTEGRATED")
@@ -1259,13 +884,13 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   private boolean reducingAmbiguityItem;
 
   @Label("Reduce Ambiguity")
-  @OptionGroupAnnotation(name = "EdgePropertiesGroup", position = 30)
+  @OptionGroupAnnotation(name = "EdgePropertiesGroup", position = 20)
   public final boolean isReducingAmbiguityItem() {
     return this.reducingAmbiguityItem;
   }
 
   @Label("Reduce Ambiguity")
-  @OptionGroupAnnotation(name = "EdgePropertiesGroup", position = 30)
+  @OptionGroupAnnotation(name = "EdgePropertiesGroup", position = 20)
   public final void setReducingAmbiguityItem( boolean value ) {
     this.reducingAmbiguityItem = value;
   }
@@ -1309,7 +934,9 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = LayoutConfiguration.EnumLabelPlacementAlongEdge.class, stringValue = "CENTERED")
   @EnumValueAnnotation(label = "Anywhere", value = "ANYWHERE")
   @EnumValueAnnotation(label = "At Source", value = "AT_SOURCE")
+  @EnumValueAnnotation(label = "At Source Port", value = "AT_SOURCE_PORT")
   @EnumValueAnnotation(label = "At Target", value = "AT_TARGET")
+  @EnumValueAnnotation(label = "At Target Port", value = "AT_TARGET_PORT")
   @EnumValueAnnotation(label = "Centered", value = "CENTERED")
   public final LayoutConfiguration.EnumLabelPlacementAlongEdge getLabelPlacementAlongEdgeItem() {
     return this.labelPlacementAlongEdgeItem;
@@ -1320,7 +947,9 @@ public class TreeLayoutConfig extends LayoutConfiguration {
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = LayoutConfiguration.EnumLabelPlacementAlongEdge.class, stringValue = "CENTERED")
   @EnumValueAnnotation(label = "Anywhere", value = "ANYWHERE")
   @EnumValueAnnotation(label = "At Source", value = "AT_SOURCE")
+  @EnumValueAnnotation(label = "At Source Port", value = "AT_SOURCE_PORT")
   @EnumValueAnnotation(label = "At Target", value = "AT_TARGET")
+  @EnumValueAnnotation(label = "At Target Port", value = "AT_TARGET_PORT")
   @EnumValueAnnotation(label = "Centered", value = "CENTERED")
   public final void setLabelPlacementAlongEdgeItem( LayoutConfiguration.EnumLabelPlacementAlongEdge value ) {
     this.labelPlacementAlongEdgeItem = value;

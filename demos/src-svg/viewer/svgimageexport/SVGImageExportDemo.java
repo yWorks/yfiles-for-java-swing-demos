@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -43,7 +43,6 @@ import org.apache.batik.svggen.SVGGraphics2D;
 import org.apache.batik.swing.JSVGCanvas;
 import org.apache.batik.swing.JSVGScrollPane;
 import org.apache.batik.swing.gvt.AbstractPanInteractor;
-import org.apache.batik.util.XMLConstants;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Element;
@@ -84,7 +83,7 @@ import java.io.Writer;
  * Draw arbitrary objects onto the GraphComponent and interact with them via <code>InputModes</code>.
  * <p>
  * The demo uses a patched version of the Batik SVG library available on the
- * <a href="https://www.yworks.com/resources/yfilesjava/demos-support/3.1/batik.jar">yFiles website</a>.
+ * <a href="https://www.yworks.com/resources/yfilesjava/demos-support/3.5/batik.jar">yFiles website</a>.
  * </p>
  */
 public class SVGImageExportDemo extends AbstractImageExportDemo {
@@ -225,8 +224,8 @@ public class SVGImageExportDemo extends AbstractImageExportDemo {
 
     svgGraphics2D.dispose();
     Element svgRoot = svgGraphics2D.getRoot(doc.getDocumentElement());
-    svgRoot.setAttributeNS(XMLConstants.XMLNS_NAMESPACE_URI, XMLConstants.XMLNS_PREFIX + ":"
-        + XMLConstants.XLINK_PREFIX, XMLConstants.XLINK_NAMESPACE_URI);
+    svgRoot.setAttributeNS(
+      "http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
     svgRoot.setAttribute("width", "" + cnfg.getViewWidth());
     svgRoot.setAttribute("height", "" + cnfg.getViewHeight());
     return svgRoot;

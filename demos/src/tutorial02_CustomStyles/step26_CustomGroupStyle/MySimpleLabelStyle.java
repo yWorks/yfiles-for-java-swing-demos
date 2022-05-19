@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.4.
+ ** This demo file is part of yFiles for Java (Swing) 3.5.
  **
- ** Copyright (c) 2000-2021 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -37,7 +37,7 @@ import com.yworks.yfiles.geometry.IOrientedRectangle;
 import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.geometry.SizeD;
-import com.yworks.yfiles.graph.ILabel;;
+import com.yworks.yfiles.graph.ILabel;
 import com.yworks.yfiles.view.input.IClickListener;
 import com.yworks.yfiles.view.input.ICommand;
 import com.yworks.yfiles.view.input.IHitTestable;
