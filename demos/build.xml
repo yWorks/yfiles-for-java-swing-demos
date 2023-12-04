@@ -57,6 +57,8 @@
     Demonstrates the tree layout style and the different ways in which this layout can arrange a node and its children.</echo>
 <echo>run-TreeMap
     Shows disk usage of a directory tree with the Tree Map layout.</echo>
+<echo>run-LayoutWithoutView
+    Shows how to create a graph, run a graph analysis algorithm, and calculate a layout without using a view or the IGraph API.</echo>
 <echo>run-CustomLabelModel
     Customize label placement model.</echo>
 <echo>run-CustomPortModel
@@ -129,10 +131,22 @@
     Demonstrates how to enable snapping functionality for graph elements.</echo>
 <echo>run-Tooltips
     Demonstrates how to add tooltips to graph items.</echo>
+<echo>run-ArrowNodeStyle
+    Implement sophisticated styles for graph objects in yFiles for Java (Swing).</echo>
 <echo>run-CompositeNodeStyle
     This demo shows how to combine several node styles into one.</echo>
+<echo>run-DefaultLabelStyle
+    Shows the most important configuration options for the built-in DefaultLabelStyle class.</echo>
+<echo>run-GroupNodeStyle
+    Implement sophisticated styles for graph objects in yFiles for Java (Swing).</echo>
+<echo>run-RectangleNodeStyle
+    Implement sophisticated styles for graph objects in yFiles for Java (Swing).</echo>
+<echo>run-ShapeNodeStyle
+    Implement sophisticated styles for graph objects in yFiles for Java (Swing).</echo>
 <echo>run-SimpleCustomStyle
     Implement sophisticated styles for graph objects in yFiles for Java (Swing).</echo>
+<echo>run-TextWrapping
+    Shows how to use the text wrapping and trimming feature provided by the DefaultLabelStyle class.</echo>
 <echo>run-JComponentStyle
     Arbitrary Swing components incorporated as graph elements.</echo>
 <echo>run-ZoomInvariantLabelStyleDemo
@@ -337,6 +351,11 @@
 <classpath refid="democlasspath"/>
 </java>
 </target>
+<target name="run-LayoutWithoutView" depends="compile" description="Shows how to create a graph, run a graph analysis algorithm, and calculate a layout without using a view or the IGraph API.">
+<java classname="layout.withoutview.LayoutWithoutViewDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
 <target name="run-CustomLabelModel" depends="compile" description="Customize label placement model.">
 <java classname="input.customlabelmodel.CustomLabelModelDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
@@ -517,13 +536,43 @@
 <classpath refid="democlasspath"/>
 </java>
 </target>
+<target name="run-ArrowNodeStyle" depends="compile" description="Implement sophisticated styles for graph objects in yFiles for Java (Swing).">
+<java classname="style.arrownodestyle.ArrowNodeStyleDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
 <target name="run-CompositeNodeStyle" depends="compile" description="This demo shows how to combine several node styles into one.">
 <java classname="style.compositenodestyle.CompositeNodeStyleDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 </java>
 </target>
+<target name="run-DefaultLabelStyle" depends="compile" description="Shows the most important configuration options for the built-in DefaultLabelStyle class.">
+<java classname="style.defaultlabelstyle.DefaultLabelStyleDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-GroupNodeStyle" depends="compile" description="Implement sophisticated styles for graph objects in yFiles for Java (Swing).">
+<java classname="style.groupnodestyle.GroupNodeStyleDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-RectangleNodeStyle" depends="compile" description="Implement sophisticated styles for graph objects in yFiles for Java (Swing).">
+<java classname="style.rectanglenodestyle.RectangleNodeStyleDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-ShapeNodeStyle" depends="compile" description="Implement sophisticated styles for graph objects in yFiles for Java (Swing).">
+<java classname="style.shapenodestyle.ShapeNodeStyleDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
 <target name="run-SimpleCustomStyle" depends="compile" description="Implement sophisticated styles for graph objects in yFiles for Java (Swing).">
 <java classname="style.simplecustomstyle.SimpleCustomStyleDemo" fork="true" failonerror="true">
+<classpath refid="democlasspath"/>
+</java>
+</target>
+<target name="run-TextWrapping" depends="compile" description="Shows how to use the text wrapping and trimming feature provided by the DefaultLabelStyle class.">
+<java classname="style.textwrapping.TextWrappingDemo" fork="true" failonerror="true">
 <classpath refid="democlasspath"/>
 </java>
 </target>

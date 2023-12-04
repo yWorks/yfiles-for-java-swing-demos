@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -40,19 +40,22 @@ import com.yworks.yfiles.graph.INodeDefaults;
 import com.yworks.yfiles.graph.SimpleLabel;
 import com.yworks.yfiles.graph.SimpleNode;
 import com.yworks.yfiles.graph.labelmodels.ExteriorLabelModel;
+import com.yworks.yfiles.graph.labelmodels.GroupNodeLabelModel;
 import com.yworks.yfiles.graph.labelmodels.InteriorLabelModel;
-import com.yworks.yfiles.graph.labelmodels.InteriorStretchLabelModel;
 import com.yworks.yfiles.graph.labelmodels.SmartEdgeLabelModel;
 import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
+import com.yworks.yfiles.graph.styles.GroupNodeStyle;
+import com.yworks.yfiles.graph.styles.ILabelStyle;
 import com.yworks.yfiles.graph.styles.NodeStylePortStyleAdapter;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
+import com.yworks.yfiles.graph.styles.RectangleNodeStyle;
 import com.yworks.yfiles.graph.styles.ShapeNodeShape;
 import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
 import com.yworks.yfiles.view.Colors;
 import com.yworks.yfiles.view.DashStyle;
 import com.yworks.yfiles.view.GraphModelManager;
 import com.yworks.yfiles.view.HierarchicNestingPolicy;
+import com.yworks.yfiles.view.ICanvasObject;
 import com.yworks.yfiles.view.ICanvasObjectDescriptor;
 import com.yworks.yfiles.view.ICanvasObjectGroup;
 import com.yworks.yfiles.view.LabelLayerPolicy;
@@ -65,7 +68,7 @@ import com.yworks.yfiles.view.VerticalAlignment;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.ICommand;
 import toolkit.AbstractDemo;
-
+import toolkit.DemoStyles;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -222,6 +225,9 @@ public class RenderingOrderDemo extends AbstractDemo {
    * Resets the graph to the initial sample.
    */
   private void resetGraph() {
+    for (ICanvasObject border : graphComponent.getBackgroundGroup().toList()) {
+      border.remove();
+    }
     graphComponent.getGraph().clear();
     createGraph();
     graphComponent.fitGraphBounds();
@@ -266,7 +272,7 @@ public class RenderingOrderDemo extends AbstractDemo {
     INodeDefaults nodeDefaults = graphComponent.getGraph().getNodeDefaults();
 
     //set default node color as slightly transparent dark orange
-    ShapeNodeStyle defaultNodeStyle = new ShapeNodeStyle();
+    RectangleNodeStyle defaultNodeStyle = DemoStyles.createDemoNodeStyle();
     defaultNodeStyle.setPaint(new Color(255, 140, 0, 238));
     defaultNodeStyle.setPen(Pen.getWhite());
 
@@ -277,7 +283,7 @@ public class RenderingOrderDemo extends AbstractDemo {
     nodeDefaults.setSize(defaultNodeSize);
 
     //set label text alignment and trimming
-    DefaultLabelStyle defaultLabelStyle = new DefaultLabelStyle();
+    DefaultLabelStyle defaultLabelStyle = DemoStyles.createDemoNodeLabelStyle();
     defaultLabelStyle.setVerticalTextAlignment(VerticalAlignment.CENTER);
     defaultLabelStyle.setTextTrimming(TextTrimming.WORD_ELLIPSIS);
     defaultLabelStyle.setTextWrapping(TextWrapping.WRAP);
@@ -300,26 +306,19 @@ public class RenderingOrderDemo extends AbstractDemo {
     INodeDefaults groupNodeDefaults = graphComponent.getGraph().getGroupNodeDefaults();
 
     //set default group node style
-    PanelNodeStyle defaultGroupNodeStyle = new PanelNodeStyle();
-    defaultGroupNodeStyle.setColor(new Color(214, 229, 248, 229));
-    defaultGroupNodeStyle.setInsets(new InsetsD(18, 5, 5, 5));
-    defaultGroupNodeStyle.setLabelInsetsColor(new Color(214, 229, 248));
-
+    GroupNodeStyle defaultGroupNodeStyle = DemoStyles.createDemoGroupStyle();
     groupNodeDefaults.setStyle(defaultGroupNodeStyle);
 
     //set defaults for group node labels
-    DefaultLabelStyle defaultGroupLabelStyle = new DefaultLabelStyle();
-    defaultGroupLabelStyle.setVerticalTextAlignment(VerticalAlignment.CENTER);
+    ILabelStyle defaultGroupLabelStyle = DemoStyles.createDemoGroupLabelStyle();
     groupNodeDefaults.getLabelDefaults().setStyle(defaultGroupLabelStyle);
-    groupNodeDefaults.getLabelDefaults().setLayoutParameter(InteriorStretchLabelModel.NORTH);
+    groupNodeDefaults.getLabelDefaults().setLayoutParameter(new GroupNodeLabelModel().createDefaultParameter());
 
     //configure edge label defaults
     graphComponent.getGraph().getEdgeDefaults().getLabelDefaults().setLayoutParameter(
             new SmartEdgeLabelModel().createParameterFromSource(0, 5, 0));
 
-    DefaultLabelStyle defaultEdgeLabelStyle = new DefaultLabelStyle();
-    defaultEdgeLabelStyle.setBackgroundPaint(Colors.WHITE);
-    defaultEdgeLabelStyle.setBackgroundPen(Pen.getLightGray());
+    DefaultLabelStyle defaultEdgeLabelStyle = DemoStyles.createDemoEdgeLabelStyle();
     graphComponent.getGraph().getEdgeDefaults().getLabelDefaults().setStyle(defaultEdgeLabelStyle);
 
     //set default pen used for boundary rectangles
@@ -509,10 +508,10 @@ public class RenderingOrderDemo extends AbstractDemo {
     rectLabel.setStyle(rectLabelStyle);
     rectLabel.setPreferredSize(DEFAULT_PREF_RECTANGLE_SIZE);
 
-    //add the boundary rectangle and its title label to the root group
-    ICanvasObjectGroup rootGroup = graphComponent.getRootGroup();
-    rootGroup.addChild(rect, ICanvasObjectDescriptor.ALWAYS_DIRTY_LOOKUP);
-    rootGroup.addChild(rectLabel, ICanvasObjectDescriptor.ALWAYS_DIRTY_LOOKUP);
+    //add the boundary rectangle and its title label to the background
+    ICanvasObjectGroup background = graphComponent.getBackgroundGroup();
+    background.addChild(rect, ICanvasObjectDescriptor.ALWAYS_DIRTY_LOOKUP);
+    background.addChild(rectLabel, ICanvasObjectDescriptor.ALWAYS_DIRTY_LOOKUP);
   }
 
   public static void main(final String[] args) {

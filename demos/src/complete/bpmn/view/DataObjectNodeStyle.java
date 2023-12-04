@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -243,7 +243,7 @@ public class DataObjectNodeStyle extends BpmnNodeStyle {
     IRectangle layout = node.getLayout().toRectD();
     double cornerSize = Math.min(layout.getWidth(), layout.getHeight()) * 0.4;
 
-    GeneralPath path = new GeneralPath(16);
+    GeneralPath path = new GeneralPath();
     path.moveTo(0, 0);
     path.lineTo(layout.getWidth() - cornerSize, 0);
     path.lineTo(layout.getWidth(), cornerSize);

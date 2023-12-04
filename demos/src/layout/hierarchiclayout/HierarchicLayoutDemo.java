@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,46 +29,41 @@
  ***************************************************************************/
 package layout.hierarchiclayout;
 
-import com.yworks.yfiles.graph.LayoutUtilities;
-import com.yworks.yfiles.utils.IEventArgs;
-import com.yworks.yfiles.utils.IListEnumerable;
-import com.yworks.yfiles.view.GraphComponent;
-import com.yworks.yfiles.view.IAnimation;
-import com.yworks.yfiles.view.ICanvasObjectDescriptor;
-import com.yworks.yfiles.view.Colors;
-import com.yworks.yfiles.graph.styles.ShapeNodeShape;
-import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.geometry.InsetsD;
-import com.yworks.yfiles.geometry.SizeD;
 import com.yworks.yfiles.graph.IBend;
 import com.yworks.yfiles.graph.IEdge;
 import com.yworks.yfiles.graph.IGraph;
+import com.yworks.yfiles.graph.IMapper;
+import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.graph.INode;
-import com.yworks.yfiles.layout.LayoutExecutor;
+import com.yworks.yfiles.graph.LayoutUtilities;
+import com.yworks.yfiles.graph.Mapper;
 import com.yworks.yfiles.graphml.GraphMLIOHandler;
+import com.yworks.yfiles.layout.LayoutExecutor;
+import com.yworks.yfiles.layout.PortConstraint;
+import com.yworks.yfiles.layout.hierarchic.GivenLayersLayerer;
+import com.yworks.yfiles.layout.hierarchic.HierarchicLayout;
+import com.yworks.yfiles.layout.hierarchic.HierarchicLayoutData;
+import com.yworks.yfiles.layout.hierarchic.LayoutMode;
+import com.yworks.yfiles.utils.IEventArgs;
+import com.yworks.yfiles.utils.IListEnumerable;
+import com.yworks.yfiles.utils.ItemEventArgs;
+import com.yworks.yfiles.view.GraphComponent;
+import com.yworks.yfiles.view.IAnimation;
+import com.yworks.yfiles.view.ICanvasObjectDescriptor;
+import com.yworks.yfiles.view.ISelectionModel;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.ICommand;
 import com.yworks.yfiles.view.input.IHandle;
 import com.yworks.yfiles.view.input.IInputMode;
 import com.yworks.yfiles.view.input.PopulateItemPopupMenuEventArgs;
-import com.yworks.yfiles.layout.PortConstraint;
-import com.yworks.yfiles.layout.hierarchic.GivenLayersLayerer;
-import com.yworks.yfiles.layout.hierarchic.HierarchicLayoutData;
-import com.yworks.yfiles.layout.hierarchic.HierarchicLayout;
-import com.yworks.yfiles.layout.hierarchic.LayoutMode;
-import com.yworks.yfiles.graph.Mapper;
-import com.yworks.yfiles.graph.IMapper;
-import com.yworks.yfiles.graph.IModelItem;
-import com.yworks.yfiles.view.ISelectionModel;
-import com.yworks.yfiles.utils.ItemEventArgs;
-import com.yworks.yfiles.view.Pen;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
+import toolkit.Themes;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JToolBar;
-import java.awt.Color;
 import java.awt.EventQueue;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -390,16 +385,7 @@ public class HierarchicLayoutDemo extends AbstractDemo {
     IGraph graph = graphComponent.getGraph();
 
     // set some nice defaults
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Color.ORANGE);
-    graph.getNodeDefaults().setStyle(nodeStyle);
-    graph.getNodeDefaults().setSize(new SizeD(60, 30));
-
-    ShapeNodeStyle groupNodeStyle = new ShapeNodeStyle();
-    groupNodeStyle.setShape(ShapeNodeShape.ROUND_RECTANGLE);
-    groupNodeStyle.setPen(new Pen(Colors.DARK_BLUE, 2));
-    groupNodeStyle.setPaint(null);
-    graph.getGroupNodeDefaults().setStyle(groupNodeStyle);
+    DemoStyles.initDemoStyles(graph, Themes.PALETTE21);
 
     // register a custom PositionHandler for the nodes.
     // this enables interactive layer reassignment with layer preview

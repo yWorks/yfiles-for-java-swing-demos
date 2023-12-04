@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,10 +29,6 @@
  ***************************************************************************/
 package tutorial02_CustomStyles.step25_StyleDecorator;
 
-import com.yworks.yfiles.view.Animator;
-import com.yworks.yfiles.view.IAnimation;
-import com.yworks.yfiles.view.GraphComponent;
-import com.yworks.yfiles.graph.labelmodels.ExteriorLabelModel;
 import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.geometry.SizeD;
@@ -40,10 +36,15 @@ import com.yworks.yfiles.graph.IEdge;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.ILabel;
 import com.yworks.yfiles.graph.INode;
+import com.yworks.yfiles.graph.labelmodels.ExteriorLabelModel;
+import com.yworks.yfiles.graph.styles.RectangleNodeStyle;
+import com.yworks.yfiles.utils.ItemEventArgs;
+import com.yworks.yfiles.view.Animator;
+import com.yworks.yfiles.view.GraphComponent;
+import com.yworks.yfiles.view.IAnimation;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.ICommand;
 import com.yworks.yfiles.view.input.IInputMode;
-import com.yworks.yfiles.utils.ItemEventArgs;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -177,8 +178,10 @@ public class SampleApplication {
     graph.getNodeDefaults().setStyle(new MyNodeStyleDecorator(new MySimpleNodeStyle()));
 
     // the wrapped style can be set to any existing node style instance
-    // uncomment the following line to wrap ShinyPlateNodeStyle instead of MySimpleNodeStyle
-    // graph.getNodeDefaults().setStyle(new MyNodeStyleDecorator(new ShinyPlateNodeStyle(java.awt.Color.ORANGE)));
+    // uncomment the following line to wrap RectangleNodeStyle instead of MySimpleNodeStyle
+    // RectangleNodeStyle rectangleNodeStyle = new RectangleNodeStyle();
+    // rectangleNodeStyle.setPaint(java.awt.Color.ORANGE);
+    // graph.getNodeDefaults().setStyle(new MyNodeStyleDecorator(rectangleNodeStyle));
     ////////////////////////////////////////////////////
 
     // create a new style and use it as default edge style

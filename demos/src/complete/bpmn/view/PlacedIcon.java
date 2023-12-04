@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -31,9 +31,9 @@ package complete.bpmn.view;
 
 import com.yworks.yfiles.geometry.IRectangle;
 import com.yworks.yfiles.geometry.SizeD;
-import com.yworks.yfiles.graph.labelmodels.ILabelModelParameter;
 import com.yworks.yfiles.graph.SimpleLabel;
 import com.yworks.yfiles.graph.SimpleNode;
+import com.yworks.yfiles.graph.labelmodels.ILabelModelParameter;
 import com.yworks.yfiles.view.IRenderContext;
 import com.yworks.yfiles.view.IVisual;
 

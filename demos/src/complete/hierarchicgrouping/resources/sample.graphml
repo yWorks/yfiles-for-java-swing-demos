@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.5.
+     // This demo file is part of yFiles for Java (Swing) 3.6.
      //
-     // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -26,57 +26,30 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      // 
      ////////////////////////////////////////////////////////////////////////-->
-<!--Created by yFiles for Java 3.1-->
+<!--Created by yFiles for Java 3.6-->
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns"
          xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/3.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:y="http://www.yworks.com/xml/yfiles-common/3.0"
-         xmlns:yfj="http://www.yworks.com/xml/yfiles-for-java/3.1"
          xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml.java/3.1/ygraphml.xsd ">
   <key attr.name="UserTags" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/UserTags" for="all" id="d0"/>
   <key attr.name="NodeLabels" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeLabels" for="node" id="d1"/>
   <key attr.name="NodeGeometry" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeGeometry" for="node" id="d2"/>
-  <key attr.name="NodeStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeStyle" for="node" id="d3"/>
   <key attr.name="Expanded" attr.type="boolean" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/folding/Expanded" for="node" id="d4">
     <default>true</default>
   </key>
   <key attr.name="NodeViewState" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/folding/1.1/NodeViewState" for="node" id="d5"/>
   <key attr.name="EdgeLabels" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeLabels" for="edge" id="d6"/>
   <key attr.name="EdgeGeometry" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry" for="edge" id="d7"/>
-  <key attr.name="EdgeStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeStyle" for="edge" id="d8"/>
   <key attr.name="EdgeViewState" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/folding/1.1/EdgeViewState" for="edge" id="d9"/>
   <key attr.name="PortLocationParameter" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLocationParameter" for="port" id="d10">
     <default>
       <x:Static Member="y:FreeNodePortLocationModel.NodeCenterAnchored"/>
     </default>
   </key>
-  <key attr.name="PortStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortStyle" for="port" id="d11">
-    <default>
-      <x:Static Member="y:VoidPortStyle.Instance"/>
-    </default>
-  </key>
   <key attr.name="PortViewState" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/folding/1.1/PortViewState" for="port" id="d12"/>
-  <key attr.name="SharedData" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData" id="d13"/>
-  <data key="d13">
-    <y:SharedData>
-      <yfj:ShinyPlateNodeStyle x:Key="1" Paint="Orange" />
-      <y:InteriorStretchLabelModelParameter x:Key="2">
-        <y:InteriorStretchLabelModelParameter.Model>
-          <y:InteriorStretchLabelModel Insets="5,0,5,0" />
-        </y:InteriorStretchLabelModelParameter.Model>
-      </y:InteriorStretchLabelModelParameter>
-      <yfj:DefaultLabelStyle x:Key="3"/>
-      <yfj:CollapsibleNodeStyleDecorator x:Key="4" ButtonPlacement="{x:Static y:InteriorLabelModel.NorthEast}">
-        <yfj:PanelNodeStyle  Color="#FFCFE2F8" LabelInsetsColor="#FFA6CAF0"  />
-      </yfj:CollapsibleNodeStyleDecorator>
-      <yfj:PolylineEdgeStyle x:Key="5" TargetArrow="DEFAULT" />
-    </y:SharedData>
-  </data>
   <graph id="G" edgedefault="directed">
     <node id="n0">
-      <data key="d3">
-        <y:GraphMLReference ResourceKey="1" />
-      </data>
       <data key="d2">
         <y:RectD X="58" Y="0" Width="30" Height="30" />
       </data>
@@ -87,9 +60,6 @@
       </port>
     </node>
     <node id="n1">
-      <data key="d3">
-        <y:GraphMLReference ResourceKey="1" />
-      </data>
       <data key="d2">
         <y:RectD X="58" Y="50" Width="30" Height="30" />
       </data>
@@ -106,14 +76,11 @@
     </node>
     <node id="n2">
       <data key="d4">false</data>
-      <data key="d3">
-        <y:GraphMLReference ResourceKey="4" />
-      </data>
       <data key="d5">
         <y:ViewState>
           <y:FolderNodeState x:Key="c|view" Layout="5,100,136,69">
             <y:FolderNodeState.Labels>
-              <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+              <y:Label>
                 <y:Label.Text><![CDATA[folder one]]></y:Label.Text>
               </y:Label>
             </y:FolderNodeState.Labels>
@@ -122,7 +89,7 @@
       </data>
       <data key="d1">
         <x:List>
-          <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+          <y:Label>
             <y:Label.Text><![CDATA[group one]]></y:Label.Text>
           </y:Label>
         </x:List>
@@ -133,14 +100,11 @@
       <graph id="n2:" edgedefault="directed">
         <node id="n2::n0">
           <data key="d4">false</data>
-          <data key="d3">
-            <y:GraphMLReference ResourceKey="4" />
-          </data>
           <data key="d5">
             <y:ViewState>
               <y:FolderNodeState x:Key="c|view" Layout="136,229,107,58">
                 <y:FolderNodeState.Labels>
-                  <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+                  <y:Label>
                     <y:Label.Text><![CDATA[folder five]]></y:Label.Text>
                   </y:Label>
                 </y:FolderNodeState.Labels>
@@ -149,7 +113,7 @@
           </data>
           <data key="d1">
             <x:List>
-              <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+              <y:Label>
                 <y:Label.Text><![CDATA[group five]]></y:Label.Text>
               </y:Label>
             </x:List>
@@ -160,14 +124,11 @@
           <graph id="n2::n0:" edgedefault="directed">
             <node id="n2::n0::n0">
               <data key="d4">false</data>
-              <data key="d3">
-                <y:GraphMLReference ResourceKey="4" />
-              </data>
               <data key="d5">
                 <y:ViewState>
                   <y:FolderNodeState x:Key="c|view" Layout="72,310,89,59">
                     <y:FolderNodeState.Labels>
-                      <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+                      <y:Label>
                         <y:Label.Text><![CDATA[folder six]]></y:Label.Text>
                       </y:Label>
                     </y:FolderNodeState.Labels>
@@ -176,7 +137,7 @@
               </data>
               <data key="d1">
                 <x:List>
-                  <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+                  <y:Label>
                     <y:Label.Text><![CDATA[group six]]></y:Label.Text>
                   </y:Label>
                 </x:List>
@@ -186,9 +147,6 @@
               </data>
               <graph id="n2::n0::n0:" edgedefault="directed">
                 <node id="n2::n0::n0::n0">
-                  <data key="d3">
-                    <y:GraphMLReference ResourceKey="1" />
-                  </data>
                   <data key="d2">
                     <y:RectD X="153" Y="327" Width="30" Height="30" />
                   </data>
@@ -216,9 +174,6 @@
                   </port>
                 </node>
                 <node id="n2::n0::n0::n1">
-                  <data key="d3">
-                    <y:GraphMLReference ResourceKey="1" />
-                  </data>
                   <data key="d2">
                     <y:RectD X="93" Y="403.5" Width="30" Height="30" />
                   </data>
@@ -235,9 +190,6 @@
                   </port>
                 </node>
                 <node id="n2::n0::n0::n2">
-                  <data key="d3">
-                    <y:GraphMLReference ResourceKey="1" />
-                  </data>
                   <data key="d2">
                     <y:RectD X="153" Y="403.5" Width="30" Height="30" />
                   </data>
@@ -254,9 +206,6 @@
                   </port>
                 </node>
                 <edge id="n2::n0::n0::e0" source="n2::n0::n0::n0" target="n2::n0::n0::n1" sourceport="p0" targetport="p1">
-                  <data key="d8">
-                    <y:GraphMLReference ResourceKey="5" />
-                  </data>
                   <data key="d7">
                     <x:List>
                       <y:Bend Location="158,367" />
@@ -265,9 +214,6 @@
                   </data>
                 </edge>
                 <edge id="n2::n0::n0::e1" source="n2::n0::n0::n0" target="n2::n0::n0::n2" sourceport="p2" targetport="p0">
-                  <data key="d8">
-                    <y:GraphMLReference ResourceKey="5" />
-                  </data>
                 </edge>
               </graph>
               <port name="p0">
@@ -293,9 +239,6 @@
               </port>
             </node>
             <node id="n2::n0::n1">
-              <data key="d3">
-                <y:GraphMLReference ResourceKey="1" />
-              </data>
               <data key="d2">
                 <y:RectD X="94" Y="248" Width="30" Height="30" />
               </data>
@@ -317,9 +260,6 @@
               </port>
             </node>
             <node id="n2::n0::n2">
-              <data key="d3">
-                <y:GraphMLReference ResourceKey="1" />
-              </data>
               <data key="d2">
                 <y:RectD X="12" Y="324.5" Width="30" Height="30" />
               </data>
@@ -336,9 +276,6 @@
               </port>
             </node>
             <edge id="n2::n0::e0" source="n2::n0::n1" target="n2::n0::n2" sourceport="p0" targetport="p1">
-              <data key="d8">
-                <y:GraphMLReference ResourceKey="5" />
-              </data>
               <data key="d7">
                 <x:List>
                   <y:Bend Location="101.5,288" />
@@ -347,9 +284,6 @@
               </data>
             </edge>
             <edge id="n2::n0::e1" source="n2::n0::n1" target="n2::n0::n0::n0" sourceport="p3" targetport="p5">
-              <data key="d8">
-                <y:GraphMLReference ResourceKey="5" />
-              </data>
               <data key="d9">
                 <y:ViewState>
                   <y:FoldingEdgeState x:Key="n2::n0::n1|x|n2::n0::n0|c|view">
@@ -381,14 +315,11 @@
         </node>
         <node id="n2::n1">
           <data key="d4">false</data>
-          <data key="d3">
-            <y:GraphMLReference ResourceKey="4" />
-          </data>
           <data key="d5">
             <y:ViewState>
               <y:FolderNodeState x:Key="c|view" Layout="6,229.5,100,57">
                 <y:FolderNodeState.Labels>
-                  <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+                  <y:Label>
                     <y:Label.Text><![CDATA[folder two]]></y:Label.Text>
                   </y:Label>
                 </y:FolderNodeState.Labels>
@@ -397,7 +328,7 @@
           </data>
           <data key="d1">
             <x:List>
-              <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+              <y:Label>
                 <y:Label.Text><![CDATA[group two]]></y:Label.Text>
               </y:Label>
             </x:List>
@@ -408,14 +339,11 @@
           <graph id="n2::n1:" edgedefault="directed">
             <node id="n2::n1::n0">
               <data key="d4">false</data>
-              <data key="d3">
-                <y:GraphMLReference ResourceKey="4" />
-              </data>
               <data key="d5">
                 <y:ViewState>
                   <y:FolderNodeState x:Key="c|view" Layout="27,318,100,63">
                     <y:FolderNodeState.Labels>
-                      <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+                      <y:Label>
                         <y:Label.Text><![CDATA[folder three]]></y:Label.Text>
                       </y:Label>
                     </y:FolderNodeState.Labels>
@@ -424,7 +352,7 @@
               </data>
               <data key="d1">
                 <x:List>
-                  <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+                  <y:Label>
                     <y:Label.Text><![CDATA[group three]]></y:Label.Text>
                   </y:Label>
                 </x:List>
@@ -435,14 +363,11 @@
               <graph id="n2::n1::n0:" edgedefault="directed">
                 <node id="n2::n1::n0::n0">
                   <data key="d4">false</data>
-                  <data key="d3">
-                    <y:GraphMLReference ResourceKey="4" />
-                  </data>
                   <data key="d5">
                     <y:ViewState>
                       <y:FolderNodeState x:Key="c|view" Layout="83,391,99,60">
                         <y:FolderNodeState.Labels>
-                          <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+                          <y:Label>
                             <y:Label.Text><![CDATA[folder four]]></y:Label.Text>
                           </y:Label>
                         </y:FolderNodeState.Labels>
@@ -451,7 +376,7 @@
                   </data>
                   <data key="d1">
                     <x:List>
-                      <y:Label LayoutParameter="{y:GraphMLReference 2}" Style="{y:GraphMLReference 3}">
+                      <y:Label>
                         <y:Label.Text><![CDATA[group four]]></y:Label.Text>
                       </y:Label>
                     </x:List>
@@ -461,9 +386,6 @@
                   </data>
                   <graph id="n2::n1::n0::n0:" edgedefault="directed">
                     <node id="n2::n1::n0::n0::n0">
-                      <data key="d3">
-                        <y:GraphMLReference ResourceKey="1" />
-                      </data>
                       <data key="d2">
                         <y:RectD X="110.5" Y="406" Width="30" Height="30" />
                       </data>
@@ -486,9 +408,6 @@
                       </port>
                     </node>
                     <node id="n2::n1::n0::n0::n1">
-                      <data key="d3">
-                        <y:GraphMLReference ResourceKey="1" />
-                      </data>
                       <data key="d2">
                         <y:RectD X="103" Y="485" Width="30" Height="30" />
                       </data>
@@ -504,9 +423,6 @@
                       </port>
                     </node>
                     <node id="n2::n1::n0::n0::n2">
-                      <data key="d3">
-                        <y:GraphMLReference ResourceKey="1" />
-                      </data>
                       <data key="d2">
                         <y:RectD X="103" Y="545" Width="30" Height="30" />
                       </data>
@@ -523,21 +439,12 @@
                       </port>
                     </node>
                     <edge id="n2::n1::n0::n0::e0" source="n2::n1::n0::n0::n0" target="n2::n1::n0::n0::n1" sourceport="p0" targetport="p1">
-                      <data key="d8">
-                        <y:GraphMLReference ResourceKey="5" />
-                      </data>
                     </edge>
                     <edge id="n2::n1::n0::n0::e1" source="n2::n1::n0::n0::n1" target="n2::n1::n0::n0::n2" sourceport="p0" targetport="p1">
-                      <data key="d8">
-                        <y:GraphMLReference ResourceKey="5" />
-                      </data>
                     </edge>
                   </graph>
                 </node>
                 <node id="n2::n1::n0::n1">
-                  <data key="d3">
-                    <y:GraphMLReference ResourceKey="1" />
-                  </data>
                   <data key="d2">
                     <y:RectD X="125" Y="327" Width="30" Height="30" />
                   </data>
@@ -559,9 +466,6 @@
                   </port>
                 </node>
                 <node id="n2::n1::n0::n2">
-                  <data key="d3">
-                    <y:GraphMLReference ResourceKey="1" />
-                  </data>
                   <data key="d2">
                     <y:RectD X="142.25" Y="481" Width="30" Height="30" />
                   </data>
@@ -588,9 +492,6 @@
                   </port>
                 </node>
                 <edge id="n2::n1::n0::e0" source="n2::n1::n0::n0::n2" target="n2::n1::n0::n2" sourceport="p2" targetport="p3">
-                  <data key="d8">
-                    <y:GraphMLReference ResourceKey="5" />
-                  </data>
                   <data key="d9">
                     <y:ViewState>
                       <y:FoldingEdgeState x:Key="n2::n1::n0::n0|c|n2::n1::n0::n2|x|view">
@@ -623,9 +524,6 @@
                   </data>
                 </edge>
                 <edge id="n2::n1::n0::e1" source="n2::n1::n0::n0::n0" target="n2::n1::n0::n2" sourceport="p3" targetport="p4">
-                  <data key="d8">
-                    <y:GraphMLReference ResourceKey="5" />
-                  </data>
                   <data key="d9">
                     <y:ViewState>
                       <y:FoldingEdgeState x:Key="n2::n1::n0::n0|c|n2::n1::n0::n2|x|view">
@@ -654,9 +552,6 @@
                   </data>
                 </edge>
                 <edge id="n2::n1::n0::e2" source="n2::n1::n0::n1" target="n2::n1::n0::n2" sourceport="p0" targetport="p1">
-                  <data key="d8">
-                    <y:GraphMLReference ResourceKey="5" />
-                  </data>
                   <data key="d7">
                     <x:List>
                       <y:Bend Location="147.5,367" />
@@ -667,9 +562,6 @@
                   </data>
                 </edge>
                 <edge id="n2::n1::n0::e3" source="n2::n1::n0::n1" target="n2::n1::n0::n0::n0" sourceport="p3" targetport="p4">
-                  <data key="d8">
-                    <y:GraphMLReference ResourceKey="5" />
-                  </data>
                   <data key="d9">
                     <y:ViewState>
                       <y:FoldingEdgeState x:Key="n2::n1::n0::n1|x|n2::n1::n0::n0|c|view">
@@ -694,9 +586,6 @@
               </graph>
             </node>
             <node id="n2::n1::n1">
-              <data key="d3">
-                <y:GraphMLReference ResourceKey="1" />
-              </data>
               <data key="d2">
                 <y:RectD X="69.5" Y="248" Width="30" Height="30" />
               </data>
@@ -718,9 +607,6 @@
               </port>
             </node>
             <node id="n2::n1::n2">
-              <data key="d3">
-                <y:GraphMLReference ResourceKey="1" />
-              </data>
               <data key="d2">
                 <y:RectD X="117" Y="411" Width="30" Height="30" />
               </data>
@@ -742,9 +628,6 @@
               </port>
             </node>
             <node id="n2::n1::n3">
-              <data key="d3">
-                <y:GraphMLReference ResourceKey="1" />
-              </data>
               <data key="d2">
                 <y:RectD X="132" Y="248" Width="30" Height="30" />
               </data>
@@ -756,9 +639,6 @@
               </port>
             </node>
             <edge id="n2::n1::e0" source="n2::n1::n0::n2" target="n2::n1::n2" sourceport="p2" targetport="p3">
-              <data key="d8">
-                <y:GraphMLReference ResourceKey="5" />
-              </data>
               <data key="d9">
                 <y:ViewState>
                   <y:FoldingEdgeState x:Key="n2::n1::n0|c|n2::n1::n2|x|view">
@@ -785,9 +665,6 @@
               </data>
             </edge>
             <edge id="n2::n1::e1" source="n2::n1::n1" target="n2::n1::n2" sourceport="p0" targetport="p1">
-              <data key="d8">
-                <y:GraphMLReference ResourceKey="5" />
-              </data>
               <data key="d7">
                 <x:List>
                   <y:Bend Location="92,298" />
@@ -798,9 +675,6 @@
               </data>
             </edge>
             <edge id="n2::n1::e2" source="n2::n1::n1" target="n2::n1::n0::n1" sourceport="p3" targetport="p2">
-              <data key="d8">
-                <y:GraphMLReference ResourceKey="5" />
-              </data>
               <data key="d9">
                 <y:ViewState>
                   <y:FoldingEdgeState x:Key="n2::n1::n1|x|n2::n1::n0|c|view">
@@ -831,9 +705,6 @@
           </graph>
         </node>
         <node id="n2::n2">
-          <data key="d3">
-            <y:GraphMLReference ResourceKey="1" />
-          </data>
           <data key="d2">
             <y:RectD X="174.5" Y="119" Width="30" Height="30" />
           </data>
@@ -860,9 +731,6 @@
           </port>
         </node>
         <node id="n2::n3">
-          <data key="d3">
-            <y:GraphMLReference ResourceKey="1" />
-          </data>
           <data key="d2">
             <y:RectD X="41" Y="179" Width="30" Height="30" />
           </data>
@@ -878,9 +746,6 @@
           </port>
         </node>
         <node id="n2::n4">
-          <data key="d3">
-            <y:GraphMLReference ResourceKey="1" />
-          </data>
           <data key="d2">
             <y:RectD X="206.053571428571" Y="357" Width="30" Height="30" />
           </data>
@@ -921,9 +786,6 @@
           </port>
         </node>
         <edge id="n2::e0" source="n2::n0::n2" target="n2::n4" sourceport="p2" targetport="p3">
-          <data key="d8">
-            <y:GraphMLReference ResourceKey="5" />
-          </data>
           <data key="d9">
             <y:ViewState>
               <y:FoldingEdgeState x:Key="n2::n0|c|n2::n4|x|view">
@@ -956,9 +818,6 @@
           </data>
         </edge>
         <edge id="n2::e1" source="n2::n0::n0::n0" target="n2::n4" sourceport="p4" targetport="p4">
-          <data key="d8">
-            <y:GraphMLReference ResourceKey="5" />
-          </data>
           <data key="d9">
             <y:ViewState>
               <y:FoldingEdgeState x:Key="n2::n0::n0|c|n2::n4|x|view">
@@ -1005,9 +864,6 @@
           </data>
         </edge>
         <edge id="n2::e2" source="n2::n0::n0::n1" target="n2::n4" sourceport="p2" targetport="p5">
-          <data key="d8">
-            <y:GraphMLReference ResourceKey="5" />
-          </data>
           <data key="d9">
             <y:ViewState>
               <y:FoldingEdgeState x:Key="n2::n0::n0|c|n2::n4|x|view">
@@ -1060,9 +916,6 @@
           </data>
         </edge>
         <edge id="n2::e3" source="n2::n0::n0::n2" target="n2::n4" sourceport="p2" targetport="p6">
-          <data key="d8">
-            <y:GraphMLReference ResourceKey="5" />
-          </data>
           <data key="d9">
             <y:ViewState>
               <y:FoldingEdgeState x:Key="n2::n0::n0|c|n2::n4|x|view">
@@ -1109,9 +962,6 @@
           </data>
         </edge>
         <edge id="n2::e4" source="n2::n1::n3" target="n2::n4" sourceport="p1" targetport="p1">
-          <data key="d8">
-            <y:GraphMLReference ResourceKey="5" />
-          </data>
           <data key="d9">
             <y:ViewState>
               <y:FoldingEdgeState x:Key="n2::n1|c|n2::n4|x|view">
@@ -1146,9 +996,6 @@
           </data>
         </edge>
         <edge id="n2::e5" source="n2::n1::n2" target="n2::n4" sourceport="p2" targetport="p2">
-          <data key="d8">
-            <y:GraphMLReference ResourceKey="5" />
-          </data>
           <data key="d9">
             <y:ViewState>
               <y:FoldingEdgeState x:Key="n2::n1|c|n2::n4|x|view">
@@ -1181,9 +1028,6 @@
           </data>
         </edge>
         <edge id="n2::e6" source="n2::n2" target="n2::n3" sourceport="p2" targetport="p0">
-          <data key="d8">
-            <y:GraphMLReference ResourceKey="5" />
-          </data>
           <data key="d7">
             <x:List>
               <y:Bend Location="179.5,159" />
@@ -1192,9 +1036,6 @@
           </data>
         </edge>
         <edge id="n2::e7" source="n2::n2" target="n2::n4" sourceport="p0" targetport="p0">
-          <data key="d8">
-            <y:GraphMLReference ResourceKey="5" />
-          </data>
           <data key="d7">
             <x:List>
               <y:Bend Location="199.5,159" />
@@ -1205,9 +1046,6 @@
           </data>
         </edge>
         <edge id="n2::e8" source="n2::n2" target="n2::n0::n1" sourceport="p4" targetport="p2">
-          <data key="d8">
-            <y:GraphMLReference ResourceKey="5" />
-          </data>
           <data key="d9">
             <y:ViewState>
               <y:FoldingEdgeState x:Key="n2::n2|x|n2::n0|c|view">
@@ -1236,9 +1074,6 @@
           </data>
         </edge>
         <edge id="n2::e9" source="n2::n3" target="n2::n1::n1" sourceport="p1" targetport="p2">
-          <data key="d8">
-            <y:GraphMLReference ResourceKey="5" />
-          </data>
           <data key="d9">
             <y:ViewState>
               <y:FoldingEdgeState x:Key="n2::n3|x|n2::n1|c|view">
@@ -1263,14 +1098,8 @@
       </graph>
     </node>
     <edge id="e0" source="n0" target="n1" sourceport="p0" targetport="p0">
-      <data key="d8">
-        <y:GraphMLReference ResourceKey="5" />
-      </data>
     </edge>
     <edge id="e1" source="n1" target="n2::n2" sourceport="p1" targetport="p3">
-      <data key="d8">
-        <y:GraphMLReference ResourceKey="5" />
-      </data>
       <data key="d9">
         <y:ViewState>
           <y:FoldingEdgeState x:Key="n1|x|n2|c|view">

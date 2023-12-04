@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.5.
+     // This demo file is part of yFiles for Java (Swing) 3.6.
      //
-     // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -60,7 +60,11 @@
   <key id="d13" attr.name="SharedData" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData" />
   <data key="d13">
     <y:SharedData>
-      <yfj:ShinyPlateNodeStyle x:Key="1" Paint="Orange" Pen="Orange" />
+      <yfj:RectangleNodeStyle x:Key="1" Paint="#FFFF6C00" CornerSize="3.5">
+        <yfj:RectangleNodeStyle.Pen>
+          <yfj:Pen Paint="#FF662B00" Thickness="1.5"/>
+        </yfj:RectangleNodeStyle.Pen>
+      </yfj:RectangleNodeStyle>
       <y:GenericLabelModelParameter x:Key="2">
         <y:GenericLabelModelParameter.Model>
           <y:GenericLabelModel>
@@ -72,12 +76,26 @@
           </y:GenericLabelModel>
         </y:GenericLabelModelParameter.Model>
       </y:GenericLabelModelParameter>
-      <yfj:DefaultLabelStyle x:Key="3" TextPaint="Black"/>
-      <yfj:PolylineEdgeStyle x:Key="4" TargetArrow="DEFAULT" />
-      <y:InteriorStretchLabelModel x:Key="5" />
-      <yfj:CollapsibleNodeStyleDecorator x:Key="7">
-        <yfj:PanelNodeStyle Color="LightSkyBlue" LabelInsetsColor="LightSkyBlue" Insets="5" />
-      </yfj:CollapsibleNodeStyleDecorator>
+      <yfj:DefaultLabelStyle BackgroundPaint="#FFFFC499" Insets="4.0,2.0,4.0,1.0" Shape="ROUND_RECTANGLE" TextAlignment="CENTER" TextPaint="#FF662B00" VerticalTextAlignment="CENTER" x:Key="3"/>
+      <yfj:PolylineEdgeStyle x:Key="4">
+        <yfj:PolylineEdgeStyle.Pen>
+          <yfj:Pen Paint="#FF662B00" Thickness="1.5"/>
+        </yfj:PolylineEdgeStyle.Pen>
+        <yfj:PolylineEdgeStyle.TargetArrow>
+          <yfj:Arrow Paint="#FF662B00" Type="TRIANGLE"/>
+        </yfj:PolylineEdgeStyle.TargetArrow>
+      </yfj:PolylineEdgeStyle>
+      <y:GroupNodeLabelModelParameter PlaceOnTab="False" x:Key="5">
+        <y:GroupNodeLabelModelParameter.Model>
+          <y:GroupNodeLabelModel/>
+        </y:GroupNodeLabelModelParameter.Model>
+      </y:GroupNodeLabelModelParameter>
+      <yfj:GroupNodeStyle ContentAreaHitTransparent="True" GroupIcon="MINUS" IconForegroundPaint="#FF0B7189" IconOffset="2.0" TabBackgroundPaint="#FF0B7189" TabHeight="20.0" TabInset="3.0" TabPaint="#FF9DC6D0" TabPosition="TOP_TRAILING" TabWidth="30.0" x:Key="7">
+        <yfj:GroupNodeStyle.Pen>
+          <yfj:Pen Paint="#FF0B7189" Thickness="2.0"/>
+        </yfj:GroupNodeStyle.Pen>
+      </yfj:GroupNodeStyle>
+      <yfj:DefaultLabelStyle Font="Dialog;11;PLAIN" Insets="0.0" TextClippingEnabled="False" TextPaint="#FF9DC6D0" VerticalTextAlignment="CENTER" x:Key="8"/>
     </y:SharedData>
   </data>
   <graph id="G" edgedefault="directed">
@@ -90,14 +108,8 @@
       </data>
       <data key="d1">
         <x:List>
-          <y:Label>
+          <y:Label LayoutParameter="{y:GraphMLReference 5}" Style="{y:GraphMLReference 8}">
             <y:Label.Text>Group</y:Label.Text>
-            <y:Label.LayoutParameter>
-              <y:InteriorStretchLabelModelParameter Model="{y:GraphMLReference 5}" />
-            </y:Label.LayoutParameter>
-            <y:Label.Style>
-              <yfj:DefaultLabelStyle TextAlignment="RIGHT"/>
-            </y:Label.Style>
           </y:Label>
         </x:List>
       </data>
@@ -181,14 +193,8 @@
       </data>
       <data key="d1">
         <x:List>
-          <y:Label>
+          <y:Label LayoutParameter="{y:GraphMLReference 5}" Style="{y:GraphMLReference 8}">
             <y:Label.Text>Group</y:Label.Text>
-            <y:Label.LayoutParameter>
-              <y:InteriorStretchLabelModelParameter Model="{y:GraphMLReference 5}" />
-            </y:Label.LayoutParameter>
-            <y:Label.Style>
-              <yfj:DefaultLabelStyle TextPaint="Black" TextAlignment="RIGHT"/>
-            </y:Label.Style>
           </y:Label>
         </x:List>
       </data>
@@ -272,14 +278,8 @@
       </data>
       <data key="d1">
         <x:List>
-          <y:Label>
+          <y:Label LayoutParameter="{y:GraphMLReference 5}" Style="{y:GraphMLReference 8}">
             <y:Label.Text>Group</y:Label.Text>
-            <y:Label.LayoutParameter>
-              <y:InteriorStretchLabelModelParameter Model="{y:GraphMLReference 5}" />
-            </y:Label.LayoutParameter>
-            <y:Label.Style>
-              <yfj:DefaultLabelStyle TextPaint="Black" TextAlignment="RIGHT"/>
-            </y:Label.Style>
           </y:Label>
         </x:List>
       </data>
@@ -310,14 +310,8 @@
           </data>
           <data key="d1">
             <x:List>
-              <y:Label>
+              <y:Label LayoutParameter="{y:GraphMLReference 5}" Style="{y:GraphMLReference 8}">
                 <y:Label.Text>Group</y:Label.Text>
-                <y:Label.LayoutParameter>
-                  <y:InteriorStretchLabelModelParameter Model="{y:GraphMLReference 5}" />
-                </y:Label.LayoutParameter>
-                <y:Label.Style>
-                  <yfj:DefaultLabelStyle TextAlignment="RIGHT"/>
-                </y:Label.Style>
               </y:Label>
             </x:List>
           </data>

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -42,6 +42,7 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Paint;
+import java.util.Objects;
 
 /**
  * Component node style that displays the business data of a Customer.
@@ -77,42 +78,52 @@ public class CustomerNodeStyle extends ComponentNodeStyle {
   public JComponent createComponent(final IRenderContext ctx, final INode node) {
 
     // create the customized JPanel that uses a gradient paint as background.
-    final CustomerJPanel panel = new CustomerJPanel();
+    CustomerJPanel panel = new CustomerJPanel();
 
     // react on edits of the header text field
     panel.addPropertyChangeListener(NodeJPanel.HEADER, evt -> {
-      final String newName = (String) evt.getNewValue();
-      // write the edited name back to the business data
-      getCustomer(node).setName(newName);
-      // update the node bounds
-      updateNodeSize(ctx, node);
+      Customer customer = getCustomer(node);
+      String newName = (String) evt.getNewValue();
+      if (!Objects.equals(customer.getName(), newName)) {
+        // write the edited name back to the business data
+        customer.setName(newName);
+        // update the node bounds
+        updateNodeSize(ctx, node);
+      }
     });
 
     // react on edits of the id field
     panel.addPropertyChangeListener(NodeJPanel.ID, evt -> {
       Object newValue = evt.getNewValue();
       if (newValue instanceof Number) {
-        // write the edited id back to the business data
-        getCustomer(node).setId(((Number) newValue).intValue());
-        // update the node bounds
-        updateNodeSize(ctx, node);
+        Customer customer = getCustomer(node);
+        int newId = ((Number) newValue).intValue();
+        if (customer.getId() != newId) {
+          // write the edited id back to the business data
+          customer.setId(newId);
+          // update the node bounds
+          updateNodeSize(ctx, node);
+        }
       }
     });
 
     // react on edits of the location field
     panel.addPropertyChangeListener("node.location", evt -> {
+      Customer customer = getCustomer(node);
       final String newLocation = (String) evt.getNewValue();
-      // write the edited location back to the business data
-      getCustomer(node).setLocation(newLocation);
-      // update the node bounds
-      updateNodeSize(ctx, node);
+      if (!Objects.equals(customer.getLocation(), newLocation)) {
+        // write the edited location back to the business data
+        customer.setLocation(newLocation);
+        // update the node bounds
+        updateNodeSize(ctx, node);
+      }
     });
 
     return panel;
   }
 
   /**
-   * Returns the tag of the specified node casted to a Customer
+   * Returns the tag of the specified node cast to a Customer
    */
   private static Customer getCustomer(INode node) {
     return (Customer) node.getTag();

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -33,6 +33,7 @@ import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.ShapeVisual;
 
+import java.awt.Color;
 import java.awt.geom.Line2D;
 
 /**
@@ -48,7 +49,7 @@ class LineVisual extends ShapeVisual {
    * @param to   the location to end the additional snap line
    */
   public LineVisual(PointD from, PointD to) {
-    super(new Line2D.Double(from.getX(), from.getY(), to.getX(), to.getY()), Pen.getRed(), null);
+    super(new Line2D.Double(from.getX(), from.getY(), to.getX(), to.getY()), new Pen(new Color(0xCA, 0x0C, 0x3B), 2), null);
   }
 
   /**

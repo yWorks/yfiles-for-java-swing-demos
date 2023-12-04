@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -38,7 +38,6 @@ import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.styles.IArrow;
 import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.utils.ObservableCollection;
 import com.yworks.yfiles.view.Colors;
 import com.yworks.yfiles.view.ContextConfigurator;
@@ -51,6 +50,7 @@ import com.yworks.yfiles.view.input.IInputModeContext;
 import com.yworks.yfiles.view.input.MoveInputMode;
 import com.yworks.yfiles.view.input.RectangleReshapeHandleProvider;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
 
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
@@ -216,7 +216,7 @@ public abstract class AbstractImageExportDemo extends AbstractDemo {
   protected void initializeGraph() {
     IGraph graph = graphComponent.getGraph();
 
-    initializeGraphDefaults(graph);
+    DemoStyles.initDemoStyles(graph);
 
     // create sample graph
     graph.addLabel(graph.createNode(new PointD(30, 30)), "Node");
@@ -235,21 +235,6 @@ public abstract class AbstractImageExportDemo extends AbstractDemo {
 
     // update the print preview when the zoom changes
     graphComponent.addZoomChangedListener((source,args) -> updatePreview());
-  }
-
-  /**
-   * Initializes the default node and edge style.
-   */
-  protected void initializeGraphDefaults(IGraph graph) {
-    // initialize default node style
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Colors.ORANGE);
-    graph.getNodeDefaults().setStyle(nodeStyle);
-
-    // initialize default edge style
-    PolylineEdgeStyle edgeStyle = new PolylineEdgeStyle();
-    edgeStyle.setTargetArrow(IArrow.DEFAULT);
-    graph.getEdgeDefaults().setStyle(edgeStyle);
   }
 
   /**

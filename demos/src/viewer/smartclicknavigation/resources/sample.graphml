@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.5.
+     // This demo file is part of yFiles for Java (Swing) 3.6.
      //
-     // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -34,7 +34,6 @@
   <key attr.name="EdgeLabels" for="edge" id="d4" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeLabels"/>
   <key attr.name="EdgeGeometry" for="edge" id="d5" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry"/>
   <key attr.name="EdgeStyle" for="edge" id="d6" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeStyle"/>
-  <key attr.name="GraphSettings" for="graph" id="d7" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/GraphSettings"/>
   <key attr.name="PortLabels" for="port" id="d8" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLabels"/>
   <key attr.name="PortLocationParameter" for="port" id="d9" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLocationParameter">
     <default>
@@ -49,105 +48,27 @@
   <key attr.name="SharedData" id="d11" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData"/>
   <data key="d11">
     <y:SharedData>
-      <yfj:DefaultLabelStyle x:Key="1" VerticalTextAlignment="CENTER" TextAlignment="CENTER" />
-      <yfj:ShapeNodeStyle Paint="DarkOrange" x:Key="2">
-        <yfj:ShapeNodeStyle.Pen>
-          <yfj:Pen Paint="White" Thickness="0.0"/>
-        </yfj:ShapeNodeStyle.Pen>
-      </yfj:ShapeNodeStyle>
-      <yfj:PolylineEdgeStyle Pen="#FF000000" x:Key="3">
+      <yfj:DefaultLabelStyle x:Key="1" BackgroundPaint="#FFFFC499" Insets="4.0,2.0,4.0,1.0" Shape="ROUND_RECTANGLE" TextAlignment="CENTER" TextPaint="#FF662B00" UsingFractionalFontMetricsEnabled="True" VerticalTextAlignment="CENTER"/>
+      <yfj:RectangleNodeStyle Paint="#FFFF6C00" CornerSize="3.5" x:Key="2">
+        <yfj:RectangleNodeStyle.Pen>
+          <yfj:Pen Paint="#FF662B00" Thickness="1.5" EndCap="2"/>
+        </yfj:RectangleNodeStyle.Pen>
+      </yfj:RectangleNodeStyle>
+      <yfj:PolylineEdgeStyle x:Key="3">
+        <yfj:PolylineEdgeStyle.Pen>
+          <yfj:Pen Paint="#FF662B00" Thickness="1.5"/>
+        </yfj:PolylineEdgeStyle.Pen>
         <yfj:PolylineEdgeStyle.TargetArrow>
-          <yfj:Arrow Paint="Black"/>
+          <yfj:Arrow Paint="#FF662B00" Type="TRIANGLE"/>
         </yfj:PolylineEdgeStyle.TargetArrow>
       </yfj:PolylineEdgeStyle>
     </y:SharedData>
   </data>
   <graph id="G">
-    <data key="d7">
-      <y:GraphSettings>
-        <y:GraphSettings.EdgeDefaults>
-          <y:EdgeDefaults Style="{y:GraphMLReference 3}">
-            <y:EdgeDefaults.Ports>
-              <y:PortDefaults LocationParameter="{x:Static y:BendAnchoredPortLocationModel.FirstBend}" Style="{x:Static y:VoidPortStyle.Instance}">
-                <y:PortDefaults.Labels>
-                  <y:LabelDefaults AutoAdjustPreferredSize="True" ShareLayoutParameterInstance="True" ShareStyleInstance="True">
-                    <y:LabelDefaults.LayoutParameter>
-                      <y:PortAnchoredLabelModelParameter LabelRatio="0.5,1.0" LocationOffset="0.0,1.0"/>
-                    </y:LabelDefaults.LayoutParameter>
-                    <y:LabelDefaults.Style>
-                      <yfj:DefaultLabelStyle/>
-                    </y:LabelDefaults.Style>
-                  </y:LabelDefaults>
-                </y:PortDefaults.Labels>
-              </y:PortDefaults>
-            </y:EdgeDefaults.Ports>
-            <y:EdgeDefaults.Labels>
-              <y:LabelDefaults AutoAdjustPreferredSize="True" ShareLayoutParameterInstance="True" ShareStyleInstance="True">
-                <y:LabelDefaults.LayoutParameter>
-                  <y:EdgeSegmentLabelModelParameter>
-                    <y:EdgeSegmentLabelModelParameter.Model>
-                      <y:EdgeSegmentLabelModel AutoRotationEnabled="False"/>
-                    </y:EdgeSegmentLabelModelParameter.Model>
-                  </y:EdgeSegmentLabelModelParameter>
-                </y:LabelDefaults.LayoutParameter>
-                <y:LabelDefaults.Style>
-                  <yfj:DefaultLabelStyle/>
-                </y:LabelDefaults.Style>
-              </y:LabelDefaults>
-            </y:EdgeDefaults.Labels>
-          </y:EdgeDefaults>
-        </y:GraphSettings.EdgeDefaults>
-        <y:GraphSettings.GroupNodeDefaults>
-          <y:NodeDefaults Size="30.0,30.0">
-            <y:NodeDefaults.Ports>
-              <y:PortDefaults LocationParameter="{x:Static y:FreeNodePortLocationModel.NodeCenterAnchored}" Style="{x:Static y:VoidPortStyle.Instance}">
-                <y:PortDefaults.Labels>
-                  <y:LabelDefaults AutoAdjustPreferredSize="True" ShareLayoutParameterInstance="True" ShareStyleInstance="True">
-                    <y:LabelDefaults.LayoutParameter>
-                      <y:PortAnchoredLabelModelParameter LabelRatio="0.5,1.0" LocationOffset="0.0,1.0"/>
-                    </y:LabelDefaults.LayoutParameter>
-                    <y:LabelDefaults.Style>
-                      <yfj:DefaultLabelStyle/>
-                    </y:LabelDefaults.Style>
-                  </y:LabelDefaults>
-                </y:PortDefaults.Labels>
-              </y:PortDefaults>
-            </y:NodeDefaults.Ports>
-            <y:NodeDefaults.Style>
-              <yfj:ShapeNodeStyle Paint="LightGrey"/>
-            </y:NodeDefaults.Style>
-            <y:NodeDefaults.Labels>
-              <y:LabelDefaults AutoAdjustPreferredSize="True" LayoutParameter="{x:Static y:InteriorLabelModel.Center}" ShareLayoutParameterInstance="True" ShareStyleInstance="True" Style="{y:GraphMLReference 1}"/>
-            </y:NodeDefaults.Labels>
-          </y:NodeDefaults>
-        </y:GraphSettings.GroupNodeDefaults>
-        <y:GraphSettings.NodeDefaults>
-          <y:NodeDefaults Size="30.0,30.0" Style="{y:GraphMLReference 2}">
-            <y:NodeDefaults.Ports>
-              <y:PortDefaults LocationParameter="{x:Static y:FreeNodePortLocationModel.NodeCenterAnchored}" Style="{x:Static y:VoidPortStyle.Instance}">
-                <y:PortDefaults.Labels>
-                  <y:LabelDefaults AutoAdjustPreferredSize="True" ShareLayoutParameterInstance="True" ShareStyleInstance="True">
-                    <y:LabelDefaults.LayoutParameter>
-                      <y:PortAnchoredLabelModelParameter LabelRatio="0.5,1.0" LocationOffset="0.0,1.0"/>
-                    </y:LabelDefaults.LayoutParameter>
-                    <y:LabelDefaults.Style>
-                      <yfj:DefaultLabelStyle/>
-                    </y:LabelDefaults.Style>
-                  </y:LabelDefaults>
-                </y:PortDefaults.Labels>
-              </y:PortDefaults>
-            </y:NodeDefaults.Ports>
-            <y:NodeDefaults.Labels>
-              <y:LabelDefaults AutoAdjustPreferredSize="True" LayoutParameter="{x:Static y:InteriorLabelModel.Center}" ShareLayoutParameterInstance="True" ShareStyleInstance="True" Style="{y:GraphMLReference 1}"/>
-            </y:NodeDefaults.Labels>
-          </y:NodeDefaults>
-        </y:GraphSettings.NodeDefaults>
-      </y:GraphSettings>
-    </data>
     <node id="n0">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Hobbies</y:Label.Text>
           </y:Label>
         </x:List>
@@ -166,7 +87,7 @@
     <node id="n1">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Chess</y:Label.Text>
           </y:Label>
         </x:List>
@@ -182,7 +103,7 @@
     <node id="n2">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Puzzle</y:Label.Text>
           </y:Label>
         </x:List>
@@ -198,7 +119,7 @@
     <node id="n3">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[Cops and Robbers]]></y:Label.Text>
           </y:Label>
         </x:List>
@@ -214,7 +135,7 @@
     <node id="n4">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[The Settler of Catan]]></y:Label.Text>
           </y:Label>
         </x:List>
@@ -230,7 +151,7 @@
     <node id="n5">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Books</y:Label.Text>
           </y:Label>
         </x:List>
@@ -252,7 +173,7 @@
     <node id="n6">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Travel</y:Label.Text>
           </y:Label>
         </x:List>
@@ -268,7 +189,7 @@
     <node id="n7">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Collecting</y:Label.Text>
           </y:Label>
         </x:List>
@@ -289,7 +210,7 @@
     <node id="n8">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Swimming</y:Label.Text>
           </y:Label>
         </x:List>
@@ -305,7 +226,7 @@
     <node id="n9">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Basketball</y:Label.Text>
           </y:Label>
         </x:List>
@@ -321,7 +242,7 @@
     <node id="n10">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Climbing</y:Label.Text>
           </y:Label>
         </x:List>
@@ -339,7 +260,7 @@
     <node id="n11">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Football</y:Label.Text>
           </y:Label>
         </x:List>
@@ -355,7 +276,7 @@
     <node id="n12">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Sport</y:Label.Text>
           </y:Label>
         </x:List>
@@ -378,7 +299,7 @@
     <node id="n13">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Tennis</y:Label.Text>
           </y:Label>
         </x:List>
@@ -394,7 +315,7 @@
     <node id="n14">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Games</y:Label.Text>
           </y:Label>
         </x:List>
@@ -416,7 +337,7 @@
     <node id="n15">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Computer</y:Label.Text>
           </y:Label>
         </x:List>
@@ -438,7 +359,7 @@
     <node id="n16">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Dolls</y:Label.Text>
           </y:Label>
         </x:List>
@@ -454,7 +375,7 @@
     <node id="n17">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Stamps</y:Label.Text>
           </y:Label>
         </x:List>
@@ -470,7 +391,7 @@
     <node id="n18">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Cars</y:Label.Text>
           </y:Label>
         </x:List>
@@ -486,7 +407,7 @@
     <node id="n19">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Poker</y:Label.Text>
           </y:Label>
         </x:List>
@@ -502,7 +423,7 @@
     <node id="n20">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Coins</y:Label.Text>
           </y:Label>
         </x:List>
@@ -518,7 +439,7 @@
     <node id="n21">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Baseball</y:Label.Text>
           </y:Label>
         </x:List>
@@ -534,7 +455,7 @@
     <node id="n22">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Dancing</y:Label.Text>
           </y:Label>
         </x:List>
@@ -554,7 +475,7 @@
     <node id="n23">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Literature</y:Label.Text>
           </y:Label>
         </x:List>
@@ -570,7 +491,7 @@
     <node id="n24">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Stories</y:Label.Text>
           </y:Label>
         </x:List>
@@ -586,7 +507,7 @@
     <node id="n25">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Art</y:Label.Text>
           </y:Label>
         </x:List>
@@ -602,7 +523,7 @@
     <node id="n26">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Adventure</y:Label.Text>
           </y:Label>
         </x:List>
@@ -618,7 +539,7 @@
     <node id="n27">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Antiquities</y:Label.Text>
           </y:Label>
         </x:List>
@@ -634,7 +555,7 @@
     <node id="n28">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>History</y:Label.Text>
           </y:Label>
         </x:List>
@@ -650,7 +571,7 @@
     <node id="n29">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Ice</y:Label.Text>
           </y:Label>
         </x:List>
@@ -666,7 +587,7 @@
     <node id="n30">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Rock</y:Label.Text>
           </y:Label>
         </x:List>
@@ -682,7 +603,7 @@
     <node id="n31">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[Cha Cha]]></y:Label.Text>
           </y:Label>
         </x:List>
@@ -698,7 +619,7 @@
     <node id="n32">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Rumba</y:Label.Text>
           </y:Label>
         </x:List>
@@ -714,7 +635,7 @@
     <node id="n33">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[Hip Hop]]></y:Label.Text>
           </y:Label>
         </x:List>
@@ -730,7 +651,7 @@
     <node id="n34">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Samba</y:Label.Text>
           </y:Label>
         </x:List>
@@ -746,7 +667,7 @@
     <node id="n35">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Minecraft</y:Label.Text>
           </y:Label>
         </x:List>
@@ -762,7 +683,7 @@
     <node id="n36">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[World of Warcraft]]></y:Label.Text>
           </y:Label>
         </x:List>
@@ -778,7 +699,7 @@
     <node id="n37">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text>Mario</y:Label.Text>
           </y:Label>
         </x:List>
@@ -794,7 +715,7 @@
     <node id="n38">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[The Sims]]></y:Label.Text>
           </y:Label>
         </x:List>
@@ -810,7 +731,7 @@
     <node id="n39">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[Candy Crush Saga]]></y:Label.Text>
           </y:Label>
         </x:List>
@@ -826,7 +747,7 @@
     <node id="n40">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.Center}" Style="{y:GraphMLReference 1}">
+          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
             <y:Label.Text><![CDATA[World Of Tanks]]></y:Label.Text>
           </y:Label>
         </x:List>

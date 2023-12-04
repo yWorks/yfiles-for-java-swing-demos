@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.5.
+     // This demo file is part of yFiles for Java (Swing) 3.6.
      //
-     // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -32,1135 +32,735 @@
          xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/3.0"
          xmlns:y="http://www.yworks.com/xml/yfiles-common/3.0"
          xmlns:yfj="http://www.yworks.com/xml/yfiles-for-java/3.1"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns:demostyle="http://www.yworks.com/yFilesHTML/demos/FlatDemoStyle/1.0">
-	<key id="d0" for="all" attr.name="UserTags" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/UserTags"/>
-	<key id="d1" for="node" attr.name="NodeLabels" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeLabels"/>
-	<key id="d2" for="node" attr.name="NodeGeometry" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeGeometry"/>
-	<key id="d3" for="node" attr.name="NodeStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeStyle"/>
-	<key id="d4" for="node" attr.type="boolean" attr.name="Expanded" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/folding/Expanded">
-		<default>true</default>
-	</key>
-	<key id="d5" for="node" attr.name="NodeViewState" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/folding/1.1/NodeViewState"/>
-	<key id="d6" for="edge" attr.name="EdgeLabels" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeLabels"/>
-	<key id="d7" for="edge" attr.name="EdgeGeometry" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry"/>
-	<key id="d8" for="edge" attr.name="EdgeStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeStyle"/>
-	<key id="d9" for="edge" attr.name="EdgeViewState" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/folding/1.1/EdgeViewState"/>
-	<key id="d10" for="port" attr.name="PortLocationParameter" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLocationParameter">
-		<default>
-			<x:Static Member="y:FreeNodePortLocationModel.NodeCenterAnchored"/>
-		</default>
-	</key>
-	<key id="d11" for="port" attr.name="PortStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortStyle">
-		<default>
-			<x:Static Member="y:VoidPortStyle.Instance"/>
-		</default>
-	</key>
-	<key id="d12" for="port" attr.name="PortViewState" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/folding/1.1/PortViewState"/>
-	<key id="d13" attr.name="SharedData" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData"/>
-	<data key="d13">
-		<y:SharedData>
-			<yfj:ShapeNodeStyle x:Key="1" Paint="#ffff8c00" Pen="#ffff8c00" Shape="ELLIPSE"/>
-			<demostyle:DemoEdgeStyle x:Key="2" showTargetArrows="false"/>
-		</y:SharedData>
-	</data>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<graph id="G" edgedefault="directed">
 		<node id="n0">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 		</node>
 		<node id="n1">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 		</node>
 		<node id="n2">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 		</node>
 		<node id="n3">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n4">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n5">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n6">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n7">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n8">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n9">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n10">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n11">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n12">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n13">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n14">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n15">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n16">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n17">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n18">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n19">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n20">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n21">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n22">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n23">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n24">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n25">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n26">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n27">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n28">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n29">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n30">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n31">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n32">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n33">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n34">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n35">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n36">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n37">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n38">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n39">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n40">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n41">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n42">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n43">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n44">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n45">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n46">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n47">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n48">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n49">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n50">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n51">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n52">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n53">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n54">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n55">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n56">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n57">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n58">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n59">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n60">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n61">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n62">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n63">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n64">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n65">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n66">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n67">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n68">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n69">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n70">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n71">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n72">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n73">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n74">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n75">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n76">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n77">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n78">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n79">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n80">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n81">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n82">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n83">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n84">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n85">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n86">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n87">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n88">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n89">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n90">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n91">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n92">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n93">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n94">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n95">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n96">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n97">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n98">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n99">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n100">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n101">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n102">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n103">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n104">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n105">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n106">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n107">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n108">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n109">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n110">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n111">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n112">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n113">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n114">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n115">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n116">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n117">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n118">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n119">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n120">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n121">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>
 			<port name="p3"/>
 		</node>
 		<node id="n122">
-			<data key="d3">
-				<y:GraphMLReference ResourceKey="1"/>
-			</data>
 			<port name="p0"/>
 			<port name="p1"/>
 			<port name="p2"/>

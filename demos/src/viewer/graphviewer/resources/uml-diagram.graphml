@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.5.
+     // This demo file is part of yFiles for Java (Swing) 3.6.
      //
-     // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -61,8 +61,8 @@
   <data key="d9">
     <y:SharedData>
       <yfj:DefaultLabelStyle x:Key="1" TextPaint="Black" UsingFractionalFontMetricsEnabled="True"/>
-      <yfj:ShinyPlateNodeStyle x:Key="2" Paint="#FFFFCC00" Pen="#FFFFCC00" />
-      <yfj:ShinyPlateNodeStyle x:Key="3" Paint="#FFBDB992" Pen="#FFBDB992" />
+      <yfj:RectangleNodeStyle x:Key="2" Paint="#FFFFCC00" Pen="#FFFFCC00" />
+      <yfj:RectangleNodeStyle x:Key="3" Paint="#FFBDB992" Pen="#FFBDB992" />
       <yfj:PolylineEdgeStyle x:Key="4" TargetArrow="NONE" SourceArrow="DEFAULT">
         <yfj:PolylineEdgeStyle.Pen>
           <yfj:Pen DashStyle="Dash" MiterLimit="10.0" Thickness="1.0"/>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.5.
+     // This demo file is part of yFiles for Java (Swing) 3.6.
      //
-     // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -40,17 +40,9 @@
         <default>true</default>
     </key>
     <key id="d5" for="node" attr.name="NodeViewState" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/folding/1.1/NodeViewState"/>
-    <key id="d6" for="edge" attr.name="EdgeLabels" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeLabels"/>
-    <key id="d7" for="edge" attr.name="EdgeGeometry" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry"/>
-    <key id="d9" for="edge" attr.name="EdgeViewState" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/folding/1.1/EdgeViewState"/>
     <key id="d10" for="port" attr.name="PortLocationParameter" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLocationParameter">
         <default>
             <x:Static Member="y:FreeNodePortLocationModel.NodeCenterAnchored"/>
-        </default>
-    </key>
-    <key id="d11" for="port" attr.name="PortStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortStyle">
-        <default>
-            <x:Static Member="y:VoidPortStyle.Instance"/>
         </default>
     </key>
     <key id="d12" for="port" attr.name="PortViewState" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/folding/1.1/PortViewState"/>
@@ -60,12 +52,9 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
         </node>
@@ -73,37 +62,34 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.66666666666666666,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.16666666666666666,-0.5"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.8333333333333333,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.3333333333333333,-0.5"/>
                 </data>
             </port>
             <port name="p2">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
             <port name="p3">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
             <port name="p4">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
             <port name="p5">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
         </node>
@@ -111,12 +97,9 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
         </node>
@@ -124,12 +107,9 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
         </node>
@@ -137,17 +117,14 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
         </node>
@@ -155,17 +132,14 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
         </node>
@@ -173,22 +147,19 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
             <port name="p2">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
         </node>
@@ -196,17 +167,14 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
         </node>
@@ -214,17 +182,14 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
         </node>
@@ -232,17 +197,14 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
         </node>
@@ -250,17 +212,14 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
         </node>
@@ -268,27 +227,24 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
             <port name="p2">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
             <port name="p3">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
         </node>
@@ -296,17 +252,14 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
         </node>
@@ -314,17 +267,14 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
         </node>
@@ -332,12 +282,9 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
         </node>
@@ -345,22 +292,19 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
             <port name="p2">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
         </node>
@@ -368,17 +312,14 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
         </node>
@@ -386,17 +327,14 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
         </node>
@@ -404,32 +342,29 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
             <port name="p2">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
             <port name="p3">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.8333333333333333"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0.3333333333333333"/>
                 </data>
             </port>
             <port name="p4">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
         </node>
@@ -437,22 +372,19 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
             <port name="p2">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
         </node>
@@ -460,12 +392,9 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
         </node>
@@ -473,12 +402,9 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
         </node>
@@ -486,22 +412,19 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
             <port name="p2">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
         </node>
@@ -509,12 +432,9 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
         </node>
@@ -522,12 +442,9 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
         </node>
@@ -535,22 +452,19 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
             <port name="p2">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
         </node>
@@ -558,12 +472,9 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
         </node>
@@ -571,12 +482,9 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
         </node>
@@ -584,22 +492,19 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
             <port name="p2">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
         </node>
@@ -607,17 +512,14 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
         </node>
@@ -625,27 +527,24 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
             <port name="p2">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
             <port name="p3">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
         </node>
@@ -653,22 +552,19 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
             <port name="p2">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
         </node>
@@ -676,22 +572,19 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
             <port name="p2">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
         </node>
@@ -699,27 +592,24 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
             <port name="p2">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
             <port name="p3">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
         </node>
@@ -727,22 +617,19 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
             <port name="p2">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
         </node>
@@ -750,17 +637,14 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
         </node>
@@ -768,12 +652,9 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
         </node>
@@ -781,17 +662,14 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
         </node>
@@ -799,12 +677,9 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
         </node>
@@ -812,12 +687,9 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
         </node>
@@ -825,22 +697,19 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
             <port name="p2">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
         </node>
@@ -848,12 +717,9 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
         </node>
@@ -861,12 +727,9 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
         </node>
@@ -874,22 +737,19 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
             <port name="p2">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
         </node>
@@ -897,12 +757,9 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
         </node>
@@ -910,32 +767,29 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="1.0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.5,0"/>
                 </data>
             </port>
             <port name="p2">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.8333333333333333,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0.3333333333333333,0.5"/>
                 </data>
             </port>
             <port name="p3">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
             <port name="p4">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
         </node>
@@ -943,12 +797,9 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,-0.5"/>
                 </data>
             </port>
         </node>
@@ -956,12 +807,9 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
         </node>
@@ -969,12 +817,9 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
         </node>
@@ -982,289 +827,70 @@
             <data key="d2">
                 <y:RectD Width="30" Height="30" Y="-15" X="-15"/>
             </data>
-            <data key="d3">
-                <y:GraphMLReference ResourceKey="1"/>
-            </data>
             <port name="p0">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0.5,1.0"/>
+                    <y:FreeNodePortLocationModelParameter Offset="0,0.5"/>
                 </data>
             </port>
             <port name="p1">
                 <data key="d10">
-                    <y:FreeNodePortLocationModelParameter Ratio="0,0.5"/>
+                    <y:FreeNodePortLocationModelParameter Offset="-0.5,0"/>
                 </data>
             </port>
         </node>
-        <edge id="e0" source="n1" target="n0" sourceport="p0" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e1" source="n1" target="n2" sourceport="p1" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e2" source="n1" target="n3" sourceport="p2" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e3" source="n4" target="n1" sourceport="p0" targetport="p3">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e4" source="n1" target="n36" sourceport="p4" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e5" source="n1" target="n35" sourceport="p5" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e6" source="n34" target="n35" sourceport="p0" targetport="p1">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e7" source="n33" target="n34" sourceport="p0" targetport="p1">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e8" source="n33" target="n37" sourceport="p1" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e9" source="n37" target="n40" sourceport="p1" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e10" source="n40" target="n42" sourceport="p1" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e11" source="n40" target="n41" sourceport="p2" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e12" source="n32" target="n33" sourceport="p0" targetport="p2">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e13" source="n11" target="n30" sourceport="p0" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e14" source="n30" target="n31" sourceport="p1" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e15" source="n31" target="n32" sourceport="p1" targetport="p1">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e16" source="n32" target="n38" sourceport="p2" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e17" source="n31" target="n39" sourceport="p2" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e18" source="n5" target="n4" sourceport="p0" targetport="p1">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e19" source="n6" target="n5" sourceport="p0" targetport="p1">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e20" source="n34" target="n6" sourceport="p2" targetport="p1">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e21" source="n30" target="n6" sourceport="p2" targetport="p2">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e22" source="n7" target="n8" sourceport="p0" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e23" source="n11" target="n10" sourceport="p1" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e24" source="n10" target="n9" sourceport="p1" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e25" source="n9" target="n8" sourceport="p1" targetport="p1">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e26" source="n15" target="n7" sourceport="p0" targetport="p1">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e27" source="n15" target="n16" sourceport="p1" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e28" source="n16" target="n17" sourceport="p1" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e29" source="n28" target="n17" sourceport="p0" targetport="p1">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e30" source="n11" target="n28" sourceport="p2" targetport="p1">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e31" source="n28" target="n29" sourceport="p2" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e32" source="n12" target="n11" sourceport="p0" targetport="p3">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e33" source="n12" target="n13" sourceport="p1" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e34" source="n13" target="n14" sourceport="p1" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e35" source="n30" target="n43" sourceport="p3" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e36" source="n43" target="n45" sourceport="p1" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e37" source="n45" target="n47" sourceport="p1" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e38" source="n45" target="n48" sourceport="p2" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e39" source="n45" target="n49" sourceport="p3" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e40" source="n33" target="n49" sourceport="p3" targetport="p1">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e41" source="n45" target="n46" sourceport="p4" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e42" source="n43" target="n44" sourceport="p2" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e43" source="n29" target="n18" sourceport="p1" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e44" source="n18" target="n15" sourceport="p1" targetport="p2">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e45" source="n18" target="n25" sourceport="p2" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e46" source="n18" target="n22" sourceport="p3" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e47" source="n18" target="n19" sourceport="p4" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e48" source="n19" target="n20" sourceport="p1" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e49" source="n19" target="n21" sourceport="p2" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e50" source="n22" target="n23" sourceport="p1" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e51" source="n22" target="n24" sourceport="p2" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e52" source="n25" target="n27" sourceport="p1" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
-        <edge id="e53" source="n25" target="n26" sourceport="p2" targetport="p0">
-            <data key="d8">
-                <y:GraphMLReference ResourceKey="2"/>
-            </data>
-        </edge>
+        <edge id="e0" source="n1" target="n0" sourceport="p0" targetport="p0"/>
+        <edge id="e1" source="n1" target="n2" sourceport="p1" targetport="p0"/>
+        <edge id="e2" source="n1" target="n3" sourceport="p2" targetport="p0"/>
+        <edge id="e3" source="n4" target="n1" sourceport="p0" targetport="p3"/>
+        <edge id="e4" source="n1" target="n36" sourceport="p4" targetport="p0"/>
+        <edge id="e5" source="n1" target="n35" sourceport="p5" targetport="p0"/>
+        <edge id="e6" source="n34" target="n35" sourceport="p0" targetport="p1"/>
+        <edge id="e7" source="n33" target="n34" sourceport="p0" targetport="p1"/>
+        <edge id="e8" source="n33" target="n37" sourceport="p1" targetport="p0"/>
+        <edge id="e9" source="n37" target="n40" sourceport="p1" targetport="p0"/>
+        <edge id="e10" source="n40" target="n42" sourceport="p1" targetport="p0"/>
+        <edge id="e11" source="n40" target="n41" sourceport="p2" targetport="p0"/>
+        <edge id="e12" source="n32" target="n33" sourceport="p0" targetport="p2"/>
+        <edge id="e13" source="n11" target="n30" sourceport="p0" targetport="p0"/>
+        <edge id="e14" source="n30" target="n31" sourceport="p1" targetport="p0"/>
+        <edge id="e15" source="n31" target="n32" sourceport="p1" targetport="p1"/>
+        <edge id="e16" source="n32" target="n38" sourceport="p2" targetport="p0"/>
+        <edge id="e17" source="n31" target="n39" sourceport="p2" targetport="p0"/>
+        <edge id="e18" source="n5" target="n4" sourceport="p0" targetport="p1"/>
+        <edge id="e19" source="n6" target="n5" sourceport="p0" targetport="p1"/>
+        <edge id="e20" source="n34" target="n6" sourceport="p2" targetport="p1"/>
+        <edge id="e21" source="n30" target="n6" sourceport="p2" targetport="p2"/>
+        <edge id="e22" source="n7" target="n8" sourceport="p0" targetport="p0"/>
+        <edge id="e23" source="n11" target="n10" sourceport="p1" targetport="p0"/>
+        <edge id="e24" source="n10" target="n9" sourceport="p1" targetport="p0"/>
+        <edge id="e25" source="n9" target="n8" sourceport="p1" targetport="p1"/>
+        <edge id="e26" source="n15" target="n7" sourceport="p0" targetport="p1"/>
+        <edge id="e27" source="n15" target="n16" sourceport="p1" targetport="p0"/>
+        <edge id="e28" source="n16" target="n17" sourceport="p1" targetport="p0"/>
+        <edge id="e29" source="n28" target="n17" sourceport="p0" targetport="p1"/>
+        <edge id="e30" source="n11" target="n28" sourceport="p2" targetport="p1"/>
+        <edge id="e31" source="n28" target="n29" sourceport="p2" targetport="p0"/>
+        <edge id="e32" source="n12" target="n11" sourceport="p0" targetport="p3"/>
+        <edge id="e33" source="n12" target="n13" sourceport="p1" targetport="p0"/>
+        <edge id="e34" source="n13" target="n14" sourceport="p1" targetport="p0"/>
+        <edge id="e35" source="n30" target="n43" sourceport="p3" targetport="p0"/>
+        <edge id="e36" source="n43" target="n45" sourceport="p1" targetport="p0"/>
+        <edge id="e37" source="n45" target="n47" sourceport="p1" targetport="p0"/>
+        <edge id="e38" source="n45" target="n48" sourceport="p2" targetport="p0"/>
+        <edge id="e39" source="n45" target="n49" sourceport="p3" targetport="p0"/>
+        <edge id="e40" source="n33" target="n49" sourceport="p3" targetport="p1"/>
+        <edge id="e41" source="n45" target="n46" sourceport="p4" targetport="p0"/>
+        <edge id="e42" source="n43" target="n44" sourceport="p2" targetport="p0"/>
+        <edge id="e43" source="n29" target="n18" sourceport="p1" targetport="p0"/>
+        <edge id="e44" source="n18" target="n15" sourceport="p1" targetport="p2"/>
+        <edge id="e45" source="n18" target="n25" sourceport="p2" targetport="p0"/>
+        <edge id="e46" source="n18" target="n22" sourceport="p3" targetport="p0"/>
+        <edge id="e47" source="n18" target="n19" sourceport="p4" targetport="p0"/>
+        <edge id="e48" source="n19" target="n20" sourceport="p1" targetport="p0"/>
+        <edge id="e49" source="n19" target="n21" sourceport="p2" targetport="p0"/>
+        <edge id="e50" source="n22" target="n23" sourceport="p1" targetport="p0"/>
+        <edge id="e51" source="n22" target="n24" sourceport="p2" targetport="p0"/>
+        <edge id="e52" source="n25" target="n27" sourceport="p1" targetport="p0"/>
+        <edge id="e53" source="n25" target="n26" sourceport="p2" targetport="p0"/>
     </graph>
 </graphml>

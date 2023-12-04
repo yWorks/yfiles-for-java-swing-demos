@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -30,11 +30,11 @@
 package input.sizeconstraintprovider;
 
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
-import com.yworks.yfiles.view.ICanvasObjectDescriptor;
+import com.yworks.yfiles.graph.styles.RectangleNodeStyle;
 import com.yworks.yfiles.view.Colors;
+import com.yworks.yfiles.view.ICanvasObjectDescriptor;
 import com.yworks.yfiles.graph.labelmodels.InteriorLabelModel;
 import com.yworks.yfiles.view.ShapeVisual;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.geometry.SizeD;
 import com.yworks.yfiles.graph.GraphItemTypes;
@@ -47,10 +47,11 @@ import com.yworks.yfiles.view.input.INodeSizeConstraintProvider;
 import com.yworks.yfiles.view.input.NodeSizeConstraintProvider;
 import com.yworks.yfiles.view.Pen;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
+import toolkit.Palette;
+import toolkit.Themes;
 
-import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.geom.Rectangle2D;
 
 /**
@@ -80,11 +81,11 @@ public class SizeConstraintProviderDemo extends AbstractDemo {
 
           // Check if it is a known tag and choose the respective implementation.
           // Fallback to the default behavior otherwise.
-          if (Colors.ROYAL_BLUE.equals(nodeTag)) {
+          if (Themes.PALETTE_LIGHTBLUE.equals(nodeTag)) {
             return blueSizeConstraintProvider;
-          } else if (Colors.FOREST_GREEN.equals(nodeTag)) {
+          } else if (Themes.PALETTE_GREEN.equals(nodeTag)) {
             return new GreenSizeConstraintProvider();
-          } else if (Colors.DARK_ORANGE.equals(nodeTag)) {
+          } else if (Themes.PALETTE_ORANGE.equals(nodeTag)) {
             return new NodeSizeConstraintProvider(
                 new SizeD(50, 50),
                 new SizeD(300, 300),
@@ -101,9 +102,7 @@ public class SizeConstraintProviderDemo extends AbstractDemo {
    * with a boundary rectangle limiting the movement of some nodes.
    */
   public void initialize() {
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(new Color(153, 153, 153));
-    graphComponent.getGraph().getNodeDefaults().setStyle(nodeStyle);
+    DemoStyles.initDemoStyles(graphComponent.getGraph());
 
     // Initialize the input mode
     initializeInputMode();
@@ -143,24 +142,21 @@ public class SizeConstraintProviderDemo extends AbstractDemo {
    * Creates the sample graph of this demo.
    */
   private void createSampleGraph(IGraph graph) {
-    createNode(graph, 100, 100, 100, 60, Colors.ROYAL_BLUE, Colors.WHITE_SMOKE, "Never Shrink\n(Max 3x)");
-    createNode(graph, 300, 100, 160, 30, Colors.ROYAL_BLUE, Colors.WHITE_SMOKE, "Never Shrink (Max 3x)");
-    createNode(graph, 100, 215, 100, 30, Colors.FOREST_GREEN, Colors.WHITE_SMOKE, "Enclose Label");
-    createNode(graph, 300, 200, 140, 80, Colors.FOREST_GREEN, Colors.WHITE_SMOKE, "Enclose Label,\nEven Large Ones");
-    createNode(graph, 200, 340, 140, 140, Colors.DARK_ORANGE, Colors.BLACK, "Encompass Rectangle,\nMin and Max Size");
+    createNode(graph, new RectD(100, 100, 100, 60), Themes.PALETTE_LIGHTBLUE, "Never Shrink\n(Max 3x)");
+    createNode(graph, new RectD(300, 100, 160, 30), Themes.PALETTE_LIGHTBLUE, "Never Shrink (Max 3x)");
+    createNode(graph, new RectD(100, 215, 100, 30), Themes.PALETTE_GREEN, "Enclose Label");
+    createNode(graph, new RectD(300, 200, 140, 80), Themes.PALETTE_GREEN, "Enclose Label,\nEven Large Ones");
+    createNode(graph, new RectD(200, 340, 140, 140), Themes.PALETTE_ORANGE, "Encompass Rectangle,\nMin and Max Size");
   }
 
   /**
    * Creates a sample node for this demo.
    */
-  private static void createNode(IGraph graph, double x, double y, double w, double h, Color fillColor, Color textColor, String labelText) {
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(fillColor);
-    INode node = graph.createNode(new RectD(x, y, w, h), nodeStyle, fillColor);
-    DefaultLabelStyle labelStyle = new DefaultLabelStyle();
-    labelStyle.setFont(new Font("Dialog", Font.BOLD, 12));
-    labelStyle.setTextPaint(textColor);
-    labelStyle.setUsingFractionalFontMetricsEnabled(true);
+  private static void createNode(IGraph graph, RectD bounds, Palette palette, String labelText) {
+    RectangleNodeStyle nodeStyle = DemoStyles.createDemoNodeStyle(palette);
+    INode node = graph.createNode(bounds, nodeStyle, palette);
+
+    DefaultLabelStyle labelStyle = DemoStyles.createDemoNodeLabelStyle(palette);
     graph.addLabel(node, labelText, InteriorLabelModel.CENTER, labelStyle);
   }
 

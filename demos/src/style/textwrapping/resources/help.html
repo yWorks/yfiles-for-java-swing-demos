@@ -1,0 +1,40 @@
+<html>
+<head>
+    <link rel="stylesheet" href="../../../resources/help.css"/>
+</head>
+<body class="demo-description">
+
+<h1>Description</h1>
+
+<p>
+  This demo shows how to enable the text wrapping and trimming feature provided by the
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.styles.DefaultLabelStyle">DefaultLabelStyle</a> class.
+  The options include <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.TextWrapping">TextWrapping</a> at word bounds and
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.view.TextTrimming">TextTrimming</a> with or without ellipsis.
+</p>
+<p>
+  Aside from wrapping in rectangular shapes, the <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.styles.DefaultLabelStyle.getTextWrappingShape">TextWrappingShape</a>
+  property allows for wrapping in many more shapes like triangle, hexagon or ellipse. This can be combined with
+  <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.styles.DefaultLabelStyle.getTextWrappingPadding">TextWrappingPadding</a>
+  and <a href="http://docs.yworks.com/yfilesjava/doc/api/#/api/com.yworks.yfiles.graph.styles.DefaultLabelStyle.getInsets">Insets</a> to fine-tune the wrapping.
+</p>
+<p>
+  The sample labels are configured to stretch inside their owner nodes and to align the text vertically.
+</p>
+<p>
+  Note how labels that are neither trimmed nor clipped exceed the bounds of their owner.
+</p>
+
+<h2>Things to try</h2>
+
+<ul>
+    <li>
+      Select and resize the nodes to see how the different wrapping types behave.
+    </li>
+    <li>
+      New interactively added labels use word wrapping with ellipsis.
+    </li>
+</ul>
+
+</body>
+</html>

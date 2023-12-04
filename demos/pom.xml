@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.yworks.yfiles</groupId>
+    <artifactId>yfiles-for-java-swing-demos</artifactId>
+    <version>3.6</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <build>
+        <sourceDirectory>${project.basedir}/src/</sourceDirectory>
+        <resources>
+            <!-- resources, i.e icon.png, graphml, license -->
+            <resource>
+                <includes>
+                    <include>*.xml</include>
+                    <include>**/resources/**/*.*</include>
+                    <include>**/*.html</include>
+                    <include>**/*.graphml</include>
+                </includes>
+                <directory>${project.basedir}/src</directory>
+            </resource>
+        </resources>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.yworks.yfiles</groupId>
+            <artifactId>yfiles-for-java-swing</artifactId>
+            <version>3.6</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../lib/yfiles-for-java-swing.jar</systemPath>
+        </dependency>
+    </dependencies>
+</project>

@@ -20,27 +20,31 @@
 <h2>Node Types</h2>
 <ul>
     <li>
-        <font color="#b22222"><b>Red nodes</b></font> cannot be resized. They don't display resize handles.
+        <font color="#ca0c3b"><b>Red nodes</b></font> cannot be resized. They don't display resize handles.
     </li>
     <li>
-        <font color="#228b22"><b>Green nodes</b></font> show only four handles at the corners. During resizing,
+        <font color="#61a044"><b>Green nodes</b></font> show only four handles at the corners. During resizing,
         these handles maintain the aspect ratio of the node.
     </li>
     <li>
-        <font color="#888888"><b>Gray nodes</b></font> show only one handle at the bottom right corner. During resizing,
+        <font color="#4d4d4d"><b>Gray nodes</b></font> show only one handle at the bottom right corner. During resizing,
         this handle always maintains the center of the node.
     </li>
     <li>
-        <font color="#800080"><b>Purple nodes</b></font> show four handles at the corners and four different handles
+        <font color="#a37ab3"><b>Purple nodes</b></font> show four handles at the corners and four different handles
         at the sides. During resizing, the corner handles always maintain the aspect ratio of the node while
         the border handles don't.
     </li>
     <li>
-        <font color="#ff8c00"><b>Orange nodes</b></font> cannot extend beyond the black rectangle.
+        <font color="#ff6c00"><b>Orange nodes</b></font> cannot extend beyond the black rectangle.
         They can only be resized so that the new bounding box stays withing the enclosing black rectangle.
     </li>
     <li>
-      <font color="#4169e1"><b>Blue nodes</b></font> combine the behavior of the orange and green nodes.
+      <font color="#242265"><b>Dark blue nodes</b></font> combine the behavior of the orange and green nodes.
+    </li>
+    <li>
+        <font color="#46a8d5"><b>Light blue nodes</b></font> maintain their aspect ratio depending on some
+        application state. This state can be toggled by clicking one of the handles of a light blue node.
     </li>
 </ul>
 

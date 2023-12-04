@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.5.
+     // This demo file is part of yFiles for Java (Swing) 3.6.
      //
-     // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -60,14 +60,15 @@
   <key id="d14" attr.name="SharedData" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData" />
   <data key="d14">
     <y:SharedData>
-      <yfj:PanelNodeStyle x:Key="4" Color="#FFD6E5F8" LabelInsetsColor="#FFD6E5F8" Insets="5,23,5,5" />
+        <yfj:GroupNodeStyle x:Key="4" ContentAreaHitTransparent="True" ContentAreaInsets="8.0" CornerRadius="8.0" FolderIcon="CHEVRON_UP" GroupIcon="CHEVRON_DOWN" IconBackgroundShape="CIRCLE" IconForegroundPaint="White" TabPaint="#FF242265">
+          <yfj:GroupNodeStyle.Pen>
+            <yfj:Pen Paint="#FF242265" Thickness="2.0"/>
+          </yfj:GroupNodeStyle.Pen>
+        </yfj:GroupNodeStyle>
     </y:SharedData>
   </data>
   <graph id="G" edgedefault="directed">
     <node id="n0">
-      <data key="d4">
-        <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-      </data>
       <data key="d3">
         <y:RectD X="264.74211" Y="42.153807" Width="40" Height="40" />
       </data>
@@ -77,9 +78,6 @@
       <port name="p2" />
     </node>
     <node id="n1">
-      <data key="d4">
-        <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-      </data>
       <data key="d3">
         <y:RectD X="140.473869" Y="377.497731" Width="40" Height="40" />
       </data>
@@ -88,9 +86,6 @@
       <port name="p1" />
     </node>
     <node id="n2">
-      <data key="d4">
-        <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-      </data>
       <data key="d3">
         <y:RectD X="90.713904" Y="389.689484" Width="40" Height="40" />
       </data>
@@ -99,9 +94,6 @@
       <port name="p1" />
     </node>
     <node id="n3">
-      <data key="d4">
-        <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-      </data>
       <data key="d3">
         <y:RectD X="343.744481" Y="179.694922" Width="40" Height="40" />
       </data>
@@ -112,9 +104,6 @@
       <port name="p3" />
     </node>
     <node id="n4">
-      <data key="d4">
-        <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-      </data>
       <data key="d3">
         <y:RectD X="237.955361" Y="205.426008" Width="40" Height="40" />
       </data>
@@ -124,9 +113,6 @@
       <port name="p2" />
     </node>
     <node id="n5">
-      <data key="d4">
-        <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-      </data>
       <data key="d3">
         <y:RectD X="427.972811" Y="399.137711" Width="40" Height="40" />
       </data>
@@ -134,9 +120,6 @@
       <port name="p0" />
     </node>
     <node id="n6">
-      <data key="d4">
-        <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-      </data>
       <data key="d3">
         <y:RectD X="100.448913" Y="354.671891" Width="40" Height="40" />
       </data>
@@ -144,9 +127,6 @@
       <port name="p0" />
     </node>
     <node id="n7">
-      <data key="d4">
-        <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-      </data>
       <data key="d3">
         <y:RectD X="221.743293" Y="10.70982" Width="40" Height="40" />
       </data>
@@ -154,9 +134,6 @@
       <port name="p0" />
     </node>
     <node id="n8">
-      <data key="d4">
-        <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-      </data>
       <data key="d3">
         <y:RectD X="293.902266" Y="327.839986" Width="40" Height="40" />
       </data>
@@ -165,9 +142,6 @@
       <port name="p1" />
     </node>
     <node id="n9">
-      <data key="d4">
-        <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-      </data>
       <data key="d3">
         <y:RectD X="56.555905" Y="364.144623" Width="40" Height="40" />
       </data>
@@ -175,9 +149,6 @@
       <port name="p0" />
     </node>
     <node id="n10">
-      <data key="d4">
-        <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-      </data>
       <data key="d3">
         <y:RectD X="442.516876" Y="339.598841" Width="40" Height="40" />
       </data>
@@ -186,9 +157,6 @@
       <port name="p1" />
     </node>
     <node id="n11">
-      <data key="d4">
-        <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-      </data>
       <data key="d3">
         <y:RectD X="455.017867" Y="395.175077" Width="40" Height="40" />
       </data>
@@ -196,9 +164,6 @@
       <port name="p0" />
     </node>
     <node id="n12">
-      <data key="d4">
-        <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-      </data>
       <data key="d3">
         <y:RectD X="21.441964" Y="51.990936" Width="40" Height="40" />
       </data>
@@ -208,7 +173,7 @@
     </node>
     <node id="n13">
       <data key="d4">
-        <yfj:CollapsibleNodeStyleDecorator Wrapped="{y:GraphMLReference 4}" ButtonPlacement="{x:Static y:InteriorLabelModel.NorthWest}"/>
+        <y:GraphMLReference ResourceKey="4"/>
       </data>
       <data key="d3">
         <y:RectD X="595.544822" Y="-22.605425" Width="414.130361" Height="471.030642" />
@@ -216,9 +181,6 @@
       <data key="d1">05/19/2009 17:24:38</data>
       <graph id="n13:" edgedefault="directed">
         <node id="n13::n0">
-          <data key="d4">
-            <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-          </data>
           <data key="d3">
             <y:RectD X="964.675183" Y="251.025023" Width="40" Height="40" />
           </data>
@@ -226,9 +188,6 @@
           <port name="p0" />
         </node>
         <node id="n13::n1">
-          <data key="d4">
-            <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-          </data>
           <data key="d3">
             <y:RectD X="714.94175" Y="288.619264" Width="40" Height="40" />
           </data>
@@ -236,9 +195,6 @@
           <port name="p0" />
         </node>
         <node id="n13::n2">
-          <data key="d4">
-            <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-          </data>
           <data key="d3">
             <y:RectD X="616.942747" Y="127.808584" Width="40" Height="40" />
           </data>
@@ -249,9 +205,6 @@
           <port name="p3" />
         </node>
         <node id="n13::n3">
-          <data key="d4">
-            <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-          </data>
           <data key="d3">
             <y:RectD X="652.814553" Y="142.235958" Width="40" Height="40" />
           </data>
@@ -261,9 +214,6 @@
           <port name="p2" />
         </node>
         <node id="n13::n4">
-          <data key="d4">
-            <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-          </data>
           <data key="d3">
             <y:RectD X="600.544822" Y="403.425217" Width="40" Height="40" />
           </data>
@@ -274,9 +224,6 @@
           <port name="p3" />
         </node>
         <node id="n13::n5">
-          <data key="d4">
-            <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-          </data>
           <data key="d3">
             <y:RectD X="827.33928" Y="7.394575" Width="40" Height="40" />
           </data>
@@ -285,9 +232,6 @@
           <port name="p1" />
         </node>
         <node id="n13::n6">
-          <data key="d4">
-            <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-          </data>
           <data key="d3">
             <y:RectD X="750.466375" Y="177.707445" Width="40" Height="40" />
           </data>
@@ -328,7 +272,7 @@
     </node>
     <node id="n14">
       <data key="d4">
-        <yfj:CollapsibleNodeStyleDecorator Wrapped="{y:GraphMLReference 4}" ButtonPlacement="{x:Static y:InteriorLabelModel.NorthWest}"/>
+        <y:GraphMLReference ResourceKey="4"/>
       </data>
       <data key="d3">
         <y:RectD X="277.726212" Y="-447.326347" Width="268.899373" Height="422.630008" />
@@ -336,9 +280,6 @@
       <data key="d1">05/19/2009 17:24:38</data>
       <graph id="n14:" edgedefault="directed">
         <node id="n14::n0">
-          <data key="d4">
-            <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-          </data>
           <data key="d3">
             <y:RectD X="290.081889" Y="-69.696339" Width="40" Height="40" />
           </data>
@@ -350,9 +291,6 @@
           <port name="p4" />
         </node>
         <node id="n14::n1">
-          <data key="d4">
-            <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-          </data>
           <data key="d3">
             <y:RectD X="501.625585" Y="-187.042585" Width="40" Height="40" />
           </data>
@@ -361,9 +299,6 @@
           <port name="p1" />
         </node>
         <node id="n14::n2">
-          <data key="d4">
-            <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-          </data>
           <data key="d3">
             <y:RectD X="483.490336" Y="-211.534707" Width="40" Height="40" />
           </data>
@@ -373,9 +308,6 @@
           <port name="p2" />
         </node>
         <node id="n14::n3">
-          <data key="d4">
-            <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-          </data>
           <data key="d3">
             <y:RectD X="363.221527" Y="-144.199746" Width="40" Height="40" />
           </data>
@@ -385,9 +317,6 @@
           <port name="p2" />
         </node>
         <node id="n14::n4">
-          <data key="d4">
-            <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-          </data>
           <data key="d3">
             <y:RectD X="282.726212" Y="-417.326347" Width="40" Height="40" />
           </data>
@@ -395,9 +324,6 @@
           <port name="p0" />
         </node>
         <node id="n14::n5">
-          <data key="d4">
-            <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-          </data>
           <data key="d3">
             <y:RectD X="496.855863" Y="-222.529933" Width="40" Height="40" />
           </data>
@@ -405,9 +331,6 @@
           <port name="p0" />
         </node>
         <node id="n14::n6">
-          <data key="d4">
-            <yfj:ShinyPlateNodeStyle Paint="#FFFFC800" />
-          </data>
           <data key="d3">
             <y:RectD X="435.141653" Y="-341.521739" Width="40" Height="40" />
           </data>

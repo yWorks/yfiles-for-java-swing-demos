@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.5.
+     // This demo file is part of yFiles for Java (Swing) 3.6.
      //
-     // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -50,12 +50,32 @@
   <data key="d11">
     <y:SharedData>
       <java:Color xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" Value="#FFD6E5F8" x:Key="1"/>
-      <yfj:DefaultLabelStyle x:Key="2"/>
-      <yfj:ShapeNodeStyle Paint="DarkOrange" x:Key="3"/>
-      <yfj:DefaultLabelStyle TextAlignment="RIGHT" x:Key="4"/>
-      <yfj:PanelNodeStyle Color="{y:GraphMLReference 1}" Insets="5.0,23.0,5.0,5.0" LabelInsetsColor="{y:GraphMLReference 1}" x:Key="5"/>
-      <yfj:DefaultLabelStyle x:Key="6"/>
-      <yfj:PolylineEdgeStyle TargetArrow="DEFAULT" x:Key="7"/>
+      <yfj:DefaultLabelStyle x:Key="2" Font="Dialog;11;PLAIN" BackgroundPaint="#FFFFC499" Insets="4.0,2.0,4.0,1.0" Shape="ROUND_RECTANGLE" TextAlignment="CENTER" TextPaint="#FF662B00" UsingFractionalFontMetricsEnabled="True" VerticalTextAlignment="CENTER"/>
+      <yfj:RectangleNodeStyle Paint="#FFFF6C00" CornerSize="3.5" x:Key="3">
+        <yfj:RectangleNodeStyle.Pen>
+          <yfj:Pen Paint="#FF662B00" Thickness="1.5" EndCap="2"/>
+        </yfj:RectangleNodeStyle.Pen>
+      </yfj:RectangleNodeStyle>
+      <yfj:DefaultLabelStyle Font="Dialog;11;PLAIN" Insets="0.0" TextClippingEnabled="False" TextPaint="#FF9DC6D0" UsingFractionalFontMetricsEnabled="True" VerticalTextAlignment="CENTER" x:Key="4"/>
+      <yfj:GroupNodeStyle x:Key="5" ContentAreaHitTransparent="True" GroupIcon="NONE" IconForegroundPaint="#FF0B7189" IconOffset="2.0" TabBackgroundPaint="#FF0B7189" TabHeight="20.0" TabInset="3.0" TabPaint="#FF9DC6D0" TabPosition="TOP_TRAILING" TabWidth="30.0">
+        <yfj:GroupNodeStyle.Pen>
+          <yfj:Pen Paint="#FF0B7189" Thickness="2.0"/>
+        </yfj:GroupNodeStyle.Pen>
+      </yfj:GroupNodeStyle>
+      <yfj:DefaultLabelStyle x:Key="6" BackgroundPaint="#FFE0D5CC" Insets="4.0,2.0,4.0,1.0" Shape="ROUND_RECTANGLE" TextAlignment="CENTER" TextPaint="#FF662B00" UsingFractionalFontMetricsEnabled="True" VerticalTextAlignment="CENTER"/>
+      <yfj:PolylineEdgeStyle x:Key="7">
+        <yfj:PolylineEdgeStyle.Pen>
+          <yfj:Pen Paint="#FF662B00" Thickness="1.5"/>
+        </yfj:PolylineEdgeStyle.Pen>
+        <yfj:PolylineEdgeStyle.TargetArrow>
+          <yfj:Arrow Paint="#FF662B00" Type="TRIANGLE"/>
+        </yfj:PolylineEdgeStyle.TargetArrow>
+      </yfj:PolylineEdgeStyle>
+      <y:GroupNodeLabelModelParameter PlaceOnTab="False" x:Key="8">
+        <y:GroupNodeLabelModelParameter.Model>
+          <y:GroupNodeLabelModel/>
+        </y:GroupNodeLabelModelParameter.Model>
+      </y:GroupNodeLabelModelParameter>
     </y:SharedData>
   </data>
   <graph id="G">
@@ -78,7 +98,7 @@
               </y:PortDefaults>
             </y:EdgeDefaults.Ports>
             <y:EdgeDefaults.Labels>
-              <y:LabelDefaults AutoAdjustPreferredSize="True" ShareLayoutParameterInstance="True" ShareStyleInstance="True" Style="{y:GraphMLReference 6}">
+              <y:LabelDefaults AutoAdjustPreferredSize="True" ShareLayoutParameterInstance="True" ShareStyleInstance="True">
                 <y:LabelDefaults.LayoutParameter>
                   <y:EdgeSegmentLabelModelParameter>
                     <y:EdgeSegmentLabelModelParameter.Model>
@@ -86,6 +106,9 @@
                     </y:EdgeSegmentLabelModelParameter.Model>
                   </y:EdgeSegmentLabelModelParameter>
                 </y:LabelDefaults.LayoutParameter>
+                <y:LabelDefaults.Style>
+                  <yfj:DefaultLabelStyle BackgroundPaint="#FFE0D5CC" Insets="4.0,2.0,4.0,1.0" Shape="ROUND_RECTANGLE" TextAlignment="CENTER" TextPaint="#FF662B00" UsingFractionalFontMetricsEnabled="True" VerticalTextAlignment="CENTER"/>
+                </y:LabelDefaults.Style>
               </y:LabelDefaults>
             </y:EdgeDefaults.Labels>
           </y:EdgeDefaults>
@@ -100,14 +123,25 @@
                       <y:PortAnchoredLabelModelParameter LabelRatio="0.5,1.0" LocationOffset="0.0,1.0"/>
                     </y:LabelDefaults.LayoutParameter>
                     <y:LabelDefaults.Style>
-                      <yfj:DefaultLabelStyle/>
+                      <yfj:DefaultLabelStyle Font="Dialog;11;PLAIN" Insets="0.0" TextClippingEnabled="False" TextPaint="#FF9DC6D0" UsingFractionalFontMetricsEnabled="True" VerticalTextAlignment="CENTER"/>
                     </y:LabelDefaults.Style>
                   </y:LabelDefaults>
                 </y:PortDefaults.Labels>
               </y:PortDefaults>
             </y:NodeDefaults.Ports>
             <y:NodeDefaults.Labels>
-              <y:LabelDefaults AutoAdjustPreferredSize="True" LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}" ShareLayoutParameterInstance="True" ShareStyleInstance="True" Style="{y:GraphMLReference 4}"/>
+              <y:LabelDefaults AutoAdjustPreferredSize="True" ShareLayoutParameterInstance="True" ShareStyleInstance="True">
+                <y:LabelDefaults.Style>
+                  <yfj:DefaultLabelStyle Font="Dialog;11;PLAIN" Insets="0.0" TextClippingEnabled="False" TextPaint="#FF9DC6D0" UsingFractionalFontMetricsEnabled="True" VerticalTextAlignment="CENTER"/>
+                </y:LabelDefaults.Style>
+                <y:LabelDefaults.LayoutParameter>
+                  <y:GroupNodeLabelModelParameter PlaceOnTab="False">
+                    <y:GroupNodeLabelModelParameter.Model>
+                      <y:GroupNodeLabelModel/>
+                    </y:GroupNodeLabelModelParameter.Model>
+                  </y:GroupNodeLabelModelParameter>
+                </y:LabelDefaults.LayoutParameter>
+              </y:LabelDefaults>
             </y:NodeDefaults.Labels>
           </y:NodeDefaults>
         </y:GraphSettings.GroupNodeDefaults>
@@ -128,7 +162,11 @@
               </y:PortDefaults>
             </y:NodeDefaults.Ports>
             <y:NodeDefaults.Labels>
-              <y:LabelDefaults AutoAdjustPreferredSize="True" LayoutParameter="{x:Static y:InteriorLabelModel.Center}" ShareLayoutParameterInstance="True" ShareStyleInstance="True" Style="{y:GraphMLReference 2}"/>
+              <y:LabelDefaults AutoAdjustPreferredSize="True" LayoutParameter="{x:Static y:ExteriorLabelModel.South}" ShareLayoutParameterInstance="True" ShareStyleInstance="True">
+                <y:LabelDefaults.Style>
+                  <yfj:DefaultLabelStyle BackgroundPaint="#FFFFC499" Insets="4.0,2.0,4.0,1.0" Shape="ROUND_RECTANGLE" TextAlignment="CENTER" TextPaint="#FF662B00" UsingFractionalFontMetricsEnabled="True" VerticalTextAlignment="CENTER"/>
+                </y:LabelDefaults.Style>
+              </y:LabelDefaults>
             </y:NodeDefaults.Labels>
           </y:NodeDefaults>
         </y:GraphSettings.NodeDefaults>
@@ -182,7 +220,7 @@
     <node id="n2">
       <data key="d0">
         <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorStretchLabelModel.North}" Style="{y:GraphMLReference 4}">
+          <y:Label LayoutParameter="{y:GraphMLReference 8}" Style="{y:GraphMLReference 4}">
             <y:Label.Text><![CDATA[Group 1]]></y:Label.Text>
           </y:Label>
         </x:List>

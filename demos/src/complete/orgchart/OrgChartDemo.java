@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -527,208 +527,155 @@ public class OrgChartDemo extends AbstractDemo {
    * Determines whether the {@link #SHOW_CHILDREN} can be executed.
    */
   private boolean canExecuteShowChildren(ICommand command, Object parameter, Object source) {
-    INode node;
-    if (parameter == null && graphComponent.getCurrentItem() instanceof INode){
-      node = (INode) graphComponent.getCurrentItem();
-    } else if (parameter instanceof INode) {
-      node = (INode) parameter;
-    } else {
-      return false;
-    }
-    if (!doingLayout && filteredGraphWrapper != null) {
-      return filteredGraphWrapper.outDegree(node) != filteredGraphWrapper.getWrappedGraph().outDegree(node);
-    } else {
-      return false;
-    }
+    INode node = getNodeForCommand(parameter);
+    return node != null
+        && !doingLayout
+        && filteredGraphWrapper != null
+        && filteredGraphWrapper.outDegree(node) != filteredGraphWrapper.getWrappedGraph().outDegree(node);
   }
 
   /**
    * Handler for the {@link #SHOW_CHILDREN}
    */
   private boolean executeShowChildren(ICommand command, Object parameter, Object source) {
-    INode node;
-    if (parameter == null && graphComponent.getCurrentItem() instanceof INode){
-      node = (INode) graphComponent.getCurrentItem();
-    } else if (parameter instanceof INode) {
-      node = (INode) parameter;
-    } else {
+    INode node = getNodeForCommand(parameter);
+    if (node == null || doingLayout) {
       return false;
     }
-    if (!doingLayout) {
-      int count = hiddenNodesSet.size();
-      IGraph fullGraph = filteredGraphWrapper.getWrappedGraph();
-      for (IEdge childEdge : fullGraph.outEdgesAt(node)) {
-        INode child = childEdge.getTargetNode();
-        if (hiddenNodesSet.remove(child)) {
-          fullGraph.setNodeCenter(child, node.getLayout().getCenter());
-          fullGraph.clearBends(childEdge);
-        }
+
+    int count = hiddenNodesSet.size();
+    IGraph fullGraph = filteredGraphWrapper.getWrappedGraph();
+    for (IEdge childEdge : fullGraph.outEdgesAt(node)) {
+      INode child = childEdge.getTargetNode();
+      if (hiddenNodesSet.remove(child)) {
+        fullGraph.setNodeCenter(child, node.getLayout().getCenter());
+        fullGraph.clearBends(childEdge);
       }
-      refreshLayout(count, node);
-      return true;
     }
-    return false;
+    refreshLayout(count, node);
+    return true;
   }
 
   /**
    * Determines whether the {@link #SHOW_PARENT} can be executed.
    */
   private boolean canExecuteShowParent(ICommand command, Object parameter, Object source) {
-    INode node;
-    if (parameter == null && graphComponent.getCurrentItem() instanceof INode){
-      node = (INode) graphComponent.getCurrentItem();
-    } else if (parameter instanceof INode) {
-      node = (INode) parameter;
-    } else {
-      return false;
-    }
-    if (!doingLayout && filteredGraphWrapper != null) {
-      return filteredGraphWrapper.inDegree(node) == 0 && filteredGraphWrapper.getWrappedGraph().inDegree(node) > 0;
-    } else {
-      return false;
-    }
+    INode node = getNodeForCommand(parameter);
+    return node != null
+        && !doingLayout
+        && filteredGraphWrapper != null
+        && filteredGraphWrapper.inDegree(node) == 0 && filteredGraphWrapper.getWrappedGraph().inDegree(node) > 0;
   }
 
   /**
    * Handler for the {@link #SHOW_PARENT}
    */
   private boolean executeShowParent(ICommand command, Object parameter, Object source) {
-    INode node;
-    if (parameter == null && graphComponent.getCurrentItem() instanceof INode){
-      node = (INode) graphComponent.getCurrentItem();
-    } else if (parameter instanceof INode) {
-      node = (INode) parameter;
-    } else {
+    INode node = getNodeForCommand(parameter);
+    if (node == null || doingLayout) {
       return false;
     }
-    if (!doingLayout) {
-      int count = hiddenNodesSet.size();
-      IGraph fullGraph = filteredGraphWrapper.getWrappedGraph();
-      for (IEdge parentEdge : fullGraph.inEdgesAt(node)){
-        INode parent = parentEdge.getSourceNode();
-        if (hiddenNodesSet.remove(parent)) {
-          fullGraph.setNodeCenter(parent, node.getLayout().getCenter());
-          fullGraph.clearBends(parentEdge);
-        }
+
+    int count = hiddenNodesSet.size();
+    IGraph fullGraph = filteredGraphWrapper.getWrappedGraph();
+    for (IEdge parentEdge : fullGraph.inEdgesAt(node)) {
+      INode parent = parentEdge.getSourceNode();
+      if (hiddenNodesSet.remove(parent)) {
+        fullGraph.setNodeCenter(parent, node.getLayout().getCenter());
+        fullGraph.clearBends(parentEdge);
       }
-      refreshLayout(count, node);
-      return true;
     }
-    return false;
+    refreshLayout(count, node);
+    return true;
   }
 
   /**
    * Determines whether the {@link #HIDE_PARENT} can be executed.
    */
   private boolean canExecuteHideParent(ICommand command, Object parameter, Object source) {
-    INode node;
-    if (parameter == null && graphComponent.getCurrentItem() instanceof INode){
-      node = (INode) graphComponent.getCurrentItem();
-    } else if (parameter instanceof INode) {
-      node = (INode) parameter;
-    } else {
-      return false;
-    }
-    if (!doingLayout && filteredGraphWrapper != null) {
-      return filteredGraphWrapper.inDegree(node) > 0;
-    } else {
-      return false;
-    }
+    INode node = getNodeForCommand(parameter);
+    return node != null
+        && !doingLayout
+        && filteredGraphWrapper != null
+        && filteredGraphWrapper.inDegree(node) > 0;
   }
 
   /**
    * Handler for the {@link #HIDE_PARENT}
    */
   private boolean executeHideParent(ICommand command, Object parameter, Object source) {
-    final INode node;
-    if (parameter == null && graphComponent.getCurrentItem() instanceof INode){
-      node = (INode) graphComponent.getCurrentItem();
-    } else if (parameter instanceof INode) {
-      node = (INode) parameter;
-    } else {
+    INode node = getNodeForCommand(parameter);
+    if (node == null || doingLayout) {
       return false;
     }
-    if (!doingLayout) {
-      int count = hiddenNodesSet.size();
 
-      // this is a root node - remove it and all children
-      filteredGraphWrapper.getWrappedGraph().getNodes().stream()
-          .filter(testNode -> testNode != node && filteredGraphWrapper.contains(testNode) && filteredGraphWrapper.inDegree(testNode) == 0)
-          .forEach(testNode -> hideAllExcept(testNode, node));
+    int count = hiddenNodesSet.size();
 
-      refreshLayout(count, node);
-      return true;
-    }
-    return false;
+    // this is a root node - remove it and all children
+    filteredGraphWrapper.getWrappedGraph().getNodes().stream()
+        .filter(testNode -> testNode != node && filteredGraphWrapper.contains(testNode) && filteredGraphWrapper.inDegree(testNode) == 0)
+        .forEach(testNode -> hideAllExcept(testNode, node));
+
+    refreshLayout(count, node);
+    return true;
   }
 
   /**
    * Determines whether the {@link #HIDE_CHILDREN} can be executed.
    */
   private boolean canExecuteHideChildren(ICommand command, Object parameter, Object source) {
-    INode node;
-    if (parameter == null && graphComponent.getCurrentItem() instanceof INode){
-      node = (INode) graphComponent.getCurrentItem();
-    } else if (parameter instanceof INode) {
-      node = (INode) parameter;
-    } else {
-      return false;
-    }
-    if (!doingLayout && filteredGraphWrapper != null) {
-      return filteredGraphWrapper.outDegree(node) > 0;
-    } else {
-      return false;
-    }
+    INode node = getNodeForCommand(parameter);
+    return node != null
+        && !doingLayout
+        && filteredGraphWrapper != null
+        && filteredGraphWrapper.outDegree(node) > 0;
   }
 
   /**
    * Handler for the {@link #HIDE_CHILDREN}
    */
   private boolean executeHideChildren(ICommand command, Object parameter, Object source) {
-    INode node;
-    if (parameter == null && graphComponent.getCurrentItem() instanceof INode){
-      node = (INode) graphComponent.getCurrentItem();
-    } else if (parameter instanceof INode) {
-      node = (INode) parameter;
-    } else {
+    INode node = getNodeForCommand(parameter);
+    if (node == null || doingLayout) {
       return false;
     }
-    if (!doingLayout) {
-      int count = hiddenNodesSet.size();
-      for (INode child : filteredGraphWrapper.successors(INode.class, node)) {
-        hideAllExcept(child, node);
-      }
-      refreshLayout(count, node);
-      return true;
+
+    int count = hiddenNodesSet.size();
+    for (INode child : filteredGraphWrapper.successors(INode.class, node)) {
+      hideAllExcept(child, node);
     }
-    return false;
+    refreshLayout(count, node);
+    return true;
   }
 
   /**
    * Determines whether the {@link #SHOW_PARENT} can be executed.
    */
   private boolean canExecuteShowAll(ICommand command, Object parameter, Object source) {
-    return filteredGraphWrapper != null && !hiddenNodesSet.isEmpty() && !doingLayout;
+    return !doingLayout && filteredGraphWrapper != null && !hiddenNodesSet.isEmpty();
   }
 
   /**
    * Handler for the {@link #SHOW_ALL}
    */
   public boolean executeShowAll(ICommand command, Object parameter, Object source) {
-    if (!doingLayout) {
-      hiddenNodesSet.clear();
-      INode node;
-      if (parameter == null && graphComponent.getCurrentItem() instanceof INode){
-        node = (INode) graphComponent.getCurrentItem();
-      } else if (parameter instanceof INode) {
-        node = (INode) parameter;
-      } else {
-        return false;
-      }
-      refreshLayout(-1, node);
-      return true;
+    if (doingLayout) {
+      return false;
     }
-    return false;
+
+    hiddenNodesSet.clear();
+    refreshLayout(-1, getNodeForCommand(parameter));
+    return true;
+  }
+
+  private INode getNodeForCommand(Object parameter) {
+    if (parameter instanceof INode) {
+      return (INode) parameter;
+    }
+    if (graphComponent.getCurrentItem() instanceof INode) {
+      return (INode) graphComponent.getCurrentItem();
+    }
+    return null;
   }
 
   /**

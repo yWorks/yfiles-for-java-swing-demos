@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -36,24 +36,24 @@ import com.yworks.yfiles.geometry.SizeD;
 import com.yworks.yfiles.graph.ILabel;
 import com.yworks.yfiles.graph.ILabelOwner;
 import com.yworks.yfiles.graph.INode;
-import com.yworks.yfiles.graph.labelmodels.FreeLabelModel;
-import com.yworks.yfiles.graph.labelmodels.ILabelModelParameter;
-import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
-import com.yworks.yfiles.graph.portlocationmodels.IPortLocationModelParameter;
 import com.yworks.yfiles.graph.SimpleEdge;
 import com.yworks.yfiles.graph.SimpleLabel;
 import com.yworks.yfiles.graph.SimpleNode;
 import com.yworks.yfiles.graph.SimplePort;
+import com.yworks.yfiles.graph.labelmodels.FreeLabelModel;
+import com.yworks.yfiles.graph.labelmodels.ILabelModelParameter;
+import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
+import com.yworks.yfiles.graph.portlocationmodels.IPortLocationModelParameter;
 import com.yworks.yfiles.graph.styles.AbstractLabelStyle;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.graph.styles.IEdgeStyle;
 import com.yworks.yfiles.graph.styles.ILabelStyle;
 import com.yworks.yfiles.graph.styles.INodeStyle;
 import com.yworks.yfiles.view.ICanvasContext;
-import com.yworks.yfiles.view.input.IInputModeContext;
 import com.yworks.yfiles.view.IRenderContext;
 import com.yworks.yfiles.view.IVisual;
 import com.yworks.yfiles.view.VisualGroup;
+import com.yworks.yfiles.view.input.IInputModeContext;
 
 /**
  * An {@link ILabelStyle} implementation combining an text label, an icon and a connecting line between the icon and the
@@ -279,6 +279,7 @@ class ConnectedIconLabelStyle extends AbstractLabelStyle {
     DUMMY_TEXT_LABEL = simpleLabel;
 
     DUMMY_FOR_LABEL_OWNER = new SimpleNode();
+
     SimpleEdge simpleEdge = new SimpleEdge(new SimplePort(LABEL_AS_NODE, FreeNodePortLocationModel.NODE_CENTER_ANCHORED), new SimplePort(DUMMY_FOR_LABEL_OWNER, FreeNodePortLocationModel.NODE_CENTER_ANCHORED));
     BpmnEdgeStyle bpmnEdgeStyle = new BpmnEdgeStyle();
     bpmnEdgeStyle.setType(EdgeType.ASSOCIATION);

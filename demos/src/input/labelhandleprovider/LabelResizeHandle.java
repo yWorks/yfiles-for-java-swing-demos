@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -42,6 +42,7 @@ import com.yworks.yfiles.graph.labelmodels.ILabelModelParameterFinder;
 import com.yworks.yfiles.view.CanvasComponent;
 import com.yworks.yfiles.view.ICanvasObject;
 import com.yworks.yfiles.view.OrientedRectangleIndicatorInstaller;
+import com.yworks.yfiles.view.input.ClickEventArgs;
 import com.yworks.yfiles.view.input.HandleTypes;
 import com.yworks.yfiles.view.input.IHandle;
 import com.yworks.yfiles.view.input.IInputModeContext;
@@ -85,7 +86,7 @@ public class LabelResizeHandle implements IHandle {
    */
   @Override
   public Cursor getCursor() {
-    return Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR);
+    return Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR);
   }
 
   /**
@@ -182,6 +183,10 @@ public class LabelResizeHandle implements IHandle {
   @Override
   public void cancelDrag( IInputModeContext context, PointD originalLocation ) {
     reset();
+  }
+
+  @Override
+  public void handleClick(ClickEventArgs eventArgs) {
   }
 
   private void reset() {

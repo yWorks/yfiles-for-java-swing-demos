@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -152,7 +152,8 @@ public class EdgeBundlingDemo extends AbstractDemo {
     graph.getDecorator().getEdgeDecorator().getSelectionDecorator().hideImplementation();
 
     // initialize the edge highlight manager
-    graphComponent.setHighlightIndicatorManager(new DemoHighlightManager(graphComponent));
+    DemoHighlightManager highlightManager = new DemoHighlightManager();
+    graphComponent.setHighlightIndicatorManager(highlightManager);
 
     // when a node is selected, select also the adjacent edges
     graphComponent.getSelection().addItemSelectionChangedListener((sender, args) -> {

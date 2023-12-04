@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -53,6 +53,7 @@ import com.yworks.yfiles.view.input.IInputModeContext;
 import com.yworks.yfiles.view.Mouse2DEventArgs;
 import com.yworks.yfiles.graph.IModelItem;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
 
 import java.awt.Cursor;
 import java.awt.Desktop;
@@ -61,6 +62,7 @@ import java.awt.Point;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
+import java.util.Objects;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -104,6 +106,7 @@ public class HyperlinkDemo extends AbstractDemo {
     // register the custom HyperlinkInputMode
     gvim.add(new HyperlinkInputMode());
     graphComponent.setInputMode(gvim);
+    DemoStyles.initDemoStyles(graphComponent.getGraph());
 
     // open a sample graph with several HTML formatted labels
     URL url = getClass().getResource("resources/HyperlinkDemo.graphml");
@@ -247,7 +250,7 @@ public class HyperlinkDemo extends AbstractDemo {
 
     /**
      * Handles mouse move events for the given location.
-     * This method checks if there is a HTML formatted label at the given
+     * This method checks if there is an HTML-formatted label at the given
      * location and updates the mode's cached hyperlink accordingly/
      * @see #updateHyperlink(Hyperlink)
      */
@@ -284,7 +287,7 @@ public class HyperlinkDemo extends AbstractDemo {
     }
 
     /**
-     * Determines whether or not the specified hyperlink
+     * Determines whether the specified hyperlink
      * uses the demo's custom <code>graph</code> protocol.
      * @param link the hyperlink to check.
      * @return <code>true</code> the hyperlink uses the demo's custom
@@ -401,7 +404,7 @@ public class HyperlinkDemo extends AbstractDemo {
      */
     protected void updateHyperlink( Hyperlink newLink ) {
       Hyperlink oldLink = this.link;
-      if (oldLink == null ? newLink != null : !oldLink.equals(newLink)) {
+      if (!Objects.equals(oldLink, newLink)) {
         if (oldLink != null) {
           onExited(oldLink);
         }

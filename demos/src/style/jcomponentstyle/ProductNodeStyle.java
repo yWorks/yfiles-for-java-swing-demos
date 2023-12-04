@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -42,6 +42,7 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Paint;
+import java.util.Objects;
 
 /**
  * Component node style that displays the business data of a Product.
@@ -81,36 +82,46 @@ public class ProductNodeStyle extends ComponentNodeStyle {
 
     // react on edits of the header text field
     panel.addPropertyChangeListener(NodeJPanel.HEADER, evt -> {
+      Product product = getProduct(node);
       final String newName = (String) evt.getNewValue();
-      // write the edited name back to the business data
-      getProduct(node).setName(newName);
-      // update the node bounds
-      updateNodeSize(ctx, node);
+      if (!Objects.equals(product.getName(), newName)) {
+        // write the edited name back to the business data
+        product.setName(newName);
+        // update the node bounds
+        updateNodeSize(ctx, node);
+      }
     });
 
     // react on edits of the id field
     panel.addPropertyChangeListener(NodeJPanel.ID, evt -> {
       Object newValue = evt.getNewValue();
       if (newValue instanceof Number) {
-        // write the edited id back to the business data
-        getProduct(node).setId(((Number) newValue).intValue());
-        // update the node bounds
-        updateNodeSize(ctx, node);
+        Product product = getProduct(node);
+        int newId = ((Number) newValue).intValue();
+        if (product.getId() != newId) {
+          // write the edited id back to the business data
+          product.setId(newId);
+          // update the node bounds
+          updateNodeSize(ctx, node);
+        }
       }
     });
 
     // react on edits of the inStock check box
     panel.addPropertyChangeListener("node.inStock", evt -> {
+      Product product = getProduct(node);
       boolean newValue = (Boolean) evt.getNewValue();
-      // write the edited inStock value back to the business data
-      getProduct(node).setInStock(newValue);
+      if (product.getInStock() != newValue) {
+        // write the edited inStock value back to the business data
+        product.setInStock(newValue);
+      }
     });
 
     return panel;
   }
 
   /**
-   * Returns the tag of the specified node casted to a Product
+   * Returns the tag of the specified node cast to a Product
    */
   private static Product getProduct(INode node) {
     return (Product) node.getTag();

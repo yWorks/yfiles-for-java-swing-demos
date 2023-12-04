@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -30,7 +30,6 @@
 package input.popupmenu;
 
 import com.yworks.yfiles.geometry.SizeD;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.graph.GraphItemTypes;
 import com.yworks.yfiles.graph.IGraph;
@@ -42,6 +41,7 @@ import com.yworks.yfiles.view.input.PopulateItemPopupMenuEventArgs;
 import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.view.input.CommandAction;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
 
 import javax.swing.Action;
 import javax.swing.JPopupMenu;
@@ -73,9 +73,7 @@ public class PopupMenuDemo extends AbstractDemo {
   public void initialize() {
     // create a sample graph that contains just 3 simple nodes which can be selected and right clicked to show a popup menu
     IGraph graph = graphComponent.getGraph();
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Colors.DARK_ORANGE);
-    graph.getNodeDefaults().setStyle(nodeStyle);
+    DemoStyles.initDemoStyles(graph);
     graph.getNodeDefaults().setSize(new SizeD(40, 40));
     graph.addLabel(graph.createNode(new PointD(100, 100)), "1");
     graph.addLabel(graph.createNode(new PointD(200, 100)), "2");

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -113,7 +113,7 @@ public class DataStoreNodeStyle extends BpmnNodeStyle {
   @Obfuscation(stripAfterObfuscation = false, exclude = true)
   protected GeneralPath getOutline( INode node ) {
     final double halfEllipseHeight = 0.125;
-    GeneralPath path = new GeneralPath(16);
+    GeneralPath path = new GeneralPath();
 
     path.moveTo(0, halfEllipseHeight);
     path.lineTo(0, 1 - halfEllipseHeight);

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,15 +29,14 @@
  ***************************************************************************/
 package integration.javafx;
 
-import com.yworks.yfiles.view.GraphComponent;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.graph.GraphItemTypes;
+import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.graph.INode;
+import com.yworks.yfiles.graph.styles.GroupNodeStyle;
+import com.yworks.yfiles.view.GraphComponent;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.ICommand;
 import com.yworks.yfiles.view.input.PopulateItemPopupMenuEventArgs;
-import com.yworks.yfiles.graph.IModelItem;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingNode;
 import javafx.scene.control.Button;
@@ -51,10 +50,11 @@ import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.web.WebView;
+import toolkit.DemoStyles;
+import toolkit.Themes;
 
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
-import java.awt.Color;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTargetDropEvent;
@@ -168,7 +168,7 @@ public class JavaFxDemoController {
         // execute the command on the EDT
         SwingUtilities.invokeLater(() -> command.execute(parameter, target)));
 
-    // enable/disable depending of the command's state
+    // enable/disable depending on the command's state
     command.addCanExecuteChangedListener((source, args) ->
         // set the state of the JavaFX button on JavaFX application thread
         Platform.runLater(() -> button.setDisable(!command.canExecute(parameter, target))));
@@ -220,7 +220,7 @@ public class JavaFxDemoController {
     // activate drag and drop from the palette
     dropMode = new JavaFxNodeDropInputMode();
     // we identify the group nodes during a drag by the type of its style
-    dropMode.setIsGroupNodePredicate(node -> node.getStyle() instanceof PanelNodeStyle);
+    dropMode.setIsGroupNodePredicate(node -> node.getStyle() instanceof GroupNodeStyle);
     // the drag data is provided in text format
     dropMode.setDataFlavor(DataFlavor.stringFlavor);
     dropMode.setPreviewEnabled(true);
@@ -264,7 +264,7 @@ public class JavaFxDemoController {
     if (args.getItem() instanceof INode) {
       INode node = (INode) args.getItem();
       // The return type of the following method is Object to be able to support context menus of different Java GUI
-      // toolkits. By default this is an instance of Swing's JPopupMenu, but our JavaFxContextMenuInputMode specifies
+      // toolkits. By default, this is an instance of Swing's JPopupMenu, but our JavaFxContextMenuInputMode specifies
       // the Java FX ContextMenu to be used as context menu control.
       ContextMenu contextMenu = (ContextMenu) args.getMenu();
       // show JavaFX context menu on JavaFX application thread
@@ -305,8 +305,8 @@ public class JavaFxDemoController {
    * Enables grouping support, loads a sample graph and initializes the default node style.
    */
   private void initializeGraph() {
-    // enable undo
-    graphComponent.getGraph().setUndoEngineEnabled(true);
+    // set the default node styles
+    DemoStyles.initDemoStyles(graphComponent.getGraph(), Themes.PALETTE_LIGHTBLUE);
 
     // load the sample graph
     try {
@@ -315,10 +315,8 @@ public class JavaFxDemoController {
       e.printStackTrace();
     }
 
-    // set the default node style
-    ShinyPlateNodeStyle style = new ShinyPlateNodeStyle();
-    style.setPaint(Color.ORANGE);
-    graphComponent.getGraph().getNodeDefaults().setStyle(style);
+    // enable undo
+    graphComponent.getGraph().setUndoEngineEnabled(true);
   }
 
   /**

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -45,13 +45,13 @@ import com.yworks.yfiles.graph.labelmodels.ILabelModel;
 import com.yworks.yfiles.graph.labelmodels.InteriorLabelModel;
 import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
 import com.yworks.yfiles.graph.portlocationmodels.IPortLocationModel;
-import com.yworks.yfiles.graph.styles.BevelNodeStyle;
+import com.yworks.yfiles.graph.styles.CornerStyle;
+import com.yworks.yfiles.graph.styles.Corners;
 import com.yworks.yfiles.graph.styles.INodeStyle;
 import com.yworks.yfiles.graph.styles.NodeStylePortStyleAdapter;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
+import com.yworks.yfiles.graph.styles.RectangleNodeStyle;
 import com.yworks.yfiles.graph.styles.ShapeNodeShape;
 import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.graphml.GraphMLIOHandler;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
 import com.yworks.yfiles.layout.circular.CircularLayout;
@@ -64,7 +64,7 @@ import com.yworks.yfiles.layout.router.polyline.EdgeRouter;
 import com.yworks.yfiles.layout.tree.BalloonLayout;
 import com.yworks.yfiles.layout.tree.TreeLayout;
 import com.yworks.yfiles.layout.tree.TreeReductionStage;
-import com.yworks.yfiles.view.Colors;
+import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.input.AbstractPortCandidateProvider;
 import com.yworks.yfiles.view.input.DefaultPortCandidate;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
@@ -75,12 +75,14 @@ import com.yworks.yfiles.view.input.IPortCandidateProvider;
 import com.yworks.yfiles.view.input.LabelSnapContext;
 import com.yworks.yfiles.view.input.OrthogonalEdgeEditingContext;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JComboBox;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -478,11 +480,7 @@ public class RotatableNodesDemo extends AbstractDemo {
     decorator.getPortDecorator().getEdgePathCropperDecorator().setImplementation(new AdjustOutlinePortInsidenessEdgePathCropper());
     decorator.getNodeDecorator().getGroupBoundsCalculatorDecorator().setImplementation(new RotationAwareGroupBoundsCalculator());
 
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Colors.ORANGE);
-    nodeStyle.setShadowDrawingEnabled(false);
-
-    graph.getNodeDefaults().setStyle(new RotatableNodeStyleDecorator(nodeStyle, 0));
+    graph.getNodeDefaults().setStyle(new RotatableNodeStyleDecorator(DemoStyles.createDemoNodeStyle(), 0));
     graph.getNodeDefaults().setStyleInstanceSharingEnabled(false);
     graph.getNodeDefaults().setSize(new SizeD(100, 50));
 
@@ -490,23 +488,26 @@ public class RotatableNodesDemo extends AbstractDemo {
     graph.getNodeDefaults().getLabelDefaults().setLayoutParameter(
             new RotatableNodeLabelModelDecorator(coreLabelModel).createWrappingParameter(InteriorLabelModel.CENTER));
 
+    graph.getNodeDefaults().getLabelDefaults().setStyle(DemoStyles.createDemoNodeLabelStyle());
+
     //Make ports visible
     ShapeNodeStyle portStyle = new ShapeNodeStyle();
     portStyle.setShape(ShapeNodeShape.ELLIPSE);
-    portStyle.setPaint(Colors.RED);
+    portStyle.setPaint(new Color(0x66, 0x2b, 0x00));
+    portStyle.setPen(new Pen(new Color(0x66, 0x2b, 0x00), 1.5));
     graph.getNodeDefaults().getPortDefaults().setStyle(new NodeStylePortStyleAdapter(portStyle));
 
     //usa a rotatable port model as default
     graph.getNodeDefaults().getPortDefaults().setLocationParameter(
             new RotatablePortLocationModelDecorator().createWrappingParameter(FreeNodePortLocationModel.NODE_TOP_ANCHORED));
 
-    PanelNodeStyle groupNodesStyle = new PanelNodeStyle();
-    groupNodesStyle.setColor(Colors.LIGHT_BLUE);
-    graph.getGroupNodeDefaults().setStyle(groupNodesStyle);
+    graph.getGroupNodeDefaults().setStyle(DemoStyles.createDemoGroupStyle(null, true));
 
     EdgePathLabelModel edgePathLabelModel = new EdgePathLabelModel();
     edgePathLabelModel.setDistance(10);
     graph.getEdgeDefaults().getLabelDefaults().setLayoutParameter(edgePathLabelModel.createDefaultParameter());
+    graph.getEdgeDefaults().getLabelDefaults().setStyle(DemoStyles.createDemoEdgeLabelStyle());
+    graph.getEdgeDefaults().setStyle(DemoStyles.createDemoEdgeStyle());
 
     //enable undo
     foldingManager.getMasterGraph().setUndoEngineEnabled(true);
@@ -525,8 +526,8 @@ public class RotatableNodesDemo extends AbstractDemo {
     INodeStyle wrapped = rnsd.getWrapped();
     ShapeNodeStyle sns = wrapped instanceof ShapeNodeStyle ? (ShapeNodeStyle)wrapped : null;
 
-    if (wrapped instanceof  ShinyPlateNodeStyle || wrapped instanceof BevelNodeStyle ||
-       sns != null && sns.getShape() == ShapeNodeShape.ROUND_RECTANGLE) {
+    if (sns != null && sns.getShape() == ShapeNodeShape.ROUND_RECTANGLE) {
+      // if you are using the deprecated ShinyPlateNodeStyle or BevelNodeStyle, you could use this code path as well
       return IPortCandidateProvider.combine(
               //take all existing ports (assumed they have the correct port location model)
               IPortCandidateProvider.fromUnoccupiedPorts(node),
@@ -554,6 +555,41 @@ public class RotatableNodesDemo extends AbstractDemo {
                               FreeNodePortLocationModel.NODE_TOP_ANCHORED)),
                       new DefaultPortCandidate(node, rotatedPortModel.createWrappingParameter(
                               FreeNodePortLocationModel.NODE_RIGHT_ANCHORED))
+              ));
+    }
+
+    if (wrapped instanceof RectangleNodeStyle) {
+      RectangleNodeStyle rns = (RectangleNodeStyle) wrapped;
+      // Rectangle: create ports in the corners and
+      double cornerSize = rns.getCornerSize() * (rns.getCornerStyle() == CornerStyle.CUT ? 0.5 : 0.3);
+      return IPortCandidateProvider.combine(
+              //Take all existing ports - these are assumed to have the correct port location model
+              IPortCandidateProvider.fromUnoccupiedPorts(node),
+              //Provide explicit candidates - these are all backed by a rotatable port location model
+              IPortCandidateProvider.fromCandidates(
+                      //Port candidates at the corners
+                      new DefaultPortCandidate(node, rotatedPortModel.createWrappingParameter(
+                              rns.getCorners().contains(Corners.TOP_LEFT)
+                                      ? freeModel.createParameter(new PointD(0, 0), new PointD(cornerSize, cornerSize))
+                                      : FreeNodePortLocationModel.NODE_TOP_LEFT_ANCHORED)),
+                      new DefaultPortCandidate(node, rotatedPortModel.createWrappingParameter(
+                              rns.getCorners().contains(Corners.BOTTOM_LEFT)
+                                      ? freeModel.createParameter(new PointD(0, 1), new PointD(cornerSize, -cornerSize))
+                                      : FreeNodePortLocationModel.NODE_BOTTOM_LEFT_ANCHORED)),
+                      new DefaultPortCandidate(node, rotatedPortModel.createWrappingParameter(
+                              rns.getCorners().contains(Corners.TOP_RIGHT)
+                                      ? freeModel.createParameter(new PointD(1, 0), new PointD(-cornerSize, cornerSize))
+                                      : FreeNodePortLocationModel.NODE_TOP_RIGHT_ANCHORED)),
+                      new DefaultPortCandidate(node, rotatedPortModel.createWrappingParameter(
+                             rns.getCorners().contains(Corners.BOTTOM_RIGHT)
+                                      ? freeModel.createParameter(new PointD(1, 1), new PointD(-cornerSize, -cornerSize))
+                                      : FreeNodePortLocationModel.NODE_BOTTOM_RIGHT_ANCHORED)),
+                      //Port candidates at the sides and the center
+                      new DefaultPortCandidate(node, rotatedPortModel.createWrappingParameter(FreeNodePortLocationModel.NODE_LEFT_ANCHORED)),
+                      new DefaultPortCandidate(node, rotatedPortModel.createWrappingParameter(FreeNodePortLocationModel.NODE_BOTTOM_ANCHORED)),
+                      new DefaultPortCandidate(node, rotatedPortModel.createWrappingParameter(FreeNodePortLocationModel.NODE_CENTER_ANCHORED)),
+                      new DefaultPortCandidate(node, rotatedPortModel.createWrappingParameter(FreeNodePortLocationModel.NODE_TOP_ANCHORED)),
+                      new DefaultPortCandidate(node, rotatedPortModel.createWrappingParameter(FreeNodePortLocationModel.NODE_RIGHT_ANCHORED))
               ));
     }
 

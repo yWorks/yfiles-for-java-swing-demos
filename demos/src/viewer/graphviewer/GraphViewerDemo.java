@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -67,6 +67,7 @@ import com.yworks.yfiles.view.ModifierKeys;
 import com.yworks.yfiles.view.Pen;
 
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
 
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
@@ -369,6 +370,7 @@ public class GraphViewerDemo extends AbstractDemo {
   private void enableFolding() {
     // create the manager
     FoldingManager manager = new FoldingManager();
+    DemoStyles.initDemoStyles(manager.getMasterGraph(), true);
     // replace the displayed graph with a managed view
     this.graphComponent.setGraph(manager.createFoldingView().getGraph());
   }

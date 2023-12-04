@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -48,6 +48,7 @@ import com.yworks.yfiles.layout.orthogonal.OrthogonalLayout;
 import com.yworks.yfiles.layout.tree.BalloonLayout;
 import com.yworks.yfiles.layout.tree.TreeLayout;
 import com.yworks.yfiles.utils.IListEnumerable;
+import com.yworks.yfiles.view.CanvasComponent;
 import com.yworks.yfiles.view.input.GraphViewerInputMode;
 import com.yworks.yfiles.view.input.ICommand;
 import com.yworks.yfiles.view.input.KeyboardInputMode;
@@ -157,6 +158,7 @@ public class CollapsibleTreeDemo extends AbstractDemo {
   /**
    * Positions all children of the given node on the same location as the node, so they appear to move out of their
    * parent node.
+   *
    * @param node The parent node.
    */
   private void alignChildren(INode node) {
@@ -211,6 +213,7 @@ public class CollapsibleTreeDemo extends AbstractDemo {
   /**
    * Predicate for the filtered graph wrapper that
    * indicates whether a node should be visible.
+   *
    * @return <code>true</code> if the node should be visible.
    */
   private boolean nodePredicate(INode node) {
@@ -228,6 +231,7 @@ public class CollapsibleTreeDemo extends AbstractDemo {
 
   /**
    * Initializes the graph and the input mode.
+   *
    * @see #initializeInputModes()
    * @see #initializeGraph()
    */
@@ -292,8 +296,7 @@ public class CollapsibleTreeDemo extends AbstractDemo {
   }
 
   /**
-   * Creates a mode and registers it as the
-   * @see com.yworks.yfiles.view.CanvasComponent#getInputMode()
+   * Creates a mode and registers it as the {@link CanvasComponent#getInputMode()}.
    */
   protected void initializeInputModes() {
     // create a simple mode that reacts to mouse clicks on nodes.
@@ -317,6 +320,7 @@ public class CollapsibleTreeDemo extends AbstractDemo {
 
   /**
    * Starts the layout in an animated fashion.
+   *
    * @param animateViewport whether the view port should be animated
    * @param toggledNode     the node that is collapsed or expanded and that should keep its position during layout
    */
@@ -345,5 +349,4 @@ public class CollapsibleTreeDemo extends AbstractDemo {
       new CollapsibleTreeDemo().start();
     });
   }
-
 }

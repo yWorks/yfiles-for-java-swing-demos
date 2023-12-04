@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -43,6 +43,7 @@ import com.yworks.yfiles.view.IGraphSelection;
 import com.yworks.yfiles.view.SelectionIndicatorManager;
 import com.yworks.yfiles.view.input.GraphViewerInputMode;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -239,6 +240,7 @@ public class ZoomInvariantLabelStyleDemo extends AbstractDemo {
    * Loads a sample graph.
    */
   private void loadGraph() {
+    DemoStyles.initDemoStyles(graphComponent.getGraph());
     GraphMLIOHandler graphMLIOHandler = graphComponent.getGraphMLIOHandler();
     graphMLIOHandler.addXamlNamespaceMapping(
       "http://www.yworks.com/yfiles-for-java/demos/zoominvariantlabelstyle/1.0",

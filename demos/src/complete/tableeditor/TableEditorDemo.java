@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -48,14 +48,7 @@ import com.yworks.yfiles.graph.NodeDecorator;
 import com.yworks.yfiles.graph.SimpleNode;
 import com.yworks.yfiles.graph.StripeTypes;
 import com.yworks.yfiles.graph.Table;
-import com.yworks.yfiles.graph.styles.INodeStyle;
-import com.yworks.yfiles.graph.styles.INodeStyleRenderer;
-import com.yworks.yfiles.graph.styles.ShapeNodeShape;
-import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
-import com.yworks.yfiles.graph.styles.TableNodeStyle;
-import com.yworks.yfiles.graph.styles.TableRenderingOrder;
-import com.yworks.yfiles.graph.styles.VoidStripeStyle;
+import com.yworks.yfiles.graph.styles.*;
 import com.yworks.yfiles.graphml.GraphMLIOHandler;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
 import com.yworks.yfiles.layout.LayoutOrientation;
@@ -84,7 +77,9 @@ import com.yworks.yfiles.view.input.StripeSubregionTypes;
 import com.yworks.yfiles.view.input.TableEditorInputMode;
 import com.yworks.yfiles.view.input.ToolTipQueryEventArgs;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
 import toolkit.DragAndDropSupport;
+import toolkit.Palette;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -132,7 +127,7 @@ public class TableEditorDemo extends AbstractDemo {
   // the default style for group nodes
   private static final ShapeNodeStyle DEFAULT_GROUP_NODE_STYLE;
   // the default style for normal nodes
-  private static final ShinyPlateNodeStyle DEFAULT_NODE_STYLE;
+  private static final RectangleNodeStyle DEFAULT_NODE_STYLE;
    // the default node size for normal nodes
   private static final SizeD DEFAULT_NODE_SIZE = new SizeD(80, 50);
 
@@ -149,9 +144,7 @@ public class TableEditorDemo extends AbstractDemo {
     DEFAULT_GROUP_NODE_STYLE.setPen(pen);
     DEFAULT_GROUP_NODE_STYLE.setPaint(Colors.TRANSPARENT);
 
-    DEFAULT_NODE_STYLE = new ShinyPlateNodeStyle();
-    DEFAULT_NODE_STYLE.setPaint(Color.ORANGE);
-    DEFAULT_NODE_STYLE.setRadius(0);
+    DEFAULT_NODE_STYLE = DemoStyles.createDemoNodeStyle();
   }
 
   // the list containing the nodes to drag from

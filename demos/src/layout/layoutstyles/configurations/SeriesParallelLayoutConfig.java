@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -33,9 +33,9 @@ import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
 import com.yworks.yfiles.layout.LayoutOrientation;
 import com.yworks.yfiles.layout.router.OrganicEdgeRouter;
-import com.yworks.yfiles.layout.router.polyline.EdgeRouter;
 import com.yworks.yfiles.layout.router.Scope;
 import com.yworks.yfiles.layout.router.StraightLineEdgeRouter;
+import com.yworks.yfiles.layout.router.polyline.EdgeRouter;
 import com.yworks.yfiles.layout.seriesparallel.DefaultPortAssignment;
 import com.yworks.yfiles.layout.seriesparallel.EdgeLayoutDescriptor;
 import com.yworks.yfiles.layout.seriesparallel.ForkStyle;

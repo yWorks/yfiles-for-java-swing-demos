@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -53,17 +53,25 @@ import java.awt.Color;
  * that an edge/node highlight is drawn below the node group.
  */
 class DemoHighlightManager extends HighlightIndicatorManager<IModelItem> {
-  private final ICanvasObjectGroup edgeHighlightGroup;
+  private ICanvasObjectGroup edgeHighlightGroup;
 
+  @Override
   /**
    * Initializes a new highlight manager for the given graph component.
    */
-  DemoHighlightManager( GraphComponent graphComponent ) {
-    super(graphComponent);
-    GraphModelManager modelManager = graphComponent.getGraphModelManager();
+  public void install(CanvasComponent canvas) {
+    super.install(canvas);
+    GraphModelManager modelManager = ((GraphComponent) canvas).getGraphModelManager();
     modelManager.setHierarchicNestingPolicy(HierarchicNestingPolicy.NONE);
     edgeHighlightGroup = modelManager.getContentGroup().addGroup();
     edgeHighlightGroup.below(modelManager.getNodeGroup());
+  }
+
+  @Override
+  public void uninstall(CanvasComponent canvas) {
+    super.uninstall(canvas);
+    edgeHighlightGroup.remove();
+    edgeHighlightGroup = null;
   }
 
   /**

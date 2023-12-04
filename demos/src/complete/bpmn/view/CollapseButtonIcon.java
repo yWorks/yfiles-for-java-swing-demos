@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -36,12 +36,12 @@ import com.yworks.yfiles.graph.IFoldingView;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.view.CanvasComponent;
+import com.yworks.yfiles.view.IRenderContext;
+import com.yworks.yfiles.view.IVisual;
 import com.yworks.yfiles.view.input.IClickListener;
 import com.yworks.yfiles.view.input.ICommand;
 import com.yworks.yfiles.view.input.IHitTestable;
 import com.yworks.yfiles.view.input.IInputModeContext;
-import com.yworks.yfiles.view.IRenderContext;
-import com.yworks.yfiles.view.IVisual;
 import java.awt.Paint;
 
 class CollapseButtonIcon extends AbstractIcon implements IClickListener {

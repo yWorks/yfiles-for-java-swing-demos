@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -89,20 +89,6 @@ public class PDFImageExportDemo extends AbstractImageExportDemo {
     graphComponent.putClientProperty(RectangleIndicatorInstaller.SELECTION_TEMPLATE_KEY, rectangleVisualTemplate);
 
     super.initializeInputModes();
-  }
-
-  /**
-   * Initializes the default node and edge style.
-   * We override the method to set a simpler node style
-   */
-  protected void initializeGraphDefaults(IGraph graph) {
-    super.initializeGraphDefaults(graph);
-
-    // use a simpler node style without linear gradients as these are not supported by FreeHEP VectorGraphics
-    ShapeNodeStyle nodeStyle = new ShapeNodeStyle();
-    nodeStyle.setPaint(Colors.ORANGE);
-    graph.getNodeDefaults().setStyle(nodeStyle);
-    graphComponent.setBackground(Colors.WHITE_SMOKE);
   }
 
   /**

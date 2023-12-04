@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,7 +29,6 @@
  ***************************************************************************/
 package complete.bpmn.view;
 
-import com.yworks.yfiles.geometry.IRectangle;
 import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.geometry.SizeD;
@@ -37,14 +36,14 @@ import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.styles.AbstractNodeStyle;
 import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.utils.Obfuscation;
+import com.yworks.yfiles.view.IRenderContext;
+import com.yworks.yfiles.view.IVisual;
+import com.yworks.yfiles.view.VisualGroup;
 import com.yworks.yfiles.view.input.IClickListener;
 import com.yworks.yfiles.view.input.IHitTestable;
 import com.yworks.yfiles.view.input.IInputModeContext;
 import com.yworks.yfiles.view.input.INodeSizeConstraintProvider;
 import com.yworks.yfiles.view.input.NodeSizeConstraintProvider;
-import com.yworks.yfiles.view.IRenderContext;
-import com.yworks.yfiles.view.IVisual;
-import com.yworks.yfiles.view.VisualGroup;
 
 import java.awt.geom.AffineTransform;
 

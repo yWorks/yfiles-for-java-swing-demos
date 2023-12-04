@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,9 +29,9 @@
  ***************************************************************************/
 package tutorial01_GettingStarted.step01_CreatingTheView;
 
-import com.yworks.yfiles.view.GraphComponent;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.INode;
+import com.yworks.yfiles.view.GraphComponent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -40,7 +40,6 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
 import java.awt.BorderLayout;
 import java.awt.Desktop;
 import java.awt.Dimension;
@@ -60,7 +59,7 @@ import java.util.Arrays;
  * </p>
  */
 public class SampleApplication {
-  private GraphComponent graphComponent;
+  private final GraphComponent graphComponent;
 
   ///////////////////////////////////////////////////////
   //////////// YFILES STUFF /////////////////////////////
@@ -132,8 +131,8 @@ public class SampleApplication {
     }
     // make links clickable
     editorPane.addHyperlinkListener(e -> {
-      if(e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-        if(Desktop.isDesktopSupported()) {
+      if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+        if (Desktop.isDesktopSupported()) {
           try {
             Desktop.getDesktop().browse(e.getURL().toURI());
           } catch (IOException | URISyntaxException ex) {

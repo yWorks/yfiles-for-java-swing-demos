@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -42,6 +42,7 @@ import com.yworks.yfiles.view.IAnimation;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.IInputMode;
 import toolkit.AbstractDemo;
+import toolkit.Themes;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -197,16 +198,16 @@ public class SimpleCustomStyleDemo extends AbstractDemo {
     INode n7 = graph.createNode(new PointD(119, 197));
     INode n8 = graph.createNode(new PointD(119, 308));
     INode n9 = graph.createNode(new PointD(185, 398));
-    n0.setTag(new Color(108, 0, 255));
-    n1.setTag(new Color(210, 255, 0));
-    n2.setTag(new Color(0, 72, 255));
-    n3.setTag(new Color(255, 0, 84));
-    n4.setTag(new Color(255, 30, 0));
-    n5.setTag(new Color(0, 42, 255) );
-    n6.setTag(new Color(114, 255, 0));
-    n7.setTag(new Color(216, 0, 255));
-    n8.setTag(new Color(36, 255, 0) );
-    n9.setTag(new Color(216, 0, 255));
+    n0.setTag(Themes.PALETTE11.getBackgroundPaint());
+    n1.setTag(Themes.PALETTE12.getBackgroundPaint());
+    n2.setTag(Themes.PALETTE13.getBackgroundPaint());
+    n3.setTag(Themes.PALETTE14.getBackgroundPaint());
+    n4.setTag(Themes.PALETTE15.getBackgroundPaint());
+    n5.setTag(Themes.PALETTE21.getBackgroundPaint());
+    n6.setTag(Themes.PALETTE22.getBackgroundPaint());
+    n7.setTag(Themes.PALETTE23.getBackgroundPaint());
+    n8.setTag(Themes.PALETTE24.getBackgroundPaint() );
+    n9.setTag(Themes.PALETTE25.getBackgroundPaint());
 
     // create a label for each node and place it on a border or corner outside the node's bounds.
     ExteriorLabelModel labelModel = new ExteriorLabelModel();

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,25 +29,23 @@
  ***************************************************************************/
 package integration.javafx;
 
-import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.graph.DefaultGraph;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.ILabel;
 import com.yworks.yfiles.graph.INode;
-import com.yworks.yfiles.graph.labelmodels.InteriorStretchLabelModel;
-import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
+import com.yworks.yfiles.graph.styles.CornerStyle;
+import com.yworks.yfiles.graph.styles.Corners;
+import com.yworks.yfiles.graph.styles.GroupNodeStyle;
 import com.yworks.yfiles.graph.styles.INodeStyle;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
+import com.yworks.yfiles.graph.styles.RectangleNodeStyle;
 import com.yworks.yfiles.graph.styles.ShapeNodeShape;
 import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
-import com.yworks.yfiles.view.Colors;
 import com.yworks.yfiles.view.GraphComponent;
-import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.PixelImageExporter;
+import toolkit.DemoStyles;
+import toolkit.Themes;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 /**
@@ -56,45 +54,36 @@ import java.awt.image.BufferedImage;
 public enum NodeTemplate {
   RECTANGLE("Rectangle") {
     INode createNode() {
-      ShapeNodeStyle style = new ShapeNodeStyle();
-      style.setShape(ShapeNodeShape.RECTANGLE);
-      style.setPen(Pen.getBlack());
-      style.setPaint(Color.ORANGE);
+      ShapeNodeStyle style = DemoStyles.createDemoShapeNodeStyle(ShapeNodeShape.RECTANGLE, Themes.PALETTE_LIGHTBLUE);
       return createNode(style);
     }
   },
   ROUNDED_RECTANGLE("Rounded Rectangle") {
     INode createNode() {
-      ShapeNodeStyle style = new ShapeNodeStyle();
-      style.setShape(ShapeNodeShape.ROUND_RECTANGLE);
-      style.setPen(Pen.getBlack());
-      style.setPaint(Color.ORANGE);
+      ShapeNodeStyle style = DemoStyles.createDemoShapeNodeStyle(ShapeNodeShape.ROUND_RECTANGLE, Themes.PALETTE_LIGHTBLUE);
       return createNode(style);
     }
   },
   STAR("Star") {
     INode createNode() {
-      ShapeNodeStyle style = new ShapeNodeStyle();
-      style.setShape(ShapeNodeShape.STAR5);
-      style.setPen(Pen.getBlack());
-      style.setPaint(Color.ORANGE);
+      ShapeNodeStyle style = DemoStyles.createDemoShapeNodeStyle(ShapeNodeShape.STAR5, Themes.PALETTE_LIGHTBLUE);
       return createNode(style);
     }
   },
-  SHINY_PLATE("Shiny Plate") {
+  CUT_CORNERS("Cut Corners") {
     INode createNode() {
-      ShinyPlateNodeStyle style = new ShinyPlateNodeStyle();
-      style.setPaint(Color.ORANGE);
+      RectangleNodeStyle style = DemoStyles.createDemoNodeStyle(Themes.PALETTE_LIGHTBLUE);
+      style.setCornerStyle(CornerStyle.CUT);
+      style.setCorners(Corners.TOP);
+      style.setCornerSize(10);
       return createNode(style);
     }
   },
-  PANEL("Group") {
+  GROUP("Group") {
     INode createNode() {
-      PanelNodeStyle style = new PanelNodeStyle();
-      style.setColor(Colors.LIGHT_BLUE);
-      style.setInsets(new InsetsD(25, 5, 5, 5));
-      INode node = createNode(style, new RectD(0, 0, 70, 70));
-      getGraph().addLabel(node, "Group Node", InteriorStretchLabelModel.NORTH, new DefaultLabelStyle());
+      GroupNodeStyle style = DemoStyles.createDemoGroupStyle(Themes.PALETTE_LIGHTBLUE);
+      INode node = getGraph().createGroupNode(null, new RectD(0, 0, 90, 70));
+      getGraph().addLabel(node, "Group Node");
       return node;
     }
   };
@@ -118,6 +107,7 @@ public enum NodeTemplate {
   static IGraph getGraph() {
     if (graph == null) {
       graph = new DefaultGraph();
+      DemoStyles.initDemoStyles(graph, Themes.PALETTE_LIGHTBLUE);
     }
     return graph;
   }
@@ -166,7 +156,8 @@ public enum NodeTemplate {
 
     // copy labels as well
     for (ILabel label : node.getLabels()) {
-      graphComponent.getGraph().addLabel(newNode, label.getText(), label.getLayoutParameter(), label.getStyle(), label.getPreferredSize(), label.getTag());
+      graphComponent.getGraph().addLabel(newNode, label.getText(), label.getLayoutParameter(), label.getStyle(),
+          label.getPreferredSize(), label.getTag());
     }
 
     graphComponent.updateContentRect();

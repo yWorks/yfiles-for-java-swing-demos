@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.5.
+     // This demo file is part of yFiles for Java (Swing) 3.6.
      //
-     // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -42,7 +42,14 @@
   <key id="d5" for="edge" attr.name="EdgeGeometry" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry" />
   <key id="d6" for="edge" attr.name="EdgeStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeStyle">
     <default>
-      <yfj:PolylineEdgeStyle TargetArrow="DEFAULT" />
+      <yfj:PolylineEdgeStyle>
+        <yfj:PolylineEdgeStyle.Pen>
+          <yfj:Pen Paint="#FF662B00" Thickness="1.5"/>
+        </yfj:PolylineEdgeStyle.Pen>
+        <yfj:PolylineEdgeStyle.TargetArrow>
+          <yfj:Arrow Paint="#FF662B00" Type="TRIANGLE"/>
+        </yfj:PolylineEdgeStyle.TargetArrow>
+      </yfj:PolylineEdgeStyle>
     </default>
   </key>
   <key id="d7" for="port" attr.name="PortLocationParameter" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLocationParameter">
@@ -58,7 +65,7 @@
   <key id="d9" attr.name="SharedData" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData" />
   <data key="d9">
     <y:SharedData>
-      <yfj:DefaultLabelStyle x:Key="1" TextPaint="Black"/>
+      <yfj:DefaultLabelStyle BackgroundPaint="#FFFFC499" Insets="4.0,2.0,4.0,1.0" Shape="ROUND_RECTANGLE" TextAlignment="CENTER" TextPaint="#FF662B00" VerticalTextAlignment="CENTER" x:Key="1"/>
     </y:SharedData>
   </data>
   <key id="d10" for="graph" attr.name="GraphSettings" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/GraphSettings" />
@@ -68,7 +75,11 @@
         <y:GraphSettings.NodeDefaults>
           <y:NodeDefaults Size="40,35" ShareStyleInstance="True">
             <y:NodeDefaults.Style>
-              <yfj:ShapeNodeStyle Paint="Orange"/>
+              <yfj:RectangleNodeStyle Paint="#FFFF6C00" CornerSize="3.5">
+                <yfj:RectangleNodeStyle.Pen>
+                  <yfj:Pen Paint="#FF662B00" Thickness="1.5"/>
+                </yfj:RectangleNodeStyle.Pen>
+              </yfj:RectangleNodeStyle>
             </y:NodeDefaults.Style>
             <y:NodeDefaults.Labels>
               <y:LabelDefaults AutoAdjustPreferredSize="True" ShareLayoutParameterInstance="True" LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}" ShareStyleInstance="True" />

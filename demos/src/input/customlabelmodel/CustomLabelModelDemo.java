@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -34,12 +34,14 @@ import com.yworks.yfiles.geometry.SizeD;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.labelmodels.ILabelModel;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
+import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
+import com.yworks.yfiles.graph.styles.ILabelStyle;
 import com.yworks.yfiles.graphml.GraphMLIOHandler;
 import com.yworks.yfiles.view.Colors;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.ICommand;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
 
 import javax.swing.AbstractAction;
 import javax.swing.JMenu;
@@ -89,9 +91,8 @@ public class CustomLabelModelDemo extends AbstractDemo {
   private void initializeGraph() {
     IGraph graph = graphComponent.getGraph();
 
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Colors.ORANGE);
-    graph.getNodeDefaults().setStyle(nodeStyle);
+    DemoStyles.initDemoStyles(graph);
+
     graph.getNodeDefaults().setSize(new SizeD(50, 50));
     INode node1 = graph.createNode(new RectD(250, 90, 100, 100));
     INode node2 = graph.createNode(new RectD(90, 90, 100, 100));

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -110,7 +110,7 @@ class VariableRectIcon extends AbstractIcon {
     double height = bounds.getHeight();
     MyVisual container = new MyVisual(bounds.toSizeD());
 
-    GeneralPath path = new GeneralPath(16);
+    GeneralPath path = new GeneralPath();
     path.moveTo(0, getTopLeftRadius());
     path.quadTo(0, 0, getTopLeftRadius(), 0);
     path.lineTo(width - getTopRightRadius(), 0);

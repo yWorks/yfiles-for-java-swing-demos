@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -32,7 +32,6 @@ package complete.bpmn.view;
 import com.yworks.yfiles.geometry.GeneralPath;
 import com.yworks.yfiles.geometry.IRectangle;
 import com.yworks.yfiles.geometry.Matrix2D;
-import com.yworks.yfiles.geometry.MatrixOrder;
 import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graphml.DefaultValue;
@@ -185,7 +184,7 @@ public class ConversationNodeStyle extends BpmnNodeStyle {
     double height = width * BpmnConstants.CONVERSATION_WIDTH_HEIGHT_RATIO;
     RectD bounds = new RectD(layout.getCenter().x - width / 2, layout.getCenter().y - height / 2, width, height);
 
-    GeneralPath path = new GeneralPath(16);
+    GeneralPath path = new GeneralPath();
     path.moveTo(0, 0.5);
     path.lineTo(0.25, 0);
     path.lineTo(0.75, 0);
@@ -195,8 +194,8 @@ public class ConversationNodeStyle extends BpmnNodeStyle {
     path.close();
 
     Matrix2D transform = new Matrix2D();
-    transform.translate(bounds.getTopLeft(), MatrixOrder.PREPEND);
-    transform.scale(bounds.width, bounds.height, MatrixOrder.PREPEND);
+    transform.translate(bounds.getTopLeft());
+    transform.scale(bounds.width, bounds.height);
     path.transform(transform);
     return path;
   }

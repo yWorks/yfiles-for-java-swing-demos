@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.5.
+     // This demo file is part of yFiles for Java (Swing) 3.6.
      //
-     // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -33,18 +33,11 @@
          xmlns:y="http://www.yworks.com/xml/yfiles-common/3.0"
          xmlns:yfj="http://www.yworks.com/xml/yfiles-for-java/3.1"
          xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml.java/3.1/ygraphml.xsd ">
-  <key attr.name="NodeStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeStyle" for="node" id="d0"/>
   <key attr.name="UserTags" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/UserTags" for="all" id="d1"/>
   <key attr.name="NodeGeometry" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeGeometry" for="node" id="d2"/>
   <key attr.name="NodeLabels" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeLabels" for="node" id="d3"/>
-  <key attr.name="EdgeStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeStyle" for="edge" id="d4"/>
   <key attr.name="EdgeGeometry" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry" for="edge" id="d5"/>
   <key attr.name="EdgeLabels" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeLabels" for="edge" id="d6"/>
-  <key attr.name="PortStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortStyle" for="port" id="d7">
-    <default>
-      <x:Static Member="y:VoidPortStyle.Instance"/>
-    </default>
-  </key>
   <key attr.name="PortLocationParameter" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLocationParameter" for="port" id="d8">
     <default>
       <x:Static Member="y:FreeNodePortLocationModel.NodeCenterAnchored"/>
@@ -53,15 +46,10 @@
   <key attr.name="SharedData" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData" id="d9"/>
   <data key="d9">
     <y:SharedData>
-      <yfj:ShinyPlateNodeStyle Paint="DarkOrange" xmlns:ns0="http://www.yworks.com/xml/yfiles-common/markup/2.0" ns0:Key="1"/>
-      <yfj:PolylineEdgeStyle xmlns:ns0="http://www.yworks.com/xml/yfiles-common/markup/2.0" ns0:Key="2" TargetArrow="DEFAULT"/>
     </y:SharedData>
   </data>
   <graph id="G">
     <node id="n0">
-      <data key="d0">
-        <y:GraphMLReference ResourceKey="1"/>
-      </data>
       <data key="d2">
         <y:RectD Height="30.0" Width="30.0" X="-215.0" Y="260.0"/>
       </data>
@@ -69,9 +57,6 @@
       <port name="p1"/>
     </node>
     <node id="n1">
-      <data key="d0">
-        <y:GraphMLReference ResourceKey="1"/>
-      </data>
       <data key="d2">
         <y:RectD Height="30.0" Width="30.0" X="-165.0" Y="385.0"/>
       </data>
@@ -79,9 +64,6 @@
       <port name="p1"/>
     </node>
     <node id="n2">
-      <data key="d0">
-        <y:GraphMLReference ResourceKey="1"/>
-      </data>
       <data key="d2">
         <y:RectD Height="30.0" Width="30.0" X="-165.0" Y="135.0"/>
       </data>
@@ -99,19 +81,10 @@
       <port name="p1"/>
     </node>
     <edge id="e0" source="n2" sourceport="p0" target="n1" targetport="p0">
-      <data key="d4">
-        <y:GraphMLReference ResourceKey="2"/>
-      </data>
     </edge>
     <edge id="e1" source="n2" sourceport="p1" target="n0" targetport="p0">
-      <data key="d4">
-        <y:GraphMLReference ResourceKey="2"/>
-      </data>
     </edge>
     <edge id="e2" source="n0" sourceport="p1" target="n1" targetport="p1">
-      <data key="d4">
-        <y:GraphMLReference ResourceKey="2"/>
-      </data>
     </edge>
   </graph>
 </graphml>

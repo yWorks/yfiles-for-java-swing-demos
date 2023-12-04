@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -40,7 +40,6 @@ import com.yworks.yfiles.graph.styles.NodeStylePortStyleAdapter;
 import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
 import com.yworks.yfiles.graph.styles.ShapeNodeShape;
 import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.utils.IEnumerable;
 import com.yworks.yfiles.view.Colors;
 import com.yworks.yfiles.view.GridInfo;
@@ -65,6 +64,7 @@ import com.yworks.yfiles.view.input.OrthogonalEdgeEditingContext;
 import com.yworks.yfiles.view.input.PortRelocationHandleProvider;
 import com.yworks.yfiles.view.input.Visualization;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
 
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
@@ -191,9 +191,7 @@ public class EdgeToEdgeDemo extends AbstractDemo {
     graph.setUndoEngineEnabled(true);
 
     // set the default node style
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Colors.ORANGE);
-    graph.getNodeDefaults().setStyle(nodeStyle);
+    graph.getNodeDefaults().setStyle(DemoStyles.createDemoNodeStyle());
 
     // assign default edge style
     graph.getEdgeDefaults().setStyle(new PolylineEdgeStyle());

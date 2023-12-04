@@ -23,3 +23,4 @@
 |[SplitEdges](../../src/layout/splitedges/)| Shows how to align edges at group nodes using RecursiveGroupLayout together with HierarchicLayout. |
 |[TreeLayout](../../src/layout/treelayout/)| Demonstrates the tree layout style and the different ways in which this layout can arrange a node and its children. |
 |[TreeMap](../../src/layout/treemap/)| Shows disk usage of a directory tree with the Tree Map layout. |
+|[LayoutWithoutView](../../src/layout/withoutview/)| Shows how to create a graph, run a graph analysis algorithm, and calculate a layout without using a view or the IGraph API. |

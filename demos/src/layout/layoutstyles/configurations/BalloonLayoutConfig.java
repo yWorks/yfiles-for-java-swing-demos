@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -38,16 +38,16 @@ import com.yworks.yfiles.layout.ComponentLayout;
 import com.yworks.yfiles.layout.EdgeBundleDescriptor;
 import com.yworks.yfiles.layout.EdgeBundling;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
-import com.yworks.yfiles.layout.labeling.GenericLabeling;
 import com.yworks.yfiles.layout.LayoutData;
 import com.yworks.yfiles.layout.MultiStageLayout;
+import com.yworks.yfiles.layout.NodeLabelingPolicy;
+import com.yworks.yfiles.layout.labeling.GenericLabeling;
 import com.yworks.yfiles.layout.router.OrganicEdgeRouter;
-import com.yworks.yfiles.layout.router.polyline.EdgeRouter;
 import com.yworks.yfiles.layout.router.Scope;
+import com.yworks.yfiles.layout.router.polyline.EdgeRouter;
 import com.yworks.yfiles.layout.tree.BalloonLayout;
 import com.yworks.yfiles.layout.tree.BalloonLayoutData;
 import com.yworks.yfiles.layout.tree.InterleavedMode;
-import com.yworks.yfiles.layout.tree.NodeLabelingPolicy;
 import com.yworks.yfiles.layout.tree.RootNodePolicy;
 import com.yworks.yfiles.layout.tree.TreeReductionStage;
 import com.yworks.yfiles.utils.Obfuscation;

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -41,6 +41,11 @@ import com.yworks.yfiles.graph.styles.IArrow;
 import com.yworks.yfiles.graph.styles.IEdgeStyle;
 import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
 import com.yworks.yfiles.graphml.DefaultValue;
+import com.yworks.yfiles.layout.ILayoutAlgorithm;
+import com.yworks.yfiles.layout.LayoutData;
+import com.yworks.yfiles.layout.LayoutOrientation;
+import com.yworks.yfiles.layout.OrientationLayout;
+import com.yworks.yfiles.layout.SimpleProfitModel;
 import com.yworks.yfiles.layout.hierarchic.AsIsLayerer;
 import com.yworks.yfiles.layout.hierarchic.BusDescriptor;
 import com.yworks.yfiles.layout.hierarchic.ComponentArrangementPolicy;
@@ -60,14 +65,10 @@ import com.yworks.yfiles.layout.hierarchic.PortAssignmentMode;
 import com.yworks.yfiles.layout.hierarchic.RecursiveEdgeStyle;
 import com.yworks.yfiles.layout.hierarchic.RoutingStyle;
 import com.yworks.yfiles.layout.hierarchic.SimplexNodePlacer;
+import com.yworks.yfiles.layout.hierarchic.SubcomponentDescriptor;
 import com.yworks.yfiles.layout.hierarchic.TopLevelGroupToSwimlaneStage;
-import com.yworks.yfiles.layout.ILayoutAlgorithm;
 import com.yworks.yfiles.layout.labeling.GenericLabeling;
-import com.yworks.yfiles.layout.LayoutData;
-import com.yworks.yfiles.layout.LayoutOrientation;
 import com.yworks.yfiles.layout.organic.OrganicLayout;
-import com.yworks.yfiles.layout.OrientationLayout;
-import com.yworks.yfiles.layout.SimpleProfitModel;
 import com.yworks.yfiles.layout.tree.LeftRightNodePlacer;
 import com.yworks.yfiles.layout.tree.TreeLayout;
 import com.yworks.yfiles.utils.Obfuscation;
@@ -82,6 +83,8 @@ import java.util.function.Predicate;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Stack;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import toolkit.optionhandler.ComponentType;
 import toolkit.optionhandler.ComponentTypes;
 import toolkit.optionhandler.EnumValueAnnotation;
@@ -170,7 +173,7 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
 
     layout.setAutomaticEdgeGroupingEnabled(isAutomaticEdgeGroupingEnabledItem());
 
-    eld.setRoutingStyle(new RoutingStyle(getEdgeRoutingItem(), false));
+    eld.setRoutingStyle(new RoutingStyle(getEdgeRoutingItem()));
     eld.getRoutingStyle().setCurveShortcutsAllowed(isCurveShortcutsItem());
     eld.getRoutingStyle().setCurveUTurnSymmetry(getCurveUTurnSymmetryItem());
     eld.setMinimumFirstSegmentLength(getMinimumFirstSegmentLengthItem());
@@ -332,20 +335,20 @@ public class HierarchicLayoutConfig extends LayoutConfiguration {
       TreeLayout treeLayout = new TreeLayout();
       treeLayout.setDefaultNodePlacer(new LeftRightNodePlacer());
       for (Collection<INode> listOfNodes : findSubComponents(graphComponent.getGraph(), "TL")) {
-        layoutData.getSubComponents().add(treeLayout).setItems(listOfNodes);
+        layoutData.getSubcomponents().add(new SubcomponentDescriptor(treeLayout)).setItems(listOfNodes);
       }
       // layout all siblings with label 'HL' separately with hierarchical layout
       HierarchicLayout hierarchicLayout = new HierarchicLayout();
       hierarchicLayout.setLayoutOrientation(LayoutOrientation.LEFT_TO_RIGHT);
       for (Collection<INode> listOfNodes : findSubComponents(graphComponent.getGraph(), "HL")) {
-        layoutData.getSubComponents().add(hierarchicLayout).setItems(listOfNodes);
+        layoutData.getSubcomponents().add(new SubcomponentDescriptor(hierarchicLayout)).setItems(listOfNodes);
       }
       // layout all siblings with label 'OL' separately with organic layout
       OrganicLayout organicLayout = new OrganicLayout();
       organicLayout.setPreferredEdgeLength(100);
       organicLayout.setDeterministicModeEnabled(true);
       for (Collection<INode> listOfNodes : findSubComponents(graphComponent.getGraph(), "OL")) {
-        layoutData.getSubComponents().add(organicLayout).setItems(listOfNodes);
+        layoutData.getSubcomponents().add(new SubcomponentDescriptor(organicLayout)).setItems(listOfNodes);
       }
     }
 

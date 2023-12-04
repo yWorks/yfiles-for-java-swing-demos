@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,20 +29,6 @@
  ***************************************************************************/
 package tutorial01_GettingStarted.step16_Snapping;
 
-import com.yworks.yfiles.graph.labelmodels.ExteriorLabelModel;
-import com.yworks.yfiles.graph.labelmodels.FreePortLabelModel;
-import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
-import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
-import com.yworks.yfiles.view.Colors;
-import com.yworks.yfiles.view.GraphComponent;
-import com.yworks.yfiles.graph.styles.CollapsibleNodeStyleDecorator;
-import com.yworks.yfiles.graph.labelmodels.FreeNodeLabelModel;
-import com.yworks.yfiles.graph.styles.IArrow;
-import com.yworks.yfiles.graph.labelmodels.InteriorStretchLabelModel;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
-import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
-import com.yworks.yfiles.graph.labelmodels.SmartEdgeLabelModel;
 import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.geometry.RectD;
@@ -50,21 +36,35 @@ import com.yworks.yfiles.geometry.SizeD;
 import com.yworks.yfiles.graph.FoldingManager;
 import com.yworks.yfiles.graph.IBend;
 import com.yworks.yfiles.graph.IEdge;
-import com.yworks.yfiles.graph.IFoldingView;
 import com.yworks.yfiles.graph.IGraph;
-import com.yworks.yfiles.graph.ILabel;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.INodeDefaults;
 import com.yworks.yfiles.graph.IPort;
+import com.yworks.yfiles.graph.labelmodels.FreeNodeLabelModel;
+import com.yworks.yfiles.graph.labelmodels.FreePortLabelModel;
+import com.yworks.yfiles.graph.labelmodels.GroupNodeLabelModel;
+import com.yworks.yfiles.graph.labelmodels.SmartEdgeLabelModel;
+import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
+import com.yworks.yfiles.graph.styles.Arrow;
+import com.yworks.yfiles.graph.styles.ArrowType;
+import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
+import com.yworks.yfiles.graph.styles.GroupNodeStyle;
+import com.yworks.yfiles.graph.styles.GroupNodeStyleIconBackgroundShape;
+import com.yworks.yfiles.graph.styles.GroupNodeStyleIconType;
+import com.yworks.yfiles.graph.styles.GroupNodeStyleTabPosition;
+import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
+import com.yworks.yfiles.graph.styles.ShapeNodeShape;
+import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
+import com.yworks.yfiles.view.Colors;
+import com.yworks.yfiles.view.GraphComponent;
+import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.TextAlignment;
+import com.yworks.yfiles.view.input.CommandAction;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.GraphSnapContext;
 import com.yworks.yfiles.view.input.ICommand;
 import com.yworks.yfiles.view.input.IPortCandidateProvider;
 import com.yworks.yfiles.view.input.LabelSnapContext;
-
-import com.yworks.yfiles.view.input.CommandAction;
-import com.yworks.yfiles.view.Pen;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -84,6 +84,7 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -97,7 +98,7 @@ import java.util.Arrays;
  * </p>
  */
 public class SampleApplication {
-  private GraphComponent graphComponent;
+  private final GraphComponent graphComponent;
   private FoldingManager manager;
 
   //////// New in this sample ///////////////////////////
@@ -185,7 +186,7 @@ public class SampleApplication {
   ///////////////////////////////////////////////////////
 
   /**
-   * Enables folding. Change the GraphComponent's graph to a folding view
+   * Enables folding. Changes the GraphComponent's graph to a folding view
    * that provides the actual collapse/expand state.
    */
   private void enableFolding() {
@@ -193,51 +194,42 @@ public class SampleApplication {
     manager = new FoldingManager(getGraph());
     // replace the displayed graph with a folding view
     graphComponent.setGraph(manager.createFoldingView().getGraph());
-    wrapGroupNodeStyles();
-  }
-
-  /**
-   * Changes the default style for group nodes.
-   * <p>We use {@link com.yworks.yfiles.graph.styles.CollapsibleNodeStyleDecorator} to wrap the
-   * {@link com.yworks.yfiles.graph.styles.PanelNodeStyle} from the last demo, since we want to have nice
-   * +/- buttons for collapse/expand. Note that if you haven't defined
-   * a custom group node style, you don't have to do anything at all, since
-   * {@link FoldingManager} already
-   * provides such a decorated group node style by default.</p>
-   */
-  private void wrapGroupNodeStyles() {
-    IFoldingView foldingView = getGraph().getFoldingView();
-    if (foldingView != null) {
-      //Wrap the style with CollapsibleNodeStyleDecorator
-      INodeDefaults groupNodeDefaults = foldingView.getGraph().getGroupNodeDefaults();
-      groupNodeDefaults.setStyle(new CollapsibleNodeStyleDecorator(groupNodeDefaults.getStyle()));
-    }
   }
 
   /**
    * Configures the default style for group nodes.
    */
   private void configureGroupNodeStyles() {
-    IGraph graph = getGraph();
+    // GroupNodeStyle is a style especially suited to group nodes
+    INodeDefaults groupNodeDefaults = graphComponent.getGraph().getGroupNodeDefaults();
 
-    // PanelNodeStyle is a style especially suited to group nodes
-    // Creates a panel with a light blue background
-    Color groupNodeColor = new Color(214, 229, 248);
-    PanelNodeStyle panelNodeStyle = new PanelNodeStyle();
-    panelNodeStyle.setColor(groupNodeColor);
-    // Specifies insets that provide space for a label at the top
-    panelNodeStyle.setInsets(new InsetsD(23, 5, 5, 5));
-    panelNodeStyle.setLabelInsetsColor(groupNodeColor);
-    graph.getGroupNodeDefaults().setStyle(panelNodeStyle);
+    GroupNodeStyle groupNodeStyle = new GroupNodeStyle();
+    groupNodeStyle.setGroupIcon(GroupNodeStyleIconType.CHEVRON_DOWN);
+    groupNodeStyle.setFolderIcon(GroupNodeStyleIconType.CHEVRON_UP);
+    groupNodeStyle.setIconSize(14);
+    groupNodeStyle.setIconBackgroundShape(GroupNodeStyleIconBackgroundShape.CIRCLE);
+    groupNodeStyle.setIconForegroundPaint(Colors.WHITE);
+    groupNodeStyle.setTabPaint(new Color(0x24, 0x22, 0x65));
+    groupNodeStyle.setTabPosition(GroupNodeStyleTabPosition.TOP_TRAILING);
+    groupNodeStyle.setPen(new Pen(new Color(0x24, 0x22, 0x65), 2));
+    groupNodeStyle.setCornerRadius(8);
+    groupNodeStyle.setTabWidth(70);
+    groupNodeStyle.setContentAreaInsets(new InsetsD(8));
+    groupNodeStyle.setContentAreaHitTransparent(true);
+    groupNodeDefaults.setStyle(groupNodeStyle);
 
     // Sets a label style with right-aligned text
     DefaultLabelStyle defaultLabelStyle = new DefaultLabelStyle();
     defaultLabelStyle.setTextAlignment(TextAlignment.RIGHT);
-    graph.getGroupNodeDefaults().getLabelDefaults().setStyle(defaultLabelStyle);
+    defaultLabelStyle.setTextPaint(Colors.WHITE);
+    defaultLabelStyle.setInsets(InsetsD.EMPTY);
+    defaultLabelStyle.setFont(new Font("Dialog", Font.PLAIN, 11));
+    groupNodeDefaults.getLabelDefaults().setStyle(defaultLabelStyle);
 
-    // Places the label at the top inside of the panel.
-    // For PanelNodeStyle, InteriorStretchLabelModel is usually the most appropriate label model
-    graph.getGroupNodeDefaults().getLabelDefaults().setLayoutParameter(InteriorStretchLabelModel.NORTH);
+    // Places the label inside of the tab.
+    groupNodeDefaults.getLabelDefaults().setLayoutParameter(
+        new GroupNodeLabelModel().createDefaultParameter()
+    );
   }
 
   /**
@@ -251,7 +243,7 @@ public class SampleApplication {
     INode groupNode = graph.groupNodes(childNodes);
 
     // Creates a label for the group node
-    graph.addLabel(groupNode, "Group Node");
+    graph.addLabel(groupNode, "Group 1");
 
     // Adjusts the bounds of the group nodes
     graph.adjustGroupNodeLayout(groupNode);
@@ -383,25 +375,21 @@ public class SampleApplication {
   private void setDefaultStyles() {
     IGraph graph = getGraph();
     // Sets the default style for nodes
-    // Creates a nice ShinyPlateNodeStyle instance, using an orange color.
+    // Creates a nice ShapeNodeStyle instance, using an orange color.
     // Sets this style as the default for all nodes that don't have another
     // style assigned explicitly
-    ShinyPlateNodeStyle defaultNodeStyle = new ShinyPlateNodeStyle();
-    defaultNodeStyle.setPaint(Color.ORANGE);
+    ShapeNodeStyle defaultNodeStyle = new ShapeNodeStyle();
+    defaultNodeStyle.setShape(ShapeNodeShape.ROUND_RECTANGLE);
+    defaultNodeStyle.setPaint(new Color(255, 108, 0));
+    defaultNodeStyle.setPen(new Pen(new Color(102, 43, 0), 1.5));
     graph.getNodeDefaults().setStyle(defaultNodeStyle);
 
     // Sets the default style for edges:
-    // Creates an edge style that will apply a gray pen with thickness 1
-    // to the entire line using PolyLineEdgeStyle,
-    // which draws a polyline determined by the edge's control points (bends)
+    // Creates a PolylineEdgeStyle which will be used as default for all edges
+    // that don't have another style assigned explicitly
     PolylineEdgeStyle defaultEdgeStyle = new PolylineEdgeStyle();
-    defaultEdgeStyle.setPen(Pen.getGray());
-
-    // Sets the source and target arrows on the edge style instance
-    // (Actually: no source arrow)
-    // Note that IEdgeStyle itself does not have these properties
-    // Also note that by default there are no arrows
-    defaultEdgeStyle.setTargetArrow(IArrow.DEFAULT);
+    defaultEdgeStyle.setPen(new Pen(new Color(102, 43, 0), 1.5));
+    defaultEdgeStyle.setTargetArrow(new Arrow(ArrowType.TRIANGLE, new Color(102, 43, 0)));
 
     // Sets the defined edge style as the default for all edges that don't have
     // another style assigned explicitly:
@@ -410,8 +398,8 @@ public class SampleApplication {
     // Sets the default style for labels
     // Creates a label style with the label text color set to dark red
     DefaultLabelStyle defaultLabelStyle = new DefaultLabelStyle();
-    defaultLabelStyle.setFont(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 12));
-    defaultLabelStyle.setTextPaint(Colors.DARK_RED);
+    defaultLabelStyle.setFont(new Font("Dialog", Font.PLAIN, 12));
+    defaultLabelStyle.setTextPaint(Colors.BLACK);
 
     // Sets the defined style as the default for both edge and node labels:
     graph.getEdgeDefaults().getLabelDefaults().setStyle(defaultLabelStyle);
@@ -461,9 +449,8 @@ public class SampleApplication {
     // Adds labels to several graph elements
     graph.addLabel(node1, "Node 1");
     graph.addLabel(node2, "Node 2");
-    ILabel n3Label = graph.addLabel(node3, "Node 3");
+    graph.addLabel(node3, "Node 3");
     graph.addLabel(edgeAtPorts, "Edge at Ports");
-    graph.addLabel(port1AtNode3, "Port at Node");
 
     // Add some more elements to have a larger graph to edit
     INode n4 = graph.createNode(new PointD(50, -50));
@@ -489,18 +476,6 @@ public class SampleApplication {
     IEdge eg_2 = graph.createEdge(groupNode, node2);
     graph.addBend(eg_2, new PointD(100, 0), 0);
     graph.addBend(eg_2, new PointD(150, 0), 1);
-
-    // Override default label placement
-    // For our "special" label, we use a model that describes discrete positions
-    // outside the node bounds
-    ExteriorLabelModel exteriorLabelModel = new ExteriorLabelModel();
-
-    // We use some extra insets from the label to the node bounds
-    exteriorLabelModel.setInsets(new InsetsD(5));
-
-    // We assign this label a specific symbolic position out of the eight possible
-    // external locations valid for ExteriorLabelModel
-    graph.setLabelLayoutParameter(n3Label, exteriorLabelModel.createParameter(ExteriorLabelModel.Position.SOUTH));
   }
 
   /**

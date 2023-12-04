@@ -63,6 +63,7 @@ library to execute the code.
 |[SplitEdges](demos/src/layout/splitedges/)| Shows how to align edges at group nodes using RecursiveGroupLayout together with HierarchicLayout. |
 |[TreeLayout](demos/src/layout/treelayout/)| Demonstrates the tree layout style and the different ways in which this layout can arrange a node and its children. |
 |[TreeMap](demos/src/layout/treemap/)| Shows disk usage of a directory tree with the Tree Map layout. |
+|[LayoutWithoutView](demos/src/layout/withoutview/)| Shows how to create a graph, run a graph analysis algorithm, and calculate a layout without using a view or the IGraph API. |
   
 ## [Input Demos](demos/src/input/)
 
@@ -139,8 +140,14 @@ library to execute the code.
 
 | Demo | Description |
 |------|-------------|
+|[ArrowNodeStyle](demos/src/style/arrownodestyle/)| Implement sophisticated styles for graph objects in yFiles for Java (Swing). |
 |[CompositeNodeStyle](demos/src/style/compositenodestyle/)| This demo shows how to combine several node styles into one. |
+|[DefaultLabelStyle](demos/src/style/defaultlabelstyle/)| Shows the most important configuration options for the built-in DefaultLabelStyle class. |
+|[GroupNodeStyle](demos/src/style/groupnodestyle/)| Implement sophisticated styles for graph objects in yFiles for Java (Swing). |
+|[RectangleNodeStyle](demos/src/style/rectanglenodestyle/)| Implement sophisticated styles for graph objects in yFiles for Java (Swing). |
+|[ShapeNodeStyle](demos/src/style/shapenodestyle/)| Implement sophisticated styles for graph objects in yFiles for Java (Swing). |
 |[SimpleCustomStyle](demos/src/style/simplecustomstyle/)| Implement sophisticated styles for graph objects in yFiles for Java (Swing). |
+|[TextWrapping](demos/src/style/textwrapping/)| Shows how to use the text wrapping and trimming feature provided by the `DefaultLabelStyle` class. |
 |[SVGNodeStyle](demos/src-svg/style/svgnodestyle/)| Demonstrates SVG node visualizations. |
 |[JComponentStyle](demos/src/style/jcomponentstyle/)| Arbitrary Swing components incorporated as graph elements. |
 |[ZoomInvariantLabelStyleDemo](demos/src/style/zoominvariantlabelstyle/)| Demonstrates zoom-invariant label rendering. |

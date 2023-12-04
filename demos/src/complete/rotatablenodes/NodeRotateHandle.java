@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,6 +29,7 @@
  ***************************************************************************/
 package complete.rotatablenodes;
 
+import com.yworks.yfiles.view.input.ClickEventArgs;
 import complete.rotatablenodes.RotatedNodeResizeHandle.DelegatingContext;
 import complete.rotatablenodes.RotatedNodeResizeHandle.DummyPortLocationModelParameterHandle;
 import com.yworks.yfiles.geometry.RectD;
@@ -459,6 +460,10 @@ public class NodeRotateHandle implements IHandle, IPoint {
       cursor = loadCustomCursor(getClass());
     }
     return cursor;
+  }
+
+  @Override
+  public void handleClick(ClickEventArgs eventArgs) {
   }
 
   /**

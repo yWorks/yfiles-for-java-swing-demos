@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -51,9 +51,9 @@ import com.yworks.yfiles.graph.labelmodels.FreeNodeLabelModel;
 import com.yworks.yfiles.graph.labelmodels.ILabelModelParameter;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
+import com.yworks.yfiles.graph.styles.RectangleNodeStyle;
 import com.yworks.yfiles.graph.styles.ShapeNodeShape;
 import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.graph.styles.VoidLabelStyle;
 import com.yworks.yfiles.graphml.GraphMLIOHandler;
 import com.yworks.yfiles.graphml.SerializationProperties;
@@ -1301,10 +1301,10 @@ public class LargeGraphsDemo extends AbstractDemo {
       sns2.setPaint(darkOrange);
       lodns.getStyles().add(p.getComplexNodeStyleThreshold() / 100 / 2, sns2);
 
-      ShinyPlateNodeStyle spns = new ShinyPlateNodeStyle();
-      spns.setPen(black);
-      spns.setPaint(darkOrange);
-      lodns.getStyles().add(p.getComplexNodeStyleThreshold() / 100, spns);
+      RectangleNodeStyle rns = new RectangleNodeStyle();
+      rns.setPen(black);
+      rns.setPaint(darkOrange);
+      lodns.getStyles().add(p.getComplexNodeStyleThreshold() / 100, rns);
       nodeStyle.setStyle(lodns);
 
       // Edges

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -35,16 +35,16 @@ import com.yworks.yfiles.algorithms.Graph;
 import com.yworks.yfiles.algorithms.IDataProvider;
 import com.yworks.yfiles.algorithms.ILabelLayoutDpKey;
 import com.yworks.yfiles.layout.ColumnDescriptor;
+import com.yworks.yfiles.layout.ILayoutAlgorithm;
+import com.yworks.yfiles.layout.LayoutGraph;
+import com.yworks.yfiles.layout.PartitionGrid;
+import com.yworks.yfiles.layout.RowDescriptor;
 import com.yworks.yfiles.layout.hierarchic.AsIsLayerer;
 import com.yworks.yfiles.layout.hierarchic.HierarchicLayout;
 import com.yworks.yfiles.layout.hierarchic.LayoutMode;
 import com.yworks.yfiles.layout.hierarchic.PortCandidateOptimizer;
 import com.yworks.yfiles.layout.hierarchic.SimplexNodePlacer;
-import com.yworks.yfiles.layout.ILayoutAlgorithm;
 import com.yworks.yfiles.layout.labeling.GenericLabeling;
-import com.yworks.yfiles.layout.LayoutGraph;
-import com.yworks.yfiles.layout.PartitionGrid;
-import com.yworks.yfiles.layout.RowDescriptor;
 
 /**
  * An automatic layout algorithm for BPMN diagrams.

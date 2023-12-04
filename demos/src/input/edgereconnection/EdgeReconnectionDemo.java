@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -40,18 +40,19 @@ import com.yworks.yfiles.graph.ITagOwner;
 import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
 import com.yworks.yfiles.graph.styles.NodeStylePortStyleAdapter;
 import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
+import com.yworks.yfiles.graph.styles.RectangleNodeStyle;
 import com.yworks.yfiles.graph.styles.ShapeNodeShape;
 import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
-import com.yworks.yfiles.view.Colors;
 import com.yworks.yfiles.view.input.AbstractPortCandidateProvider;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.IEdgeReconnectionPortCandidateProvider;
 import com.yworks.yfiles.view.input.IPortCandidate;
 import com.yworks.yfiles.view.input.IPortCandidateProvider;
 import com.yworks.yfiles.view.input.PortCandidateValidity;
-import com.yworks.yfiles.view.Pen;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
+import toolkit.Palette;
+import toolkit.Themes;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -125,12 +126,12 @@ public class EdgeReconnectionDemo extends AbstractDemo {
     NodeStylePortStyleAdapter blackPortStyle = new NodeStylePortStyleAdapter(roundNodeStyle);
     blackPortStyle.setRenderSize(new SizeD(3, 3));
 
-    createSubgraph(graph, Colors.FIREBRICK, 0);
-    createSubgraph(graph, Colors.DARK_ORANGE, 200);
-    createSubgraph(graph, Colors.FOREST_GREEN, 600);
+    createSubgraph(graph, Themes.PALETTE_RED, 0);
+    createSubgraph(graph, Themes.PALETTE_ORANGE, 200);
+    createSubgraph(graph, Themes.PALETTE_GREEN, 600);
 
     // the blue nodes have some additional ports besides the ones used by the edge
-    INode[] nodes = createSubgraph(graph, Colors.ROYAL_BLUE, 400);
+    INode[] nodes = createSubgraph(graph, Themes.PALETTE_LIGHTBLUE, 400);
     graph.addPort(nodes[0], FreeNodePortLocationModel.INSTANCE.createParameter(new PointD(1, 0.2), PointD.ORIGIN), blackPortStyle);
     graph.addPort(nodes[0], FreeNodePortLocationModel.INSTANCE.createParameter(new PointD(1, 0.8), PointD.ORIGIN), blackPortStyle);
 
@@ -151,16 +152,14 @@ public class EdgeReconnectionDemo extends AbstractDemo {
    * @param color  the color to fill the node with
    * @param yOffset the offset by which the positions of the nodes should be shifted
    */
-  private static INode[] createSubgraph(IGraph graph, Color color, double yOffset) {
-    ShinyPlateNodeStyle style = new ShinyPlateNodeStyle();
-    style.setPaint(color);
-    INode n1 = graph.createNode(new RectD(100, 100 + yOffset, 60, 60), style, color);
-    INode n2 = graph.createNode(new RectD(500, 100 + yOffset, 60, 60), style, color);
-    INode n3 = graph.createNode(new RectD(300, 160 + yOffset, 60, 60), style, color);
+  private static INode[] createSubgraph(IGraph graph, Palette palette, double yOffset) {
+    RectangleNodeStyle style = DemoStyles.createDemoNodeStyle(palette);
+    INode n1 = graph.createNode(new RectD(100, 100 + yOffset, 60, 60), style, palette);
+    INode n2 = graph.createNode(new RectD(500, 100 + yOffset, 60, 60), style, palette);
+    INode n3 = graph.createNode(new RectD(300, 160 + yOffset, 60, 60), style, palette);
 
-    PolylineEdgeStyle edgeStyle = new PolylineEdgeStyle();
-    edgeStyle.setPen(new Pen(color, 1.5));
-    graph.createEdge(n1, n2, edgeStyle, color);
+    PolylineEdgeStyle edgeStyle = DemoStyles.createDemoEdgeStyle(palette);
+    graph.createEdge(n1, n2, edgeStyle, palette);
     return new INode[]{n1, n2, n3};
   }
 
@@ -185,19 +184,19 @@ public class EdgeReconnectionDemo extends AbstractDemo {
     Object edgeTag = edge.getTag();
 
     // see if it is a known tag
-    if (edgeTag instanceof Color) {
+    if (edgeTag instanceof Palette) {
       // and decide what implementation to provide
-      if (Colors.FIREBRICK.equals(edgeTag)) {
+      if (Themes.PALETTE_RED.equals(edgeTag)) {
         return new RedEdgeReconnectionPortCandidateProvider(edge);
-      } else if (Colors.DARK_ORANGE.equals(edgeTag)) {
+      } else if (Themes.PALETTE_ORANGE.equals(edgeTag)) {
         return new OrangeReconnectionEdgePortCandidateProvider(edge);
-      } else if (Colors.ROYAL_BLUE.equals(edgeTag)) {
+      } else if (Themes.PALETTE_LIGHTBLUE.equals(edgeTag)) {
         return new BlueEdgeReconnectionPortCandidateProvider();
-      } else if (Colors.FOREST_GREEN.equals(edgeTag)) {
+      } else if (Themes.PALETTE_GREEN.equals(edgeTag)) {
         return new GreenEdgeReconnectionPortCandidateProvider();
       }
     }
-    // otherwise revert to default behavior
+    // otherwise, revert to default behavior
     return null;
   }
 

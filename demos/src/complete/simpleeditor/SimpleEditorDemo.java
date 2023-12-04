@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -34,19 +34,6 @@ import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.graph.FoldingManager;
 import com.yworks.yfiles.graph.IFoldingView;
 import com.yworks.yfiles.graph.IGraph;
-import com.yworks.yfiles.graph.ILabelDefaults;
-import com.yworks.yfiles.graph.ILabelOwner;
-import com.yworks.yfiles.graph.INode;
-import com.yworks.yfiles.graph.LabelDefaults;
-import com.yworks.yfiles.graph.labelmodels.FreeNodeLabelModel;
-import com.yworks.yfiles.graph.labelmodels.ILabelModelParameter;
-import com.yworks.yfiles.graph.labelmodels.InteriorStretchLabelModel;
-import com.yworks.yfiles.graph.labelmodels.SmartEdgeLabelModel;
-import com.yworks.yfiles.graph.styles.CollapsibleNodeStyleDecorator;
-import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
-import com.yworks.yfiles.graph.styles.ILabelStyle;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
 import com.yworks.yfiles.layout.circular.CircularLayout;
 import com.yworks.yfiles.layout.hierarchic.HierarchicLayout;
@@ -66,7 +53,6 @@ import com.yworks.yfiles.view.GridInfo;
 import com.yworks.yfiles.view.GridVisualCreator;
 import com.yworks.yfiles.view.ICanvasObjectDescriptor;
 import com.yworks.yfiles.view.PixelImageExporter;
-import com.yworks.yfiles.view.TextAlignment;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.GraphSnapContext;
 import com.yworks.yfiles.view.input.GridConstraintProvider;
@@ -78,6 +64,7 @@ import com.yworks.yfiles.view.input.LabelSnapContext;
 import com.yworks.yfiles.view.input.OrthogonalEdgeEditingContext;
 import com.yworks.yfiles.view.input.WaitInputMode;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
 import toolkit.PrintPreview;
 
 import javax.swing.AbstractAction;
@@ -98,7 +85,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -191,7 +177,7 @@ public class SimpleEditorDemo extends AbstractDemo {
     toolBar.add(createCommandButtonAction("Zoom in", "plus2-16.png", ICommand.INCREASE_ZOOM, null, graphComponent));
     toolBar.add(createCommandButtonAction("Zoom 1:1", "zoom-original2-16.png", ICommand.ZOOM, 1, graphComponent));
     toolBar.add(createCommandButtonAction("Zoom out", "minus2-16.png", ICommand.DECREASE_ZOOM, null, graphComponent));
-    toolBar.add(createCommandButtonAction("Fit the graph content", "fit2-16.png", ICommand.FIT_CONTENT, null, graphComponent));
+    toolBar.add(createCommandButtonAction("Fit the graph content", "fit2-16.png", ICommand.FIT_GRAPH_BOUNDS, null, graphComponent));
     toolBar.addSeparator();
     toolBar.add(createCommandButtonAction("Group selected elements", "group-16.png", ICommand.GROUP_SELECTION, null, graphComponent));
     toolBar.add(createCommandButtonAction("Ungroup selected elements", "ungroup-16.png", ICommand.UNGROUP_SELECTION, null, graphComponent));
@@ -427,21 +413,25 @@ public class SimpleEditorDemo extends AbstractDemo {
     layoutMenu.add(createCommandMenuItemAction("Organic", RUN_LAYOUT, new OrganicLayout(), graphComponent));
     layoutMenu.add(createCommandMenuItemAction("Orthogonal", RUN_LAYOUT, new OrthogonalLayout(), graphComponent));
     layoutMenu.add(createCommandMenuItemAction("Circular", RUN_LAYOUT, new CircularLayout(), graphComponent));
-    TreeLayout treeLayout = new TreeLayout();
-    // TreeLayout and BalloonLayout will fail with exception for graphs that are not trees.
+    // TreeLayout will fail with exception for graphs that are not trees.
     // If we prepend a TreeReductionStage, those graphs will be reduced
     // to trees and then those layouts can safely be calculated.
+    TreeLayout treeLayout = new TreeLayout();
     treeLayout.prependStage(new TreeReductionStage());
     layoutMenu.add(createCommandMenuItemAction("Tree", RUN_LAYOUT, treeLayout, graphComponent));
+    // BalloonLayout will fail with exception for graphs that are not trees.
+    // If we prepend a TreeReductionStage, those graphs will be reduced
+    // to trees and then those layouts can safely be calculated.
     BalloonLayout balloonLayout = new BalloonLayout();
     balloonLayout.prependStage(new TreeReductionStage());
     layoutMenu.add(createCommandMenuItemAction("Balloon", RUN_LAYOUT, balloonLayout, graphComponent));
     layoutMenu.add(createCommandMenuItemAction("Radial", RUN_LAYOUT, new RadialLayout(), graphComponent));
     layoutMenu.addSeparator();
+    layoutMenu.add(createCommandMenuItemAction("Orthogonal Router", RUN_LAYOUT, new EdgeRouter(), graphComponent));
     layoutMenu.add(createCommandMenuItemAction("Organic Router", RUN_LAYOUT, new OrganicEdgeRouter(), graphComponent));
-    EdgeRouter edgeRouter = new EdgeRouter();
-    edgeRouter.getDefaultEdgeLayoutDescriptor().setRoutingStyle(EdgeRoutingStyle.OCTILINEAR);
-    layoutMenu.add(createCommandMenuItemAction("Polyline Router", RUN_LAYOUT, edgeRouter, graphComponent));
+    EdgeRouter polylineRouter = new EdgeRouter();
+    polylineRouter.getDefaultEdgeLayoutDescriptor().setRoutingStyle(EdgeRoutingStyle.OCTILINEAR);
+    layoutMenu.add(createCommandMenuItemAction("Polyline Router", RUN_LAYOUT, polylineRouter, graphComponent));
     menuBar.add(layoutMenu);
   }
 
@@ -501,39 +491,7 @@ public class SimpleEditorDemo extends AbstractDemo {
     IGraph masterGraph = view.getManager().getMasterGraph();
     masterGraph.setUndoEngineEnabled(true);
 
-    // Configure grouping
-
-    // configure the group node style.
-    //PanelNodeStyle is a nice style especially suited for group nodes
-    Color groupNodeColor = new Color(207, 226, 248);
-    PanelNodeStyle decoratedStyle = new PanelNodeStyle();
-    decoratedStyle.setColor(groupNodeColor);
-    decoratedStyle.setLabelInsetsColor(groupNodeColor);
-    CollapsibleNodeStyleDecorator groupNodeStyle = new CollapsibleNodeStyleDecorator(decoratedStyle);
-    graph.getGroupNodeDefaults().setStyle(groupNodeStyle);
-
-    // Set a different label style and parameter
-    DefaultLabelStyle groupNodeLabelStyle = new DefaultLabelStyle();
-    groupNodeLabelStyle.setFont(new Font("Dialog", Font.ITALIC, 14));
-    groupNodeLabelStyle.setTextAlignment(TextAlignment.RIGHT);
-    graph.getGroupNodeDefaults().getLabelDefaults().setStyle(groupNodeLabelStyle);
-    graph.getGroupNodeDefaults().getLabelDefaults().setLayoutParameter(InteriorStretchLabelModel.NORTH);
-
-    // Configure Graph defaults
-    // set the default node style
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Color.decode("#FFA500")); // we use a slightly darker orange
-    graph.getNodeDefaults().setStyle(nodeStyle);
-    DefaultLabelStyle nodeLabelStyle = new DefaultLabelStyle();
-    nodeLabelStyle.setFont(new Font("Dialog", Font.ITALIC, 14));
-    nodeLabelStyle.setTextAlignment(TextAlignment.LEFT);
-    // use the same label defaults for folder nodes and group nodes but
-    // different label defaults for normal nodes
-    graph.getNodeDefaults().setLabelDefaults(new MultiplexingLabelDefaults(view));
-    graph.getNodeDefaults().getLabelDefaults().setStyle(nodeLabelStyle);
-    graph.getNodeDefaults().getLabelDefaults().setLayoutParameter(new FreeNodeLabelModel().createDefaultParameter());
-    graph.getEdgeDefaults().getLabelDefaults().setStyle(nodeLabelStyle);
-    graph.getEdgeDefaults().getLabelDefaults().setLayoutParameter(new SmartEdgeLabelModel().createDefaultParameter());
+    DemoStyles.initDemoStyles(masterGraph, true);
 
     graphComponent.setGraph(graph);
   }
@@ -761,66 +719,5 @@ public class SimpleEditorDemo extends AbstractDemo {
       initLnF();
       new SimpleEditorDemo().start();
     });
-  }
-
-
-  /**
-   * Differentiates between normal nodes and folder nodes.
-   * For folder nodes, the label defaults are adopted from the group node label
-   * defaults of the associated {@link IFoldingView}'s view graph.
-   */
-  private static class MultiplexingLabelDefaults extends LabelDefaults {
-    final IFoldingView view;
-
-    MultiplexingLabelDefaults(IFoldingView view) {
-      this.view = view;
-    }
-
-    @Override
-    public ILabelModelParameter getLayoutParameterInstance( ILabelOwner owner) {
-      if (isFolderNode(owner)) {
-        return getGroupLabelDefaults().getLayoutParameterInstance(owner);
-      } else {
-        return super.getLayoutParameterInstance(owner);
-      }
-    }
-
-    @Override
-    public ILabelStyle getStyleInstance( ILabelOwner owner) {
-      if (isFolderNode(owner)) {
-        return getGroupLabelDefaults().getStyleInstance(owner);
-      } else {
-        return super.getStyleInstance(owner);
-      }
-    }
-
-    /**
-     * Determines if the given label owner is a folder node.
-     */
-    private boolean isFolderNode(ILabelOwner owner) {
-      if (owner instanceof INode) {
-        INode node = (INode) owner;
-        IGraph masterGraph = view.getManager().getMasterGraph();
-        if (view.getGraph().contains(node)) {
-          if (!view.getGraph().isGroupNode(node)) {
-            INode masterNode = view.getMasterItem(node);
-            if (masterGraph.isGroupNode(masterNode)) {
-              return true;
-            }
-          }
-        } else if (masterGraph.contains(node)) {
-          return masterGraph.isGroupNode(node);
-        }
-      }
-      return false;
-    }
-
-    /**
-     * Returns the group node label defaults of the associated
-     * {@link IFoldingView}'s view graph.
-     */
-    private ILabelDefaults getGroupLabelDefaults() {
-      return view.getGraph().getGroupNodeDefaults().getLabelDefaults();
-    }
   }
 }

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -378,6 +378,39 @@ public abstract class LayoutConfiguration {
 
     public static final EnumLabelPlacementOrientation fromOrdinal( int ordinal ) {
       for (EnumLabelPlacementOrientation current : values()) {
+        if (ordinal == current.value) return current;
+      }
+      throw new IllegalArgumentException("Enum has no value " + ordinal);
+    }
+
+  }
+
+  /**
+   * Specifies constants for the labeling policy of a node label used by layout configurations.
+   */
+  public enum EnumNodeLabelingPolicies {
+    NONE(0),
+
+    HORIZONTAL(1),
+
+    RAYLIKE_LEAVES(2),
+
+    CONSIDER_CURRENT_POSITION(3),
+
+    RAYLIKE(4);
+
+    private final int value;
+
+    private EnumNodeLabelingPolicies( final int value ) {
+      this.value = value;
+    }
+
+    public int value() {
+      return this.value;
+    }
+
+    public static final EnumNodeLabelingPolicies fromOrdinal( int ordinal ) {
+      for (EnumNodeLabelingPolicies current : values()) {
         if (ordinal == current.value) return current;
       }
       throw new IllegalArgumentException("Enum has no value " + ordinal);

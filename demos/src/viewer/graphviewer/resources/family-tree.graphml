@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.5.
+     // This demo file is part of yFiles for Java (Swing) 3.6.
      //
-     // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -43,7 +43,14 @@
   <key id="d5" for="edge" attr.name="EdgeGeometry" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry" />
   <key id="d6" for="edge" attr.name="EdgeStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeStyle">
     <default>
-      <yfj:PolylineEdgeStyle TargetArrow="NONE" />
+      <yfj:PolylineEdgeStyle>
+        <yfj:PolylineEdgeStyle.Pen>
+          <yfj:Pen Paint="#FF662B00" Thickness="1.5"/>
+        </yfj:PolylineEdgeStyle.Pen>
+        <yfj:PolylineEdgeStyle.TargetArrow>
+          <yfj:Arrow Paint="#FF662B00" Type="TRIANGLE"/>
+        </yfj:PolylineEdgeStyle.TargetArrow>
+      </yfj:PolylineEdgeStyle>
     </default>
   </key>
   <key id="d7" for="port" attr.name="PortLocationParameter" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/PortLocationParameter">
@@ -62,9 +69,17 @@
   <data key="d9">
     <y:SharedData>
       <yfj:DefaultLabelStyle x:Key="1" TextPaint="Black"/>
-      <yfj:ShinyPlateNodeStyle x:Key="3" Paint="Orange" Pen="Orange" />
-      <yfj:ShinyPlateNodeStyle x:Key="4" Paint="LightSkyBlue" Pen="LightSkyBlue" />
-      <yfj:ShapeNodeStyle x:Key="5" Paint="Black" Pen="Black" Shape="ELLIPSE" />
+      <yfj:RectangleNodeStyle Paint="#ff6c00" CornerSize="3.5" x:Key="3">
+        <yfj:RectangleNodeStyle.Pen>
+          <yfj:Pen Paint="#662b00" Thickness="1.5"/>
+        </yfj:RectangleNodeStyle.Pen>
+      </yfj:RectangleNodeStyle>
+      <yfj:RectangleNodeStyle Paint="#68b0e3" CornerSize="3.5" x:Key="4">
+        <yfj:RectangleNodeStyle.Pen>
+          <yfj:Pen Paint="#662b00" Thickness="1.5"/>
+        </yfj:RectangleNodeStyle.Pen>
+      </yfj:RectangleNodeStyle>
+      <yfj:ShapeNodeStyle Paint="#662b00" Pen="#662b00" Shape="ELLIPSE" x:Key="5"/>
     </y:SharedData>
   </data>
   <graph id="G" edgedefault="directed">

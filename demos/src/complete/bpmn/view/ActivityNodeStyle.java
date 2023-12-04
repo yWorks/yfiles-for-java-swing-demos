@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -43,10 +43,10 @@ import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
 import com.yworks.yfiles.graph.styles.ShapeNodeStyleRenderer;
 import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.utils.Obfuscation;
+import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.input.IClickListener;
 import com.yworks.yfiles.view.input.IInputModeContext;
 import com.yworks.yfiles.view.input.INodeInsetsProvider;
-import com.yworks.yfiles.view.Pen;
 import java.awt.Paint;
 import java.util.ArrayList;
 

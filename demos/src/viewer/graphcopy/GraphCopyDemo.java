@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -43,8 +43,6 @@ import com.yworks.yfiles.graph.labelmodels.InteriorStretchLabelModel;
 import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
 import com.yworks.yfiles.graph.portlocationmodels.IPortLocationModelParameter;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.view.Colors;
 import com.yworks.yfiles.view.GraphComponent;
 import com.yworks.yfiles.view.IGraphSelection;
@@ -54,6 +52,7 @@ import com.yworks.yfiles.view.input.GraphViewerInputMode;
 import com.yworks.yfiles.view.input.ICommand;
 import com.yworks.yfiles.view.input.KeyboardInputMode;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -127,7 +126,7 @@ public class GraphCopyDemo extends AbstractDemo {
    * Initializes the graph and the input modes.
    */
   public void initialize() {
-    initializeDefaults();
+    DemoStyles.initDemoStyles(originalGraphComponent.getGraph());
 
     // Initializes the graph
     initializeGraph();
@@ -138,40 +137,6 @@ public class GraphCopyDemo extends AbstractDemo {
     // Initializes the input modes
     createEditorInputMode(originalGraphComponent);
     createViewerInputMode(copyGraphComponent);
-  }
-
-  /**
-   * Initializes the defaults for the styles.
-   */
-  private void initializeDefaults() {
-    IGraph graph = originalGraphComponent.getGraph();
-    // Sets the default style for nodes
-    ShinyPlateNodeStyle defaultNodeStyle = new ShinyPlateNodeStyle();
-    defaultNodeStyle.setPaint(Colors.DARK_ORANGE);
-    graph.getNodeDefaults().setStyle(defaultNodeStyle);
-    // Sets the default node size explicitly to 40x40
-    graph.getNodeDefaults().setSize(new SizeD(40, 40));
-
-    // Specifies the default style for group nodes.
-
-    // PanelNodeStyle is a style especially suited to group nodes
-    // Creates a panel with a light blue background
-    PanelNodeStyle panelNodeStyle = new PanelNodeStyle();
-    Color groupNodeColor = new Color(214, 229, 248);
-    panelNodeStyle.setColor(groupNodeColor);
-    // Specifies insets that provide space for a label at the top
-    panelNodeStyle.setInsets(new InsetsD(23, 5, 5, 5));
-    panelNodeStyle.setLabelInsetsColor(groupNodeColor);
-    graph.getGroupNodeDefaults().setStyle(panelNodeStyle);
-
-    // Sets a label style with right-aligned text
-    DefaultLabelStyle defaultLabelStyle = new DefaultLabelStyle();
-    defaultLabelStyle.setTextAlignment(TextAlignment.RIGHT);
-    graph.getGroupNodeDefaults().getLabelDefaults().setStyle(defaultLabelStyle);
-
-    // Places the label at the top inside of the panel.
-    // For PanelNodeStyle, InteriorStretchLabelModel is usually the most appropriate label model
-    graph.getGroupNodeDefaults().getLabelDefaults().setLayoutParameter(InteriorStretchLabelModel.NORTH);
   }
 
   /**

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,18 +29,17 @@
  ***************************************************************************/
 package input.singleselection;
 
-import com.yworks.yfiles.graph.GraphItemTypes;
-import com.yworks.yfiles.view.Colors;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.geometry.RectD;
+import com.yworks.yfiles.graph.GraphItemTypes;
 import com.yworks.yfiles.graph.IGraph;
+import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.ICommand;
 import com.yworks.yfiles.view.input.IEventRecognizer;
-import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.view.input.KeyboardInputModeBinding;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
 
 import javax.swing.AbstractAction;
 import javax.swing.JToggleButton;
@@ -79,9 +78,7 @@ public class SingleSelectionDemo extends AbstractDemo {
    * and loading the sample graph.
    */
   public void initialize() {
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Colors.DARK_ORANGE);
-    graphComponent.getGraph().getNodeDefaults().setStyle(nodeStyle);
+    DemoStyles.initDemoStyles(graphComponent.getGraph());
     GraphEditorInputMode mode = new GraphEditorInputMode();
     graphComponent.setInputMode(mode);
     oldPasteItems = mode.getPasteSelectableItems();

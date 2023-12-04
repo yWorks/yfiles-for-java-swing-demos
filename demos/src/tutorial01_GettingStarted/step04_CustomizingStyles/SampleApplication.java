@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,18 +29,7 @@
  ***************************************************************************/
 package tutorial01_GettingStarted.step04_CustomizingStyles;
 
-import com.yworks.yfiles.graph.labelmodels.InsideOutsidePortLabelModel;
-import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
-import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
-import com.yworks.yfiles.view.GraphComponent;
-import com.yworks.yfiles.graph.styles.ArrowType;
-import com.yworks.yfiles.view.Colors;
-import com.yworks.yfiles.graph.styles.Arrow;
-import com.yworks.yfiles.graph.styles.IArrow;
-import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
-import com.yworks.yfiles.graph.styles.ShapeNodeShape;
-import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
+import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.geometry.SizeD;
@@ -50,9 +39,20 @@ import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.ILabel;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.IPort;
-import com.yworks.yfiles.view.input.CommandAction;
+import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
+import com.yworks.yfiles.graph.styles.Arrow;
+import com.yworks.yfiles.graph.styles.ArrowType;
+import com.yworks.yfiles.graph.styles.CornerStyle;
+import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
+import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
+import com.yworks.yfiles.graph.styles.RectangleNodeStyle;
+import com.yworks.yfiles.graph.styles.ShapeNodeShape;
+import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
+import com.yworks.yfiles.view.Colors;
 import com.yworks.yfiles.view.DashStyle;
+import com.yworks.yfiles.view.GraphComponent;
 import com.yworks.yfiles.view.Pen;
+import com.yworks.yfiles.view.input.CommandAction;
 import com.yworks.yfiles.view.input.ICommand;
 
 import javax.swing.Action;
@@ -82,7 +82,7 @@ import java.util.Arrays;
  * </p>
  */
 public class SampleApplication {
-  private GraphComponent graphComponent;
+  private final GraphComponent graphComponent;
 
   ///////////////////////////////////////////////////////
   //////////// YFILES STUFF /////////////////////////////
@@ -118,25 +118,21 @@ public class SampleApplication {
   private void setDefaultStyles() {
     IGraph graph = getGraph();
     // Sets the default style for nodes
-    // Creates a nice ShinyPlateNodeStyle instance, using an orange color.
+    // Creates a nice ShapeNodeStyle instance, using an orange color.
     // Sets this style as the default for all nodes that don't have another
     // style assigned explicitly
-    ShinyPlateNodeStyle defaultNodeStyle = new ShinyPlateNodeStyle();
-    defaultNodeStyle.setPaint(Color.ORANGE);
+    ShapeNodeStyle defaultNodeStyle = new ShapeNodeStyle();
+    defaultNodeStyle.setShape(ShapeNodeShape.ROUND_RECTANGLE);
+    defaultNodeStyle.setPaint(new Color(255, 108, 0));
+    defaultNodeStyle.setPen(new Pen(new Color(102, 43, 0), 1.5));
     graph.getNodeDefaults().setStyle(defaultNodeStyle);
 
     // Sets the default style for edges:
-    // Creates an edge style that will apply a gray pen with thickness 1
-    // to the entire line using PolyLineEdgeStyle,
-    // which draws a polyline determined by the edge's control points (bends)
+    // Creates a PolylineEdgeStyle which will be used as default for all edges
+    // that don't have another style assigned explicitly
     PolylineEdgeStyle defaultEdgeStyle = new PolylineEdgeStyle();
-    defaultEdgeStyle.setPen(Pen.getGray());
-
-    // Sets the source and target arrows on the edge style instance
-    // (Actually: no source arrow)
-    // Note that IEdgeStyle itself does not have these properties
-    // Also note that by default there are no arrows
-    defaultEdgeStyle.setTargetArrow(IArrow.DEFAULT);
+    defaultEdgeStyle.setPen(new Pen(new Color(102, 43, 0), 1.5));
+    defaultEdgeStyle.setTargetArrow(new Arrow(ArrowType.TRIANGLE, new Color(102, 43, 0)));
 
     // Sets the defined edge style as the default for all edges that don't have
     // another style assigned explicitly:
@@ -146,7 +142,7 @@ public class SampleApplication {
     // Creates a label style with the label text color set to dark red
     DefaultLabelStyle defaultLabelStyle = new DefaultLabelStyle();
     defaultLabelStyle.setFont(new Font("Dialog", Font.PLAIN, 12));
-    defaultLabelStyle.setTextPaint(Colors.DARK_RED);
+    defaultLabelStyle.setTextPaint(Colors.BLACK);
 
     // Sets the defined style as the default for both edge and node labels:
     graph.getEdgeDefaults().getLabelDefaults().setStyle(defaultLabelStyle);
@@ -206,47 +202,57 @@ public class SampleApplication {
     // Adds labels to several graph elements
     graph.addLabel(node1, "N 1");
     graph.addLabel(node2, "N 2");
-    graph.addLabel(node3, "N 3");
+    ILabel n3Label = graph.addLabel(node3, "N 3");
     ILabel edgeLabel = graph.addLabel(edgeAtPorts, "Edge at Ports");
-    ILabel portLabel = graph.addLabel(port1AtNode3, "Port at Node", new InsideOutsidePortLabelModel().createOutsideParameter());
     /////////////////////////////////////////////////////
 
     ///////////////// New in this Sample /////////////////
-    // Override default styles
-    Pen pen = new Pen(Color.RED, 2);
-    pen.setDashStyle(DashStyle.getDash());
-    PolylineEdgeStyle edgeStyle = new PolylineEdgeStyle();
-    edgeStyle.setPen(pen);
 
     // Sets the source and target arrows on the edge style instance
     // Note that IEdgeStyle itself does not have these properties
-    // also note: by default the arrows have a default paint and pen
-    edgeStyle.setSourceArrow(new Arrow(ArrowType.CIRCLE, Color.RED, 1, 1));
-    edgeStyle.setTargetArrow(new Arrow(ArrowType.SHORT, Color.RED, 1, 2));
+    Arrow sourceArrowStyle = new Arrow();
+    sourceArrowStyle.setType(ArrowType.CIRCLE);
+    sourceArrowStyle.setPen(Pen.getBlue());
+    sourceArrowStyle.setPaint(Colors.RED);
+    sourceArrowStyle.setCropLength(3);
 
-    // Sets the defined edge style as the default for all edges that don't have
-    // another style assigned explicitly:
+    Arrow targetArrowStyle = new Arrow();
+    targetArrowStyle.setType(ArrowType.SHORT);
+    targetArrowStyle.setPen(Pen.getBlue());
+    targetArrowStyle.setPaint(Colors.BLUE);
+    targetArrowStyle.setCropLength(1);
+
+    Pen pen = new Pen(Colors.RED, 2);
+    pen.setDashStyle(DashStyle.getDash());
+    PolylineEdgeStyle edgeStyle = new PolylineEdgeStyle();
+    edgeStyle.setPen(pen);
+    edgeStyle.setSourceArrow(sourceArrowStyle);
+    edgeStyle.setTargetArrow(targetArrowStyle);
+
+    // Assign the defined edge style as the default for all edges that don't have
+    // another style assigned explicitly
     graph.setStyle(edge1, edgeStyle);
 
     // Creates a different style for the label with black text and a red border
     DefaultLabelStyle sls = new DefaultLabelStyle();
     sls.setBackgroundPen(Pen.getRed());
     sls.setBackgroundPaint(Colors.WHITE);
+    sls.setInsets(InsetsD.fromLTRB(5, 3, 5, 3));
 
     // And sets the style for the label, again through its owning graph.
-    graph.setStyle(edgeLabel, sls);
-
-    // Creates another style for the label with black text and a green background
-    DefaultLabelStyle sls2 = new DefaultLabelStyle();
-    sls2.setBackgroundPaint(Colors.LIGHT_GREEN);
-    graph.setStyle(portLabel, sls2);
-
+    graph.setStyle(n3Label, sls);
     // Custom node style
-    ShapeNodeStyle nodeStyle = new ShapeNodeStyle();
-    nodeStyle.setShape(ShapeNodeShape.ELLIPSE);
-    nodeStyle.setPen(Pen.getBlack());
-    nodeStyle.setPaint(Color.ORANGE);
-    graph.setStyle(node2, nodeStyle);
+    ShapeNodeStyle nodeStyle2 = new ShapeNodeStyle();
+    nodeStyle2.setShape(ShapeNodeShape.ELLIPSE);
+    nodeStyle2.setPaint(new Color(0xff, 0x6c, 0));
+    nodeStyle2.setPen(new Pen(Colors.RED, 2));
+    graph.setStyle(node2, nodeStyle2);
+
+    RectangleNodeStyle nodeStyle3 = new RectangleNodeStyle();
+    nodeStyle3.setPaint(new Color(0xff, 0x6c, 0));
+    nodeStyle3.setPen(Pen.getWhite());
+    nodeStyle3.setCornerStyle(CornerStyle.CUT);
+    graph.setStyle(node3, nodeStyle3);
     //////////////////////////////////////////////////////
   }
 

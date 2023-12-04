@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -47,14 +47,14 @@ import com.yworks.yfiles.layout.EdgeBundling;
 import com.yworks.yfiles.layout.GroupingSupport;
 import com.yworks.yfiles.layout.IEdgeLabelLayout;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
-import com.yworks.yfiles.layout.labeling.GenericLabeling;
 import com.yworks.yfiles.layout.LayoutData;
 import com.yworks.yfiles.layout.LayoutGraph;
 import com.yworks.yfiles.layout.LayoutOrientation;
+import com.yworks.yfiles.layout.labeling.GenericLabeling;
 import com.yworks.yfiles.layout.router.OrganicEdgeRouter;
-import com.yworks.yfiles.layout.router.polyline.EdgeRouter;
 import com.yworks.yfiles.layout.router.Scope;
 import com.yworks.yfiles.layout.router.StraightLineEdgeRouter;
+import com.yworks.yfiles.layout.router.polyline.EdgeRouter;
 import com.yworks.yfiles.layout.tree.AbstractRotatableNodePlacer;
 import com.yworks.yfiles.layout.tree.AspectRatioNodePlacer;
 import com.yworks.yfiles.layout.tree.BusNodePlacer;
@@ -115,6 +115,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
 
     setSpacingItem(20);
     setRootAlignmentItem(EnumRootAlignment.CENTER);
+    setPortAlignmentEnabledItem(false);
     setAllowingMultiParentsItem(false);
     setPortAssignmentItem(PortAssignmentMode.NONE);
 
@@ -142,6 +143,9 @@ public class TreeLayoutConfig extends LayoutConfiguration {
     // required to prevent WrongGraphStructure exception which may be thrown by TreeLayout if there are edges
     // between group nodes
     layout.prependStage(new HandleEdgesBetweenGroupsStage(placeLabels));
+
+    layout.setNodeLabelConsiderationEnabled(isConsideringNodeLabelsItem());
+
     if (getEdgeLabelingItem() == EnumEdgeLabeling.GENERIC) {
       layout.setIntegratedEdgeLabelingEnabled(false);
 
@@ -200,7 +204,9 @@ public class TreeLayoutConfig extends LayoutConfiguration {
         // the children of non-selected horizontal downwards
         ChildPlacement childPlacement = graphComponent.getSelection().isSelected(node) ? ChildPlacement.VERTICAL_TO_RIGHT : ChildPlacement.HORIZONTAL_DOWNWARD;
 
-        return new DefaultNodePlacer(childPlacement, RootAlignment.LEADING_ON_BUS, getSpacingItem(), getSpacingItem());
+        DefaultNodePlacer defaultNodePlacer = new DefaultNodePlacer(childPlacement, RootAlignment.LEADING_ON_BUS, getSpacingItem(), getSpacingItem());
+        defaultNodePlacer.setPortAlignmentEnabled(isPortAlignmentEnabledItem());
+        return defaultNodePlacer;
     });
     return data;
   }
@@ -246,7 +252,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
    * Configures the tree reduction stage that will handle edges that do not belong to the tree.
    */
   private TreeReductionStage createTreeReductionStage() {
-    TreeReductionStage reductionStage = new TreeReductionStage((ILayoutAlgorithm)null);
+    TreeReductionStage reductionStage = new TreeReductionStage();
     if (getEdgeLabelingItem() == EnumEdgeLabeling.INTEGRATED) {
       reductionStage.setNonTreeEdgeLabelingAlgorithm(new GenericLabeling());
     }
@@ -313,6 +319,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
         defaultNodePlacer.setHorizontalDistance(getSpacingItem());
         defaultNodePlacer.setVerticalDistance(getSpacingItem());
         defaultNodePlacer.setRootAlignment(rootAlignment1);
+        defaultNodePlacer.setPortAlignmentEnabled(isPortAlignmentEnabledItem());
         layout.setDefaultNodePlacer(defaultNodePlacer);
         layout.setMultiParentAllowed(allowMultiParents);
         break;
@@ -320,11 +327,13 @@ public class TreeLayoutConfig extends LayoutConfiguration {
         SimpleNodePlacer simpleNodePlacer = new SimpleNodePlacer();
         simpleNodePlacer.setSpacing(getSpacingItem());
         simpleNodePlacer.setRootAlignment(rootAlignment2);
+        simpleNodePlacer.setPortAlignmentEnabled(isPortAlignmentEnabledItem());
         layout.setDefaultNodePlacer(simpleNodePlacer);
         break;
       case BUS:
         BusNodePlacer busNodePlacer = new BusNodePlacer();
         busNodePlacer.setSpacing(getSpacingItem());
+        busNodePlacer.setPortAlignmentEnabled(isPortAlignmentEnabledItem());
         layout.setDefaultNodePlacer(busNodePlacer);
         layout.setMultiParentAllowed(allowMultiParents);
         break;
@@ -332,11 +341,13 @@ public class TreeLayoutConfig extends LayoutConfiguration {
         DoubleLineNodePlacer doubleLineNodePlacer = new DoubleLineNodePlacer();
         doubleLineNodePlacer.setSpacing(getSpacingItem());
         doubleLineNodePlacer.setRootAlignment(rootAlignment2);
+        doubleLineNodePlacer.setPortAlignmentEnabled(isPortAlignmentEnabledItem());
         layout.setDefaultNodePlacer(doubleLineNodePlacer);
         break;
       case LEFT_RIGHT:
         LeftRightNodePlacer leftRightNodePlacer = new LeftRightNodePlacer();
         leftRightNodePlacer.setSpacing(getSpacingItem());
+        leftRightNodePlacer.setPortAlignmentEnabled(isPortAlignmentEnabledItem());
         layout.setDefaultNodePlacer(leftRightNodePlacer);
         layout.setMultiParentAllowed(allowMultiParents);
         break;
@@ -345,6 +356,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
         layeredNodePlacer.setSpacing(getSpacingItem());
         layeredNodePlacer.setLayerSpacing(getSpacingItem());
         layeredNodePlacer.setRootAlignment(rootAlignment2);
+        layeredNodePlacer.setPortAlignmentEnabled(isPortAlignmentEnabledItem());
         layout.setDefaultNodePlacer(layeredNodePlacer);
         break;
       case ASPECT_RATIO:
@@ -365,6 +377,7 @@ public class TreeLayoutConfig extends LayoutConfiguration {
         GridNodePlacer gridNodePlacer = new GridNodePlacer();
         gridNodePlacer.setSpacing(getSpacingItem());
         gridNodePlacer.setRootAlignment(rootAlignment2);
+        gridNodePlacer.setPortAlignmentEnabled(isPortAlignmentEnabledItem());
         layout.setDefaultNodePlacer(gridNodePlacer);
         break;
       case COMPACT:
@@ -381,20 +394,24 @@ public class TreeLayoutConfig extends LayoutConfiguration {
         layeredNodePlacer2.setSpacing(getSpacingItem());
         layeredNodePlacer2.setLayerSpacing(getSpacingItem());
         layeredNodePlacer2.setRootAlignment(rootAlignment2);
+        layeredNodePlacer2.setPortAlignmentEnabled(isPortAlignmentEnabledItem());
         this.delegatingLeftPlacer = layeredNodePlacer2;
+
         LayeredNodePlacer layeredNodePlacer3 = new LayeredNodePlacer(AbstractRotatableNodePlacer.Matrix.ROT90, AbstractRotatableNodePlacer.Matrix.ROT90);
         layeredNodePlacer3.setVerticalAlignment(0);
         layeredNodePlacer3.setRoutingStyle(LayeredRoutingStyle.ORTHOGONAL);
         layeredNodePlacer3.setLayerSpacing(getSpacingItem());
         layeredNodePlacer3.setRootAlignment(rootAlignment2);
-
+        layeredNodePlacer3.setPortAlignmentEnabled(isPortAlignmentEnabledItem());
         this.delegatingRightPlacer = layeredNodePlacer3;
 
-        this.delegatingRootPlacer = new DelegatingNodePlacer(AbstractRotatableNodePlacer.Matrix.DEFAULT, this.delegatingLeftPlacer, this.delegatingRightPlacer);
+        DelegatingNodePlacer delegatingRootPlacer = new DelegatingNodePlacer(AbstractRotatableNodePlacer.Matrix.DEFAULT, this.delegatingLeftPlacer, this.delegatingRightPlacer);
+        delegatingRootPlacer.setPortAlignmentEnabled(isPortAlignmentEnabledItem());
+        this.delegatingRootPlacer = delegatingRootPlacer;
         break;
     }
 
-    layout.setDefaultPortAssignment(new DefaultPortAssignment(getPortAssignmentItem(), 0.5));
+    layout.setDefaultPortAssignment(new DefaultPortAssignment(getPortAssignmentItem()));
     layout.setGroupingSupportEnabled(true);
 
     return layout;
@@ -764,6 +781,26 @@ public class TreeLayoutConfig extends LayoutConfiguration {
     return getNodePlacerItem() == EnumNodePlacer.ASPECT_RATIO || getNodePlacerItem() == EnumNodePlacer.BUS || getNodePlacerItem() == EnumNodePlacer.DENDROGRAM || getNodePlacerItem() == EnumNodePlacer.COMPACT;
   }
 
+  private boolean portAlignmentEnabledItem;
+
+  @Label("Align Ports")
+  @OptionGroupAnnotation(name = "NodePlacerGroup", position = 40)
+  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
+  public final boolean isPortAlignmentEnabledItem() {
+    return this.portAlignmentEnabledItem;
+  }
+
+  @Label("Align Ports")
+  @OptionGroupAnnotation(name = "NodePlacerGroup", position = 40)
+  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
+  public final void setPortAlignmentEnabledItem( boolean value ) {
+    this.portAlignmentEnabledItem = value;
+  }
+
+  public final boolean isPortAlignmentEnabledItemDisabled() {
+    return (getNodePlacerItem() != EnumNodePlacer.DEFAULT && getNodePlacerItem() != EnumNodePlacer.SIMPLE && getNodePlacerItem() != EnumNodePlacer.BUS && getNodePlacerItem() != EnumNodePlacer.DOUBLE_LINE && getNodePlacerItem() != EnumNodePlacer.LEFT_RIGHT && getNodePlacerItem() != EnumNodePlacer.LAYERED && getNodePlacerItem() != EnumNodePlacer.GRID && getNodePlacerItem() != EnumNodePlacer.DELEGATING_LAYERED && getNodePlacerItem() != EnumNodePlacer.HV) || (getRootAlignmentItem() != EnumRootAlignment.CENTER && getRootAlignmentItem() != EnumRootAlignment.MEDIAN && getRootAlignmentItem() != EnumRootAlignment.LEFT && getRootAlignmentItem() != EnumRootAlignment.RIGHT);
+  }
+
   private LayoutOrientation defaultLayoutOrientationItem = LayoutOrientation.TOP_TO_BOTTOM;
 
   @Label("Orientation")
@@ -1035,7 +1072,6 @@ public class TreeLayoutConfig extends LayoutConfiguration {
    */
   private static class HandleEdgesBetweenGroupsStage extends AbstractLayoutStage {
     public HandleEdgesBetweenGroupsStage( boolean placeLabels ) {
-      super((ILayoutAlgorithm)null);
       setConsiderEdgeLabels(placeLabels);
     }
 

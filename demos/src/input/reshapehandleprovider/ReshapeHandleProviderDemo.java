@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -34,18 +34,18 @@ import com.yworks.yfiles.graph.GraphItemTypes;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.IPort;
 import com.yworks.yfiles.graph.PortDecorator;
+import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.graph.styles.NodeStylePortStyleAdapter;
-import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
+import com.yworks.yfiles.graph.styles.ShapeNodeShape;
 import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
-import com.yworks.yfiles.view.Colors;
 import com.yworks.yfiles.view.ModifierKeys;
-import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.IReshapeHandleProvider;
 import com.yworks.yfiles.view.input.OrthogonalEdgeEditingContext;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
+import toolkit.Themes;
 
-import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -101,10 +101,10 @@ public class ReshapeHandleProviderDemo extends AbstractDemo {
      */
     private void initializeGraphDefaults() {
         IGraph graph = graphComponent.getGraph();
+        DemoStyles.initDemoStyles(graph, Themes.PALETTE58);
 
-        ShapeNodeStyle adaptedStyle = new ShapeNodeStyle();
-        adaptedStyle.setPaint(Colors.GREEN);
-        adaptedStyle.setPen(Pen.getTransparent());
+        ShapeNodeStyle adaptedStyle = DemoStyles.createDemoShapeNodeStyle(ShapeNodeShape.RECTANGLE, Themes.PALETTE_GREEN);
+        adaptedStyle.setPen(null);
 
         NodeStylePortStyleAdapter portStyleAdapter = new NodeStylePortStyleAdapter(adaptedStyle);
         portStyleAdapter.setRenderSize(new SizeD(7, 7));
@@ -114,9 +114,12 @@ public class ReshapeHandleProviderDemo extends AbstractDemo {
         // disable removing ports when all attached edges have been removed
         graph.getNodeDefaults().getPortDefaults().setAutoCleanUpEnabled(false);
 
-        PolylineEdgeStyle edgeStyle = new PolylineEdgeStyle();
-        edgeStyle.setPen(new Pen(Color.BLACK, 3));
-        graph.getEdgeDefaults().setStyle(edgeStyle);
+        DefaultLabelStyle nodeLabelStyle = DemoStyles.createDemoNodeLabelStyle(Themes.PALETTE55);
+        nodeLabelStyle.setBackgroundPaint(null);
+        graph.getNodeDefaults().getLabelDefaults().setStyle(nodeLabelStyle);
+        DefaultLabelStyle portLabelStyle = DemoStyles.createDemoNodeLabelStyle(Themes.PALETTE58);
+        portLabelStyle.setBackgroundPaint(null);
+        graph.getNodeDefaults().getPortDefaults().getLabelDefaults().setStyle(portLabelStyle);
     }
 
 

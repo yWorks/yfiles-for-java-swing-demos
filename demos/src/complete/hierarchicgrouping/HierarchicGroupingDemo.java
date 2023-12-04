@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -38,24 +38,27 @@ import com.yworks.yfiles.graph.FoldingManager;
 import com.yworks.yfiles.graph.GroupingSupport;
 import com.yworks.yfiles.graph.IFoldingView;
 import com.yworks.yfiles.graph.IGraph;
+import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.graph.INode;
-import com.yworks.yfiles.layout.LayoutExecutor;
 import com.yworks.yfiles.graph.NodeDecorator;
-import com.yworks.yfiles.view.input.GraphViewerInputMode;
+import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.layout.CompositeLayoutData;
 import com.yworks.yfiles.layout.FixNodeLayoutData;
 import com.yworks.yfiles.layout.FixNodeLayoutStage;
 import com.yworks.yfiles.layout.FixPointPolicy;
-import com.yworks.yfiles.layout.hierarchic.HierarchicLayoutData;
-import com.yworks.yfiles.layout.hierarchic.HierarchicLayout;
-import com.yworks.yfiles.layout.hierarchic.LayoutMode;
+import com.yworks.yfiles.layout.LayoutExecutor;
 import com.yworks.yfiles.layout.hierarchic.EdgeRoutingStyle;
+import com.yworks.yfiles.layout.hierarchic.HierarchicLayout;
+import com.yworks.yfiles.layout.hierarchic.HierarchicLayoutData;
+import com.yworks.yfiles.layout.hierarchic.LayoutMode;
 import com.yworks.yfiles.layout.hierarchic.RoutingStyle;
-import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.utils.ItemEventArgs;
+import com.yworks.yfiles.view.input.GraphViewerInputMode;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.HashSet;
@@ -90,7 +93,8 @@ public class HierarchicGroupingDemo extends AbstractDemo {
     graphComponent.fitGraphBounds();
     graphComponent.getGraph().applyLayout(createLayoutAlgorithm());
     // top align the graph
-    graphComponent.setViewPoint(new PointD(graphComponent.getViewPoint().getX(), graphComponent.getContentRect().getMinY() - 50));
+    graphComponent.setViewPoint(
+        new PointD(graphComponent.getViewPoint().getX(), graphComponent.getContentRect().getMinY() - 50));
   }
 
   /**
@@ -112,12 +116,17 @@ public class HierarchicGroupingDemo extends AbstractDemo {
 
     // create a view
     foldingView = foldingManager.createFoldingView();
+    IGraph graph = foldingView.getGraph();
 
     // and set it to the GraphComponent
-    graphComponent.setGraph(foldingView.getGraph());
+    graphComponent.setGraph(graph);
+
+    DemoStyles.initDemoStyles(graph, true);
+    DefaultLabelStyle style = (DefaultLabelStyle) graph.getGroupNodeDefaults().getLabelDefaults().getStyle();
+    Font font = style.getFont();
+    style.setFont(new Font(font.getName(), Font.BOLD, font.getSize()));
 
     // decorate the behavior of nodes
-    IGraph graph = graphComponent.getGraph();
     NodeDecorator nodeDecorator = graph.getDecorator().getNodeDecorator();
 
     // adjust the insets so that labels are considered
@@ -227,6 +236,7 @@ public class HierarchicGroupingDemo extends AbstractDemo {
 
   /**
    * Calculates and applies a layout in an animated fashion.
+   *
    * @param fixGroupNode The group node whose top right corner shall be fixed.
    */
   private void applyLayout(INode fixGroupNode) {

@@ -11,7 +11,7 @@ This is a simple demo showing how to set up a yFiles for Java (Swing) project us
 ## Running during development
 
 * yFiles is delivered as a single JAR file. To use it in a Maven project, the simplest approach is to install it as a Maven dependency into the local repository.
-  * In the `lib` folder of the package run: `mvn install:install-file -Dfile="yfiles-for-java-swing.jar" -DgroupId="com.yworks.yfiles" -DartifactId="yfiles-for-java-complete" -Dversion="3.5" -Dpackaging="jar"`
+  * In the `lib` folder of the package run: `mvn install:install-file -Dfile="yfiles-for-java-swing.jar" -DgroupId="com.yworks.yfiles" -DartifactId="yfiles-for-java-complete" -Dversion="3.6" -Dpackaging="jar"`
 * Copy the license (e.g. `com.yworks.yfiles.java.developmentlicense.xml`) into the `src/main/java` folder of the demo.
   * In the yFiles evaluation package the license file is already provided in this folder.
   * The license is going to be copied during build to the build folder via the `maven-resources-plugin` as configured in the `pom.xml`.

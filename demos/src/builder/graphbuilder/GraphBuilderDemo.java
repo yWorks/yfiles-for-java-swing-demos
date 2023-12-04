@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -35,42 +35,40 @@ import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.geometry.SizeD;
 import com.yworks.yfiles.graph.GraphItemTypes;
-import com.yworks.yfiles.graph.IEdgeDefaults;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.ILabel;
 import com.yworks.yfiles.graph.ILabelDefaults;
 import com.yworks.yfiles.graph.INode;
-import com.yworks.yfiles.graph.INodeDefaults;
-import com.yworks.yfiles.graph.builder.EdgesSource;
+import com.yworks.yfiles.graph.builder.EdgeCreator;
 import com.yworks.yfiles.graph.builder.GraphBuilder;
 import com.yworks.yfiles.graph.builder.GraphBuilderItemEventArgs;
 import com.yworks.yfiles.graph.builder.LabelCreator;
+import com.yworks.yfiles.graph.builder.NodeCreator;
 import com.yworks.yfiles.graph.builder.NodesSource;
 import com.yworks.yfiles.graph.builder.TreeBuilder;
 import com.yworks.yfiles.graph.builder.TreeNodesSource;
-import com.yworks.yfiles.graph.labelmodels.EdgeSegmentLabelModel;
+import com.yworks.yfiles.graph.labelmodels.EdgePathLabelModel;
 import com.yworks.yfiles.graph.labelmodels.EdgeSides;
-import com.yworks.yfiles.graph.labelmodels.FreeNodeLabelModel;
 import com.yworks.yfiles.graph.labelmodels.InteriorLabelModel;
+import com.yworks.yfiles.graph.labelmodels.InteriorStretchLabelModel;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
-import com.yworks.yfiles.graph.styles.IArrow;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
-import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
-import com.yworks.yfiles.graph.styles.ShapeNodeShape;
-import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
+import com.yworks.yfiles.graph.styles.GroupNodeStyle;
 import com.yworks.yfiles.layout.LayoutOrientation;
+import com.yworks.yfiles.layout.hierarchic.EdgeLayoutDescriptor;
 import com.yworks.yfiles.layout.hierarchic.HierarchicLayout;
 import com.yworks.yfiles.utils.IEventListener;
-import com.yworks.yfiles.view.Colors;
-import com.yworks.yfiles.view.Pen;
+import com.yworks.yfiles.view.VerticalAlignment;
 import com.yworks.yfiles.view.input.GraphViewerInputMode;
 import com.yworks.yfiles.view.input.IInputMode;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
 
-import java.awt.Color;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JToolBar;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.net.URL;
@@ -78,16 +76,13 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JToolBar;
 
 /**
- * Shows how to use the @link GraphBuilder} for quickly populating a graph from
- * a data source. The GraphBuilder constructs the example graphs from XML data. 
+ * Shows how to use the {@link GraphBuilder} for quickly populating a graph from
+ * a data source. The GraphBuilder constructs the example graphs from XML data.
  */
 public class GraphBuilderDemo extends AbstractDemo {
-  public static void main( String[] args ) {
+  public static void main(String[] args) {
     EventQueue.invokeLater(() -> {
       initLnF();
       new GraphBuilderDemo().start();
@@ -95,10 +90,10 @@ public class GraphBuilderDemo extends AbstractDemo {
   }
 
   /**
-   * Adds a control for choosing sample diagrams to the demo tool bar. 
+   * Adds a control for choosing sample diagrams to the demo tool bar.
    */
   @Override
-  protected void configureToolBar( JToolBar toolBar ) {
+  protected void configureToolBar(JToolBar toolBar) {
     super.configureToolBar(toolBar);
 
     JComboBox<String> exampleComboBox = new JComboBox<>(new String[]{"Organization", "Classes"});
@@ -152,39 +147,14 @@ public class GraphBuilderDemo extends AbstractDemo {
   void initializeGraphDefaults() {
     IGraph graph = graphComponent.getGraph();
 
-    // configure default shape and colors for nodes
-    ShapeNodeStyle nodeStyle = new ShapeNodeStyle();
-    nodeStyle.setShape(ShapeNodeShape.ROUND_RECTANGLE);
-    nodeStyle.setPaint(new Color(255, 237, 204));
-    nodeStyle.setPen(Pen.getDarkOrange());
-    INodeDefaults nodeDefaults = graph.getNodeDefaults();
-    nodeDefaults.setStyle(nodeStyle);
-    // configure default font for node labels
-    DefaultLabelStyle nodeLabelStyle = new DefaultLabelStyle();
-    nodeLabelStyle.setFont(new Font("Dialog", Font.PLAIN, 13));
-    ILabelDefaults nodeLabelDefaults = nodeDefaults.getLabelDefaults();
-    nodeLabelDefaults.setStyle(nodeLabelStyle);
-    // configure default placement for node labels
-    // i.e. node labels should be placed in the center of their associated nodes
-    nodeLabelDefaults.setLayoutParameter(InteriorLabelModel.CENTER);
-
-    // configure default visualization of edges
-    // the edge style depends on the sample graph and will be specified in the
-    // corresponding factory methods
-    IEdgeDefaults edgeDefaults = graph.getEdgeDefaults();
-    // configure default background and border color for edge labels
-    DefaultLabelStyle edgeLabelStyle = new DefaultLabelStyle();
-    edgeLabelStyle.setBackgroundPaint(new Color(225, 242, 253));
-    edgeLabelStyle.setBackgroundPen(Pen.getLightSkyBlue());
-    ILabelDefaults edgeLabelDefaults = edgeDefaults.getLabelDefaults();
-    edgeLabelDefaults.setStyle(edgeLabelStyle);
-    // configure default placement for edge labels
-    // i.e. edge labels should be placed on the path of their associated edge
-    // and their text baseline should be parallel to the x-axis
-    EdgeSegmentLabelModel edgeLabelModel = new EdgeSegmentLabelModel();
-    edgeLabelModel.setAutoRotationEnabled(false);
-    edgeLabelModel.setSideOfEdge(EdgeSides.ON_EDGE);
-    edgeLabelDefaults.setLayoutParameter(edgeLabelModel.createDefaultParameter());
+    // initialize demo styles
+    DemoStyles.initDemoStyles(graph);
+    // set insets and bigger text size for demo group node label styles
+    DefaultLabelStyle groupLabelStyle = (DefaultLabelStyle) graph.getGroupNodeDefaults().getLabelDefaults().getStyle();
+    groupLabelStyle.setInsets(new InsetsD(2));
+    groupLabelStyle.setFont(new Font("Dialog", Font.PLAIN, 24));
+    // increase tab height of GroupNodeStyle so the increased group node labels fit into the header
+    ((GroupNodeStyle) graph.getGroupNodeDefaults().getStyle()).setTabHeight(28);
   }
 
 
@@ -201,80 +171,74 @@ public class GraphBuilderDemo extends AbstractDemo {
         businessUnits.put(unit.getAttribute("name"), unit);
       }
 
+      graphComponent.getGraph().clear();
       TreeBuilder builder = new TreeBuilder(graphComponent.getGraph());
       // nodes, edges, and groups are obtained from XML elements in the model
       TreeNodesSource<Element> employeeSource = builder.createRootNodesSource(
           XmlUtils.getChildrenByTagName(data, "employee"));
-      TreeNodesSource<Element> businessunitSource = builder.createRootGroupNodesSource(
-          XmlUtils.getDescendantsByTagName(data, "businessunit"));
+      // as is the hierarchy of employees
+      employeeSource.addChildNodesSource(element -> XmlUtils.getChildrenByTagName(element, "employee"), employeeSource);
 
       // mapping nodes to groups is done via an attribute on the employee
       employeeSource.setParentIdProvider(element -> businessUnits.get(element.getAttribute("businessUnit")));
+      // choose the node size so that the labels fit
+      NodeCreator<Element> employeeNodeCreator = employeeSource.getNodeCreator();
+      employeeNodeCreator.setLayoutProvider(element -> {
+        double width = 7 * Math.max(element.getAttribute("name").length(), element.getAttribute("position").length());
+        return new RectD(0, 0, width, 40);
+      });
+      // take the name attribute as node name
+      LabelCreator<Element> nodeNameLabels = employeeNodeCreator.createLabelBinding(
+          element -> element.getAttribute("name"));
+      InteriorStretchLabelModel nameLabelModel = new InteriorStretchLabelModel();
+      nameLabelModel.setInsets(new InsetsD(5));
+      nodeNameLabels.getDefaults().setLayoutParameter(
+          nameLabelModel.createParameter(InteriorStretchLabelModel.Position.CENTER));
+      DefaultLabelStyle nodeNameLabelStyle = DemoStyles.createDemoNodeLabelStyle();
+      nodeNameLabelStyle.setInsets(InsetsD.EMPTY);
+      nodeNameLabelStyle.setVerticalTextAlignment(VerticalAlignment.TOP);
+      nodeNameLabels.getDefaults().setStyle(nodeNameLabelStyle);
+
+      LabelCreator<Element> nodePositionLabels = employeeNodeCreator.createLabelBinding(
+          element -> element.getAttribute("position"));
+      InteriorStretchLabelModel positionLabelModel = new InteriorStretchLabelModel();
+      positionLabelModel.setInsets(new InsetsD(20, 5, 5, 5));
+      nodePositionLabels.getDefaults().setLayoutParameter(
+          positionLabelModel.createParameter(InteriorStretchLabelModel.Position.CENTER));
+      DefaultLabelStyle nodePositionLabelStyle = DemoStyles.createDemoNodeLabelStyle();
+      nodePositionLabelStyle.setInsets(InsetsD.EMPTY);
+      nodePositionLabels.getDefaults().setStyle(nodePositionLabelStyle);
+
+      // create the group nodes from the business units
+      TreeNodesSource<Element> businessunitSource = builder.createRootGroupNodesSource(
+          XmlUtils.getDescendantsByTagName(data, "businessunit"));
       // group nesting is determined by nesting of the XML elements
       businessunitSource.setParentIdProvider(element -> {
         Node node = element.getParentNode();
         return node != null && node.getNodeType() == Node.ELEMENT_NODE ? node : null;
       });
-      // as is the hierarchy of employees
-      employeeSource.addChildNodesSource(element -> XmlUtils.getChildrenByTagName(element, "employee"), employeeSource);
-      // Add descriptive labels to edges and groups. Nodes get two labels instead, which is handled in an event below.
-      employeeSource.getParentEdgeCreator().createLabelBinding((target) -> target.getAttribute("name"));
-      PolylineEdgeStyle edgeStyle = new PolylineEdgeStyle();
-      edgeStyle.setSmoothingLength(20);
-      employeeSource.getParentEdgeCreator().getDefaults().setStyle(edgeStyle);
-
       LabelCreator<Element> groupLabelCreator = businessunitSource.getNodeCreator().createLabelBinding(
           element -> element.getAttribute("name"));
-      // configure default shape and colors for group nodes
-      PanelNodeStyle groupStyle = new PanelNodeStyle();
-      groupStyle.setColor(new Color(225, 242, 253, 127));
-      groupStyle.setLabelInsetsColor(Colors.ANTIQUE_WHITE);
-      groupStyle.setInsets(new InsetsD(20, 5, 5, 5));
-      INodeDefaults groupNodeDefaults = businessunitSource.getNodeCreator().getDefaults();
-      groupNodeDefaults.setStyle(groupStyle);
-      // configure default font and text color for group node labels
-      DefaultLabelStyle groupLabelStyle = new DefaultLabelStyle();
-      groupLabelStyle.setFont(new Font("Dialog", Font.BOLD, 32));
-      groupLabelStyle.setTextPaint(Color.GRAY);
       ILabelDefaults groupLabelDefaults = groupLabelCreator.getDefaults();
-      groupLabelDefaults.setStyle(groupLabelStyle);
       // configure default placement for group node labels
       // i.e. group node labels should be placed inside and close to the upper
       // left corner of their associated group node
-      groupLabelDefaults.setLayoutParameter(FreeNodeLabelModel.INSTANCE.createParameter(
-          PointD.ORIGIN, new PointD(5, 5), PointD.ORIGIN, PointD.ORIGIN, 0));
+      groupLabelDefaults.setLayoutParameter(InteriorLabelModel.NORTH_WEST);
 
-      // a label model with some space to the node's border
-      InteriorLabelModel nodeLabelModel = new InteriorLabelModel();
-      nodeLabelModel.setInsets(new InsetsD(5));
+      // Add descriptive labels to edges
+      LabelCreator<Element> edgeLabels = employeeSource.getParentEdgeCreator().createLabelBinding(
+          target -> target.getAttribute("position"));
+      edgeLabels.setDefaults(graphComponent.getGraph().getEdgeDefaults().getLabelDefaults());
+      edgeLabels.getDefaults().setLayoutParameter(
+          new EdgePathLabelModel(0, 0, 0, false, EdgeSides.ON_EDGE).createDefaultParameter());
 
-      LabelCreator<Element> nameLabelCreator = employeeSource.getNodeCreator().createLabelBinding(
-          element -> element.getAttribute("name"));
-      nameLabelCreator.getDefaults().setLayoutParameter(
-          nodeLabelModel.createParameter(InteriorLabelModel.Position.NORTH_WEST));
-      LabelCreator<Element> positionLabelCreator = employeeSource.getNodeCreator().createLabelBinding(
-          element -> element.getAttribute("position"));
-      positionLabelCreator.getDefaults().setLayoutParameter(
-          nodeLabelModel.createParameter(InteriorLabelModel.Position.SOUTH_WEST));
-
-      positionLabelCreator.addLabelAddedListener((source, args) -> {
-        IGraph _graph = args.getGraph();
-        INode employeeNode = (INode) args.getItem().getOwner();
-        // determine optimal node size
-        SizeD labelsSize = employeeNode.getLabels().stream()
-            .map(label -> label.getPreferredSize())
-            .reduce((size1, size2) -> new SizeD(Math.max(size1.getWidth(), size2.getWidth()),
-                size1.getHeight() + size2.getHeight()))
-            .orElse(SizeD.EMPTY);
-        SizeD bestSize = new SizeD(labelsSize.getWidth() + 10, labelsSize.getHeight() + 12);
-        // Set node to that size. Location is irrelevant here, since we're running a layout anyway
-        _graph.setNodeLayout(employeeNode, new RectD(PointD.ORIGIN, bestSize));
-      });
-
-      graphComponent.getGraph().clear();
       builder.buildGraph();
 
       HierarchicLayout algorithm = new HierarchicLayout();
+      EdgeLayoutDescriptor eld = new EdgeLayoutDescriptor();
+      eld.setMinimumLength(50);
+      eld.setMinimumDistance(20);
+      algorithm.setEdgeLayoutDescriptor(eld);
       algorithm.setIntegratedEdgeLabelingEnabled(true);
       graphComponent.morphLayout(algorithm, Duration.ofMillis(1000));
     }
@@ -295,7 +259,6 @@ public class GraphBuilderDemo extends AbstractDemo {
       }
 
       // nodes and edges are obtained from XML elements in the model
-      //
       Predicate<Element> hasChildren = element -> XmlUtils.getChildrenByTagName(element, "class").iterator().hasNext();
       Iterable<Element> childNodeData = XmlUtils.getDescendantsByTagName(data, "class",
           element -> !hasChildren.test(element));
@@ -313,12 +276,6 @@ public class GraphBuilderDemo extends AbstractDemo {
       // add and configure NodeSource for group nodes
       NodesSource<Element> groupSource = builder.createGroupNodesSource(groupNodeData);
       groupSource.setParentIdProvider(parentProvider);
-      // configure default shape and colors for group nodes
-      PanelNodeStyle groupStyle = new PanelNodeStyle();
-      groupStyle.setColor(new Color(225, 242, 253, 127));
-      groupStyle.setLabelInsetsColor(Colors.ANTIQUE_WHITE);
-      groupStyle.setInsets(new InsetsD(30, 5, 5, 5));
-      groupSource.getNodeCreator().getDefaults().setStyle(groupStyle);
 
       // add and configure NodeSource for leaf nodes
       NodesSource<Element> nodesSource = builder.createNodesSource(childNodeData);
@@ -336,11 +293,6 @@ public class GraphBuilderDemo extends AbstractDemo {
 
       LabelCreator<Element> groupNodeLabelCreator = groupSource.getNodeCreator().createLabelBinding(nodeLabelProvider);
       groupNodeLabelCreator.getDefaults().setLayoutParameter(InteriorLabelModel.NORTH_WEST);
-      // configure default font and text color for group node labels
-      DefaultLabelStyle groupLabelStyle = new DefaultLabelStyle();
-      groupLabelStyle.setFont(new Font("Dialog", Font.BOLD, 16));
-      groupLabelStyle.setTextPaint(Color.GRAY);
-      groupNodeLabelCreator.getDefaults().setStyle(groupLabelStyle);
 
       // ensure that nodes are large enough to hold their labels
       IEventListener<GraphBuilderItemEventArgs<ILabel, Element>> adjustNodeSizeToLabel = (source, args) -> {
@@ -350,7 +302,7 @@ public class GraphBuilderDemo extends AbstractDemo {
         IRectangle nl = node.getLayout();
         SizeD size1 = l1.getPreferredSize();
         SizeD bestSize = new SizeD(
-            Math.max(nl.getWidth(), size1.getWidth() + 10),
+            Math.max(nl.getWidth(), size1.getWidth() + 15),
             Math.max(nl.getHeight(), size1.getHeight() + 12));
         // Set node to that size. Location is irrelevant here, since we're running a layout anyway
         args.getGraph().setNodeLayout(node, new RectD(PointD.ORIGIN, bestSize));
@@ -360,21 +312,16 @@ public class GraphBuilderDemo extends AbstractDemo {
 
       // edges are drawn for classes with an "extends" attribute
       // between the class itself and the class which is provided by the "extends" attribute
-      EdgesSource<Element> edgesSource = builder.createEdgesSource(XmlUtils.getDescendantsByTagName(data, "class"),
+      EdgeCreator<Element> edgeCreator = builder.createEdgesSource(XmlUtils.getDescendantsByTagName(data, "class"),
           element -> element,
-          element -> classes.get(element.getAttribute("extends")));
+          element -> classes.get(element.getAttribute("extends"))).getEdgeCreator();
 
       // edge label "Source extends Target"
-      edgesSource.getEdgeCreator().createLabelBinding(element -> {
+      edgeCreator.createLabelBinding(element -> {
         Element superType = classes.get(element.getAttribute("extends"));
         return element.getAttribute("name") + " extends " + superType.getAttribute("name");
       });
-
-      // use edges with arrowhead
-      PolylineEdgeStyle edgeStyle = new PolylineEdgeStyle();
-      edgeStyle.setSmoothingLength(20);
-      edgeStyle.setTargetArrow(IArrow.SHORT);
-      edgesSource.getEdgeCreator().getDefaults().setStyle(edgeStyle);
+      edgeCreator.getDefaults().setLabelDefaults(graphComponent.getGraph().getEdgeDefaults().getLabelDefaults());
 
       graphComponent.getGraph().clear();
       builder.buildGraph();
@@ -393,10 +340,10 @@ public class GraphBuilderDemo extends AbstractDemo {
    * Parses the content of the resource at the given relative resource path as
    * an XML document.
    */
-  private Document parse( String path ) {
+  private Document parse(String path) {
     URL resource = getClass().getResource(path);
     if (resource == null) {
-      return null; 
+      return null;
     } else {
       return XmlUtils.parse(resource);
     }

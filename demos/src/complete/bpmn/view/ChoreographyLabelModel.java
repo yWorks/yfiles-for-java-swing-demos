@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,15 +29,17 @@
  ***************************************************************************/
 package complete.bpmn.view;
 
-import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.geometry.IOrientedRectangle;
 import com.yworks.yfiles.geometry.IRectangle;
+import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.geometry.OrientedRectangle;
 import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.graph.ILabel;
 import com.yworks.yfiles.graph.ILabelOwner;
 import com.yworks.yfiles.graph.ILookup;
 import com.yworks.yfiles.graph.INode;
+import com.yworks.yfiles.graph.SimpleLabel;
+import com.yworks.yfiles.graph.SimpleNode;
 import com.yworks.yfiles.graph.labelmodels.ConstantLabelCandidateDescriptorProvider;
 import com.yworks.yfiles.graph.labelmodels.DefaultLabelModelParameterFinder;
 import com.yworks.yfiles.graph.labelmodels.ILabelCandidateDescriptorProvider;
@@ -48,8 +50,6 @@ import com.yworks.yfiles.graph.labelmodels.ILabelModelParameterProvider;
 import com.yworks.yfiles.graph.labelmodels.InteriorLabelModel;
 import com.yworks.yfiles.graph.labelmodels.InteriorStretchLabelModel;
 import com.yworks.yfiles.graph.labelmodels.SandwichLabelModel;
-import com.yworks.yfiles.graph.SimpleLabel;
-import com.yworks.yfiles.graph.SimpleNode;
 import com.yworks.yfiles.graph.styles.INodeStyle;
 import com.yworks.yfiles.graphml.GraphML;
 import com.yworks.yfiles.graphml.IMarkupExtensionConverter;
@@ -104,7 +104,7 @@ public class ChoreographyLabelModel implements ILabelModel, ILabelModelParameter
       return ((ChoreographyParameter)parameter).getGeometry(label);
     } else if (label.getOwner() instanceof INode) {
       IRectangle layout = ((INode)label.getOwner()).getLayout();
-      return new OrientedRectangle(layout.getX(), layout.getY() + layout.getHeight(), layout.getWidth(), layout.getHeight(), 0, -1);
+      return new OrientedRectangle(layout.getX(), layout.getY() + layout.getHeight(), layout.getWidth(), layout.getHeight());
     }
     return IOrientedRectangle.EMPTY;
   }

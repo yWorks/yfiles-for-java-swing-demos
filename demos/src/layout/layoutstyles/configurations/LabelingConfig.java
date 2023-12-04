@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -36,11 +36,11 @@ import com.yworks.yfiles.graph.labelmodels.FreeEdgeLabelModel;
 import com.yworks.yfiles.graph.labelmodels.ILabelModelParameterFinder;
 import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
+import com.yworks.yfiles.layout.LayoutData;
+import com.yworks.yfiles.layout.SimpleProfitModel;
 import com.yworks.yfiles.layout.labeling.GenericLabeling;
 import com.yworks.yfiles.layout.labeling.LabelingData;
 import com.yworks.yfiles.layout.labeling.OptimizationStrategy;
-import com.yworks.yfiles.layout.LayoutData;
-import com.yworks.yfiles.layout.SimpleProfitModel;
 import com.yworks.yfiles.utils.Obfuscation;
 import com.yworks.yfiles.view.GraphComponent;
 import com.yworks.yfiles.view.IGraphSelection;
@@ -265,6 +265,7 @@ public class LabelingConfig extends LayoutConfiguration {
   @EnumValueAnnotation(label = "With Nodes", value = "NODE_OVERLAP")
   @EnumValueAnnotation(label = "Between Labels", value = "LABEL_OVERLAP")
   @EnumValueAnnotation(label = "With Edges", value = "EDGE_OVERLAP")
+  @EnumValueAnnotation(label = "Partition Grid Overlap", value = "PARTITION_GRID_OVERLAP")
   @EnumValueAnnotation(label = "Don't optimize", value = "NONE")
   public final OptimizationStrategy getOptimizationStrategyItem() {
     return this.optimizationStrategyItem;
@@ -277,6 +278,7 @@ public class LabelingConfig extends LayoutConfiguration {
   @EnumValueAnnotation(label = "With Nodes", value = "NODE_OVERLAP")
   @EnumValueAnnotation(label = "Between Labels", value = "LABEL_OVERLAP")
   @EnumValueAnnotation(label = "With Edges", value = "EDGE_OVERLAP")
+  @EnumValueAnnotation(label = "Partition Grid Overlap", value = "PARTITION_GRID_OVERLAP")
   @EnumValueAnnotation(label = "Don't optimize", value = "NONE")
   public final void setOptimizationStrategyItem( OptimizationStrategy value ) {
     this.optimizationStrategyItem = value;

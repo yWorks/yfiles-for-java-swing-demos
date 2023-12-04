@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,12 +29,16 @@
  ***************************************************************************/
 package layout.layoutstyles.configurations;
 
+import com.yworks.yfiles.graph.ILabel;
+import com.yworks.yfiles.graph.INode;
+import com.yworks.yfiles.graph.labelmodels.FreeNodeLabelModel;
 import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.layout.EdgeBundleDescriptor;
 import com.yworks.yfiles.layout.EdgeBundling;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
-import com.yworks.yfiles.layout.labeling.GenericLabeling;
 import com.yworks.yfiles.layout.LayoutData;
+import com.yworks.yfiles.layout.NodeLabelingPolicy;
+import com.yworks.yfiles.layout.labeling.GenericLabeling;
 import com.yworks.yfiles.layout.radial.CenterNodesPolicy;
 import com.yworks.yfiles.layout.radial.EdgeRoutingStrategy;
 import com.yworks.yfiles.layout.radial.LayeringStrategy;
@@ -77,11 +81,11 @@ public class RadialLayoutConfig extends LayoutConfiguration {
     setEdgeBundlingStrengthItem(0.95);
 
     setEdgeLabelingEnabledItem(false);
-    setConsideringNodeLabelsItem(layout.isNodeLabelConsiderationEnabled());
     setLabelPlacementAlongEdgeItem(LayoutConfiguration.EnumLabelPlacementAlongEdge.CENTERED);
     setLabelPlacementSideOfEdgeItem(LayoutConfiguration.EnumLabelPlacementSideOfEdge.ON_EDGE);
     setLabelPlacementOrientationItem(LayoutConfiguration.EnumLabelPlacementOrientation.HORIZONTAL);
     setLabelPlacementDistanceItem(10);
+    setNodeLabelingStyleItem(LayoutConfiguration.EnumNodeLabelingPolicies.CONSIDER_CURRENT_POSITION);
   }
 
   @Override
@@ -98,7 +102,6 @@ public class RadialLayoutConfig extends LayoutConfiguration {
     layout.setMaximumChildSectorAngle(getMaximumChildSectorSizeItem());
     layout.setCenterNodesPolicy(getCenterStrategyItem());
     layout.setLayeringStrategy(getLayeringStrategyItem());
-    layout.setNodeLabelConsiderationEnabled(isConsideringNodeLabelsItem());
 
     EdgeBundling ebc = layout.getEdgeBundling();
     ebc.setBundlingStrength(getEdgeBundlingStrengthItem());
@@ -113,6 +116,38 @@ public class RadialLayoutConfig extends LayoutConfiguration {
       labeling.setAmbiguityReductionEnabled(isReduceAmbiguityItem());
       layout.setLabelingEnabled(true);
       layout.setLabeling(labeling);
+    }
+
+    switch (getNodeLabelingStyleItem()) {
+      case NONE:
+        layout.setNodeLabelConsiderationEnabled(false);
+        break;
+      case RAYLIKE_LEAVES:
+        layout.setIntegratedNodeLabelingEnabled(true);
+        layout.setNodeLabelingPolicy(NodeLabelingPolicy.RAY_LIKE_LEAVES);
+        break;
+      case RAYLIKE:
+        layout.setIntegratedNodeLabelingEnabled(true);
+        layout.setNodeLabelingPolicy(NodeLabelingPolicy.RAY_LIKE);
+        break;
+      case CONSIDER_CURRENT_POSITION:
+        layout.setNodeLabelConsiderationEnabled(true);
+        break;
+      case HORIZONTAL:
+        layout.setIntegratedNodeLabelingEnabled(true);
+        layout.setNodeLabelingPolicy(NodeLabelingPolicy.HORIZONTAL);
+        break;
+      default:
+        layout.setNodeLabelConsiderationEnabled(false);
+        break;
+    }
+
+    if (this.getNodeLabelingStyleItem() == LayoutConfiguration.EnumNodeLabelingPolicies.RAYLIKE_LEAVES || getNodeLabelingStyleItem() == LayoutConfiguration.EnumNodeLabelingPolicies.RAYLIKE || getNodeLabelingStyleItem() == LayoutConfiguration.EnumNodeLabelingPolicies.HORIZONTAL) {
+      for (ILabel label : graphComponent.getGraph().getLabels()) {
+        if (label.getOwner() instanceof INode) {
+          graphComponent.getGraph().setLabelLayoutParameter(label, FreeNodeLabelModel.INSTANCE.findBestParameter(label, FreeNodeLabelModel.INSTANCE, label.getLayout()));
+        }
+      }
     }
 
     return layout;
@@ -234,6 +269,8 @@ public class RadialLayoutConfig extends LayoutConfiguration {
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = EdgeRoutingStyle.class, stringValue = "ARC")
   @EnumValueAnnotation(label = "Straight", value = "POLYLINE")
   @EnumValueAnnotation(label = "Arc", value = "ARC")
+  @EnumValueAnnotation(label = "Curved", value = "CURVED")
+  @EnumValueAnnotation(label = "Radial Polyline", value = "RADIAL_POLYLINE")
   @EnumValueAnnotation(label = "Bundled", value = "BUNDLED")
   public final EdgeRoutingStyle getEdgeRoutingStrategyItem() {
     return this.edgeRoutingStrategyItem;
@@ -244,6 +281,8 @@ public class RadialLayoutConfig extends LayoutConfiguration {
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = EdgeRoutingStyle.class, stringValue = "ARC")
   @EnumValueAnnotation(label = "Straight", value = "POLYLINE")
   @EnumValueAnnotation(label = "Arc", value = "ARC")
+  @EnumValueAnnotation(label = "Curved", value = "CURVED")
+  @EnumValueAnnotation(label = "Radial Polyline", value = "RADIAL_POLYLINE")
   @EnumValueAnnotation(label = "Bundled", value = "BUNDLED")
   public final void setEdgeRoutingStrategyItem( EdgeRoutingStyle value ) {
     this.edgeRoutingStrategyItem = value;
@@ -328,6 +367,7 @@ public class RadialLayoutConfig extends LayoutConfiguration {
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = LayeringStrategy.class, stringValue = "BFS")
   @EnumValueAnnotation(label = "Distance From Center", value = "BFS")
   @EnumValueAnnotation(label = "Hierarchic", value = "HIERARCHICAL")
+  @EnumValueAnnotation(label = "Dendrogram", value = "DENDROGRAM")
   public final LayeringStrategy getLayeringStrategyItem() {
     return this.layeringStrategyItem;
   }
@@ -337,24 +377,35 @@ public class RadialLayoutConfig extends LayoutConfiguration {
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = LayeringStrategy.class, stringValue = "BFS")
   @EnumValueAnnotation(label = "Distance From Center", value = "BFS")
   @EnumValueAnnotation(label = "Hierarchic", value = "HIERARCHICAL")
+  @EnumValueAnnotation(label = "Dendrogram", value = "DENDROGRAM")
   public final void setLayeringStrategyItem( LayeringStrategy value ) {
     this.layeringStrategyItem = value;
   }
 
-  private boolean consideringNodeLabelsItem;
+  private LayoutConfiguration.EnumNodeLabelingPolicies nodeLabelingStyleItem = LayoutConfiguration.EnumNodeLabelingPolicies.NONE;
 
-  @Label("Consider Node Labels")
+  @Label("Node Labeling")
   @OptionGroupAnnotation(name = "NodePropertiesGroup", position = 10)
-  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
-  public final boolean isConsideringNodeLabelsItem() {
-    return this.consideringNodeLabelsItem;
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = LayoutConfiguration.EnumNodeLabelingPolicies.class, stringValue = "CONSIDER_CURRENT_POSITION")
+  @EnumValueAnnotation(label = "Ignore Labels", value = "NONE")
+  @EnumValueAnnotation(label = "Consider Labels", value = "CONSIDER_CURRENT_POSITION")
+  @EnumValueAnnotation(label = "Horizontal", value = "HORIZONTAL")
+  @EnumValueAnnotation(label = "Ray-like at Leaves", value = "RAYLIKE_LEAVES")
+  @EnumValueAnnotation(label = "Ray-like", value = "RAYLIKE")
+  public final LayoutConfiguration.EnumNodeLabelingPolicies getNodeLabelingStyleItem() {
+    return this.nodeLabelingStyleItem;
   }
 
-  @Label("Consider Node Labels")
+  @Label("Node Labeling")
   @OptionGroupAnnotation(name = "NodePropertiesGroup", position = 10)
-  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
-  public final void setConsideringNodeLabelsItem( boolean value ) {
-    this.consideringNodeLabelsItem = value;
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = LayoutConfiguration.EnumNodeLabelingPolicies.class, stringValue = "CONSIDER_CURRENT_POSITION")
+  @EnumValueAnnotation(label = "Ignore Labels", value = "NONE")
+  @EnumValueAnnotation(label = "Consider Labels", value = "CONSIDER_CURRENT_POSITION")
+  @EnumValueAnnotation(label = "Horizontal", value = "HORIZONTAL")
+  @EnumValueAnnotation(label = "Ray-like at Leaves", value = "RAYLIKE_LEAVES")
+  @EnumValueAnnotation(label = "Ray-like", value = "RAYLIKE")
+  public final void setNodeLabelingStyleItem( LayoutConfiguration.EnumNodeLabelingPolicies value ) {
+    this.nodeLabelingStyleItem = value;
   }
 
   private boolean edgeLabelingEnabledItem;
@@ -512,7 +563,11 @@ public class RadialLayoutConfig extends LayoutConfiguration {
 
     ARC(5),
 
-    BUNDLED(6);
+    RADIAL_POLYLINE(6),
+
+    CURVED(7),
+
+    BUNDLED(8);
 
     private final int value;
 

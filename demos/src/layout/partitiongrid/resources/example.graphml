@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.5.
+     // This demo file is part of yFiles for Java (Swing) 3.6.
      //
-     // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -253,7 +253,7 @@
         <y:RectD Height="152.44798890429954" Width="47.01664355062405" X="129.54160887656042" Y="-97.359835721991"/>
       </data>
       <data key="d3">
-        <yfj:PanelNodeStyle Color="#66FFFFFF"/>
+        <yfj:GroupNodeStyle/>
       </data>
       <graph id="n15:">
         <node id="n15::n0">

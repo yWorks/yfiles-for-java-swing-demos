@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -308,11 +308,10 @@ public abstract class ComponentNodeStyle extends AbstractJComponentNodeStyle {
    */
   static class IntegerTextField extends JFormattedTextField {
     public IntegerTextField() {
-      super();
-      setFormatter(createIntegerFormatter());
+      super(IntegerFormatFactory.INSTANCE);
     }
 
-    // last caret position before loosing the focus
+    // last caret position before losing the focus
     int lastCaretPosition;
 
     // flag indicating if a focus event of type FocusEvent.FOCUS_GAINED is processed
@@ -337,7 +336,26 @@ public abstract class ComponentNodeStyle extends AbstractJComponentNodeStyle {
       // While processing focus gained events, the NumberFormatter is reinstalled and resets the caret position to 0.
       // We want to keep the caret position in this case, so we use the position stored
       // while processing the last focus lost event
-      super.setCaretPosition(processingFocusGainedEvent ? lastCaretPosition : position);
+      super.setCaretPosition(processingFocusGainedEvent ? Math.min(lastCaretPosition, this.getText().length()) : position);
+    }
+  }
+
+  static class IntegerFormatFactory extends JFormattedTextField.AbstractFormatterFactory {
+
+    static IntegerFormatFactory INSTANCE = new IntegerFormatFactory();
+
+    private final NumberFormatter integerFormatter;
+
+    public IntegerFormatFactory() {
+      integerFormatter = createIntegerFormatter();
+    }
+
+    @Override
+    public JFormattedTextField.AbstractFormatter getFormatter(JFormattedTextField tf) {
+      if (tf instanceof IntegerTextField) {
+        return integerFormatter;
+      }
+      return null;
     }
 
     private NumberFormatter createIntegerFormatter() {

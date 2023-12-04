@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -33,17 +33,20 @@ import com.yworks.yfiles.geometry.SizeD;
 import com.yworks.yfiles.graph.IEdge;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.IMapper;
+import com.yworks.yfiles.graph.INodeDefaults;
 import com.yworks.yfiles.graph.Mapper;
 import com.yworks.yfiles.graph.styles.Arrow;
 import com.yworks.yfiles.graph.styles.ArrowType;
 import com.yworks.yfiles.graph.styles.NodeStylePortStyleAdapter;
 import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
+import com.yworks.yfiles.graph.styles.RectangleNodeStyle;
 import com.yworks.yfiles.graph.styles.ShapeNodeShape;
 import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
 import com.yworks.yfiles.graph.styles.VoidPortStyle;
 import com.yworks.yfiles.graphml.GraphMLIOHandler;
 import com.yworks.yfiles.layout.hierarchic.HierarchicLayout;
 import com.yworks.yfiles.layout.hierarchic.HierarchicLayoutData;
+import com.yworks.yfiles.layout.hierarchic.IEdgeData;
 import com.yworks.yfiles.layout.hierarchic.IncrementalHintItemMapping;
 import com.yworks.yfiles.layout.hierarchic.LayoutMode;
 import com.yworks.yfiles.layout.hierarchic.SimplexNodePlacer;
@@ -54,6 +57,8 @@ import com.yworks.yfiles.view.GraphObstacleProvider;
 import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.input.GraphViewerInputMode;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
+import toolkit.Themes;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
@@ -288,6 +293,20 @@ public class EdgeGroupingDemo extends AbstractDemo {
    * file.
    */
   private void loadGraph() {
+    IGraph graph = graphComponent.getGraph();
+    DemoStyles.initDemoStyles(graph);
+    RectangleNodeStyle nodeStyle = DemoStyles.createDemoNodeStyle(Themes.PALETTE44);
+    INodeDefaults nodeDefaults = graph.getNodeDefaults();
+    nodeDefaults.setStyle(nodeStyle);
+    nodeDefaults.setSize(new SizeD(50, 30));
+
+    PolylineEdgeStyle edgeStyle = new PolylineEdgeStyle();
+    Color edgeColor = new Color(0xBB, 0xBB, 0xBB);
+    edgeStyle.setPen(new Pen(edgeColor, 3));
+    edgeStyle.setTargetArrow(new Arrow(ArrowType.TRIANGLE, edgeColor));
+    edgeStyle.setSmoothingLength(15);
+    graph.getEdgeDefaults().setStyle(edgeStyle);
+
     GraphMLIOHandler graphMLIOHandler = graphComponent.getGraphMLIOHandler();
 
     graphMLIOHandler.addInputMapper(IEdge.class, Object.class, "sourceGroupId", sourceGroupIdMapper);

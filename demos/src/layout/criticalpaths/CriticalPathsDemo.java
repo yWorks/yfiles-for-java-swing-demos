@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -35,6 +35,7 @@ import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.styles.IEdgeStyle;
 import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
+import com.yworks.yfiles.graph.styles.RectangleNodeStyle;
 import com.yworks.yfiles.layout.hierarchic.EdgeLayoutDescriptor;
 import com.yworks.yfiles.layout.hierarchic.HierarchicLayout;
 import com.yworks.yfiles.layout.hierarchic.HierarchicLayoutData;
@@ -43,10 +44,11 @@ import com.yworks.yfiles.layout.tree.LayeredNodePlacer;
 import com.yworks.yfiles.layout.tree.TreeLayout;
 import com.yworks.yfiles.layout.tree.TreeLayoutData;
 import com.yworks.yfiles.utils.IListEnumerable;
-import com.yworks.yfiles.view.Colors;
 import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.input.GraphViewerInputMode;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
+import toolkit.Themes;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -84,12 +86,12 @@ public class CriticalPathsDemo extends AbstractDemo {
    */
   private static IEdgeStyle[] createPriorityStyles() {
     Pen[] pens = {
-            new Pen(new Color(51, 102, 153, 255), 1), // priority 0 (least)
-            new Pen(Colors.GOLD, 3),                  // priority 1
-            new Pen(Colors.ORANGE, 3),                // priority 2
-            new Pen(Colors.DARK_ORANGE, 3),           // priority 3
-            new Pen(Colors.ORANGE_RED, 3),            // priority 4
-            new Pen(Colors.FIREBRICK, 3),             // priority 5 (highest)
+            new Pen(new Color(0xC7, 0xC7, 0xA6), 1), // priority 0 (least)
+            new Pen(new Color(0x33, 0x66, 0x99), 3), // priority 1
+            new Pen(new Color(0x56, 0x92, 0x6E), 3), // priority 2
+            new Pen(new Color(0xF0, 0xC8, 0x08), 3), // priority 3
+            new Pen(new Color(0xFF, 0x6C, 0x00), 3), // priority 4
+            new Pen(new Color(0xDB, 0x3A, 0x34), 3), // priority 5 (highest)
     };
 
     IEdgeStyle[] styles = new IEdgeStyle[pens.length];
@@ -353,6 +355,9 @@ public class CriticalPathsDemo extends AbstractDemo {
     String path = LAYOUT_ALGORITHM == Algorithm.Tree
             ? "resources/tree.graphml"
             : "resources/hierarchic.graphml";
+
+    RectangleNodeStyle nodeStyle = DemoStyles.createDemoNodeStyle(Themes.PALETTE44);
+    graphComponent.getGraph().getNodeDefaults().setStyle(nodeStyle);
 
     try {
       graphComponent.importFromGraphML(getClass().getResource(path));

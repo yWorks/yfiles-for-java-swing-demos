@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,18 +29,15 @@
  ***************************************************************************/
 package complete.collapse;
 
-import com.yworks.yfiles.graph.styles.AbstractNodeStyle;
-import com.yworks.yfiles.view.IVisual;
-import com.yworks.yfiles.view.IRenderContext;
 import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.graph.INode;
-import com.yworks.yfiles.view.Pen;
+import com.yworks.yfiles.graph.styles.AbstractNodeStyle;
+import com.yworks.yfiles.view.IRenderContext;
+import com.yworks.yfiles.view.IVisual;
 
 import java.awt.Color;
-import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.Paint;
-import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.RoundRectangle2D;
 
@@ -59,7 +56,7 @@ class CollapsibleNodeStyle extends AbstractNodeStyle {
   protected IVisual updateVisual(IRenderContext context, IVisual oldVisual, INode node) {
     // we override updateVisual from AbstractNodeStyle because the superclass method always creates a new
     // visual. A better solution is to preserve the old visual and just update it with the needed information.
-    if (oldVisual instanceof CollapsibleNodeVisual){
+    if (oldVisual instanceof CollapsibleNodeVisual) {
       ((CollapsibleNodeVisual) oldVisual).setNode(node);
       return oldVisual;
     } else {
@@ -72,12 +69,9 @@ class CollapsibleNodeStyle extends AbstractNodeStyle {
    * node depending on its {@link complete.collapse.CollapsedState}.
    */
   private static class CollapsibleNodeVisual implements IVisual {
-    private static final Color COLLAPSED_COLOR_1 = new Color(255, 204, 0);
-    private static final Color COLLAPSED_COLOR_2 = new Color(255, 153, 0);
-    private static final Color EXPANDED_COLOR_1 = new Color(204, 255, 255);
-    private static final Color EXPANDED_COLOR_2 = new Color(153, 204, 255);
-    private static final Color LEAF_COLOR_1 = new Color(204, 255, 153);
-    private static final Color LEAF_COLOR_2 = new Color(153, 204, 51);
+    private static final Color COLLAPSED_COLOR = new Color(255, 153, 0);
+    private static final Color EXPANDED_COLOR = new Color(153, 204, 255);
+    private static final Color LEAF_COLOR = new Color(153, 204, 51);
 
     private INode node;
 
@@ -102,9 +96,8 @@ class CollapsibleNodeStyle extends AbstractNodeStyle {
         CollapsedState state = (CollapsedState) node.getTag();
 
         // get the background colors depending on the collapsed state
-        Color backgroundColor1 = getBackgroundColor(state, COLLAPSED_COLOR_1, EXPANDED_COLOR_1, LEAF_COLOR_1);
-        Color backgroundColor2 = getBackgroundColor(state, COLLAPSED_COLOR_2, EXPANDED_COLOR_2, LEAF_COLOR_2);
-        paintNodeShape(g, backgroundColor1, backgroundColor2);
+        Color backgroundColor = getBackgroundColor(state, COLLAPSED_COLOR, EXPANDED_COLOR, LEAF_COLOR);
+        paintNodeShape(g, backgroundColor);
 
         PointD center = node.getLayout().getCenter();
         g.translate(center.getX(), center.getY());
@@ -120,8 +113,6 @@ class CollapsibleNodeStyle extends AbstractNodeStyle {
     }
 
     private void paintMinusSign(Graphics2D g) {
-      g.setPaint(Color.LIGHT_GRAY);
-      g.fillRect(-10, -4, 20, 8);
       g.setPaint(Color.WHITE);
       g.fillRect(-9, -3, 18, 6);
       g.setPaint(Color.DARK_GRAY);
@@ -129,9 +120,6 @@ class CollapsibleNodeStyle extends AbstractNodeStyle {
     }
 
     private void paintPlusSign(Graphics2D g) {
-      g.setPaint(Color.LIGHT_GRAY);
-      g.fillRect(-10, -4, 20, 8);
-      g.fillRect(-4, -10, 8, 20);
       g.setPaint(Color.WHITE);
       g.fillRect(-9, -3, 18, 6);
       g.fillRect(-3, -9, 6, 18);
@@ -140,18 +128,14 @@ class CollapsibleNodeStyle extends AbstractNodeStyle {
       g.fillRect(-2, -8, 4, 16);
     }
 
-    private void paintNodeShape(Graphics2D g, Color backgroundColor1, Color backgroundColor2) {
+    private void paintNodeShape(Graphics2D g, Color backgroundColor) {
       double x = node.getLayout().getX();
       double y = node.getLayout().getY();
       double w = node.getLayout().getWidth();
       double h = node.getLayout().getHeight();
       // draw the shape of the node
-      Paint paint = new GradientPaint((float) x, (float) y, backgroundColor1, (float) x, (float) (y + h), backgroundColor2);
-      Shape rect = new RoundRectangle2D.Double(x, y, w, h, 10, 10);
-      Pen.getLightGray().commit(g);
-      g.setPaint(paint);
-      g.fill(rect);
-      g.draw(rect);
+      g.setPaint(backgroundColor);
+      g.fill(new RoundRectangle2D.Double(x, y, w, h, 10, 10));
     }
 
     private Color getBackgroundColor(CollapsedState state, Color collapsedColor, Color expandedColor, Color leafColor) {

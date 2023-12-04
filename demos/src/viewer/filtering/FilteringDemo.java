@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -40,13 +40,12 @@ import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.labelmodels.InteriorStretchLabelModel;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.view.Colors;
 import com.yworks.yfiles.view.TextAlignment;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.ICommand;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
 
 import javax.swing.JButton;
 import javax.swing.JToolBar;
@@ -154,7 +153,7 @@ public class FilteringDemo extends AbstractDemo {
     IGraph fullGraph = new DefaultGraph();
 
     // set default styles for newly created graph elements
-    initializeDefaults(fullGraph);
+    DemoStyles.initDemoStyles(fullGraph);
 
     // create an initial sample graph
     createInitialGraph(fullGraph);
@@ -181,31 +180,6 @@ public class FilteringDemo extends AbstractDemo {
     boolean hasFilteredItems = fullGraph.getNodes().stream().anyMatch(node -> node.getTag() != null && node.getTag() == "filtered") ||
         fullGraph.getEdges().stream().anyMatch(edge -> edge.getTag() != null && edge.getTag() == "filtered");
     resetButton.setEnabled(hasFilteredItems);
-  }
-
-  /**
-   * Initializes the defaults for the styles.
-   */
-  private void initializeDefaults(IGraph graph) {
-    // configure defaults for normal nodes
-    ShinyPlateNodeStyle defaultNodeStyle = new ShinyPlateNodeStyle();
-    defaultNodeStyle.setPaint(Colors.DARK_ORANGE);
-    graph.getNodeDefaults().setStyle(defaultNodeStyle);
-    graph.getNodeDefaults().setSize(new SizeD(40, 40));
-
-    // configure defaults for group nodes and their labels
-    PanelNodeStyle panelNodeStyle = new PanelNodeStyle();
-    Color groupNodeColor = new Color(214, 229, 248);
-    panelNodeStyle.setColor(groupNodeColor);
-    panelNodeStyle.setInsets(new InsetsD(23, 5, 5, 5));
-    panelNodeStyle.setLabelInsetsColor(groupNodeColor);
-    graph.getGroupNodeDefaults().setStyle(panelNodeStyle);
-
-    DefaultLabelStyle defaultLabelStyle = new DefaultLabelStyle();
-    defaultLabelStyle.setTextAlignment(TextAlignment.RIGHT);
-    graph.getGroupNodeDefaults().getLabelDefaults().setStyle(defaultLabelStyle);
-
-    graph.getGroupNodeDefaults().getLabelDefaults().setLayoutParameter(InteriorStretchLabelModel.NORTH);
   }
 
   /**

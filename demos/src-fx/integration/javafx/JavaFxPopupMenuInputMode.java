@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -43,14 +43,14 @@ import java.util.concurrent.FutureTask;
 
 /**
  * An implementation of {@link com.yworks.yfiles.view.input.AbstractPopupMenuInputMode} interface that will
- * display a {@link javafx.scene.control.ContextMenu JavaFX context menu} when the user right clicks on the {@link
+ * display a {@link javafx.scene.control.ContextMenu JavaFX context menu} when the user right-clicks on the {@link
  * com.yworks.yfiles.view.CanvasComponent} or presses the menu key.
  * <p>
  * Note: the JavaFX context menu must be accessed and changed on the JavaFX application thread.
  */
 class JavaFxPopupMenuInputMode extends AbstractPopupMenuInputMode<ContextMenu> {
   // the node in whose space the context menu is to appear
-  private Node parent;
+  private final Node parent;
 
   /**
    * Initializes a new <code>JavaFxPopupMenuInputMode</code> instance with a node in that the context menu is to

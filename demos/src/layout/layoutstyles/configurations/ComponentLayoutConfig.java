@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -54,7 +54,7 @@ public class ComponentLayoutConfig extends LayoutConfiguration {
    * Setup default values for various configuration parameters.
    */
   public ComponentLayoutConfig() {
-    ComponentLayout layout = new ComponentLayout((ILayoutAlgorithm)null);
+    ComponentLayout layout = new ComponentLayout();
 
     setStyleItem(ComponentArrangementStyles.ROWS);
     setRemovingOverlapsItem(!ComponentArrangementStyles.NONE.equals((layout.getStyle().and(ComponentArrangementStyles.MODIFIER_NO_OVERLAP))));
@@ -70,7 +70,7 @@ public class ComponentLayoutConfig extends LayoutConfiguration {
 
   @Override
   protected ILayoutAlgorithm createConfiguredLayout( GraphComponent graphComponent ) {
-    ComponentLayout layout = new ComponentLayout((ILayoutAlgorithm)null);
+    ComponentLayout layout = new ComponentLayout();
     layout.setComponentArrangementEnabled(true);
     ComponentArrangementStyles style = getStyleItem();
     if (isRemovingOverlapsItem()) {

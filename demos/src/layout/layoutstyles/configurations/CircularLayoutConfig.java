@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -30,17 +30,23 @@
 package layout.layoutstyles.configurations;
 
 import com.yworks.yfiles.graph.IGraph;
+import com.yworks.yfiles.graph.ILabel;
+import com.yworks.yfiles.graph.INode;
+import com.yworks.yfiles.graph.labelmodels.FreeNodeLabelModel;
 import com.yworks.yfiles.graphml.DefaultValue;
+import com.yworks.yfiles.layout.EdgeBundleDescriptor;
+import com.yworks.yfiles.layout.EdgeBundling;
+import com.yworks.yfiles.layout.ILayoutAlgorithm;
+import com.yworks.yfiles.layout.LayoutData;
+import com.yworks.yfiles.layout.NodeLabelingPolicy;
 import com.yworks.yfiles.layout.circular.CircularLayout;
 import com.yworks.yfiles.layout.circular.CircularLayoutData;
 import com.yworks.yfiles.layout.circular.EdgeRoutingPolicy;
 import com.yworks.yfiles.layout.circular.LayoutStyle;
+import com.yworks.yfiles.layout.circular.OnCircleRoutingStyle;
 import com.yworks.yfiles.layout.circular.PartitionStyle;
-import com.yworks.yfiles.layout.EdgeBundleDescriptor;
-import com.yworks.yfiles.layout.EdgeBundling;
-import com.yworks.yfiles.layout.ILayoutAlgorithm;
+import com.yworks.yfiles.layout.circular.RoutingStyle;
 import com.yworks.yfiles.layout.labeling.GenericLabeling;
-import com.yworks.yfiles.layout.LayoutData;
 import com.yworks.yfiles.layout.tree.BalloonLayout;
 import com.yworks.yfiles.utils.Obfuscation;
 import com.yworks.yfiles.view.GraphComponent;
@@ -67,12 +73,15 @@ public class CircularLayoutConfig extends LayoutConfiguration {
     setLayoutStyleItem(LayoutStyle.BCC_COMPACT);
     setActingOnSelectionOnlyItem(false);
     setFromSketchModeEnabledItem(false);
-    setConsideringNodeLabelsItem(false);
 
     setPartitionStyleItem(PartitionStyle.CYCLE);
     setMinimumNodeDistanceItem(30);
     setChoosingRadiusAutomaticallyItem(true);
     setFixedRadiusItem(200);
+
+    setDefaultBetweenCirclesRoutingItem(RoutingStyle.STRAIGHT);
+    setDefaultInCircleRoutingStyleItem(RoutingStyle.STRAIGHT);
+    setDefaultOnCircleRoutingStyleItem(OnCircleRoutingStyle.STRAIGHT);
 
     setEdgeRoutingPolicyItem(EdgeRoutingPolicy.INTERIOR);
     setCircleDistanceItem(20);
@@ -97,6 +106,8 @@ public class CircularLayoutConfig extends LayoutConfiguration {
     setLabelPlacementSideOfEdgeItem(LayoutConfiguration.EnumLabelPlacementSideOfEdge.ON_EDGE);
     setLabelPlacementOrientationItem(LayoutConfiguration.EnumLabelPlacementOrientation.HORIZONTAL);
     setLabelPlacementDistanceItem(10);
+
+    setNodeLabelingStyleItem(LayoutConfiguration.EnumNodeLabelingPolicies.CONSIDER_CURRENT_POSITION);
   }
 
   @Override
@@ -114,7 +125,6 @@ public class CircularLayoutConfig extends LayoutConfiguration {
     layout.setSubgraphLayoutEnabled(isActingOnSelectionOnlyItem());
     layout.setMaximumDeviationAngle(getMaximumDeviationAngleItem());
     layout.setFromSketchModeEnabled(isFromSketchModeEnabledItem());
-    layout.setNodeLabelConsiderationEnabled(isConsideringNodeLabelsItem());
 
     layout.setPartitionStyle(getPartitionStyleItem());
 
@@ -138,12 +148,43 @@ public class CircularLayoutConfig extends LayoutConfiguration {
       layout.setLabeling(genericLabeling);
     }
 
+    layout.getDefaultEdgeLayoutDescriptor().setBetweenCirclesRoutingStyle(getDefaultBetweenCirclesRoutingItem());
+    layout.getDefaultEdgeLayoutDescriptor().setInCircleRoutingStyle(getDefaultInCircleRoutingStyleItem());
+    layout.getDefaultEdgeLayoutDescriptor().setOnCircleRoutingStyle(getDefaultOnCircleRoutingStyleItem());
+
     EdgeBundling ebc = layout.getEdgeBundling();
     EdgeBundleDescriptor bundlingDescriptor = new EdgeBundleDescriptor();
     bundlingDescriptor.setBundled(isEdgeBundlingEnabledItem());
     ebc.setBundlingStrength(getEdgeBundlingStrengthItem());
     ebc.setDefaultBundleDescriptor(bundlingDescriptor);
 
+    switch (getNodeLabelingStyleItem()) {
+      case NONE:
+        layout.setNodeLabelConsiderationEnabled(false);
+        break;
+      case RAYLIKE_LEAVES:
+        layout.setIntegratedNodeLabelingEnabled(true);
+        layout.setNodeLabelingPolicy(NodeLabelingPolicy.RAY_LIKE_LEAVES);
+        break;
+      case CONSIDER_CURRENT_POSITION:
+        layout.setNodeLabelConsiderationEnabled(true);
+        break;
+      case HORIZONTAL:
+        layout.setIntegratedNodeLabelingEnabled(true);
+        layout.setNodeLabelingPolicy(NodeLabelingPolicy.HORIZONTAL);
+        break;
+      default:
+        layout.setNodeLabelConsiderationEnabled(false);
+        break;
+    }
+
+    if (getNodeLabelingStyleItem() == LayoutConfiguration.EnumNodeLabelingPolicies.RAYLIKE_LEAVES || getNodeLabelingStyleItem() == LayoutConfiguration.EnumNodeLabelingPolicies.HORIZONTAL) {
+      for (ILabel label : graphComponent.getGraph().getLabels()) {
+        if (label.getOwner() instanceof INode) {
+          graphComponent.getGraph().setLabelLayoutParameter(label, FreeNodeLabelModel.INSTANCE.findBestParameter(label, FreeNodeLabelModel.INSTANCE, label.getLayout()));
+        }
+      }
+    }
     return layout;
   }
 
@@ -183,8 +224,13 @@ public class CircularLayoutConfig extends LayoutConfiguration {
   @ComponentType(ComponentTypes.OPTION_GROUP)
   public Object EdgesGroup;
 
+  @Label("Default edges")
+  @OptionGroupAnnotation(name = "EdgesGroup", position = 40)
+  @ComponentType(ComponentTypes.OPTION_GROUP)
+  public Object DefaultEdgesGroup;
+
   @Label("Exterior edges")
-  @OptionGroupAnnotation(name = "EdgesGroup", position = 20)
+  @OptionGroupAnnotation(name = "EdgesGroup", position = 50)
   @ComponentType(ComponentTypes.OPTION_GROUP)
   public Object ExteriorEdgesGroup;
 
@@ -292,6 +338,7 @@ public class CircularLayoutConfig extends LayoutConfiguration {
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = PartitionStyle.class, stringValue = "CYCLE")
   @EnumValueAnnotation(label = "Circle", value = "CYCLE")
   @EnumValueAnnotation(label = "Disk", value = "DISK")
+  @EnumValueAnnotation(label = "Compact Disk", value = "COMPACT_DISK")
   @EnumValueAnnotation(label = "Organic Disk", value = "ORGANIC")
   public final PartitionStyle getPartitionStyleItem() {
     return this.partitionStyleItem;
@@ -302,6 +349,7 @@ public class CircularLayoutConfig extends LayoutConfiguration {
   @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = PartitionStyle.class, stringValue = "CYCLE")
   @EnumValueAnnotation(label = "Circle", value = "CYCLE")
   @EnumValueAnnotation(label = "Disk", value = "DISK")
+  @EnumValueAnnotation(label = "Compact Disk", value = "COMPACT_DISK")
   @EnumValueAnnotation(label = "Organic Disk", value = "ORGANIC")
   public final void setPartitionStyleItem( PartitionStyle value ) {
     this.partitionStyleItem = value;
@@ -395,9 +443,83 @@ public class CircularLayoutConfig extends LayoutConfiguration {
     this.edgeRoutingPolicyItem = value;
   }
 
+  private RoutingStyle defaultBetweenCirclesRoutingItem = RoutingStyle.STRAIGHT;
+
+  @Label("Routing Style Between Circles")
+  @OptionGroupAnnotation(name = "DefaultEdgesGroup", position = 10)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = RoutingStyle.class, stringValue = "STRAIGHT")
+  @EnumValueAnnotation(label = "Straight", value = "STRAIGHT")
+  @EnumValueAnnotation(label = "Curved", value = "CURVED")
+  public final RoutingStyle getDefaultBetweenCirclesRoutingItem() {
+    return this.defaultBetweenCirclesRoutingItem;
+  }
+
+  @Label("Routing Style Between Circles")
+  @OptionGroupAnnotation(name = "DefaultEdgesGroup", position = 10)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = RoutingStyle.class, stringValue = "STRAIGHT")
+  @EnumValueAnnotation(label = "Straight", value = "STRAIGHT")
+  @EnumValueAnnotation(label = "Curved", value = "CURVED")
+  public final void setDefaultBetweenCirclesRoutingItem( RoutingStyle value ) {
+    this.defaultBetweenCirclesRoutingItem = value;
+  }
+
+  public final boolean isDefaultBetweenCirclesRoutingItemDisabled() {
+    return this.getEdgeRoutingPolicyItem() == EdgeRoutingPolicy.EXTERIOR;
+  }
+
+  private RoutingStyle defaultInCircleRoutingStyleItem = RoutingStyle.STRAIGHT;
+
+  @Label("Routing Style Within Partitions")
+  @OptionGroupAnnotation(name = "DefaultEdgesGroup", position = 20)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = RoutingStyle.class, stringValue = "STRAIGHT")
+  @EnumValueAnnotation(label = "Straight", value = "STRAIGHT")
+  @EnumValueAnnotation(label = "Curved", value = "CURVED")
+  public final RoutingStyle getDefaultInCircleRoutingStyleItem() {
+    return this.defaultInCircleRoutingStyleItem;
+  }
+
+  @Label("Routing Style Within Partitions")
+  @OptionGroupAnnotation(name = "DefaultEdgesGroup", position = 20)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = RoutingStyle.class, stringValue = "STRAIGHT")
+  @EnumValueAnnotation(label = "Straight", value = "STRAIGHT")
+  @EnumValueAnnotation(label = "Curved", value = "CURVED")
+  public final void setDefaultInCircleRoutingStyleItem( RoutingStyle value ) {
+    this.defaultInCircleRoutingStyleItem = value;
+  }
+
+  public final boolean isDefaultInCircleRoutingStyleItemDisabled() {
+    return this.getEdgeRoutingPolicyItem() == EdgeRoutingPolicy.EXTERIOR;
+  }
+
+  private OnCircleRoutingStyle defaultOnCircleRoutingStyleItem = OnCircleRoutingStyle.STRAIGHT;
+
+  @Label("Routing Style Between Neighbors")
+  @OptionGroupAnnotation(name = "DefaultEdgesGroup", position = 30)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = RoutingStyle.class, stringValue = "STRAIGHT")
+  @EnumValueAnnotation(label = "Straight", value = "STRAIGHT")
+  @EnumValueAnnotation(label = "Curved", value = "CURVED")
+  @EnumValueAnnotation(label = "On Circle", value = "ON_CIRCLE")
+  public final OnCircleRoutingStyle getDefaultOnCircleRoutingStyleItem() {
+    return this.defaultOnCircleRoutingStyleItem;
+  }
+
+  @Label("Routing Style Between Neighbors")
+  @OptionGroupAnnotation(name = "DefaultEdgesGroup", position = 30)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = RoutingStyle.class, stringValue = "STRAIGHT")
+  @EnumValueAnnotation(label = "Straight", value = "STRAIGHT")
+  @EnumValueAnnotation(label = "Curved", value = "CURVED")
+  @EnumValueAnnotation(label = "On Circle", value = "ON_CIRCLE")
+  public final void setDefaultOnCircleRoutingStyleItem( OnCircleRoutingStyle value ) {
+    this.defaultOnCircleRoutingStyleItem = value;
+  }
+
+  public final boolean isDefaultOnCircleRoutingStyleItemDisabled() {
+    return this.getEdgeRoutingPolicyItem() == EdgeRoutingPolicy.EXTERIOR;
+  }
+
   private double circleDistanceItem;
 
-  @Label("Distance from circle")
+  @Label("Distance to circle")
   @OptionGroupAnnotation(name = "ExteriorEdgesGroup", position = 10)
   @DefaultValue(doubleValue = 20d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   @MinMax(min = 10.0d, max = 100.0d)
@@ -406,7 +528,7 @@ public class CircularLayoutConfig extends LayoutConfiguration {
     return this.circleDistanceItem;
   }
 
-  @Label("Distance from circle")
+  @Label("Distance to circle")
   @OptionGroupAnnotation(name = "ExteriorEdgesGroup", position = 10)
   @DefaultValue(doubleValue = 20d, valueType = DefaultValue.ValueType.DOUBLE_TYPE)
   @MinMax(min = 10.0d, max = 100.0d)
@@ -518,14 +640,14 @@ public class CircularLayoutConfig extends LayoutConfiguration {
   private boolean edgeBundlingEnabledItem;
 
   @Label("Enable Edge Bundling")
-  @OptionGroupAnnotation(name = "EdgesGroup", position = 40)
+  @OptionGroupAnnotation(name = "EdgesGroup", position = 20)
   @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
   public final boolean isEdgeBundlingEnabledItem() {
     return this.edgeBundlingEnabledItem;
   }
 
   @Label("Enable Edge Bundling")
-  @OptionGroupAnnotation(name = "EdgesGroup", position = 40)
+  @OptionGroupAnnotation(name = "EdgesGroup", position = 20)
   @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
   public final void setEdgeBundlingEnabledItem( boolean value ) {
     this.edgeBundlingEnabledItem = value;
@@ -695,20 +817,28 @@ public class CircularLayoutConfig extends LayoutConfiguration {
     return getLayoutStyleItem() == LayoutStyle.SINGLE_CYCLE;
   }
 
-  private boolean consideringNodeLabelsItem;
+  private LayoutConfiguration.EnumNodeLabelingPolicies nodeLabelingStyleItem = LayoutConfiguration.EnumNodeLabelingPolicies.NONE;
 
-  @Label("Consider Node Labels")
+  @Label("Node Labeling")
   @OptionGroupAnnotation(name = "NodePropertiesGroup", position = 10)
-  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
-  public final boolean isConsideringNodeLabelsItem() {
-    return this.consideringNodeLabelsItem;
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = LayoutConfiguration.EnumNodeLabelingPolicies.class, stringValue = "CONSIDER_CURRENT_POSITION")
+  @EnumValueAnnotation(label = "Ignore Labels", value = "NONE")
+  @EnumValueAnnotation(label = "Consider Labels", value = "CONSIDER_CURRENT_POSITION")
+  @EnumValueAnnotation(label = "Horizontal", value = "HORIZONTAL")
+  @EnumValueAnnotation(label = "Ray-like at Leaves", value = "RAYLIKE_LEAVES")
+  public final LayoutConfiguration.EnumNodeLabelingPolicies getNodeLabelingStyleItem() {
+    return this.nodeLabelingStyleItem;
   }
 
-  @Label("Consider Node Labels")
+  @Label("Node Labeling")
   @OptionGroupAnnotation(name = "NodePropertiesGroup", position = 10)
-  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
-  public final void setConsideringNodeLabelsItem( boolean value ) {
-    this.consideringNodeLabelsItem = value;
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = LayoutConfiguration.EnumNodeLabelingPolicies.class, stringValue = "CONSIDER_CURRENT_POSITION")
+  @EnumValueAnnotation(label = "Ignore Labels", value = "NONE")
+  @EnumValueAnnotation(label = "Consider Labels", value = "CONSIDER_CURRENT_POSITION")
+  @EnumValueAnnotation(label = "Horizontal", value = "HORIZONTAL")
+  @EnumValueAnnotation(label = "Ray-like at Leaves", value = "RAYLIKE_LEAVES")
+  public final void setNodeLabelingStyleItem( LayoutConfiguration.EnumNodeLabelingPolicies value ) {
+    this.nodeLabelingStyleItem = value;
   }
 
   private boolean edgeLabelingEnabledItem;

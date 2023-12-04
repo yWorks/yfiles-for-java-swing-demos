@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -43,14 +43,13 @@ import com.yworks.yfiles.graph.styles.Arrow;
 import com.yworks.yfiles.graph.styles.ArrowType;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.graph.styles.IArrow;
+import com.yworks.yfiles.graph.styles.INodeStyle;
 import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
 import com.yworks.yfiles.layout.hierarchic.HierarchicLayout;
 import com.yworks.yfiles.layout.organic.OrganicLayout;
 import com.yworks.yfiles.layout.orthogonal.OrthogonalLayout;
 import com.yworks.yfiles.utils.IEventArgs;
-import com.yworks.yfiles.view.Colors;
 import com.yworks.yfiles.view.ISelectionModel;
 import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
@@ -58,6 +57,8 @@ import com.yworks.yfiles.view.input.LabelTextValidatingEventArgs;
 import com.yworks.yfiles.view.input.PopulateItemPopupMenuEventArgs;
 import com.yworks.yfiles.view.input.QueryItemToolTipEventArgs;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
+import toolkit.Themes;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -70,8 +71,6 @@ import javax.swing.JToolBar;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.LinearGradientPaint;
-import java.awt.MultipleGradientPaint;
 import java.awt.event.ActionEvent;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -97,7 +96,7 @@ public class ShortestPathDemo extends AbstractDemo {
   private ILayoutAlgorithm currentLayout;
 
   // the styles to use for source nodes, target nodes, and ordinary nodes
-  private ShinyPlateNodeStyle defaultNodeStyle, targetNodeStyle, sourceNodeStyle, sourceAndTargetNodeStyle;
+  private INodeStyle defaultNodeStyle, targetNodeStyle, sourceNodeStyle, sourceAndTargetNodeStyle;
   // the style to use for ordinary edges and edges that lie on a shortest path
   private PolylineEdgeStyle defaultEdgeStyle, pathEdgeStyle;
 
@@ -220,7 +219,10 @@ public class ShortestPathDemo extends AbstractDemo {
    */
   private JComboBox createEdgeTypeComboBox() {
     JComboBox comboBox = new JComboBox<>(new Object[]{"Directed Edges", "Undirected Edges"});
-    IArrow[] arrows = new IArrow[]{IArrow.DEFAULT, IArrow.NONE};
+    IArrow[] arrows = new IArrow[] {
+            DemoStyles.createDemoEdgeStyle(Themes.PALETTE_ORANGE, true).getTargetArrow(),
+            IArrow.NONE
+    };
     comboBox.setToolTipText("Select edge type");
     comboBox.setMaximumSize(comboBox.getPreferredSize());
     comboBox.setSelectedIndex(directed ? 0 : 1);
@@ -463,22 +465,11 @@ public class ShortestPathDemo extends AbstractDemo {
    * Initializes the styles to use for the graph.
    */
   private void initializeStyles() {
-    defaultNodeStyle = new ShinyPlateNodeStyle();
-    defaultNodeStyle.setPaint(Colors.DARK_ORANGE);
-    sourceNodeStyle = new ShinyPlateNodeStyle();
-    sourceNodeStyle.setPaint(Colors.LIME_GREEN);
-    targetNodeStyle = new ShinyPlateNodeStyle();
-    targetNodeStyle.setPaint(Colors.ORANGE_RED);
-
-    float[] fractions = {0f, 0.49f, 0.51f, 1f};
-    Color[] colors = {Colors.LIME_GREEN, Colors.LIME_GREEN, Colors.ORANGE_RED, Colors.ORANGE_RED};
-    LinearGradientPaint paint = new LinearGradientPaint(0, 0, 10, 10, fractions, colors, MultipleGradientPaint.CycleMethod.REPEAT);
-    sourceAndTargetNodeStyle = new ShinyPlateNodeStyle();
-    sourceAndTargetNodeStyle.setPaint(paint);
-
-    defaultEdgeStyle = new PolylineEdgeStyle();
-    defaultEdgeStyle.setPen(Pen.getBlack());
-    defaultEdgeStyle.setTargetArrow(directed ? IArrow.DEFAULT : IArrow.NONE);
+    defaultNodeStyle = DemoStyles.createDemoNodeStyle(Themes.PALETTE_ORANGE);
+    sourceNodeStyle = DemoStyles.createDemoNodeStyle(Themes.PALETTE_GREEN);
+    targetNodeStyle = DemoStyles.createDemoNodeStyle(Themes.PALETTE_RED);
+    sourceAndTargetNodeStyle = DemoStyles.createDemoNodeStyle(Themes.PALETTE_BLUE);
+    defaultEdgeStyle = DemoStyles.createDemoEdgeStyle(Themes.PALETTE_ORANGE, false);
 
     pathEdgeStyle = new PolylineEdgeStyle();
     pathEdgeStyle.setPen(new Pen(Color.RED, 4.0));

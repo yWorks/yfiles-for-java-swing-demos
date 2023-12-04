@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -39,11 +39,11 @@ import com.yworks.yfiles.graph.styles.NodeStyleLabelStyleAdapter;
 import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.utils.Obfuscation;
 import com.yworks.yfiles.view.IBoundsProvider;
-import com.yworks.yfiles.view.input.IHitTestable;
-import com.yworks.yfiles.view.input.IMarqueeTestable;
 import com.yworks.yfiles.view.IVisibilityTestable;
 import com.yworks.yfiles.view.IVisualCreator;
 import com.yworks.yfiles.view.Pen;
+import com.yworks.yfiles.view.input.IHitTestable;
+import com.yworks.yfiles.view.input.IMarqueeTestable;
 import java.awt.Paint;
 
 /**
@@ -58,6 +58,7 @@ public class MessageLabelStyle implements ILabelStyle {
    * @return The Initiating.
    * @see #setInitiating(boolean)
    */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
   @DefaultValue(booleanValue = true, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
   public final boolean isInitiating() {
     return isInitiating;
@@ -68,6 +69,7 @@ public class MessageLabelStyle implements ILabelStyle {
    * @param value The Initiating to set.
    * @see #isInitiating()
    */
+  @Obfuscation(stripAfterObfuscation = false, exclude = true)
   @DefaultValue(booleanValue = true, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
   public final void setInitiating( boolean value ) {
     if (isInitiating != value) {

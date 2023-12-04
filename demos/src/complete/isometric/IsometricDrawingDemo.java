@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -76,6 +76,8 @@ import com.yworks.yfiles.layout.hierarchic.HierarchicLayoutData;
 import com.yworks.yfiles.layout.hierarchic.LayoutMode;
 import com.yworks.yfiles.layout.orthogonal.OrthogonalLayout;
 import com.yworks.yfiles.layout.orthogonal.OrthogonalLayoutData;
+import com.yworks.yfiles.view.CanvasComponent;
+import com.yworks.yfiles.view.GraphModelManager;
 import com.yworks.yfiles.view.GridInfo;
 import com.yworks.yfiles.view.GridStyle;
 import com.yworks.yfiles.view.GridVisualCreator;
@@ -107,6 +109,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.geom.AffineTransform;
 import java.time.Duration;
+import java.util.Comparator;
 import java.util.Random;
 
 /**
@@ -200,11 +203,8 @@ public class IsometricDrawingDemo extends AbstractDemo {
   private void initializeProjection() {
     // set an isometric projection
     graphComponent.setProjection(Projections.getIsometric());
-    // use a graph model manager that renders the nodes in their correct z-order
-    IsometricGraphModelManager graphModelManager = new IsometricGraphModelManager(graphComponent, graphComponent.getContentGroup());
-    graphModelManager.setHierarchicNestingPolicy(HierarchicNestingPolicy.GROUP_NODES);
-    graphModelManager.setLabelLayerPolicy(LabelLayerPolicy.AT_OWNER);
-    graphComponent.setGraphModelManager(graphModelManager);
+    // configure the GraphModelManager to render the nodes in their correct z-order
+    configureGraphModelManager();
   }
 
   /**
@@ -533,9 +533,33 @@ public class IsometricDrawingDemo extends AbstractDemo {
     graphComponent.updateContentRect();
     PointD center = graphComponent.getViewport().getCenter();
     graphComponent.setProjection(rotate.toTransform());
-    // update z-order of model items according to new rotation
-    ((IsometricGraphModelManager) graphComponent.getGraphModelManager()).update();
+    updateZOrder();
     graphComponent.setCenter(center);
+  }
+
+  private void configureGraphModelManager() {
+    GraphModelManager manager = graphComponent.getGraphModelManager();
+    manager.setHierarchicNestingPolicy(HierarchicNestingPolicy.GROUP_NODES);
+    manager.setLabelLayerPolicy(LabelLayerPolicy.AT_OWNER);
+    // use a custom comparer to render nodes which appear in the background of the current perspective first.
+    manager.getNodeManager().setComparator(new IsometricComparator(graphComponent));
+    manager.setProvidingUserObjectOnMainCanvasObjectEnabled(true);
+  }
+
+  /**
+   * Update the z-order of model items according to new rotation.
+   * <p>
+   * Has to be done each time the projection changes.
+   * </p>
+   * <p>
+   * Can be omitted in application which do not change the projection.
+   * </p>
+   */
+  private void updateZOrder() {
+    ((IsometricComparator) graphComponent.getGraphModelManager().getNodeManager().getComparator()).update();
+    for (INode node : graphComponent.getGraph().getNodes()) {
+      graphComponent.getGraphModelManager().getNodeManager().update(node);
+    }
     graphComponent.invalidate();
   }
 
@@ -643,6 +667,113 @@ public class IsometricDrawingDemo extends AbstractDemo {
   private enum LayoutType {
     HIERARCHIC,
     ORTHOGONAL
+  }
+
+  private static class IsometricComparator implements Comparator<INode> {
+
+    private final CanvasComponent canvasComponent;
+    private AffineTransform projection;
+
+    private boolean leftFaceVisible;
+    private boolean backFaceVisible;
+
+    public IsometricComparator(CanvasComponent canvasComponent) {
+      this.canvasComponent = canvasComponent;
+      update();
+    }
+
+    /**
+     * Updates which faces are visible and therefore which corners should be used for the z-order comparison.
+     * This method has to be called when the {@link CanvasComponent}'s projection has changed.
+     */
+    private void update() {
+      AffineTransform projection = canvasComponent.getProjection();
+      if (!projection.equals(this.projection)) {
+        this.projection = projection;
+        PointD upVector = IsometricNodeStyle.calculateHeightVector(this.projection);
+        leftFaceVisible = upVector.getX() > 0;
+        backFaceVisible = upVector.getY() > 0;
+      }
+    }
+
+
+    @Override
+    public int compare(INode x, INode y) {
+      PointD xViewCenter = PointD.ORIGIN;
+      PointD yViewCenter = PointD.ORIGIN;
+      PointD xViewRight = PointD.ORIGIN;
+      PointD yViewRight = PointD.ORIGIN;
+      PointD xViewLeft = PointD.ORIGIN;
+      PointD yViewLeft = PointD.ORIGIN;
+      if (leftFaceVisible && backFaceVisible) {
+        xViewCenter = x.getLayout().getTopLeft();
+        yViewCenter = y.getLayout().getTopLeft();
+        xViewRight = x.getLayout().getBottomLeft();
+        yViewRight = y.getLayout().getBottomLeft();
+        xViewLeft = x.getLayout().getTopRight();
+        yViewLeft = y.getLayout().getTopRight();
+      } else if (!leftFaceVisible && backFaceVisible) {
+        xViewCenter = x.getLayout().getTopRight();
+        yViewCenter = y.getLayout().getTopRight();
+        xViewRight = x.getLayout().getTopLeft();
+        yViewRight = y.getLayout().getTopLeft();
+        xViewLeft = x.getLayout().getBottomRight();
+        yViewLeft = y.getLayout().getBottomRight();
+      } else if (!leftFaceVisible && !backFaceVisible) {
+        xViewCenter = x.getLayout().getBottomRight();
+        yViewCenter = y.getLayout().getBottomRight();
+        xViewRight = x.getLayout().getTopRight();
+        yViewRight = y.getLayout().getTopRight();
+        xViewLeft = x.getLayout().getBottomLeft();
+        yViewLeft = y.getLayout().getBottomLeft();
+      } else if (leftFaceVisible && !backFaceVisible) {
+        xViewCenter = x.getLayout().getBottomLeft();
+        yViewCenter = y.getLayout().getBottomLeft();
+        xViewRight = x.getLayout().getBottomRight();
+        yViewRight = y.getLayout().getBottomRight();
+        xViewLeft = x.getLayout().getTopLeft();
+        yViewLeft = y.getLayout().getTopLeft();
+      }
+
+      int sgnX = leftFaceVisible ? -1 : 1;
+      int sgnY = backFaceVisible ? -1 : 1;
+
+      Matrix2D projectionMatrix = Matrix2D.fromTransform(canvasComponent.getProjection());
+      PointD dViewCenter = PointD.subtract(projectionMatrix.transform(yViewCenter), projectionMatrix.transform(xViewCenter));
+
+      // determine order in two steps:
+      // 1) compare view coordinates of ViewCenter values to determine which node corners to compare in step 2
+      // 2) compare the world coordinates of the corners found in step 1 considering which faces are visible
+      if (dViewCenter.getX() < 0 && dViewCenter.getY() < 0) {
+        PointD vector = PointD.subtract(yViewRight, xViewLeft);
+        if (vector.getX() * sgnX > 0 && vector.getY() * sgnY > 0) {
+          return -1;
+        } else {
+          return 1;
+        }
+      } else if (dViewCenter.getX() > 0 && dViewCenter.getY() > 0) {
+        PointD vector = PointD.subtract(yViewLeft, xViewRight);
+        if (vector.getX() * sgnX < 0 && vector.getY() * sgnY < 0) {
+          return 1;
+        } else {
+          return -1;
+        }
+      } else if (dViewCenter.getX() > 0) {
+        PointD vector = PointD.subtract(yViewCenter, xViewRight);
+        if (vector.getX() * sgnX > 0 && vector.getY() * sgnY > 0) {
+          return -1;
+        } else {
+          return 1;
+        }
+      } else {
+        PointD vector = PointD.subtract(yViewRight, xViewCenter);
+        if (vector.getX() * sgnX < 0 && vector.getY() * sgnY < 0) {
+          return 1;
+        } else {
+          return -1;
+        }
+      }
+    }
   }
 
   public static void main(String[] args) {

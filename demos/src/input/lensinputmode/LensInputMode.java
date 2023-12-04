@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -208,11 +208,12 @@ public class LensInputMode extends AbstractInputMode {
 
       Graphics2D gfx = (Graphics2D) g.create();
       try {
-        Shape oldClip = gfx.getClip();
-
         PointD drawingLocation = context.toViewCoordinates(graphComponent.getLastEventLocation());
         gfx.transform(context.getToViewTransform());
         gfx.translate(drawingLocation.x, drawingLocation.y);
+
+        // Grab the clip after transforming; otherwise it won't work properly when we set it again later.
+        Shape oldClip = gfx.getClip();
 
         Ellipse2D.Double ellipse = new Ellipse2D.Double(0, 0, size, size);
         gfx.clip(ellipse);

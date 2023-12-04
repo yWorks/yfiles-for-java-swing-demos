@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -42,16 +42,19 @@ import com.yworks.yfiles.layout.HideGroupsStage;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
 import com.yworks.yfiles.layout.labeling.GenericLabeling;
 import com.yworks.yfiles.layout.LayoutData;
+import com.yworks.yfiles.layout.MultiStageLayout;
 import com.yworks.yfiles.layout.organic.ChainSubstructureStyle;
 import com.yworks.yfiles.layout.organic.ClusteringPolicy;
 import com.yworks.yfiles.layout.organic.CycleSubstructureStyle;
 import com.yworks.yfiles.layout.organic.GroupNodeMode;
+import com.yworks.yfiles.layout.organic.GroupSubstructureScope;
 import com.yworks.yfiles.layout.organic.OrganicLayout;
 import com.yworks.yfiles.layout.organic.OrganicLayoutData;
 import com.yworks.yfiles.layout.organic.OutputRestriction;
 import com.yworks.yfiles.layout.organic.ParallelSubstructureStyle;
 import com.yworks.yfiles.layout.organic.Scope;
 import com.yworks.yfiles.layout.organic.StarSubstructureStyle;
+import com.yworks.yfiles.layout.organic.TreeSubstructureStyle;
 import com.yworks.yfiles.utils.Obfuscation;
 import com.yworks.yfiles.view.GraphComponent;
 import toolkit.optionhandler.ComponentType;
@@ -104,6 +107,11 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
     setStarSubstructureSizeItem(layout.getStarSubstructureSize());
     setParallelSubstructureStyleItem(ParallelSubstructureStyle.NONE);
     setParallelSubstructureSizeItem(layout.getParallelSubstructureSize());
+    setTreeSubstructureItem(TreeSubstructureStyle.NONE);
+    setTreeSubstructureSizeItem(layout.getTreeSubstructureSize());
+    setGroupSubstructureScopeItem(GroupSubstructureScope.NO_GROUPS);
+    setGroupSubstructureSizeItem(layout.getGroupSubstructureSize());
+    setClusterAsGroupSubstructureAllowedItem(false);
 
     setConsideringNodeLabelsItem(layout.isNodeLabelConsiderationEnabled());
     setEdgeLabelingEnabledItem(false);
@@ -143,13 +151,18 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
     configureOutputRestrictions(graphComponent, layout);
 
     layout.setChainSubstructureStyle(getChainSubstructureStyleItem());
+    layout.setChainSubstructureSize(getChainSubstructureSizeItem());
     layout.setCycleSubstructureSize(getCycleSubstructureSizeItem());
     layout.setCycleSubstructureStyle(getCycleSubstructureStyleItem());
-    layout.setChainSubstructureSize(getChainSubstructureSizeItem());
     layout.setStarSubstructureStyle(getStarSubstructureStyleItem());
     layout.setStarSubstructureSize(getStarSubstructureSizeItem());
     layout.setParallelSubstructureStyle(getParallelSubstructureStyleItem());
     layout.setParallelSubstructureSize(getParallelSubstructureSizeItem());
+    layout.setTreeSubstructureStyle(getTreeSubstructureItem());
+    layout.setTreeSubstructureSize(getTreeSubstructureSizeItem());
+    layout.setGroupSubstructureScope(getGroupSubstructureScopeItem());
+    layout.setGroupSubstructureSize(getGroupSubstructureSizeItem());
+    layout.setClusterAsGroupSubstructureAllowed(isClusterAsGroupSubstructureAllowedItem());
 
     if (getGroupLayoutPolicyItem() == EnumGroupLayoutPolicy.IGNORE_GROUPS) {
       layout.prependStage(new HideGroupsStage());
@@ -458,14 +471,14 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
     return isConsideringNodeLabelsItem();
   }
 
-  private int minimumNodeDistanceItem;
+  private double minimumNodeDistanceItem;
 
   @Label("Minimum Node Distance")
   @OptionGroupAnnotation(name = "VisualGroup", position = 30)
   @DefaultValue(intValue = 10, valueType = DefaultValue.ValueType.INT_TYPE)
   @MinMax(min = 0, max = 100)
   @ComponentType(ComponentTypes.SLIDER)
-  public final int getMinimumNodeDistanceItem() {
+  public final double getMinimumNodeDistanceItem() {
     return this.minimumNodeDistanceItem;
   }
 
@@ -474,7 +487,7 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
   @DefaultValue(intValue = 10, valueType = DefaultValue.ValueType.INT_TYPE)
   @MinMax(min = 0, max = 100)
   @ComponentType(ComponentTypes.SLIDER)
-  public final void setMinimumNodeDistanceItem( int value ) {
+  public final void setMinimumNodeDistanceItem( double value ) {
     this.minimumNodeDistanceItem = value;
   }
 
@@ -894,6 +907,8 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
   @EnumValueAnnotation(label = "Rectangular, also within other structures", value = "RECTANGULAR_NESTED")
   @EnumValueAnnotation(label = "Straight-Line", value = "STRAIGHT_LINE")
   @EnumValueAnnotation(label = "Straight-Line, also within other structures", value = "STRAIGHT_LINE_NESTED")
+  @EnumValueAnnotation(label = "Disk", value = "DISK")
+  @EnumValueAnnotation(label = "Disk, also within other structures", value = "DISK_NESTED")
   public final ChainSubstructureStyle getChainSubstructureStyleItem() {
     return this.chainSubstructureStyleItem;
   }
@@ -906,6 +921,8 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
   @EnumValueAnnotation(label = "Rectangular, also within other structures", value = "RECTANGULAR_NESTED")
   @EnumValueAnnotation(label = "Straight-Line", value = "STRAIGHT_LINE")
   @EnumValueAnnotation(label = "Straight-Line, also within other structures", value = "STRAIGHT_LINE_NESTED")
+  @EnumValueAnnotation(label = "Disk", value = "DISK")
+  @EnumValueAnnotation(label = "Disk, also within other structures", value = "DISK_NESTED")
   public final void setChainSubstructureStyleItem( ChainSubstructureStyle value ) {
     this.chainSubstructureStyleItem = value;
   }
@@ -1034,16 +1051,132 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
     return getParallelSubstructureStyleItem() == ParallelSubstructureStyle.NONE;
   }
 
+  private TreeSubstructureStyle treeSubstructureItem = TreeSubstructureStyle.NONE;
+
+  @Label("Tree")
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 50)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = TreeSubstructureStyle.class, stringValue = "NONE")
+  @EnumValueAnnotation(label = "Ignore", value = "NONE")
+  @EnumValueAnnotation(label = "Radial", value = "RADIAL")
+  @EnumValueAnnotation(label = "Balloon", value = "BALLOON")
+  @EnumValueAnnotation(label = "Oriented", value = "ORIENTED")
+  public final TreeSubstructureStyle getTreeSubstructureItem() {
+    return this.treeSubstructureItem;
+  }
+
+  @Label("Tree")
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 50)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = TreeSubstructureStyle.class, stringValue = "NONE")
+  @EnumValueAnnotation(label = "Ignore", value = "NONE")
+  @EnumValueAnnotation(label = "Radial", value = "RADIAL")
+  @EnumValueAnnotation(label = "Balloon", value = "BALLOON")
+  @EnumValueAnnotation(label = "Oriented", value = "ORIENTED")
+  public final void setTreeSubstructureItem( TreeSubstructureStyle value ) {
+    this.treeSubstructureItem = value;
+  }
+
+  private int treeSubstructureSizeItem;
+
+  @Label("Minimum size for tree structures")
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 55)
+  @DefaultValue(intValue = 4, valueType = DefaultValue.ValueType.INT_TYPE)
+  @MinMax(min = 3, max = 20)
+  @ComponentType(ComponentTypes.SPINNER)
+  public final int getTreeSubstructureSizeItem() {
+    return this.treeSubstructureSizeItem;
+  }
+
+  @Label("Minimum size for tree structures")
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 55)
+  @DefaultValue(intValue = 4, valueType = DefaultValue.ValueType.INT_TYPE)
+  @MinMax(min = 3, max = 20)
+  @ComponentType(ComponentTypes.SPINNER)
+  public final void setTreeSubstructureSizeItem( int value ) {
+    this.treeSubstructureSizeItem = value;
+  }
+
+  public final boolean isTreeSubstructureSizeItemDisabled() {
+    return getTreeSubstructureItem() == TreeSubstructureStyle.NONE;
+  }
+
+  private GroupSubstructureScope groupSubstructureScopeItem = GroupSubstructureScope.NO_GROUPS;
+
+  @Label("Group Substructures")
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 60)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = GroupSubstructureScope.class, stringValue = "NO_GROUPS")
+  @EnumValueAnnotation(label = "Ignore", value = "NO_GROUPS")
+  @EnumValueAnnotation(label = "All Groups", value = "ALL_GROUPS")
+  @EnumValueAnnotation(label = "Groups Without Intra-Edges", value = "GROUPS_WITHOUT_EDGES")
+  @EnumValueAnnotation(label = "Groups Without Inter-Edges", value = "GROUPS_WITHOUT_INTER_EDGES")
+  public final GroupSubstructureScope getGroupSubstructureScopeItem() {
+    return this.groupSubstructureScopeItem;
+  }
+
+  @Label("Group Substructures")
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 60)
+  @DefaultValue(valueType = DefaultValue.ValueType.ENUM_TYPE, classValue = GroupSubstructureScope.class, stringValue = "NO_GROUPS")
+  @EnumValueAnnotation(label = "Ignore", value = "NO_GROUPS")
+  @EnumValueAnnotation(label = "All Groups", value = "ALL_GROUPS")
+  @EnumValueAnnotation(label = "Groups Without Intra-Edges", value = "GROUPS_WITHOUT_EDGES")
+  @EnumValueAnnotation(label = "Groups Without Inter-Edges", value = "GROUPS_WITHOUT_INTER_EDGES")
+  public final void setGroupSubstructureScopeItem( GroupSubstructureScope value ) {
+    this.groupSubstructureScopeItem = value;
+  }
+
+  private int groupSubstructureSizeItem;
+
+  @Label("Minimum size for group structures")
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 65)
+  @DefaultValue(intValue = 4, valueType = DefaultValue.ValueType.INT_TYPE)
+  @MinMax(min = 2, max = 20)
+  @ComponentType(ComponentTypes.SPINNER)
+  public final int getGroupSubstructureSizeItem() {
+    return this.groupSubstructureSizeItem;
+  }
+
+  @Label("Minimum size for group structures")
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 65)
+  @DefaultValue(intValue = 4, valueType = DefaultValue.ValueType.INT_TYPE)
+  @MinMax(min = 2, max = 20)
+  @ComponentType(ComponentTypes.SPINNER)
+  public final void setGroupSubstructureSizeItem( int value ) {
+    this.groupSubstructureSizeItem = value;
+  }
+
+  public final boolean isGroupSubstructureSizeItemDisabled() {
+    return getGroupSubstructureScopeItem() == GroupSubstructureScope.NO_GROUPS;
+  }
+
+  private boolean clusterAsGroupSubstructureAllowedItem;
+
+  @Label("Clusters With Group Substructures")
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 70)
+  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
+  public final boolean isClusterAsGroupSubstructureAllowedItem() {
+    return this.clusterAsGroupSubstructureAllowedItem;
+  }
+
+  @Label("Clusters With Group Substructures")
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 70)
+  @DefaultValue(booleanValue = false, valueType = DefaultValue.ValueType.BOOLEAN_TYPE)
+  public final void setClusterAsGroupSubstructureAllowedItem( boolean value ) {
+    this.clusterAsGroupSubstructureAllowedItem = value;
+  }
+
+  public final boolean isClusterAsGroupSubstructureAllowedItemDisabled() {
+    return getGroupSubstructureScopeItem() != GroupSubstructureScope.ALL_GROUPS && getGroupSubstructureScopeItem() != GroupSubstructureScope.GROUPS_WITHOUT_INTER_EDGES;
+  }
+
   private boolean edgeDirectednessEnabledItem;
 
   @Label("Arrows Define Edge Direction")
-  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 50)
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 80)
   public final boolean isEdgeDirectednessEnabledItem() {
     return this.edgeDirectednessEnabledItem;
   }
 
   @Label("Arrows Define Edge Direction")
-  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 50)
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 80)
   public final void setEdgeDirectednessEnabledItem( boolean value ) {
     this.edgeDirectednessEnabledItem = value;
   }
@@ -1051,13 +1184,13 @@ public class OrganicLayoutConfig extends LayoutConfiguration {
   private boolean usingEdgeGroupingItem;
 
   @Label("Use Edge Grouping")
-  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 60)
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 90)
   public final boolean isUsingEdgeGroupingItem() {
     return this.usingEdgeGroupingItem;
   }
 
   @Label("Use Edge Grouping")
-  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 60)
+  @OptionGroupAnnotation(name = "SubstructureLayoutGroup", position = 90)
   public final void setUsingEdgeGroupingItem( boolean value ) {
     this.usingEdgeGroupingItem = value;
   }

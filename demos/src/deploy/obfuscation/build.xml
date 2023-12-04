@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.5.
+     // This demo file is part of yFiles for Java (Swing) 3.6.
      //
-     // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -32,7 +32,7 @@
   <target name="help">
     <echo>
       This file provides Ant tasks that show how to obfuscate the yFiles classes
-      before they can be deployed as a part of an application.
+      before they are deployed as a part of an application.
       The Ant-based obfuscation will be performed by the freely available
       obfuscator yGuard.
       If you do not have yGuard already, you can either download it from

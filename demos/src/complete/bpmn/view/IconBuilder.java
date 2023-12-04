@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -43,7 +43,7 @@ class IconBuilder {
   private GeneralPath path;
 
   private GeneralPath getPath() {
-    return path != null ? path : (path = new GeneralPath(16));
+    return path != null ? path : (path = new GeneralPath());
   }
 
   private void setPath( GeneralPath value ) {

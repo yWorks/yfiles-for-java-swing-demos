@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -34,11 +34,11 @@ import com.yworks.yfiles.algorithms.INodeCursor;
 import com.yworks.yfiles.algorithms.LayoutGraphHider;
 import com.yworks.yfiles.algorithms.Node;
 import com.yworks.yfiles.algorithms.NodeList;
+import com.yworks.yfiles.layout.LayoutGraph;
 import com.yworks.yfiles.layout.hierarchic.ConstraintIncrementalLayerer;
 import com.yworks.yfiles.layout.hierarchic.ILayers;
 import com.yworks.yfiles.layout.hierarchic.ILayoutDataProvider;
 import com.yworks.yfiles.layout.hierarchic.TopologicalLayerer;
-import com.yworks.yfiles.layout.LayoutGraph;
 
 /**
  * A layerer stage that pulls back loop components to earlier layers to reduce the spanned layers of back edges.

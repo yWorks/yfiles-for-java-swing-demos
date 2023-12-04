@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -44,15 +44,15 @@ import com.yworks.yfiles.layout.EdgeBundling;
 import com.yworks.yfiles.layout.GroupingSupport;
 import com.yworks.yfiles.layout.IEdgeLabelLayout;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
-import com.yworks.yfiles.layout.labeling.GenericLabeling;
 import com.yworks.yfiles.layout.LayoutData;
 import com.yworks.yfiles.layout.LayoutGraph;
 import com.yworks.yfiles.layout.LayoutOrientation;
 import com.yworks.yfiles.layout.OrientationLayout;
+import com.yworks.yfiles.layout.labeling.GenericLabeling;
 import com.yworks.yfiles.layout.router.OrganicEdgeRouter;
-import com.yworks.yfiles.layout.router.polyline.EdgeRouter;
 import com.yworks.yfiles.layout.router.Scope;
 import com.yworks.yfiles.layout.router.StraightLineEdgeRouter;
+import com.yworks.yfiles.layout.router.polyline.EdgeRouter;
 import com.yworks.yfiles.layout.tree.ClassicTreeLayout;
 import com.yworks.yfiles.layout.tree.EdgeRoutingStyle;
 import com.yworks.yfiles.layout.tree.LeafPlacement;
@@ -150,7 +150,7 @@ public class ClassicTreeLayoutConfig extends LayoutConfiguration {
    * Configures the tree reduction stage that will handle edges that do not belong to the tree.
    */
   private TreeReductionStage createTreeReductionStage() {
-    TreeReductionStage reductionStage = new TreeReductionStage((ILayoutAlgorithm)null);
+    TreeReductionStage reductionStage = new TreeReductionStage();
     if (getEdgeLabelingItem() == EnumEdgeLabeling.INTEGRATED) {
       reductionStage.setNonTreeEdgeLabelingAlgorithm(new GenericLabeling());
     }
@@ -160,7 +160,7 @@ public class ClassicTreeLayoutConfig extends LayoutConfiguration {
       reductionStage.setNonTreeEdgeRouter(new OrganicEdgeRouter());
       reductionStage.setNonTreeEdgeSelectionKey(OrganicEdgeRouter.AFFECTED_EDGES_DPKEY);
     } else if (getRoutingStyleForNonTreeEdgesItem() == EnumRoute.ORTHOGONAL) {
-      EdgeRouter edgeRouter = new EdgeRouter((ILayoutAlgorithm)null);
+      EdgeRouter edgeRouter = new EdgeRouter();
       edgeRouter.setReroutingEnabled(true);
       edgeRouter.setScope(Scope.ROUTE_AFFECTED_EDGES);
       reductionStage.setNonTreeEdgeRouter(edgeRouter);
@@ -305,7 +305,18 @@ public class ClassicTreeLayoutConfig extends LayoutConfiguration {
   @OptionGroupAnnotation(name = "DescriptionGroup", position = 10)
   @ComponentType(ComponentTypes.FORMATTED_TEXT)
   public final String getDescriptionText() {
-    return "<Paragraph>This layout is designed to arrange directed and undirected trees that have a unique root node. " + "All children are placed below their parent in relation to the main layout direction. " + "The edges of the graph are routed as straight-line segments or in an orthogonal bus-like fashion.</Paragraph>" + "<Paragraph>Tree layout algorithms are commonly used for visualizing relational data and for producing diagrams of high quality that are able to reveal possible hierarchic properties of the graph." + " More precisely, they find applications in</Paragraph>" + "<List>" + "<ListItem><Paragraph>Dataflow analysis</Paragraph></ListItem>" + "<ListItem><Paragraph>Software engineering</Paragraph></ListItem>" + "<ListItem><Paragraph>Network management</Paragraph></ListItem>" + "<ListItem><Paragraph>Bioinformatics</Paragraph></ListItem>" + "<ListItem><Paragraph>Business Administration</Paragraph></ListItem>" + "</List>";
+    return "<p>This layout is designed to arrange directed and undirected trees that have a unique root node. "
+        + "All children are placed below their parent in relation to the main layout direction. "
+        + "The edges of the graph are routed as straight-line segments or in an orthogonal bus-like fashion.</p>"
+        + "<p>Tree layout algorithms are commonly used for visualizing relational data and for producing diagrams of high quality that are able to reveal possible hierarchic properties of the graph."
+        + " More precisely, they find applications in</p>"
+        + "<ul>"
+        + "<li><p>Dataflow analysis</p></li>"
+        + "<li><p>Software engineering</p></li>"
+        + "<li><p>Network management</p></li>"
+        + "<li><p>Bioinformatics</p></li>"
+        + "<li><p>Business Administration</p></li>"
+        + "</ul>";
   }
 
   private EnumRoute routingStyleForNonTreeEdgesItem = EnumRoute.ORTHOGONAL;
@@ -763,7 +774,6 @@ public class ClassicTreeLayoutConfig extends LayoutConfiguration {
    */
   private static class HandleEdgesBetweenGroupsStage extends AbstractLayoutStage {
     public HandleEdgesBetweenGroupsStage( boolean placeLabels ) {
-      super((ILayoutAlgorithm)null);
       setConsiderEdgeLabels(placeLabels);
     }
 

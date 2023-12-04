@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -50,6 +50,12 @@ import com.yworks.yfiles.layout.PortConstraint;
 import com.yworks.yfiles.layout.PortConstraintKeys;
 import com.yworks.yfiles.layout.PortSide;
 import com.yworks.yfiles.layout.PreferredPlacementDescriptor;
+import com.yworks.yfiles.layout.hierarchic.EdgeLayoutDescriptor;
+import com.yworks.yfiles.layout.hierarchic.EdgeRoutingStyle;
+import com.yworks.yfiles.layout.hierarchic.HierarchicLayoutData;
+import com.yworks.yfiles.layout.hierarchic.IIncrementalHintsFactory;
+import com.yworks.yfiles.layout.hierarchic.LayerConstraintData;
+import com.yworks.yfiles.layout.hierarchic.RoutingStyle;
 import com.yworks.yfiles.utils.IListEnumerable;
 import com.yworks.yfiles.view.ISelectionModel;
 import complete.bpmn.layout.BpmnLayout;
@@ -240,7 +246,7 @@ public class BpmnLayoutData {
     collectLeafNodes(graph, targetNode, targetNodes);
     for (INode source : sourceNodes) {
       for (INode target : targetNodes) {
-        layerConstraintData.placeAbove(target, source, 1, 0);
+        layerConstraintData.placeAbove(target, source);
       }
     }
   }

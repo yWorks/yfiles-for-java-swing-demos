@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -32,7 +32,6 @@ package layout.partitiongrid;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.graph.INode;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
 import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
 import com.yworks.yfiles.layout.LayoutData;
@@ -53,6 +52,9 @@ import com.yworks.yfiles.view.input.PopulateItemPopupMenuEventArgs;
 import com.yworks.yfiles.view.input.WaitInputMode;
 import layout.LayoutFinishedListeners;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
+
+import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.Icon;
@@ -76,6 +78,7 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -156,7 +159,7 @@ public class PartitionGridDemo extends AbstractDemo {
 
       //add Hierarchic and Organic Layoutbuttons
       toolBar.add(createCommandButtonAction("Run hierarchic layout", "layout-hierarchic.png",
-              RUN_ORGANIC_LAYOUT, new HierarchicLayout(), graphComponent));
+              RUN_HIERARCHIC_LAYOUT, new HierarchicLayout(), graphComponent));
 
       toolBar.add(createCommandButtonAction("Run organic layout", "layout-organic-16.png",
               RUN_ORGANIC_LAYOUT, new OrganicLayout(), graphComponent));
@@ -218,7 +221,12 @@ public class PartitionGridDemo extends AbstractDemo {
     controls.add(minColumnWidthSlider);
 
     controls.add(new JLabel("Stretch group nodes: "));
-    controls.add(stretchGroupBox = new JCheckBox());
+    controls.add(stretchGroupBox = new JCheckBox(new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        ICommand.invalidateRequerySuggested();
+      }
+    }));
   }
 
 
@@ -269,19 +277,25 @@ public class PartitionGridDemo extends AbstractDemo {
    * Determines whether the {@link #RUN_HIERARCHIC_LAYOUT} can be executed.
    */
   private boolean canExecuteHierarchicLayout(ICommand command, Object parameter, Object sender) {
-    return canExecuteAnyLayout(parameter);
+    return canExecuteAnyLayout();
   }
 
   /**
    * Determines whether the {@link #RUN_ORGANIC_LAYOUT} can be executed.
    */
   private boolean canExecuteOrganicLayout(ICommand command, Object parameter, Object sender) {
-    if (!canExecuteAnyLayout(parameter)) {
+    if (!canExecuteAnyLayout()) {
       return false;
     }
 
-    // the <em>Organic</em> layout doesn't support to stretch a group node if it contains child nodes assigned
-    // to different rows or columns. In this case the <em>Organic</em> layout button shall be disabled.
+    if (stretchGroupBox.isSelected()) {
+      return true;
+    }
+
+    // With "stretch group nodes" turned off, the organic layout algorithm does
+    // not support group nodes that contain child nodes assigned to different
+    // rows or columns. In this case the organic layout button shall be
+    // disabled.
     IGraph graph = graphComponent.getGraph();
     for (INode node : graph.getNodes()) {
       if (graph.isGroupNode(node)) {
@@ -314,12 +328,12 @@ public class PartitionGridDemo extends AbstractDemo {
   /**
    * Determines whether any layout can be executed.
    */
-  private boolean canExecuteAnyLayout(final Object layoutParameter) {
+  private boolean canExecuteAnyLayout() {
     // if a layout algorithm is currently running, no other layout algorithm shall be executable for two reasons:
     // - the result of the current layout run shall be presented before executing a new layout
     // - layout algorithms are not thread safe, so calling applyLayout on a layout algorithm that currently calculates
     //   a layout may result in errors
-    if (layoutParameter instanceof ILayoutAlgorithm && !waitInputMode.isWaiting()) {
+    if (!waitInputMode.isWaiting()) {
       // don't allow layouts for empty graphs
       IGraph graph = graphComponent.getGraph();
       return graph.getNodes().size() != 0;
@@ -378,16 +392,7 @@ public class PartitionGridDemo extends AbstractDemo {
   private void initializeNodeDefaults() {
     IGraph graph = graphComponent.getGraph();
 
-    ShapeNodeStyle nodeStyle = new ShapeNodeStyle();
-    nodeStyle.setPaint(defaultColor);
-    nodeStyle.setPen(defaultPen);
-    graph.getNodeDefaults().setStyle(nodeStyle);
-    graph.getNodeDefaults().setStyleInstanceSharingEnabled(false);
-
-    PanelNodeStyle groupNodeStyle = new PanelNodeStyle();
-    groupNodeStyle.setColor(new Color(255, 255, 255, 102));
-    graph.getGroupNodeDefaults().setStyle(groupNodeStyle);
-    graph.getGroupNodeDefaults().setStyleInstanceSharingEnabled(false);
+    DemoStyles.initDemoStyles(graph);
   }
 
   /**
@@ -459,7 +464,7 @@ public class PartitionGridDemo extends AbstractDemo {
         nodeStyle.setPaint(defaultColor);
         nodeStyle.setPen(defaultPen);
         updateNodeTag(node);
-        graphComponent.invalidate();
+        graphComponent.repaint();
         ICommand.invalidateRequerySuggested();
       });
       popupMenu.add(colorOption);
@@ -480,7 +485,7 @@ public class PartitionGridDemo extends AbstractDemo {
       colorOption.addActionListener(e -> {
         nodeStyle.setPaint(newColor);
         updateNodeTag(node);
-        graphComponent.invalidate();
+        graphComponent.repaint();
         ICommand.invalidateRequerySuggested();
       });
       popupMenu.add(colorOption);
@@ -505,7 +510,7 @@ public class PartitionGridDemo extends AbstractDemo {
         penOption.addActionListener(e -> {
           nodeStyle.setPen(newPen);
           updateNodeTag(node);
-          graphComponent.invalidate();
+          graphComponent.repaint();
           ICommand.invalidateRequerySuggested();
         });
         popupMenu.add(penOption);

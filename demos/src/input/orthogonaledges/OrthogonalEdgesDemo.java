@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,10 +29,6 @@
  ***************************************************************************/
 package input.orthogonaledges;
 
-import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
-import com.yworks.yfiles.view.Colors;
-import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.graph.EdgeDecorator;
@@ -41,16 +37,19 @@ import com.yworks.yfiles.graph.IEdge;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.IPort;
-import com.yworks.yfiles.graph.portlocationmodels.IPortLocationModelParameter;
+import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
+import com.yworks.yfiles.graph.styles.INodeStyle;
+import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.GraphSnapContext;
 import com.yworks.yfiles.view.input.IEdgeReconnectionPortCandidateProvider;
 import com.yworks.yfiles.view.input.OrthogonalEdgeEditingContext;
 import com.yworks.yfiles.view.input.OrthogonalEdgeHelper;
-import com.yworks.yfiles.view.Pen;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
+import toolkit.Palette;
+import toolkit.Themes;
 
-import java.awt.Color;
 import java.awt.EventQueue;
 
 /**
@@ -87,10 +86,7 @@ public class OrthogonalEdgesDemo extends AbstractDemo {
    * Sets some default values for nodes and ports of the given graph.
    */
   private void initializeGraphDefaults(IGraph graph) {
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Color.ORANGE);
-    graph.getNodeDefaults().setStyle(nodeStyle);
-    graph.getNodeDefaults().getPortDefaults().setAutoCleanUpEnabled(false);
+    DemoStyles.initDemoStyles(graph);
   }
 
   /**
@@ -149,31 +145,31 @@ public class OrthogonalEdgesDemo extends AbstractDemo {
     EdgeDecorator edgeDecorator = graphComponent.getGraph().getDecorator().getEdgeDecorator();
 
     // Add different OrthogonalEdgeHelpers to demonstrate various custom behaviours
-    edgeDecorator.getOrthogonalEdgeHelperDecorator().setImplementation(edge -> edge.getTag() == Colors.FIREBRICK, new RedOrthogonalEdgeHelper());
+    edgeDecorator.getOrthogonalEdgeHelperDecorator().setImplementation(edge -> edge.getTag() == Themes.PALETTE_RED, new RedOrthogonalEdgeHelper());
 
     // Green edges have the regular orthogonal editing behavior and therefore we don't need a custom implementation
-    edgeDecorator.getOrthogonalEdgeHelperDecorator().setImplementation(edge -> edge.getTag() == Colors.FOREST_GREEN, new OrthogonalEdgeHelper());
+    edgeDecorator.getOrthogonalEdgeHelperDecorator().setImplementation(edge -> edge.getTag() == Themes.PALETTE_GREEN, new OrthogonalEdgeHelper());
 
-    edgeDecorator.getOrthogonalEdgeHelperDecorator().setImplementation(edge -> edge.getTag() == Colors.PURPLE, new PurpleOrthogonalEdgeHelper());
-    edgeDecorator.getOrthogonalEdgeHelperDecorator().setImplementation(edge -> edge.getTag() == Colors.DARK_ORANGE, new OrangeOrthogonalEdgeHelper());
-    edgeDecorator.getOrthogonalEdgeHelperDecorator().setImplementation(edge -> edge.getTag() == Colors.ROYAL_BLUE, new BlueOrthogonalEdgeHelper());
+    edgeDecorator.getOrthogonalEdgeHelperDecorator().setImplementation(edge -> edge.getTag() == Themes.PALETTE_PURPLE, new PurpleOrthogonalEdgeHelper());
+    edgeDecorator.getOrthogonalEdgeHelperDecorator().setImplementation(edge -> edge.getTag() == Themes.PALETTE_ORANGE, new OrangeOrthogonalEdgeHelper());
+    edgeDecorator.getOrthogonalEdgeHelperDecorator().setImplementation(edge -> edge.getTag() == Themes.PALETTE_LIGHTBLUE, new BlueOrthogonalEdgeHelper());
 
     // Disable moving of the complete edge for orthogonal edges since this would create way too many bends
     edgeDecorator.getPositionHandlerDecorator().hideImplementation(
-      edge -> (edge.getTag() == Colors.DARK_ORANGE) ||
-              (edge.getTag() == Colors.FOREST_GREEN) ||
-              (edge.getTag() == Colors.PURPLE)
+      edge -> (edge.getTag() == Themes.PALETTE_ORANGE) ||
+              (edge.getTag() == Themes.PALETTE_GREEN) ||
+              (edge.getTag() == Themes.PALETTE_PURPLE)
       );
 
     // Add a custom BendCreator for blue edges that ensures orthogonality
     // if a bend is added to the first or last (non-orthogonal) segment
-    edgeDecorator.getBendCreatorDecorator().setImplementation(edge -> edge.getTag() == Colors.ROYAL_BLUE, new BlueBendCreator());
+    edgeDecorator.getBendCreatorDecorator().setImplementation(edge -> edge.getTag() == Themes.PALETTE_LIGHTBLUE, new BlueBendCreator());
 
     // Add a custom EdgePortHandleProvider to make the handles of purple and
     // orange edge move within the bounds of the node
-    edgeDecorator.getEdgePortHandleProviderDecorator().setImplementationWrapper(edge -> edge.getTag() == Colors.PURPLE,
+    edgeDecorator.getEdgePortHandleProviderDecorator().setImplementationWrapper(edge -> edge.getTag() == Themes.PALETTE_PURPLE,
         (edge, provider) -> new ConstrainedEdgePortHandleProvider(provider));
-    edgeDecorator.getEdgePortHandleProviderDecorator().setImplementation(edge -> edge.getTag() == Colors.DARK_ORANGE, new ConstrainedEdgePortHandleProvider());
+    edgeDecorator.getEdgePortHandleProviderDecorator().setImplementation(edge -> edge.getTag() == Themes.PALETTE_ORANGE, new ConstrainedEdgePortHandleProvider());
 
     // Allow the relocating of an edge to another node
     edgeDecorator.getEdgeReconnectionPortCandidateProviderDecorator().setImplementation(IEdgeReconnectionPortCandidateProvider.ALL_NODE_CANDIDATES);
@@ -184,18 +180,18 @@ public class OrthogonalEdgesDemo extends AbstractDemo {
    * used as tag. That way, they can be treated differently during interactive change depending on their color.
    */
   private void createSampleGraph(IGraph graph) {
-    createSubgraph(graph, Colors.FIREBRICK, 0, false);
-    createSubgraph(graph, Colors.FOREST_GREEN, 110, false);
-    createSubgraph(graph, Colors.PURPLE, 220, true);
-    createSubgraph(graph, Colors.DARK_ORANGE, 330, false);
+    createSubgraph(graph, Themes.PALETTE_RED, 0, false);
+    createSubgraph(graph, Themes.PALETTE_GREEN, 110, false);
+    createSubgraph(graph, Themes.PALETTE_PURPLE, 220, true);
+    createSubgraph(graph, Themes.PALETTE_ORANGE, 330, false);
 
     // the blue edge has more bends then the other edges
-    IEdge blueEdge = createSubgraph(graph, Colors.ROYAL_BLUE, 440, false);
+    IEdge blueEdge = createSubgraph(graph, Themes.PALETTE_LIGHTBLUE, 440, false);
     graph.clearBends(blueEdge);
-    double sourcePortY = getLocation(blueEdge.getSourcePort()).getY();
+    double sourcePortY = blueEdge.getSourcePort().getLocation().getY();
     graph.addBend(blueEdge, new PointD(220, sourcePortY - 30));
     graph.addBend(blueEdge, new PointD(300, sourcePortY - 30));
-    double targetPortY = getLocation(blueEdge.getTargetPort()).getY();
+    double targetPortY = blueEdge.getTargetPort().getLocation().getY();
     graph.addBend(blueEdge, new PointD(300, targetPortY + 30));
     graph.addBend(blueEdge, new PointD(380, targetPortY + 30));
 
@@ -205,29 +201,27 @@ public class OrthogonalEdgesDemo extends AbstractDemo {
   /**
    * Creates the sample graph of the given color with two nodes and a single edge.
    */
-  private IEdge createSubgraph(IGraph graph, Color color, double yOffset, boolean createPorts) {
+  private IEdge createSubgraph(IGraph graph, Palette palette, double yOffset, boolean createPorts) {
     // Create two nodes
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(color);
-    INode n1 = graph.createNode(new RectD(110, 100 + yOffset, 40, 40), nodeStyle, color);
-    INode n2 = graph.createNode(new RectD(450, 130 + yOffset, 40, 40), nodeStyle, color);
+    INodeStyle nodeStyle = DemoStyles.createDemoNodeStyle(palette);
+    INode n1 = graph.createNode(new RectD(110, 100 + yOffset, 40, 40), nodeStyle, palette);
+    INode n2 = graph.createNode(new RectD(450, 130 + yOffset, 40, 40), nodeStyle, palette);
 
     // Create an edge, either between the two nodes or between the nodes' ports
     // For the edge style, use a pen based on the color that is a tiny bit thicker than the normal pen
     IEdge edge;
-    PolylineEdgeStyle edgeStyle = new PolylineEdgeStyle();
-    edgeStyle.setPen(new Pen(color, 1.5));
+    PolylineEdgeStyle edgeStyle = DemoStyles.createDemoEdgeStyle(palette);
     if (!createPorts) {
-      edge = graph.createEdge(n1, n2, edgeStyle, color);
+      edge = graph.createEdge(n1, n2, edgeStyle, palette);
     } else {
       IPort[] p1 = createSamplePorts(graph, n1, true);
       IPort[] p2 = createSamplePorts(graph, n2, false);
-      edge = graph.createEdge(p1[1], p2[2], edgeStyle, color);
+      edge = graph.createEdge(p1[1], p2[2], edgeStyle, palette);
     }
 
     // Add bends that create a vertical segment in the middle of the edge
-    PointD sourceLocation = getLocation(edge.getSourcePort());
-    PointD targetLocation = getLocation(edge.getTargetPort());
+    PointD sourceLocation = edge.getSourcePort().getLocation();
+    PointD targetLocation = edge.getTargetPort().getLocation();
     double x = (sourceLocation.getX() + targetLocation.getX()) / 2;
     graph.addBend(edge, new PointD(x, sourceLocation.getY()));
     graph.addBend(edge, new PointD(x, targetLocation.getY()));
@@ -246,17 +240,6 @@ public class OrthogonalEdgesDemo extends AbstractDemo {
     ports[2] = graph.addPort(node, model.createParameter(new PointD(x, 0.65), PointD.ORIGIN));
     ports[3] = graph.addPort(node, model.createParameter(new PointD(x, 0.95), PointD.ORIGIN));
     return ports;
-  }
-
-  /**
-   * Gets a snapshot of the current location of the port.
-   * Unlike {@link com.yworks.yfiles.graph.IPort#getLocation()} this does not return a dynamic point that always refers to the current location.
-   * @param port The port to retrieve the location from.
-   * @return The current port location.
-   */
-  private static PointD getLocation(IPort port) {
-    IPortLocationModelParameter param = port.getLocationParameter();
-    return param.getModel().getLocation(port, param);
   }
 
   /**

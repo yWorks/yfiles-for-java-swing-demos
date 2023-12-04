@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -31,14 +31,12 @@ package viewer.svgimageexport;
 
 import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.geometry.RectD;
-import com.yworks.yfiles.graph.IGraph;
-import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
 import com.yworks.yfiles.view.CanvasComponent;
 import com.yworks.yfiles.view.Colors;
 import com.yworks.yfiles.view.IRenderContext;
 import com.yworks.yfiles.view.ContextConfigurator;
 import org.apache.batik.bridge.UpdateManager;
-import org.apache.batik.dom.svg.SVGDOMImplementation;
+import org.apache.batik.anim.dom.SVGDOMImplementation;
 import org.apache.batik.svggen.SVGGraphics2D;
 import org.apache.batik.swing.JSVGCanvas;
 import org.apache.batik.swing.JSVGScrollPane;
@@ -83,7 +81,7 @@ import java.io.Writer;
  * Draw arbitrary objects onto the GraphComponent and interact with them via <code>InputModes</code>.
  * <p>
  * The demo uses a patched version of the Batik SVG library available on the
- * <a href="https://www.yworks.com/resources/yfilesjava/demos-support/3.5/batik.jar">yFiles website</a>.
+ * <a href="https://www.yworks.com/resources/yfilesjava/demos-support/3.6/batik.jar">yFiles website</a>.
  * </p>
  */
 public class SVGImageExportDemo extends AbstractImageExportDemo {
@@ -114,19 +112,6 @@ public class SVGImageExportDemo extends AbstractImageExportDemo {
           updatePreview();
         });
     toolBar.add(transparencyCheckBox);
-  }
-
-  /**
-   * Initializes the default node and edge style.
-   * We override the method to set a simpler node style
-   */
-  protected void initializeGraphDefaults(IGraph graph) {
-    super.initializeGraphDefaults(graph);
-
-    // use a simpler node style without linear gradients as these are not supported by Batik per default
-    ShapeNodeStyle nodeStyle = new ShapeNodeStyle();
-    nodeStyle.setPaint(Colors.ORANGE);
-    graph.getNodeDefaults().setStyle(nodeStyle);
   }
 
   /**

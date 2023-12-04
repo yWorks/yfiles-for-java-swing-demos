@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -36,7 +36,7 @@ import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.NodeDecorator;
 import com.yworks.yfiles.graph.labelmodels.InteriorLabelModel;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
+import com.yworks.yfiles.graph.styles.RectangleNodeStyle;
 import com.yworks.yfiles.view.Colors;
 import com.yworks.yfiles.view.ICanvasObjectDescriptor;
 import com.yworks.yfiles.view.Pen;
@@ -52,10 +52,11 @@ import com.yworks.yfiles.view.input.NodeReshapeHandleProvider;
 import com.yworks.yfiles.view.input.NodeReshapeHandlerHandle;
 import com.yworks.yfiles.view.input.ReshapePolicy;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
+import toolkit.Palette;
+import toolkit.Themes;
 
-import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.geom.Rectangle2D;
 
 /**
@@ -63,6 +64,8 @@ import java.awt.geom.Rectangle2D;
  * {@link com.yworks.yfiles.view.input.IReshapeHandleProvider}.
  */
 public class ReshapeHandleProviderConfigurationDemo extends AbstractDemo {
+
+  private ApplicationState applicationState;
 
   /**
    * Registers a callback function as a decorator that provides a custom {@link com.yworks.yfiles.view.input.IReshapeHandleProvider}
@@ -76,15 +79,16 @@ public class ReshapeHandleProviderConfigurationDemo extends AbstractDemo {
 
     // deactivate reshape handling for the red node
     nodeDecorator.getReshapeHandleProviderDecorator().hideImplementation(
-        node -> Colors.FIREBRICK.equals(node.getTag()));
+        node -> Themes.PALETTE_RED.equals(node.getTag()));
 
     // return customized reshape handle provider for the orange, blue and green node
     nodeDecorator.getReshapeHandleProviderDecorator().setFactory(
-        node -> Colors.DARK_ORANGE.equals(node.getTag())
-            || Colors.ROYAL_BLUE.equals(node.getTag())
-            || Colors.FOREST_GREEN.equals(node.getTag())
-            || Colors.PURPLE.equals(node.getTag())
-            || Colors.GRAY.equals(node.getTag()),
+        node -> Themes.PALETTE_ORANGE.equals(node.getTag())
+            || Themes.PALETTE_BLUE.equals(node.getTag())
+            || Themes.PALETTE_GREEN.equals(node.getTag())
+            || Themes.PALETTE_PURPLE.equals(node.getTag())
+            || Themes.PALETTE_LIGHTBLUE.equals(node.getTag())
+            || Themes.PALETTE58.equals(node.getTag()),
         node -> {
           // Obtain the tag from the node
           Object nodeTag = node.getTag();
@@ -96,24 +100,26 @@ public class ReshapeHandleProviderConfigurationDemo extends AbstractDemo {
               HandlePositions.BORDER);
 
           // Customize the handle provider depending on the node's color
-          if (Colors.DARK_ORANGE.equals(nodeTag)) {
+          if (Themes.PALETTE_ORANGE.equals(nodeTag)) {
             // Restrict the node bounds to the boundaryRectangle
             provider.setMaximumBoundingArea(maximumBoundingArea);
-          } else if (Colors.FOREST_GREEN.equals(nodeTag)) {
+          } else if (Themes.PALETTE_GREEN.equals(nodeTag)) {
             // Show only handles at the corners and always use aspect ratio resizing
             provider.setHandlePositions(HandlePositions.CORNERS);
             provider.setRatioReshapeRecognizer(IEventRecognizer.ALWAYS);
-          } else if (Colors.ROYAL_BLUE.equals(nodeTag)) {
+          } else if (Themes.PALETTE_BLUE.equals(nodeTag)) {
             // Restrict the node bounds to the boundaryRectangle and
             // show only handles at the corners and always use aspect ratio resizing
             provider.setMaximumBoundingArea(maximumBoundingArea);
             provider.setHandlePositions(HandlePositions.CORNERS);
             provider.setRatioReshapeRecognizer(IEventRecognizer.ALWAYS);
-          } else if (Colors.PURPLE.equals(nodeTag)) {
+          } else if (Themes.PALETTE_PURPLE.equals(nodeTag)) {
             provider = new PurpleNodeReshapeHandleProvider(node, reshapeHandler);
-          } else if (Colors.GRAY.equals(nodeTag)) {
+          } else if (Themes.PALETTE58.equals(nodeTag)) {
             provider.setHandlePositions(HandlePositions.SOUTH_EAST);
             provider.setCenterReshapeRecognizer(IEventRecognizer.ALWAYS);
+          } else if (Themes.PALETTE_LIGHTBLUE.equals(nodeTag)) {
+            provider = new CyanNodeReshapeHandleProvider(node, reshapeHandler, applicationState);
           }
           return provider;
         });
@@ -124,9 +130,7 @@ public class ReshapeHandleProviderConfigurationDemo extends AbstractDemo {
    * together with an enclosing rectangle some of the nodes may not stretch over.
    */
   public void initialize() {
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(new Color(153, 153, 153));
-    graphComponent.getGraph().getNodeDefaults().setStyle(nodeStyle);
+    DemoStyles.initDemoStyles(graphComponent.getGraph());
 
     // initialize the input mode
     initializeInputMode();
@@ -145,6 +149,8 @@ public class ReshapeHandleProviderConfigurationDemo extends AbstractDemo {
 
     // enable Undo/Redo for all edits after the initial graph has been constructed
     graphComponent.getGraph().setUndoEngineEnabled(true);
+
+    applicationState = new ApplicationState(graphComponent, true);
   }
 
   private void initializeInputMode() {
@@ -175,26 +181,23 @@ public class ReshapeHandleProviderConfigurationDemo extends AbstractDemo {
    * com.yworks.yfiles.view.input.IReshapeHandleProvider} is used.
    */
   private void createSampleGraph(IGraph graph) {
-    createNode(graph, 80, 100, 140, 30, Colors.FIREBRICK, Colors.WHITE_SMOKE, "Fixed Size");
-    createNode(graph, 300, 100, 140, 30, Colors.FOREST_GREEN, Colors.WHITE_SMOKE, "Keep Aspect Ratio");
-    createNode(graph, 80, 250, 140, 50, Colors.GRAY, Colors.WHITE_SMOKE, "Keep Center");
-    createNode(graph, 300, 250, 140, 50, Colors.PURPLE, Colors.WHITE_SMOKE, "Keep Aspect Ratio\nat corners");
-    createNode(graph, 80, 410, 140, 30, Colors.DARK_ORANGE, Colors.BLACK, "Limited to Rectangle");
-    createNode(graph, 300, 400, 140, 50, Colors.ROYAL_BLUE, Colors.WHITE_SMOKE,
-        "Limited to Rectangle\nand Keep Aspect Ratio");
+    createNode(graph, 80, 100, 140, 30, Themes.PALETTE_RED, "Fixed Size");
+    createNode(graph, 300, 100, 140, 30, Themes.PALETTE_GREEN, "Keep Aspect Ratio");
+    createNode(graph, 80, 200, 140, 50, Themes.PALETTE58, "Keep Center");
+    createNode(graph, 300, 200, 140, 50, Themes.PALETTE_PURPLE, "Keep Aspect Ratio\nat corners");
+    createNode(graph, 80, 310, 140, 30, Themes.PALETTE_ORANGE, "Limited to Rectangle");
+    createNode(graph, 300, 300, 140, 50, Themes.PALETTE_BLUE,
+            "Limited to Rectangle\nand Keep Aspect Ratio");
+    createNode(graph, 80, 400, 140, 50, Themes.PALETTE_LIGHTBLUE, "Keep Aspect Ratio\ndepending on State");
   }
 
   /**
    * Creates a sample node for this demo.
    */
-  private static void createNode(IGraph graph, double x, double y, double w, double h, Color fillColor, Color textColor, String labelText) {
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(fillColor);
-    INode node = graph.createNode(new RectD(x, y, w, h), nodeStyle, fillColor);
-    DefaultLabelStyle labelStyle = new DefaultLabelStyle();
-    labelStyle.setFont(new Font("Dialog", Font.BOLD, 12));
-    labelStyle.setTextPaint(textColor);
-    labelStyle.setUsingFractionalFontMetricsEnabled(true);
+  private static void createNode(IGraph graph, double x, double y, double w, double h, Palette palette, String labelText) {
+    RectangleNodeStyle nodeStyle = DemoStyles.createDemoNodeStyle(palette);
+    INode node = graph.createNode(new RectD(x, y, w, h), nodeStyle, palette);
+    DefaultLabelStyle labelStyle = DemoStyles.createDemoNodeLabelStyle(palette);
     graph.addLabel(node, labelText, InteriorLabelModel.CENTER, labelStyle);
   }
 

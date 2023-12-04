@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.5.
+     // This demo file is part of yFiles for Java (Swing) 3.6.
      //
-     // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -53,6 +53,7 @@
   <key id="d9" attr.name="SharedData" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData" />
   <data key="d9">
     <y:SharedData>
+      <yfj:ShapeNodeStyle x:Key="BlueStar" Shape="STAR5" Paint="#46A8D5" Pen="#224556" />
     </y:SharedData>
   </data>
   <graph id="G" edgedefault="directed">
@@ -61,7 +62,7 @@
         <y:RectD X="-92.25" Y="266.5" Width="75" Height="75" />
       </data>
       <data key="d3">
-        <yfj:ShapeNodeStyle Paint="ForestGreen" Shape="STAR5" />
+        <y:GraphMLReference ResourceKey="BlueStar" />
       </data>
     </node>
     <node id="n1">
@@ -69,15 +70,12 @@
         <y:RectD X="34.75" Y="266.5" Width="75" Height="75" />
       </data>
       <data key="d3">
-        <yfj:ShapeNodeStyle Paint="ForestGreen" Shape="STAR5" />
+        <y:GraphMLReference ResourceKey="BlueStar" />
       </data>
     </node>
     <node id="n2">
       <data key="d2">
         <y:RectD X="-79.75" Y="57" Width="50" Height="50" />
-      </data>
-      <data key="d3">
-        <yfj:ShinyPlateNodeStyle Paint="#FF000000" />
       </data>
       <data key="d1">
         <x:List>
@@ -87,9 +85,6 @@ so you can see how nodes snap all along its border.]]></y:Label.Text>
             <y:Label.LayoutParameter>
               <y:RatioAnchoredLabelModelParameter LayoutRatio="0.5,0" LayoutOffset="0,-25" LabelRatio="0.5,0.5" />
             </y:Label.LayoutParameter>
-            <y:Label.Style>
-              <yfj:DefaultLabelStyle BackgroundPen="Black"/>
-            </y:Label.Style>
           </y:Label>
         </x:List>
       </data>
@@ -99,17 +94,11 @@ so you can see how nodes snap all along its border.]]></y:Label.Text>
       <data key="d2">
         <y:RectD X="357.75" Y="279" Width="50" Height="50" />
       </data>
-      <data key="d3">
-        <yfj:ShinyPlateNodeStyle Paint="#FF000000" />
-      </data>
       <port name="p0" />
     </node>
     <node id="n4">
       <data key="d2">
         <y:RectD X="47.25" Y="-86" Width="50" Height="50" />
-      </data>
-      <data key="d3">
-        <yfj:ShinyPlateNodeStyle Paint="#FF000000" />
       </data>
     </node>
     <edge id="e0" source="n2" target="n3" sourceport="p0" targetport="p0">
@@ -137,9 +126,6 @@ it is orthogonal.]]></y:Label.Text>
                 </y:SmartEdgeLabelModelParameter.Model>
               </y:SmartEdgeLabelModelParameter>
             </y:Label.LayoutParameter>
-            <y:Label.Style>
-              <yfj:DefaultLabelStyle BackgroundPen="Black"/>
-            </y:Label.Style>
           </y:Label>
         </x:List>
       </data>

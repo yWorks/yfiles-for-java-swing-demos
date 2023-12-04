@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,13 +29,13 @@
  ***************************************************************************/
 package deploy.obfuscation;
 
+import com.yworks.yfiles.graph.styles.INodeStyle;
 import com.yworks.yfiles.utils.Obfuscation;
 import com.yworks.yfiles.view.ICanvasObjectDescriptor;
 import com.yworks.yfiles.view.ICanvasObjectGroup;
-import com.yworks.yfiles.view.Colors;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
 
 import java.awt.EventQueue;
 import java.io.IOException;
@@ -53,7 +53,6 @@ import java.net.URL;
  * Information regarding the build and obfuscation process itself, yGuard and the used mechanisms in this demo
  * can be found in the description in the build.xml file.
  * </p>
- * @author Thomas Behr
  */
 public class ObfuscationDemo extends AbstractDemo {
   /**
@@ -72,7 +71,7 @@ public class ObfuscationDemo extends AbstractDemo {
    * A field that is only used in code and thus can be obfuscated.
    * This field exists solely for demonstration purposes.
    */
-  private ShinyPlateNodeStyle nodeStyle;
+  private INodeStyle nodeStyle;
 
 
   @Override
@@ -100,9 +99,8 @@ public class ObfuscationDemo extends AbstractDemo {
    * This is a private method and thus may be obfuscated.
    */
   private void initializeDefaults() {
-    nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Colors.DARK_ORANGE);
-    graphComponent.getGraph().getNodeDefaults().setStyle(nodeStyle);
+    DemoStyles.initDemoStyles(graphComponent.getGraph());
+    nodeStyle = graphComponent.getGraph().getNodeDefaults().getStyle();
   }
 
   /**

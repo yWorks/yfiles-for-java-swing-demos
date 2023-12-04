@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -31,14 +31,14 @@ package integration.neo4j;
 
 import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.geometry.SizeD;
-import com.yworks.yfiles.graph.builder.EdgesSource;
-import com.yworks.yfiles.graph.builder.GraphBuilder;
 import com.yworks.yfiles.graph.GraphDecorator;
 import com.yworks.yfiles.graph.GraphItemTypes;
 import com.yworks.yfiles.graph.IEdge;
 import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.graph.INode;
+import com.yworks.yfiles.graph.builder.EdgesSource;
+import com.yworks.yfiles.graph.builder.GraphBuilder;
 import com.yworks.yfiles.graph.builder.NodesSource;
 import com.yworks.yfiles.graph.labelmodels.EdgePathLabelModel;
 import com.yworks.yfiles.graph.labelmodels.EdgeSides;
@@ -66,7 +66,6 @@ import com.yworks.yfiles.view.HighlightIndicatorManager;
 import com.yworks.yfiles.view.NodeStyleDecorationInstaller;
 import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.StyleDecorationZoomPolicy;
-import com.yworks.yfiles.view.TextWrapping;
 import com.yworks.yfiles.view.input.GraphViewerInputMode;
 import org.neo4j.driver.AccessMode;
 import org.neo4j.driver.AuthToken;
@@ -82,6 +81,8 @@ import org.neo4j.driver.internal.value.StringValue;
 import org.neo4j.driver.types.Entity;
 import org.neo4j.driver.types.Node;
 import org.neo4j.driver.types.Relationship;
+import toolkit.DemoStyles;
+import toolkit.Themes;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -92,7 +93,6 @@ import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 import javax.swing.event.HyperlinkEvent;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -155,20 +155,12 @@ public class Neo4JDemo {
   private void initializeGraphDefaults() {
     IGraph graph = graphComponent.getGraph();
 
-    // set the default style for nodes
-    ShapeNodeStyle defaultNodeStyle = new ShapeNodeStyle();
-    defaultNodeStyle.setShape(ShapeNodeShape.ELLIPSE);
-    defaultNodeStyle.setPaint(Colors.LIGHT_BLUE);
-    graph.getNodeDefaults().setStyle(defaultNodeStyle);
-
-    // and the default size
-    graph.getNodeDefaults().setSize(new SizeD(30, 30));
+    // set the default node styles
+    DemoStyles.initDemoStyles(graph, Themes.PALETTE_LIGHTBLUE);
+    graph.getNodeDefaults().setStyle(DemoStyles.createDemoShapeNodeStyle(ShapeNodeShape.ELLIPSE, Themes.PALETTE_LIGHTBLUE));
 
     // and configure node labels to be truncated if they exceed a certain size
-    DefaultLabelStyle defaultLabelStyle = new DefaultLabelStyle();
-    defaultLabelStyle.setMaximumSize(new SizeD(116, 36));
-    defaultLabelStyle.setTextWrapping(TextWrapping.WRAP);
-    graph.getNodeDefaults().getLabelDefaults().setStyle(defaultLabelStyle);
+    ((DefaultLabelStyle) graph.getNodeDefaults().getLabelDefaults().getStyle()).setMaximumSize(new SizeD(116, 36));
 
     ExteriorLabelModel newExteriorLabelModel = new ExteriorLabelModel();
     newExteriorLabelModel.setInsets(new InsetsD(5));
@@ -341,10 +333,10 @@ public class Neo4JDemo {
     // with the node ids we can query the edges between the nodes
     Long[] nodeIds = nodes.stream().map(Entity::id).toArray(Long[]::new);
     Result edgeResult = session.run(
-        "MATCH (n)-[edge]-(m) " +
-            "WHERE id(n) IN $nodes " +
-            "AND id(m) IN $nodes " +
-            "RETURN DISTINCT edge LIMIT 100",
+      "MATCH (n)-[edge]-(m) " +
+          "WHERE id(n) IN $nodes " +
+          "AND id(m) IN $nodes " +
+          "RETURN DISTINCT edge LIMIT 100",
         Values.parameters("nodes", nodeIds)
     );
     // and store the edges in a list
@@ -424,11 +416,11 @@ public class Neo4JDemo {
     labels.sort(Comparator.comparingInt(labelCount::get));
     // define some distinct looking styles
     ShapeNodeStyle[] styles = {
-        newShapeNodeStyle(ShapeNodeShape.TRIANGLE, Colors.DARK_ORANGE),
-        newShapeNodeStyle(ShapeNodeShape.DIAMOND, Colors.LIGHT_GREEN),
-        newShapeNodeStyle(ShapeNodeShape.RECTANGLE, Colors.BLUE),
-        newShapeNodeStyle(ShapeNodeShape.HEXAGON, Colors.DARK_VIOLET),
-        newShapeNodeStyle(ShapeNodeShape.ELLIPSE, Colors.AZURE),
+        DemoStyles.createDemoShapeNodeStyle(ShapeNodeShape.TRIANGLE, Themes.PALETTE_ORANGE),
+        DemoStyles.createDemoShapeNodeStyle(ShapeNodeShape.DIAMOND, Themes.PALETTE_GREEN),
+        DemoStyles.createDemoShapeNodeStyle(ShapeNodeShape.RECTANGLE, Themes.PALETTE_BLUE),
+        DemoStyles.createDemoShapeNodeStyle(ShapeNodeShape.HEXAGON, Themes.PALETTE_PURPLE),
+        DemoStyles.createDemoShapeNodeStyle(ShapeNodeShape.ELLIPSE, Themes.PALETTE_LIGHTBLUE),
     };
     // map label names to styles
     Map<String, ShapeNodeStyle> labelToStyle = new HashMap<>();
@@ -436,13 +428,6 @@ public class Neo4JDemo {
       labelToStyle.put(labels.get(i), styles[i % styles.length]);
     }
     return labelToStyle;
-  }
-
-  private static ShapeNodeStyle newShapeNodeStyle(ShapeNodeShape shape, Color fill) {
-    ShapeNodeStyle style = new ShapeNodeStyle();
-    style.setShape(shape);
-    style.setPaint(fill);
-    return style;
   }
 
   /**

@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -30,7 +30,6 @@
 package layout.partiallayout;
 
 
-import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.geometry.SizeD;
 import com.yworks.yfiles.graph.IEdge;
 import com.yworks.yfiles.graph.IGraph;
@@ -38,11 +37,9 @@ import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.Mapper;
 import com.yworks.yfiles.graph.labelmodels.InteriorStretchLabelModel;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
-import com.yworks.yfiles.graph.styles.IArrow;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
+import com.yworks.yfiles.graph.styles.GroupNodeStyle;
 import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
-import com.yworks.yfiles.graph.styles.ShapeNodeShape;
-import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
+import com.yworks.yfiles.graph.styles.RectangleNodeStyle;
 import com.yworks.yfiles.graphml.GraphMLIOHandler;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
 import com.yworks.yfiles.layout.circular.CircularLayout;
@@ -56,9 +53,10 @@ import com.yworks.yfiles.layout.partial.PartialLayout;
 import com.yworks.yfiles.layout.partial.PartialLayoutData;
 import com.yworks.yfiles.layout.partial.SubgraphPlacement;
 import com.yworks.yfiles.view.Colors;
-import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
+import toolkit.Themes;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -128,13 +126,13 @@ public class PartialLayoutDemo extends AbstractDemo {
   private Mapper<IEdge, Boolean> partialEdgesMapper;
 
   /** The node style for fixed group nodes. */
-  private PanelNodeStyle fixedGroupNodeStyle;
+  private GroupNodeStyle fixedGroupNodeStyle;
   /** The node style for partial group nodes. */
-  private PanelNodeStyle partialGroupNodeStyle;
+  private GroupNodeStyle partialGroupNodeStyle;
   /** The node style for fixed normal nodes. */
-  private ShapeNodeStyle fixedNodeStyle;
+  private RectangleNodeStyle fixedNodeStyle;
   /** The node style for partial normal nodes. */
-  private ShapeNodeStyle partialNodeStyle;
+  private RectangleNodeStyle partialNodeStyle;
   /** The node style for fixed edges. */
   private PolylineEdgeStyle fixedEdgeStyle ;
   /** The node style for partial edges. */
@@ -275,29 +273,19 @@ public class PartialLayoutDemo extends AbstractDemo {
    */
   private void initializeGraphDefaults() {
     // configure default styles for normal nodes ...
-    partialNodeStyle = new ShapeNodeStyle();
-    partialNodeStyle.setShape(ShapeNodeShape.ROUND_RECTANGLE);
-    partialNodeStyle.setPen(Pen.getTransparent());
-    partialNodeStyle.setPaint(Colors.ORANGE);
+    partialNodeStyle = DemoStyles.createDemoNodeStyle(Themes.PALETTE_ORANGE);
 
-    fixedNodeStyle = partialNodeStyle.clone();
-    fixedNodeStyle.setPaint(Colors.GRAY);
+    fixedNodeStyle = DemoStyles.createDemoNodeStyle(Themes.PALETTE58);
 
     // ... and group nodes
-    partialGroupNodeStyle = new PanelNodeStyle();
-    partialGroupNodeStyle.setInsets(new InsetsD(20, 5, 5, 5));
-    partialGroupNodeStyle.setColor(Colors.LIGHT_BLUE);
+    partialGroupNodeStyle = DemoStyles.createDemoGroupStyle(Themes.PALETTE12, false);
 
-    fixedGroupNodeStyle = partialGroupNodeStyle.clone();
-    fixedGroupNodeStyle.setColor(Colors.LIGHT_GRAY);
+    fixedGroupNodeStyle = DemoStyles.createDemoGroupStyle(Themes.PALETTE12, false);
 
     // configure the default style for edges
-    partialEdgeStyle = new PolylineEdgeStyle();
-    partialEdgeStyle.setTargetArrow(IArrow.DEFAULT);
-    partialEdgeStyle.setPen(new Pen(Colors.ORANGE));
+    partialEdgeStyle = DemoStyles.createDemoEdgeStyle(new toolkit.Palette("#ff6c00", "#ff6c00", "#ff6c00", "#ff6c00", "#ff6c00"));
 
-    fixedEdgeStyle = partialEdgeStyle.clone();
-    fixedEdgeStyle.setPen(new Pen(Colors.GRAY));
+    fixedEdgeStyle = DemoStyles.createDemoEdgeStyle(Themes.PALETTE58);
 
     // configure the default style for labels
     DefaultLabelStyle defaultLabelStyle = new DefaultLabelStyle();

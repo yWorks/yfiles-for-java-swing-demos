@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -62,8 +62,6 @@ import com.yworks.yfiles.graph.styles.IEdgeStyle;
 import com.yworks.yfiles.graph.styles.ILabelStyle;
 import com.yworks.yfiles.graph.styles.INodeStyle;
 import com.yworks.yfiles.graph.styles.IPortStyle;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
 import com.yworks.yfiles.utils.IEnumerable;
 import com.yworks.yfiles.utils.IEventArgs;
@@ -96,6 +94,7 @@ import com.yworks.yfiles.view.input.SelectionEventArgs;
 import com.yworks.yfiles.view.input.TextEventArgs;
 import com.yworks.yfiles.view.input.ToolTipQueryEventArgs;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -413,20 +412,7 @@ public class GraphEventsDemo extends AbstractDemo {
 
   private void initializeGraph() {
     IGraph graph = graphComponent.getGraph();
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Colors.ORANGE);
-    graph.getNodeDefaults().setStyle(nodeStyle);
-
-    PanelNodeStyle groupStyle = new PanelNodeStyle();
-    groupStyle.setColor(new Color(214, 229, 248, 255));
-    groupStyle.setLabelInsetsColor(new Color(214, 229, 248, 255));
-    groupStyle.setInsets(new InsetsD(18, 5, 5, 5));
-    INodeDefaults groupNodeDefaults = graph.getGroupNodeDefaults();
-    groupNodeDefaults.setStyle(new CollapsibleNodeStyleDecorator(groupStyle));
-    groupNodeDefaults.getLabelDefaults().setLayoutParameter(InteriorStretchLabelModel.NORTH);
-    DefaultLabelStyle labelStyle = new DefaultLabelStyle();
-    labelStyle.setTextAlignment(TextAlignment.RIGHT);
-    groupNodeDefaults.getLabelDefaults().setStyle(labelStyle);
+    DemoStyles.initDemoStyles(graph);
   }
 
   private void initializeInputModes() {

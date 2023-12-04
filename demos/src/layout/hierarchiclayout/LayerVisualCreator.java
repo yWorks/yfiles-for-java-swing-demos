@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,16 +29,16 @@
  ***************************************************************************/
 package layout.hierarchiclayout;
 
-import com.yworks.yfiles.view.IVisual;
-import com.yworks.yfiles.view.ShapeVisual;
-import com.yworks.yfiles.view.VisualGroup;
-import com.yworks.yfiles.view.IRenderContext;
-import com.yworks.yfiles.view.IVisualCreator;
 import com.yworks.yfiles.geometry.PointD;
 import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.graph.IGraph;
-import com.yworks.yfiles.graph.INode;
 import com.yworks.yfiles.graph.IMapper;
+import com.yworks.yfiles.graph.INode;
+import com.yworks.yfiles.view.IRenderContext;
+import com.yworks.yfiles.view.IVisual;
+import com.yworks.yfiles.view.IVisualCreator;
+import com.yworks.yfiles.view.ShapeVisual;
+import com.yworks.yfiles.view.VisualGroup;
 
 import java.awt.Color;
 import java.awt.Paint;
@@ -56,9 +56,9 @@ class LayerVisualCreator implements IVisualCreator {
   private static final int LAYER_INSETS = 10;
 
   // the dark brush used for drawing the layers
-  private static final Paint DARK_PAINT = new Color(150, 200, 255, 128);
+  private static final Paint DARK_PAINT = new Color(0xFF, 0xC9, 0x14, 128);
   // the light brush used for drawing the layers
-  private static final Paint LIGHT_PAINT = new Color(220, 240, 240, 128);
+  private static final Paint LIGHT_PAINT = new Color(0xFF, 0xE8, 0xA0, 128);
 
   // the bounds of the complete drawing
   private RectD bounds;

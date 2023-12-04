@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -101,8 +101,7 @@ public class UmlEdgeCreationButtonsInputMode extends AbstractInputMode {
     // so the buttons are only displayed for one node
     GraphComponent graphComponent = (GraphComponent) getInputModeContext().getCanvasComponent();
     this.buttonGroup = graphComponent.getInputModeGroup().addGroup(); // draw on top of selection etc.
-    this.manager = new SelectionIndicatorManager<IModelItem>(graphComponent,
-        graphComponent.getSelectionIndicatorManager().getModel(), buttonNodes) {
+    this.manager = new SelectionIndicatorManager<IModelItem>() {
       @Override
       protected ICanvasObjectInstaller getInstaller(IModelItem item) {
         if (item instanceof INode) {
@@ -117,6 +116,9 @@ public class UmlEdgeCreationButtonsInputMode extends AbstractInputMode {
         return buttonGroup;
       }
     };
+    this.manager.setModel(graphComponent.getSelectionIndicatorManager().getModel());
+    this.manager.setSelectionModel(buttonNodes);
+    this.manager.install(graphComponent);
 
     // keep buttons updated and their add interaction
     graphComponent.addCurrentItemChangedListener(onCurrentItemChanged);
@@ -211,6 +213,7 @@ public class UmlEdgeCreationButtonsInputMode extends AbstractInputMode {
     graphComponent.removeCurrentItemChangedListener(onCurrentItemChanged);
     graphComponent.getGraph().removeNodeRemovedListener(onNodeRemoved);
     this.buttonNodes.clear();
+    this.manager.uninstall(graphComponent);
     this.manager.setModel(new ObservableCollection<>()); // clear all items and references to old model
     this.manager.setSelectionModel(new DefaultSelectionModel<>()); // clear reference to selection model
     this.manager = null;

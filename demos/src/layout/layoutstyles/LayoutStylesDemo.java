@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -58,6 +58,7 @@ import layout.layoutstyles.configurations.BusEdgeRouterConfig;
 import layout.layoutstyles.configurations.ChannelEdgeRouterConfig;
 import layout.layoutstyles.configurations.CircularLayoutConfig;
 import layout.layoutstyles.configurations.ClassicTreeLayoutConfig;
+import layout.layoutstyles.configurations.CompactDiskLayoutConfig;
 import layout.layoutstyles.configurations.ComponentLayoutConfig;
 import layout.layoutstyles.configurations.GraphTransformerConfig;
 import layout.layoutstyles.configurations.HierarchicLayoutConfig;
@@ -74,8 +75,9 @@ import layout.layoutstyles.configurations.SeriesParallelLayoutConfig;
 import layout.layoutstyles.configurations.TabularLayoutConfig;
 import layout.layoutstyles.configurations.TreeLayoutConfig;
 import toolkit.AbstractDemo;
-import toolkit.DemoGroupNodeStyle;
-import toolkit.DemoNodeStyle;
+import toolkit.DemoStyles;
+import toolkit.Palette;
+import toolkit.Themes;
 import toolkit.optionhandler.OptionEditor;
 
 import javax.swing.Action;
@@ -95,6 +97,7 @@ import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -172,25 +175,8 @@ public class LayoutStylesDemo extends AbstractDemo {
     // enable undo support
     graphComponent.getGraph().setUndoEngineEnabled(true);
 
-    // set the default style for normal nodes
-    graphComponent.getGraph().getNodeDefaults().setStyle(new DemoNodeStyle());
-
-    // set the default style for group nodes
-    INodeDefaults groupNodeDefaults = graphComponent.getGraph().getGroupNodeDefaults();
-    groupNodeDefaults.setStyle(new DemoGroupNodeStyle());
-    // use a custom style and layout parameter for group node labels
-    InteriorLabelModel interiorLabelModel = new InteriorLabelModel();
-    interiorLabelModel.setInsets(new InsetsD(2));
-    groupNodeDefaults.getLabelDefaults().setLayoutParameter(interiorLabelModel.createParameter(InteriorLabelModel.Position.NORTH_WEST));
-
-    DefaultLabelStyle groupNodeLabelStyle = new DefaultLabelStyle();
-    groupNodeLabelStyle.setFont(new Font("Dialog", Font.BOLD, 12));
-    groupNodeLabelStyle.setTextPaint(Colors.WHITE);
-    groupNodeDefaults.getLabelDefaults().setStyle(groupNodeLabelStyle);
-
-    // set the default style for edges
-    PolylineEdgeStyle edgeStyle = new PolylineEdgeStyle();
-    graphComponent.getGraph().getEdgeDefaults().setStyle(edgeStyle);
+    // set some nice default styles
+    DemoStyles.initDemoStyles(graphComponent.getGraph());
   }
 
   /**
@@ -249,6 +235,7 @@ public class LayoutStylesDemo extends AbstractDemo {
             "Classic Tree",
             "Balloon",
             "Radial",
+            "Compact Disk",
             "Series-Parallel",
             "Tabular",
             "Edge Router",
@@ -280,6 +267,7 @@ public class LayoutStylesDemo extends AbstractDemo {
     availableLayouts.put("Classic Tree", new ClassicTreeLayoutConfig());
     availableLayouts.put("Balloon", new BalloonLayoutConfig());
     availableLayouts.put("Radial", new RadialLayoutConfig());
+    availableLayouts.put("Compact Disk", new CompactDiskLayoutConfig());
     availableLayouts.put("Series-Parallel", new SeriesParallelLayoutConfig());
     availableLayouts.put("Tabular", new TabularLayoutConfig());
     availableLayouts.put("Edge Router", new PolylineEdgeRouterConfig());
@@ -666,6 +654,7 @@ public class LayoutStylesDemo extends AbstractDemo {
         "Classic Tree",
         "Balloon",
         "Radial",
+        "Compact Disk",
         "Series-Parallel",
         "Edge Router",
         "Bus Router",
@@ -673,7 +662,7 @@ public class LayoutStylesDemo extends AbstractDemo {
         "Components",
         "Tabular",
         "Organic with Substructures",
-        "Hierarchic with Substructures",
+        "Hierarchic with Subcomponents",
         "Orthogonal with Substructures",
         "Hierarchic with Buses",
         "Edge Router with Buses"

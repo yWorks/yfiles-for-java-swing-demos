@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.5.
+     // This demo file is part of yFiles for Java (Swing) 3.6.
      //
-     // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -56,6 +56,8 @@
     <property name="lib.dir" value="${distdir}/lib"/>
     <!-- the directory that is the source root of the demo -->
     <property name="demo.src.dir" value="${basedir}"/>
+    <!-- the directory that is the source root of the demo toolkit -->
+    <property name="demo.toolkit.src.dir" value="${distdir}/demos/src"/>
     <!-- the directory with the class files of the demo -->
     <property name="demo.class.dir" value="${distdir}/demos/out/classes"/>
     <!-- the directory with icon resources used in the demo -->
@@ -79,6 +81,7 @@
     <mkdir dir="${demo.class.dir}"/>
     <javac includeAntRuntime="false" includes="**/*.java" destdir="${demo.class.dir}" debug="true">
       <src path="${demo.src.dir}"/>
+      <src path="${demo.toolkit.src.dir}"/>
       <classpath refid="demo.classpath"/>
       <compilerarg line="${java.fx.args}"/>
     </javac>

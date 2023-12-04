@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,7 +29,6 @@
  ***************************************************************************/
 package input.draganddrop;
 
-import com.yworks.yfiles.geometry.InsetsD;
 import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.geometry.SizeD;
 import com.yworks.yfiles.graph.DefaultGraph;
@@ -46,23 +45,21 @@ import com.yworks.yfiles.graph.labelmodels.FreeEdgeLabelModel;
 import com.yworks.yfiles.graph.labelmodels.FreeNodeLabelModel;
 import com.yworks.yfiles.graph.labelmodels.ILabelModelParameter;
 import com.yworks.yfiles.graph.labelmodels.InteriorLabelModel;
-import com.yworks.yfiles.graph.labelmodels.InteriorStretchLabelModel;
 import com.yworks.yfiles.graph.portlocationmodels.FreeNodePortLocationModel;
 import com.yworks.yfiles.graph.portlocationmodels.IPortLocationModelParameter;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
+import com.yworks.yfiles.graph.styles.GroupNodeStyle;
+import com.yworks.yfiles.graph.styles.ILabelStyle;
 import com.yworks.yfiles.graph.styles.NodeStylePortStyleAdapter;
-import com.yworks.yfiles.graph.styles.PanelNodeStyle;
+import com.yworks.yfiles.graph.styles.RectangleNodeStyle;
 import com.yworks.yfiles.graph.styles.ShapeNodeShape;
 import com.yworks.yfiles.graph.styles.ShapeNodeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.graph.styles.VoidNodeStyle;
 import com.yworks.yfiles.utils.IListEnumerable;
-import com.yworks.yfiles.view.Colors;
 import com.yworks.yfiles.view.GraphComponent;
 import com.yworks.yfiles.view.GridInfo;
 import com.yworks.yfiles.view.GridVisualCreator;
 import com.yworks.yfiles.view.ICanvasObjectDescriptor;
-import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.PixelImageExporter;
 import com.yworks.yfiles.view.input.GraphEditorInputMode;
 import com.yworks.yfiles.view.input.GraphSnapContext;
@@ -75,7 +72,10 @@ import com.yworks.yfiles.view.input.NodeDropInputMode;
 import com.yworks.yfiles.view.input.OrthogonalEdgeEditingContext;
 import com.yworks.yfiles.view.input.PortDropInputMode;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
 import toolkit.DragAndDropSupport;
+import toolkit.Palette;
+import toolkit.Themes;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
@@ -93,7 +93,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.TransferHandler;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Graphics;
@@ -214,7 +213,7 @@ public class DragAndDropDemo extends AbstractDemo {
       INode paletteNode = palette.getSelectedValue();
       if (paletteNode == null) {
         // there is currently no selected item in the palette,
-        // thus do not create a new node 
+        // thus do not create a new node
         return null;
       }
       Object tag = paletteNode.getTag();
@@ -226,7 +225,7 @@ public class DragAndDropDemo extends AbstractDemo {
       INode newNode = nodeCreator.createNode(context, graph, location, parent);
       graph.setStyle(newNode, paletteNode.getStyle());
       graph.setNodeLayout(newNode, RectD.fromCenter(location, paletteNode.getLayout().toSizeD()));
-      graph.setIsGroupNode(newNode, paletteNode.getStyle() instanceof PanelNodeStyle);
+      graph.setIsGroupNode(newNode, paletteNode.getStyle() instanceof GroupNodeStyle);
       newNode.setTag(paletteNode.getTag());
       paletteNode.getLabels().forEach(
           label -> graph.addLabel(newNode, label.getText(), label.getLayoutParameter(), label.getStyle()));
@@ -272,8 +271,8 @@ public class DragAndDropDemo extends AbstractDemo {
     nodeDropInputMode.setEnabled(true);
 
     // The palette provides normal nodes and group nodes. In this sample the
-    // NodeDropInputMode should handle nodes with PanelNodeStyle as group nodes.
-    nodeDropInputMode.setIsGroupNodePredicate(draggedNode -> draggedNode.getStyle() instanceof PanelNodeStyle);
+    // NodeDropInputMode should handle nodes with GroupNodeStyle as group nodes.
+    nodeDropInputMode.setIsGroupNodePredicate(draggedNode -> draggedNode.getStyle() instanceof GroupNodeStyle);
 
     // We allow the NodeDropInputMode to convert a normal node to a group
     // node when a node has been dropped on it
@@ -289,7 +288,7 @@ public class DragAndDropDemo extends AbstractDemo {
       INode item = originalItemCreator.createItem(context, graph, draggedItem, dropTarget, dropLocation);
       INode parent = graph.getParent(item);
       // check if the parent of the dropped node has become a group node
-      if (parent != null && !(parent.getStyle() instanceof PanelNodeStyle)) {
+      if (parent != null && !(parent.getStyle() instanceof GroupNodeStyle)) {
         // let it look like a group node
         graph.setStyle(parent, createGroupNodeStyle(true));
 
@@ -298,9 +297,10 @@ public class DragAndDropDemo extends AbstractDemo {
         while (labels.size() > 0) {
           graph.remove(labels.getItem(labels.size() - 1));
         }
-        addGroupNodeLabel(graph, parent);
-
-        graph.adjustGroupNodeLayout(parent);
+        addGroupNodeLabel(graph, parent, true);
+        for (INode nodeToAdjust : graph.getGroupingSupport().getPathToRoot(parent)) {
+          graph.adjustGroupNodeLayout(nodeToAdjust);
+        }
       }
       return item;
     });
@@ -317,7 +317,7 @@ public class DragAndDropDemo extends AbstractDemo {
     // by default the mode available in GraphEditorInputMode is disabled, so first enable it
     labelDropInputMode.setEnabled(true);
     // right after a successful label drop, start the TextEditorInputMode to
-    // allow users to enter meaningful text 
+    // allow users to enter meaningful text
     labelDropInputMode.setAutoEditingLabelEnabled(true);
     // dynamically create a suitable label model parameter for dropped labels
     labelDropInputMode.setUsingBestMatchingParameterEnabled(true);
@@ -347,6 +347,7 @@ public class DragAndDropDemo extends AbstractDemo {
   private void configureNodePalette() {
     // create a new graph in which the palette nodes live
     IGraph nodeContainer = new DefaultGraph();
+    DemoStyles.initDemoStyles(nodeContainer);
 
     // create some node templates
     createGroupNode(nodeContainer, 0, 0, true);
@@ -387,10 +388,7 @@ public class DragAndDropDemo extends AbstractDemo {
    * Creates a palette port template in the given graph.
    */
   private void createPort( IGraph graph, IPortLocationModelParameter parameter, String tag ) {
-    ShapeNodeStyle shape = new ShapeNodeStyle();
-    shape.setShape(ShapeNodeShape.ELLIPSE);
-    shape.setPaint(Colors.STEEL_BLUE);
-    shape.setPen(new Pen(Colors.STEEL_BLUE.darker()));
+    ShapeNodeStyle shape = DemoStyles.createDemoShapeNodeStyle(ShapeNodeShape.ELLIPSE, Themes.PALETTE_LIGHTBLUE);
     NodeStylePortStyleAdapter style = new NodeStylePortStyleAdapter();
     style.setNodeStyle(shape);
     style.setRenderSize(new SizeD(8, 8));
@@ -402,11 +400,7 @@ public class DragAndDropDemo extends AbstractDemo {
    * Creates a palette label template in the given graph.
    */
   private static void createLabel( IGraph graph, String text, ILabelModelParameter parameter, String tag ) {
-    DefaultLabelStyle style = new DefaultLabelStyle();
-    style.setBackgroundPen(new Pen(Colors.STEEL_BLUE.darker()));
-    style.setBackgroundPaint(Colors.STEEL_BLUE);
-    style.setTextPaint(Color.WHITE);
-    style.setInsets(new InsetsD(4, 4, 4, 4));
+    DefaultLabelStyle style = DemoStyles.createDemoNodeLabelStyle();
     INode node = graph.createNode(new RectD(0, 0, 70, 70), VoidNodeStyle.INSTANCE, tag);
     graph.addLabel(node, text, parameter, style);
   }
@@ -415,42 +409,35 @@ public class DragAndDropDemo extends AbstractDemo {
    * Creates a group node in the given graph with a specific styling.
    */
   private static INode createGroupNode(IGraph graph, double x, double y, boolean isValidParent) {
-    PanelNodeStyle groupNodeStyle = createGroupNodeStyle(isValidParent);
+    GroupNodeStyle groupNodeStyle = createGroupNodeStyle(isValidParent);
     INode groupNode = graph.createGroupNode(null, new RectD(x, y, 160, 130), groupNodeStyle, isValidParent);
-    addGroupNodeLabel(graph, groupNode);
+    addGroupNodeLabel(graph, groupNode, isValidParent);
     return groupNode;
   }
 
-  private static PanelNodeStyle createGroupNodeStyle(boolean isValidParent) {
-    Color fillColor = isValidParent ? Colors.FOREST_GREEN : Colors.FIREBRICK;
-    PanelNodeStyle groupNodeStyle = new PanelNodeStyle();
-    groupNodeStyle.setInsets(new InsetsD(25, 5, 5, 5));
-    groupNodeStyle.setColor(fillColor);
-    groupNodeStyle.setLabelInsetsColor(fillColor);
-    return groupNodeStyle;
+  private static GroupNodeStyle createGroupNodeStyle(boolean isValidParent) {
+    Palette palette = isValidParent ? Themes.PALETTE_GREEN : Themes.PALETTE_RED;
+    return DemoStyles.createDemoGroupStyle(palette);
   }
 
-  private static void addGroupNodeLabel(IGraph graph, INode groupNode) {
-    DefaultLabelStyle labelStyle = new DefaultLabelStyle();
-    labelStyle.setTextPaint(Colors.WHITE);
-    InteriorStretchLabelModel labelModel = new InteriorStretchLabelModel();
-    labelModel.setInsets(new InsetsD(2, 5, 4, 5));
-    ILabelModelParameter modelParameter = labelModel.createParameter(InteriorStretchLabelModel.Position.NORTH);
-    graph.addLabel(groupNode, "Group Node", modelParameter, labelStyle);
+  private static void addGroupNodeLabel(IGraph graph, INode groupNode, boolean isValidParent) {
+      ILabelStyle style = DemoStyles.createDemoGroupLabelStyle(isValidParent ? Themes.PALETTE_GREEN : Themes.PALETTE_RED);
+      graph.addLabel(groupNode, "Group Node", null, style);
   }
 
   /**
    * Creates a normal node in the given graph with a specific styling.
    */
   private static INode createNode(IGraph graph, double x, double y, boolean isValidParent) {
-    Color fillColor = isValidParent ? Colors.FOREST_GREEN : Colors.FIREBRICK;
-    ShinyPlateNodeStyle style = new ShinyPlateNodeStyle();
-    style.setPaint(fillColor);
+    Palette palette = isValidParent ? Themes.PALETTE_GREEN : Themes.PALETTE_RED;
+    RectangleNodeStyle style = DemoStyles.createDemoNodeStyle(palette);
     return graph.createNode(new RectD(x, y, 40, 40), style, isValidParent);
   }
 
   private void createSampleGraph() {
     IGraph graph = graphComponent.getGraph();
+
+    DemoStyles.initDemoStyles(graph);
 
     // create a group node into which dragged nodes can be dropped
     INode group1 = createGroupNode(graph, 100, 150, true);

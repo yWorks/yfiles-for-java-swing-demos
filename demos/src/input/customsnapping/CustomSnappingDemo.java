@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,8 +29,8 @@
  ***************************************************************************/
 package input.customsnapping;
 
+import com.yworks.yfiles.graph.IGraph;
 import com.yworks.yfiles.graph.styles.DefaultLabelStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.view.Colors;
 import com.yworks.yfiles.view.GraphComponent;
 import com.yworks.yfiles.view.ICanvasObjectDescriptor;
@@ -67,6 +67,7 @@ import com.yworks.yfiles.view.input.SnapPolicy;
 import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.view.Pen;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
 
 import java.awt.EventQueue;
 import java.io.IOException;
@@ -234,20 +235,16 @@ public class CustomSnappingDemo extends AbstractDemo {
    * Initializes styles for the nodes and labels of the graph.
    */
   private void initializeGraphDefaults() {
-    DefaultLabelStyle labelStyle = new DefaultLabelStyle();
-    labelStyle.setBackgroundPen(Pen.getBlack());
+    IGraph graph = graphComponent.getGraph();
 
-    graphComponent.getGraph().getNodeDefaults().getLabelDefaults().setStyle(labelStyle);
-    graphComponent.getGraph().getNodeDefaults().getLabelDefaults().setLayoutParameter(
+    DemoStyles.initDemoStyles(graph);
+
+    graph.getNodeDefaults().getLabelDefaults().setLayoutParameter(
         FreeNodeLabelModel.INSTANCE.createParameter(
             new PointD(0.5, 0.0), new PointD(0, -10), new PointD(0.5, 1.0), PointD.ORIGIN, 0.0));
-    graphComponent.getGraph().getEdgeDefaults().getLabelDefaults().setStyle(labelStyle);
-    graphComponent.getGraph().getEdgeDefaults().getLabelDefaults().setLayoutParameter(new SmartEdgeLabelModel().createParameterFromSource(0, 0, 0.5));
+    graph.getEdgeDefaults().getLabelDefaults().setLayoutParameter(new SmartEdgeLabelModel().createParameterFromSource(0, 0, 0.5));
 
-    ShinyPlateNodeStyle style = new ShinyPlateNodeStyle();
-    style.setPaint(Colors.DARK_ORANGE);
-    graphComponent.getGraph().getNodeDefaults().setStyle(style);
-    graphComponent.getGraph().getNodeDefaults().setSize(new SizeD(50, 50));
+    graph.getNodeDefaults().setSize(new SizeD(50, 50));
   }
 
   /**

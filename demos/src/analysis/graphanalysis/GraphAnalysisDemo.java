@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -402,7 +402,7 @@ public class GraphAnalysisDemo extends AbstractDemo {
   }
 
   /**
-   * Returns whether or not to use uniform weights for all edges.
+   * Returns whether to use uniform weights for all edges.
    */
   private boolean useUniformEdgeWeights() {
     return edgeWeightsCheckBox.isSelected();
@@ -419,7 +419,7 @@ public class GraphAnalysisDemo extends AbstractDemo {
   }
 
   /**
-   * Returns whether or not to take edge direction into account.
+   * Returns whether to take edge direction into account.
    */
   private boolean useDirectedEdges() {
     return directionCheckBox.isSelected();

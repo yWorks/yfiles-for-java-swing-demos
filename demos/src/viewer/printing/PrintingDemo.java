@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -32,7 +32,6 @@ package viewer.printing;
 import com.yworks.yfiles.geometry.GeneralPath;
 import com.yworks.yfiles.graph.styles.IArrow;
 import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
 import com.yworks.yfiles.utils.ObservableCollection;
 import com.yworks.yfiles.view.Colors;
 import com.yworks.yfiles.view.GraphComponent;
@@ -59,6 +58,7 @@ import com.yworks.yfiles.view.CanvasPrintable;
 import com.yworks.yfiles.view.DashStyle;
 import com.yworks.yfiles.view.Pen;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
 import toolkit.PrintPreview;
 
 import javax.swing.JCheckBox;
@@ -400,13 +400,9 @@ public class PrintingDemo extends AbstractDemo {
    */
   private void initializeGraph() {
     IGraph graph = graphComponent.getGraph();
+
     // initialize defaults
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Color.ORANGE);
-    graph.getNodeDefaults().setStyle(nodeStyle);
-    PolylineEdgeStyle edgeStyle = new PolylineEdgeStyle();
-    edgeStyle.setTargetArrow(IArrow.DEFAULT);
-    graph.getEdgeDefaults().setStyle(edgeStyle);
+    DemoStyles.initDemoStyles(graph);
 
     // create sample graph
     graph.addLabel(graph.createNode(new PointD(30, 30)), "Node");

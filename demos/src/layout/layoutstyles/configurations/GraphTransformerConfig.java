@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -29,7 +29,6 @@
  ***************************************************************************/
 package layout.layoutstyles.configurations;
 
-import com.yworks.yfiles.graph.IModelItem;
 import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.layout.CopiedLayoutGraph;
 import com.yworks.yfiles.layout.GraphTransformer;
@@ -38,7 +37,6 @@ import com.yworks.yfiles.layout.LayoutGraphAdapter;
 import com.yworks.yfiles.layout.OperationType;
 import com.yworks.yfiles.utils.Obfuscation;
 import com.yworks.yfiles.view.GraphComponent;
-import com.yworks.yfiles.view.ISelectionModel;
 import toolkit.optionhandler.ComponentType;
 import toolkit.optionhandler.ComponentTypes;
 import toolkit.optionhandler.EnumValueAnnotation;
@@ -77,7 +75,7 @@ public class GraphTransformerConfig extends LayoutConfiguration {
     if (isApplyingBestFitRotationItem() && getOperationItem() == OperationType.ROTATE) {
       setApplyingBestFitRotationItem(true);
 
-      CopiedLayoutGraph layoutGraph = new LayoutGraphAdapter(graphComponent.getGraph(), (ISelectionModel<IModelItem>)null).createCopiedLayoutGraph();
+      CopiedLayoutGraph layoutGraph = new LayoutGraphAdapter(graphComponent.getGraph()).createCopiedLayoutGraph();
       transformer.setRotationAngle(GraphTransformer.findBestFitRotationAngle(layoutGraph, graphComponent.getWidth(), graphComponent.getHeight()));
     } else {
       setApplyingBestFitRotationItem(false);

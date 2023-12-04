@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -38,6 +38,7 @@ import com.yworks.yfiles.geometry.RectD;
 import com.yworks.yfiles.view.Pen;
 
 import java.awt.Color;
+import java.awt.Paint;
 import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 
@@ -51,6 +52,7 @@ import java.awt.geom.Rectangle2D;
  * @author Thomas Behr
  */
 public class BackgroundRectangle implements IVisualCreator {
+  private final Paint color = toolkit.Themes.PALETTE12.getBackgroundPaint();
   /**
    * Creates a blue rectangle that visualizes the content rectangle
    * of the canvas component associated to the given render context.
@@ -58,7 +60,7 @@ public class BackgroundRectangle implements IVisualCreator {
   @Override
   public IVisual createVisual( IRenderContext ctx ) {
     RectD r = ctx.getCanvasComponent().getContentRect();
-    return new ShapeVisual(new Rectangle2D.Double(r.x, r.y, r.width, r.height), Pen.getBlack(), new Color(51, 102, 153, 170));
+    return new ShapeVisual(new Rectangle2D.Double(r.x, r.y, r.width, r.height), Pen.getBlack(), color);
   }
 
   /**

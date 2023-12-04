@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -30,8 +30,10 @@
 package layout.cleararea;
 
 import com.yworks.yfiles.geometry.PointD;
+import com.yworks.yfiles.graph.GraphItemTypes;
 import com.yworks.yfiles.graph.INode;
-import com.yworks.yfiles.graph.styles.ShinyPlateNodeStyle;
+import com.yworks.yfiles.graph.styles.GroupNodeStyle;
+import com.yworks.yfiles.graphml.SerializationProperties;
 import com.yworks.yfiles.layout.LayoutExecutor;
 import com.yworks.yfiles.layout.hierarchic.HierarchicLayout;
 import com.yworks.yfiles.view.GraphComponent;
@@ -45,6 +47,7 @@ import com.yworks.yfiles.view.input.INodeHitTester;
 import com.yworks.yfiles.view.input.MarqueeSelectionEventArgs;
 import com.yworks.yfiles.view.input.MarqueeSelectionInputMode;
 import toolkit.AbstractDemo;
+import toolkit.DemoStyles;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -116,9 +119,10 @@ public class MarqueeClearAreaLayoutDemo extends AbstractDemo {
 
     initializeInputModes();
 
-    ShinyPlateNodeStyle nodeStyle = new ShinyPlateNodeStyle();
-    nodeStyle.setPaint(Color.orange);
-    graphComponent.getGraph().getNodeDefaults().setStyle(nodeStyle);
+    DemoStyles.initDemoStyles(graphComponent.getGraph());
+    // The content area of the group nodes should not be hit transparent in this demo,
+    // since we also want to allow the marquee rectangle within group nodes.
+    ((GroupNodeStyle) graphComponent.getGraph().getGroupNodeDefaults().getStyle()).setContentAreaHitTransparent(false);
 
     loadGraph();
   }

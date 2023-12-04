@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -43,14 +43,14 @@ import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.utils.Obfuscation;
 import com.yworks.yfiles.view.DashStyle;
 import com.yworks.yfiles.view.IBoundsProvider;
-import com.yworks.yfiles.view.input.IHitTestable;
-import com.yworks.yfiles.view.input.IMarqueeTestable;
 import com.yworks.yfiles.view.IRenderContext;
 import com.yworks.yfiles.view.IVisibilityTestable;
 import com.yworks.yfiles.view.IVisual;
 import com.yworks.yfiles.view.IVisualCreator;
 import com.yworks.yfiles.view.Pen;
 import com.yworks.yfiles.view.VisualGroup;
+import com.yworks.yfiles.view.input.IHitTestable;
+import com.yworks.yfiles.view.input.IMarqueeTestable;
 
 import java.awt.BasicStroke;
 import java.awt.Paint;
@@ -357,12 +357,12 @@ public class BpmnEdgeStyle implements IEdgeStyle, IArrowOwner {
       return delegateRenderer.getVisibilityTestable(edge, this.style.delegateStyle);
     }
 
-    public final IHitTestable getHitTestable( IEdge edge, IEdgeStyle style ) {
+    public final IHitTestable getHitTestable(IEdge edge, IEdgeStyle style ) {
       this.style = (BpmnEdgeStyle)style;
       return delegateRenderer.getHitTestable(edge, this.style.delegateStyle);
     }
 
-    public final IMarqueeTestable getMarqueeTestable( IEdge edge, IEdgeStyle style ) {
+    public final IMarqueeTestable getMarqueeTestable(IEdge edge, IEdgeStyle style ) {
       this.style = (BpmnEdgeStyle)style;
       return delegateRenderer.getMarqueeTestable(edge, this.style.delegateStyle);
     }

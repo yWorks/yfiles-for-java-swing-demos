@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -34,6 +34,9 @@ import com.yworks.yfiles.algorithms.IEdgeMap;
 import com.yworks.yfiles.algorithms.INodeMap;
 import com.yworks.yfiles.algorithms.Maps;
 import com.yworks.yfiles.algorithms.Node;
+import com.yworks.yfiles.layout.LayoutGraph;
+import com.yworks.yfiles.layout.PortConstraint;
+import com.yworks.yfiles.layout.PortSide;
 import com.yworks.yfiles.layout.hierarchic.AbstractPortConstraintOptimizer;
 import com.yworks.yfiles.layout.hierarchic.HierarchicLayout;
 import com.yworks.yfiles.layout.hierarchic.IEdgeData;
@@ -43,9 +46,6 @@ import com.yworks.yfiles.layout.hierarchic.ILayoutDataProvider;
 import com.yworks.yfiles.layout.hierarchic.INodeData;
 import com.yworks.yfiles.layout.hierarchic.IPortConstraintOptimizer;
 import com.yworks.yfiles.layout.hierarchic.SwimlaneDescriptor;
-import com.yworks.yfiles.layout.LayoutGraph;
-import com.yworks.yfiles.layout.PortConstraint;
-import com.yworks.yfiles.layout.PortSide;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -60,9 +60,9 @@ import java.util.Comparator;
  */
 class BalancingPortOptimizer extends AbstractPortConstraintOptimizer {
   // weak port constraints that are assigned as temporary port constraints
-  private static final PortConstraint PORT_CONSTRAINT_EAST = PortConstraint.create(PortSide.EAST, false);
+  private static final PortConstraint PORT_CONSTRAINT_EAST = PortConstraint.create(PortSide.EAST);
 
-  private static final PortConstraint PORT_CONSTRAINT_WEST = PortConstraint.create(PortSide.WEST, false);
+  private static final PortConstraint PORT_CONSTRAINT_WEST = PortConstraint.create(PortSide.WEST);
 
   // a core optimizer that is executed before this one.
   private final IPortConstraintOptimizer coreOptimizer;

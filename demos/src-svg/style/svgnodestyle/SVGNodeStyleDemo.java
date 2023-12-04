@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -52,7 +52,7 @@ import javax.swing.JToolBar;
  * {@link GraphMLIOHandler} to embed displayed SVG documents in GraphML.
  * <p>
  * The demo uses a patched version of the Batik SVG library available on the
- * <a href="https://www.yworks.com/resources/yfilesjava/demos-support/3.5/batik.jar">yFiles website</a>.
+ * <a href="https://www.yworks.com/resources/yfilesjava/demos-support/3.6/batik.jar">yFiles website</a>.
  * </p>
  */
 public class SVGNodeStyleDemo extends AbstractDemo {

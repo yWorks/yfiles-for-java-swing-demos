@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.5.
+     // This demo file is part of yFiles for Java (Swing) 3.6.
      //
-     // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -54,10 +54,22 @@
   <key id="edgereference" for="node" attr.type="string" attr.name="EdgeReference" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeReference" />
   <data key="d9">
     <y:SharedData>
-      <yfj:ShinyPlateNodeStyle x:Key="1" Paint="#FFFFA500" />
+      <yfj:RectangleNodeStyle Paint="#FFFF6C00" CornerSize="3.5" x:Key="1">
+        <yfj:RectangleNodeStyle.Pen>
+          <yfj:Pen Paint="#FF662B00" Thickness="1.5" EndCap="2"/>
+        </yfj:RectangleNodeStyle.Pen>
+      </yfj:RectangleNodeStyle>
       <yfj:NodeStylePortStyleAdapter x:Key="2" RenderSize="3,3">
         <yfj:ShapeNodeStyle Shape="ELLIPSE" Paint="#FF000000" Pen="{x:Null}"/>
       </yfj:NodeStylePortStyleAdapter>
+      <yfj:PolylineEdgeStyle x:Key="3">
+        <yfj:PolylineEdgeStyle.Pen>
+          <yfj:Pen Paint="#FF662B00" Thickness="1.5"/>
+        </yfj:PolylineEdgeStyle.Pen>
+        <yfj:PolylineEdgeStyle.TargetArrow>
+          <yfj:Arrow Paint="#FF662B00" Type="TRIANGLE"/>
+        </yfj:PolylineEdgeStyle.TargetArrow>
+      </yfj:PolylineEdgeStyle>
     </y:SharedData>
   </data>
   <graph id="G" edgedefault="directed">
@@ -164,29 +176,17 @@
     </node>
     <edge id="e0" source="n0" target="n1" sourceport="p0" targetport="p0">
       <data key="d6">
-        <yfj:PolylineEdgeStyle TargetArrow="NONE" SourceArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
-            <yfj:Pen Paint="#FF10C49C" Thickness="2" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+        <y:GraphMLReference ResourceKey="3" />
       </data>
     </edge>
     <edge id="e1" source="n2" target="n3" sourceport="p0" targetport="p0">
       <data key="d6">
-        <yfj:PolylineEdgeStyle TargetArrow="NONE" SourceArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
-            <yfj:Pen Paint="#FF739DD4" Thickness="2" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+        <y:GraphMLReference ResourceKey="3" />
       </data>
     </edge>
     <edge id="e2" source="d:e0" target="d:e1" sourceport="p0" targetport="p0">
       <data key="d6">
-        <yfj:PolylineEdgeStyle TargetArrow="NONE" SourceArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
-            <yfj:Pen Paint="#FF00CE18" Thickness="2" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+        <y:GraphMLReference ResourceKey="3" />
       </data>
     </edge>
     <edge id="e3" source="n0" target="n3" sourceport="p1" targetport="p1">
@@ -199,11 +199,7 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle TargetArrow="NONE" SourceArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
-            <yfj:Pen Paint="#FF2E6657" Thickness="2" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+        <y:GraphMLReference ResourceKey="3" />
       </data>
     </edge>
     <edge id="e4" source="d:e2" target="d:e3" sourceport="p0" targetport="p0">
@@ -213,11 +209,7 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle TargetArrow="NONE" SourceArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
-            <yfj:Pen Paint="#FFBDB709" Thickness="2" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+        <y:GraphMLReference ResourceKey="3" />
       </data>
     </edge>
     <edge id="e5" source="d:e4" target="d:e4" sourceport="p0" targetport="p1">
@@ -227,11 +219,7 @@
         </x:List>
       </data>
       <data key="d6">
-        <yfj:PolylineEdgeStyle TargetArrow="NONE" SourceArrow="NONE">
-          <yfj:PolylineEdgeStyle.Pen>
-            <yfj:Pen Paint="#FF212657" Thickness="2" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
-          </yfj:PolylineEdgeStyle.Pen>
-        </yfj:PolylineEdgeStyle>
+        <y:GraphMLReference ResourceKey="3" />
       </data>
     </edge>
   </graph>

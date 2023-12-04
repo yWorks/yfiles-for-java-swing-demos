@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ////////////////////////////////////////////////////////////////////////
      //
-     // This demo file is part of yFiles for Java (Swing) 3.5.
+     // This demo file is part of yFiles for Java (Swing) 3.6.
      //
-     // Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+     // Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
      // 72070 Tuebingen, Germany. All rights reserved.
      //
      // yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -39,7 +39,6 @@
   <key attr.name="UserTags" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/UserTags" for="all" id="d1"/>
   <key attr.name="NodeViewState" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/folding/1.1/NodeViewState" for="node" id="d2"/>
   <key attr.name="NodeLabels" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeLabels" for="node" id="d3"/>
-  <key attr.name="NodeStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeStyle" for="node" id="d4"/>
   <key attr.name="NodeGeometry" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/NodeGeometry" for="node" id="d5"/>
   <key attr.name="EdgeGeometry" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeGeometry" for="edge" id="d6"/>
   <key attr.name="EdgeStyle" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/EdgeStyle" for="edge" id="d7"/>
@@ -59,8 +58,7 @@
   <key attr.name="SharedData" y:attr.uri="http://www.yworks.com/xml/yfiles-common/2.0/SharedData" id="d13"/>
   <data key="d13">
     <y:SharedData>
-      <yfj:HtmlLabelStyle Font="{y:GraphMLReference 3}" xmlns:ns0="http://www.yworks.com/xml/yfiles-common/markup/2.0" ns0:Key="1"/>
-      <yfj:ShinyPlateNodeStyle Paint="DarkOrange" xmlns:ns0="http://www.yworks.com/xml/yfiles-common/markup/2.0" ns0:Key="2"/>
+      <yfj:HtmlLabelStyle Font="{y:GraphMLReference 3}" xmlns:ns0="http://www.yworks.com/xml/yfiles-common/markup/2.0" ns0:Key="1" UsingFractionalFontMetricsEnabled="True"/>
       <java:Font xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" Family="Dialog" xmlns:ns0="http://www.yworks.com/xml/yfiles-common/markup/2.0" ns0:Key="3" Size="12"/>
       <yfj:PolylineEdgeStyle xmlns:ns0="http://www.yworks.com/xml/yfiles-common/markup/2.0" ns0:Key="4" Pen="Black" TargetArrow="DEFAULT"/>
       <yfj:PolylineEdgeStyle xmlns:ns0="http://www.yworks.com/xml/yfiles-common/markup/2.0" ns0:Key="5" Pen="Black" TargetArrow="DEFAULT"/>
@@ -79,7 +77,7 @@
 --></style>
 </head>
 <body>
-<a name="yworks"></a><a href="http://www.yworks.com">yWorks &#x2750</a>
+<a name="yworks"></a><a href="https://www.yworks.com">yWorks &#x2750</a>
 <br>
 <p>
 The yFiles product family:
@@ -118,7 +116,7 @@ The yFiles product family:
 --></style>
 </head>
 <body>
-<a name="yfilesforjavaclassic"></a><a href="http://www.yworks.com/products/yfiles-for-java-2.x">yFiles for Java &#x2750</a>
+<a name="yfilesforjavaclassic"></a><a href="https://www.yworks.com/products/yfiles-for-java-2.x">yFiles for Java &#x2750</a>
 <br>
 High-quality diagramming for Java
 <p>
@@ -160,7 +158,7 @@ Extension packages:
 --></style>
 </head>
 <body>
-<a name="ysvg"></a><a href="http://www.yworks.com/downloads#ySVG">ySVG &#x2750</a>
+<a name="ysvg"></a><a href="https://www.yworks.com/downloads#ySVG">ySVG &#x2750</a>
 <br>
 Generate SVG (Scalable Vector Graphics) 
 <br>
@@ -193,7 +191,7 @@ files with yFiles for Java.
 --></style>
 </head>
 <body>
-<a name="yexport"></a><a href="http://www.yworks.com/downloads#yExport">yExport &#x2750</a>
+<a name="yexport"></a><a href="https://www.yworks.com/downloads#yExport">yExport &#x2750</a>
 <br>
 Generate PDF, SWF, EPS, and EMF files 
 <br>
@@ -226,7 +224,7 @@ with yFiles for Java.
 --></style>
 </head>
 <body>
-<a name="ybpmn"></a><a href="http://www.yworks.com/downloads#yBPMN">yBPMN &#x2750</a>
+<a name="ybpmn"></a><a href="https://www.yworks.com/downloads#yBPMN">yBPMN &#x2750</a>
 <br>
 Extensive support for the 
 <br>
@@ -259,7 +257,7 @@ Business Process Model and Notation (BPMN).
 --></style>
 </head>
 <body>
-<a name="yfilesfordotnet"></a><a href="http://www.yworks.com/products/dotnet-platform">Diagramming on the .NET platform &#x2750</a>
+<a name="yfilesfordotnet"></a><a href="https://www.yworks.com/products/dotnet-platform">Diagramming on the .NET platform &#x2750</a>
 <br>
 High-quality diagramming for the .NET platform
 <p>
@@ -268,7 +266,6 @@ Technologies:
 <ul>
 <li><a href="graph://yfilesdotnet">yFiles .NET</a></li>
 <li><a href="graph://yfileswpf">yFiles WPF</a></li>
-<li><a href="graph://yfilessilverlight">yFiles for Silverlight</a></li>
 </ul>
 <p>
 <font size="-2"><a href="graph://yworks">back...</a></font>
@@ -301,11 +298,11 @@ Technologies:
 --></style>
 </head>
 <body>
-<a name="yfilesdotnet"></a><a href="http://www.yworks.com/products/yfiles-net">yFiles .NET &#x2750</a>
+<a name="yfilesdotnet"></a><a href="https://www.yworks.com/products/yfiles-net">yFiles .NET &#x2750</a>
 <br>
 An extensive Windows Forms class library <br>for the Microsoft .NET environment.<br>
 <p>
-<font size="-2"><a href="graph://yworksfordotnet">back...</a></font>
+<font size="-2"><a href="graph://yfilesfordotnet">back...</a></font>
 </p>
 </body>
 </html>]]></y:Label.Text>
@@ -332,13 +329,13 @@ An extensive Windows Forms class library <br>for the Microsoft .NET environment.
 --></style>
 </head>
 <body>
-<a name="yfileswpf"></a><a href="http://www.yworks.com/products/yfiles-wpf">yFiles WPF &#x2750</a>
+<a name="yfileswpf"></a><a href="https://www.yworks.com/products/yfiles-wpf">yFiles WPF &#x2750</a>
 <br>
 An extensive .NET class library for 
 <br>
 Windows Presentation Foundation (WPF) applications.
 <p>
-<font size="-2"><a href="graph://yworksfordotnet">back...</a></font>
+<font size="-2"><a href="graph://yfilesfordotnet">back...</a></font>
 </p>
 </body>
 </html>]]></y:Label.Text>
@@ -353,38 +350,6 @@ Windows Presentation Foundation (WPF) applications.
       </data>
       <port name="p0"/>
     </node>
-    <node id="n8">
-      <data key="d3">
-        <x:List>
-          <y:Label LayoutParameter="{x:Static y:InteriorLabelModel.Center}" Style="{y:GraphMLReference 1}">
-            <y:Label.Text><![CDATA[<html>
-<head>
-<style type="text/css"><!--
- body { font-family:Verdana, sans-serif; }
- ul { margin-left: 12px; }
---></style>
-</head>
-<body>
-<a name="yfilessilverlight"></a><a href="http://www.yworks.com/products/yfiles-for-silverlight">yFiles for Silverlight &#x2750</a>
-<br>
-An extensive class library for Microsoft Silverlight applications.
-<p>
-<font size="-2"><a href="graph://yfilesweb">back...</a></font>
-</p>
-</body>
-</html>]]></y:Label.Text>
-          </y:Label>
-        </x:List>
-      </data>
-      <data key="d4">
-        <y:GraphMLReference ResourceKey="2"/>
-      </data>
-      <data key="d5">
-        <y:RectD Height="57.25213532067767" Width="419.7731297071698" X="522.5508354889298" Y="29.36195330342872"/>
-      </data>
-      <port name="p0"/>
-      <port name="p1"/>
-    </node>
     <node id="n9">
       <data key="d3">
         <x:List>
@@ -397,7 +362,7 @@ An extensive class library for Microsoft Silverlight applications.
 --></style>
 </head>
 <body>
-<a name="yfilesweb"></a><a href="http://www.yworks.com/products/yfiles/web">Diagramming in the Browser &#x2750</a>
+<a name="yfilesweb"></a><a href="https://www.yworks.com/products/yfiles/web">Diagramming in the Browser &#x2750</a>
 <br>
 Web applications are built on a large number of technologies. 
 <br>
@@ -409,9 +374,8 @@ Technologies:
 </p>
 <ul>
 <li><a href="graph://yfileshtml">yFiles for HTML</a></li>
-<li><a href="graph://yfilesflex">yFiles FLEX</a></li>
-<li><a href="graph://yfilesajax">yFiles AJAX</a></li>
-<li><a href="graph://yfilessilverlight">yFiles for Silverlight</a></li>
+<li><a href="graph://appgenerator">App Generator</a></li>
+<li><a href="graph://dataexplorer">Data Explorer</a></li>
 </ul>
 <p>
 <font size="-2"><a href="graph://yworks">back...</a></font>
@@ -445,13 +409,11 @@ Technologies:
 --></style>
 </head>
 <body>
-<a name="yfilesflex"></a><a href="http://www.yworks.com/products/yfiles-flex">yFiles FLEX &#x2750</a>
+<a name="dataexplorer"></a><a href="https://www.yworks.com/data-explorer/">Data Explorer &#x2750</a>
 <br>
-Makes it easy to integrate sophisticated graph visualization 
+Interactively analyze and explore the structure of
 <br>
-and editing functionality into a rich Internet application 
-<br>
-based on Apache Flex or Adobe® AIR®.
+graph databases.
 <p>
 <font size="-2"><a href="graph://yfilesweb">back...</a></font>
 </p>
@@ -480,8 +442,8 @@ based on Apache Flex or Adobe® AIR®.
 --></style>
 </head>
 <body>
-<a name="yfilesajax"></a><a href="http://www.yworks.com/products/yfiles-ajax">yFiles AJAX &#x2750</a>
-<br>Provides a basis for diagramming web applications. 
+<a name="appgenerator"></a><a href="https://www.yworks.com/products/app-generator">App Generator &#x2750</a>
+<br>Visualize arbitrary data as diagrams.
 <p>
 <font size="-2"><a href="graph://yfilesweb">back...</a></font>
 </p>
@@ -510,7 +472,7 @@ based on Apache Flex or Adobe® AIR®.
 --></style>
 </head>
 <body>
-<a name="yfileshtml"></a><a href="http://www.yworks.com/products/yfiles-for-html">yFiles for HTML &#x2750</a>
+<a name="yfileshtml"></a><a href="https://www.yworks.com/products/yfiles-for-html">yFiles for HTML &#x2750</a>
 <br>
 Brings the proven power and ease of yFiles diagramming 
 <br>
@@ -543,7 +505,7 @@ to your HTML5 applications.
 --></style>
 </head>
 <body>
-<a name="yed"></a><a href="http://www.yworks.com/yed">yEd &#x2750</a>
+<a name="yed"></a><a href="https://www.yworks.com/yed">yEd &#x2750</a>
 <br>
 Free yFiles for Java based diagram editor
 <p>
@@ -574,7 +536,7 @@ Free yFiles for Java based diagram editor
 --></style>
 </head>
 <body>
-<a name="diagramsforconfluence"></a><a href="http://www.yworks.com/diagramsforconfluence">yWorks Diagrams for Confluence &#x2750</a>
+<a name="graphity"></a><a href="https://www.yworks.com/graphity">Graphity &#x2750</a>
 <br>
 Diagramming plugin for Atlassian Confluence
 <p>
@@ -605,7 +567,7 @@ Diagramming plugin for Atlassian Confluence
 --></style>
 </head>
 <body>
-<a name="yguard"></a><a href="http://www.yworks.com/yguard">yGuard &#x2750</a>
+<a name="yguard"></a><a href="https://www.yworks.com/yguard">yGuard &#x2750</a>
 <br>
 Free Java bytecode obfuscator
 <p>
@@ -636,7 +598,7 @@ Free Java bytecode obfuscator
 --></style>
 </head>
 <body>
-<a name="ydoc"></a><a href="http://www.yworks.com/ydoc">yWorks UML Doclet &#x2750</a>
+<a name="ydoc"></a><a href="https://www.yworks.com/ydoc">yWorks UML Doclet &#x2750</a>
 <br>
 Automatic UML diagram generation for Javadoc
 <p>
@@ -670,7 +632,7 @@ Automatic UML diagram generation for Javadoc
 --></style>
 </head>
 <body>
-<a name="tools"></a><a href="http://www.yworks.com/tools">Tools and Applications &#x2750</a>
+<a name="tools"></a><a href="https://www.yworks.com/tools">Tools and Applications &#x2750</a>
 <br>
 Powerful tools that can be effectively 
 <br>
@@ -680,7 +642,7 @@ Extension packages:
 </p>
 <ul>
 <li><a href="graph://yed">yEd</a></li>
-<li><a href="graph://diagramsforconfluence">Diagrams for Confluence</a></li>
+<li><a href="graph://graphity">Graphity</a></li>
 <li><a href="graph://yguard">yGuard</a></li>
 <li><a href="graph://ydoc">UML Doclet</a></li>
 </ul>
@@ -691,9 +653,6 @@ Extension packages:
 </html>]]></y:Label.Text>
           </y:Label>
         </x:List>
-      </data>
-      <data key="d4">
-        <yfj:ShinyPlateNodeStyle Paint="DarkOrange"/>
       </data>
       <data key="d5">
         <y:RectD Height="172.5534064646668" Width="346.6760877031479" X="-478.06058909997165" Y="-323.4955924591137"/>
@@ -719,7 +678,7 @@ Extension packages:
 --></style>
 </head>
 <body>
-<a name="yfilesforjava3"></a><a href="http://www.yworks.com/products/yfiles-for-java">yFiles for Java (Swing) 3.0 &#x2750</a>
+<a name="yfilesforjava3"></a><a href="https://www.yworks.com/products/yfiles-for-java">yFiles for Java (Swing) 3.0 &#x2750</a>
 <br>
 The next-generation yFiles diagramming library 
 <br>
@@ -731,9 +690,6 @@ for the Java Swing GUI toolkit.
 </html>]]></y:Label.Text>
           </y:Label>
         </x:List>
-      </data>
-      <data key="d4">
-        <yfj:ShinyPlateNodeStyle Paint="DarkOrange"/>
       </data>
       <data key="d5">
         <y:RectD Height="80.72882504044719" Width="315.692264557573" X="-756.5762067335124" Y="-49.568430555235736"/>
@@ -755,7 +711,7 @@ for the Java Swing GUI toolkit.
 --></style>
 </head>
 <body>
-<a name="yfilesforjavafx"></a><a href="http://www.yworks.com/products/yfiles-for-javafx">yFiles for JavaFX &#x2750</a>
+<a name="yfilesforjavafx"></a><a href="https://www.yworks.com/products/yfiles-for-javafx">yFiles for JavaFX &#x2750</a>
 <br>
 the proven power and ease of yFiles diagramming 
 <br>
@@ -767,9 +723,6 @@ for your cutting-edge JavaFX applications
 </html>]]></y:Label.Text>
           </y:Label>
         </x:List>
-      </data>
-      <data key="d4">
-        <yfj:ShinyPlateNodeStyle Paint="DarkOrange"/>
       </data>
       <data key="d5">
         <y:RectD Height="79.1320600754392" Width="345.2298186149567" X="-416.5440816631125" Y="555.6204074072641"/>
@@ -791,7 +744,7 @@ for your cutting-edge JavaFX applications
 --></style>
 </head>
 <body>
-<a name="yfilesforjava"></a><a href="http://www.yworks.com/products/yfiles-for-java-2.x">Cross-platform diagramming &#x2750</a>
+<a name="yfilesforjava"></a><a href="https://www.yworks.com/products/yfiles-for-java-2.x">Cross-platform diagramming &#x2750</a>
 <br>
 High-quality diagramming for the .NET platform
 <p>
@@ -810,9 +763,6 @@ Technologies:
           </y:Label>
         </x:List>
       </data>
-      <data key="d4">
-        <yfj:ShinyPlateNodeStyle Paint="DarkOrange"/>
-      </data>
       <data key="d5">
         <y:RectD Height="151.0" Width="320.0" X="-438.8502641929697" Y="123.96918658553784"/>
       </data>
@@ -822,109 +772,42 @@ Technologies:
       <port name="p3"/>
     </node>
     <edge id="e0" source="n0" sourceport="p0" target="n5" targetport="p0">
-      <data key="d7">
-        <y:GraphMLReference ResourceKey="4"/>
-      </data>
     </edge>
     <edge id="e1" source="n0" sourceport="p1" target="n9" targetport="p0">
-      <data key="d7">
-        <y:GraphMLReference ResourceKey="4"/>
-      </data>
     </edge>
     <edge id="e2" source="n1" sourceport="p0" target="n2" targetport="p0">
-      <data key="d7">
-        <y:GraphMLReference ResourceKey="4"/>
-      </data>
     </edge>
     <edge id="e3" source="n1" sourceport="p1" target="n3" targetport="p0">
-      <data key="d7">
-        <y:GraphMLReference ResourceKey="4"/>
-      </data>
     </edge>
     <edge id="e4" source="n1" sourceport="p2" target="n4" targetport="p0">
-      <data key="d7">
-        <y:GraphMLReference ResourceKey="4"/>
-      </data>
     </edge>
     <edge id="e5" source="n5" sourceport="p1" target="n6" targetport="p0">
-      <data key="d7">
-        <y:GraphMLReference ResourceKey="4"/>
-      </data>
     </edge>
     <edge id="e6" source="n5" sourceport="p2" target="n7" targetport="p0">
-      <data key="d7">
-        <y:GraphMLReference ResourceKey="4"/>
-      </data>
-    </edge>
-    <edge id="e7" source="n5" sourceport="p3" target="n8" targetport="p0">
-      <data key="d7">
-        <y:GraphMLReference ResourceKey="4"/>
-      </data>
     </edge>
     <edge id="e8" source="n9" sourceport="p1" target="n10" targetport="p0">
-      <data key="d7">
-        <y:GraphMLReference ResourceKey="4"/>
-      </data>
     </edge>
     <edge id="e9" source="n9" sourceport="p2" target="n11" targetport="p0">
-      <data key="d7">
-        <y:GraphMLReference ResourceKey="4"/>
-      </data>
-    </edge>
-    <edge id="e10" source="n9" sourceport="p3" target="n8" targetport="p1">
-      <data key="d7">
-        <y:GraphMLReference ResourceKey="4"/>
-      </data>
     </edge>
     <edge id="e11" source="n9" sourceport="p4" target="n12" targetport="p0">
-      <data key="d7">
-        <y:GraphMLReference ResourceKey="4"/>
-      </data>
     </edge>
     <edge id="e12" source="n17" sourceport="p0" target="n13" targetport="p0">
-      <data key="d7">
-        <y:GraphMLReference ResourceKey="5"/>
-      </data>
     </edge>
     <edge id="e13" source="n17" sourceport="p1" target="n14" targetport="p0">
-      <data key="d7">
-        <y:GraphMLReference ResourceKey="5"/>
-      </data>
     </edge>
     <edge id="e14" source="n17" sourceport="p2" target="n15" targetport="p0">
-      <data key="d7">
-        <y:GraphMLReference ResourceKey="5"/>
-      </data>
     </edge>
     <edge id="e15" source="n17" sourceport="p3" target="n16" targetport="p0">
-      <data key="d7">
-        <y:GraphMLReference ResourceKey="5"/>
-      </data>
     </edge>
     <edge id="e16" source="n0" sourceport="p2" target="n17" targetport="p4">
-      <data key="d7">
-        <y:GraphMLReference ResourceKey="5"/>
-      </data>
     </edge>
     <edge id="e17" source="n0" sourceport="p3" target="n20" targetport="p0">
-      <data key="d7">
-        <y:GraphMLReference ResourceKey="5"/>
-      </data>
     </edge>
     <edge id="e18" source="n20" sourceport="p1" target="n18" targetport="p0">
-      <data key="d7">
-        <y:GraphMLReference ResourceKey="5"/>
-      </data>
     </edge>
     <edge id="e19" source="n20" sourceport="p2" target="n1" targetport="p3">
-      <data key="d7">
-        <y:GraphMLReference ResourceKey="5"/>
-      </data>
     </edge>
     <edge id="e20" source="n20" sourceport="p3" target="n19" targetport="p0">
-      <data key="d7">
-        <y:GraphMLReference ResourceKey="5"/>
-      </data>
     </edge>
   </graph>
 </graphml>

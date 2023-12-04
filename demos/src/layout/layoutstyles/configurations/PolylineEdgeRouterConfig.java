@@ -1,8 +1,8 @@
 /****************************************************************************
  **
- ** This demo file is part of yFiles for Java (Swing) 3.5.
+ ** This demo file is part of yFiles for Java (Swing) 3.6.
  **
- ** Copyright (c) 2000-2022 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** Copyright (c) 2000-2023 by yWorks GmbH, Vor dem Kreuzberg 28,
  ** 72070 Tuebingen, Germany. All rights reserved.
  **
  ** yFiles demo files exhibit yFiles for Java (Swing) functionalities. Any redistribution
@@ -35,11 +35,14 @@ import com.yworks.yfiles.graph.styles.PolylineEdgeStyle;
 import com.yworks.yfiles.graphml.DefaultValue;
 import com.yworks.yfiles.layout.CurveConnectionStyle;
 import com.yworks.yfiles.layout.ILayoutAlgorithm;
-import com.yworks.yfiles.layout.labeling.GenericLabeling;
 import com.yworks.yfiles.layout.LayoutData;
 import com.yworks.yfiles.layout.PortCandidate;
 import com.yworks.yfiles.layout.PortDirections;
+import com.yworks.yfiles.layout.SequentialLayout;
+import com.yworks.yfiles.layout.labeling.GenericLabeling;
 import com.yworks.yfiles.layout.router.MonotonicPathRestriction;
+import com.yworks.yfiles.layout.router.RoutingPolicy;
+import com.yworks.yfiles.layout.router.Scope;
 import com.yworks.yfiles.layout.router.polyline.BusDescriptor;
 import com.yworks.yfiles.layout.router.polyline.EdgeLayoutDescriptor;
 import com.yworks.yfiles.layout.router.polyline.EdgeRouter;

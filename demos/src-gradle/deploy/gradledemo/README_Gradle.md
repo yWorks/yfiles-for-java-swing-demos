@@ -21,14 +21,14 @@ repositories {
 }
 
 dependencies {
-  implementation 'com.yworks.yfiles:yfiles-for-java-complete:3.5'
+  implementation 'com.yworks.yfiles:yfiles-for-java-complete:3.6'
   implementation 'com.yworks:yguard:3.1.0'
 }
 ```
 
 The yFiles library can be installed into the local Maven repository as follows: In the `lib` folder of the package run:
 
-`mvn install:install-file -Dfile="yfiles-for-java-swing.jar" -DgroupId="com.yworks.yfiles" -DartifactId="yfiles-for-java-complete" -Dversion="3.5" -Dpackaging="jar"`
+`mvn install:install-file -Dfile="yfiles-for-java-swing.jar" -DgroupId="com.yworks.yfiles" -DartifactId="yfiles-for-java-complete" -Dversion="3.6" -Dpackaging="jar"`
 
 ## Running
 
